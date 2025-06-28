@@ -55,35 +55,28 @@ Players who want automated healing assistance during gameplay, with potential ex
 
 ### 2.2 GUMP Interface System (IMPLEMENTED)
 **FR-004: Main Status GUMP**
-- **Description**: Real-time status display and bot control interface
+- **Description**: Real-time status display and bot control interface with integrated healing controls
 - **Behavior**:
   - Display current health, bandage count, runtime statistics
   - Toggle Auto Heal system on/off
+  - Toggle individual healing methods (bandages/potions) directly in main interface
   - Minimize/maximize interface
   - Real-time updates when data changes
   - Compact and full view modes
 - **Dependencies**: Gumps.CreateGump(), Gumps.SendGump(), Gumps.GetGumpData()
 
-**FR-005: Auto Heal Settings GUMP**
-- **Description**: Detailed configuration interface for healing system
-- **Behavior**:
-  - Independent toggle for bandage and potion healing
-  - Display resource counts and usage statistics
-  - Show current configuration thresholds
-  - Access via settings button in main GUMP
-- **Dependencies**: Gumps.CreateGump(), Gumps.SendGump()
-
-**FR-006: GUMP Response Handling**
-- **Description**: Process user interactions with the interface
+**FR-005: GUMP Response Handling**
+- **Description**: Process user interactions with the integrated interface
 - **Behavior**:
   - Rate limiting to prevent rapid button presses (500ms minimum)
   - Real-time configuration updates without restart
-  - State management for different GUMP views
+  - State management for different GUMP views (full/minimized)
   - Button press feedback and tooltips
+  - Handle main system toggle, individual healing method toggles, and debug mode
 - **Dependencies**: Gumps.GetGumpData(), time tracking
 
 ### 2.3 System Management (IMPLEMENTED)
-**FR-007: Death/Resurrection Handling**
+**FR-006: Death/Resurrection Handling**
 - **Description**: Detect player death and handle resurrection
 - **Behavior**:
   - Pause all systems when player is ghost
@@ -92,7 +85,7 @@ Players who want automated healing assistance during gameplay, with potential ex
   - Clear journal messages after resurrection
 - **Dependencies**: Player.IsGhost, Player.Visible
 
-**FR-008: Resource Monitoring**
+**FR-007: Resource Monitoring**
 - **Description**: Track and display healing resource availability
 - **Behavior**:
   - Monitor bandage and heal potion counts
@@ -102,19 +95,19 @@ Players who want automated healing assistance during gameplay, with potential ex
 - **Dependencies**: Items.FindByID(), color threshold calculations
 
 ### 2.4 Future Systems (PLANNED - NOT IMPLEMENTED)
-**FR-009: Combat System**
+**FR-008: Combat System**
 - **Description**: Automatically attack enemies when player is in war mode
 - **Status**: Placeholder in code, not implemented
 
-**FR-010: Corpse Processing**
+**FR-009: Corpse Processing**
 - **Description**: Automatically skin and scavenge corpses within range
 - **Status**: Not implemented
 
-**FR-011: Buff Management**
+**FR-010: Buff Management**
 - **Description**: Maintain strength and agility buffs during combat
 - **Status**: Not implemented
 
-**FR-012: Weapon Management**
+**FR-011: Weapon Management**
 - **Description**: Handle weapon disarm situations
 - **Status**: Not implemented
 
@@ -148,7 +141,7 @@ Players who want automated healing assistance during gameplay, with potential ex
 ### 3.5 User Interface (IMPLEMENTED)
 - **TR-018**: Real-time GUMP interface with status display
 - **TR-019**: Rate limiting for button presses (500ms minimum)
-- **TR-020**: Multiple GUMP states: full, minimized, settings
+- **TR-020**: Multiple GUMP states: full and minimized
 - **TR-021**: Color-coded resource displays with thresholds
 - **TR-022**: Tooltips and user feedback for all interactive elements
 
@@ -157,17 +150,6 @@ Players who want automated healing assistance during gameplay, with potential ex
 ### 4.1 Healing Items (IMPLEMENTED)
 - **Bandages**: 0x0E21
 - **Heal Potion**: 0x0F0C (Regular heal potion - orange/red)
-
-### 4.2 Future Item IDs (PLANNED)
-- **Lesser Heal Potion**: TBD
-- **Greater Heal Potion**: TBD
-- **Dagger**: 0x0F52 (for corpse processing)
-- **Greater Strength Potion**: 0x0F09
-- **Greater Agility Potion**: 0x0F08
-- **Total Refresh Potion**: 0x0F0B
-
-### 4.3 Weapons (FUTURE)
-- Default weapon types to be defined in future combat system
 
 ## 5. Configuration Parameters (Current Implementation)
 
@@ -206,12 +188,6 @@ Players who want automated healing assistance during gameplay, with potential ex
 - `HEALTH_HIGH_THRESHOLD`: 75% (green color when above)
 - `HEALTH_MEDIUM_THRESHOLD`: 50% (yellow color when above)
 
-### 5.6 Future Settings (PLANNED)
-- Combat range and targeting preferences
-- Corpse processing range and timing
-- Buff management intervals
-- Stamina thresholds
-
 ## 6. Safety Requirements (Current Implementation)
 
 ### 6.1 Fail-safes (IMPLEMENTED)
@@ -234,7 +210,6 @@ Players who want automated healing assistance during gameplay, with potential ex
 - **SR-013**: Graceful handling of missing healing items
 
 ### 6.4 Future Safety Features (PLANNED)
-- Combat mode restrictions
 - Health threshold emergency stops
 - Inventory management safeguards
 
@@ -285,9 +260,7 @@ Players who want automated healing assistance during gameplay, with potential ex
 ### 8.3 Future Enhancements (Planned - In Code Comments)
 - **Combat System**: Auto-attack functionality (placeholder exists)
 - **Looting System**: Automated corpse processing (placeholder exists)
-- **Fishing System**: AFK fishing automation (placeholder exists)
 - **Buff Management**: Strength/agility potion automation
-- **Weapon Management**: Auto re-equip on disarm
 - **Inventory Management**: Auto-drop items when full
 
 ## 9. Success Criteria
@@ -332,7 +305,7 @@ Players who want automated healing assistance during gameplay, with potential ex
 ### 11.2 Key Design Patterns
 - **Singleton Pattern**: Used for configuration and status management
 - **Factory Pattern**: GUMP creation with standardized sections
-- **State Machine**: GUMP state management (closed, full, minimized, settings)
+- **State Machine**: GUMP state management (closed, full, minimized) with integrated controls
 - **Observer Pattern**: Data change detection for optimized UI updates
 
 ### 11.3 Error Handling Strategy
@@ -346,3 +319,29 @@ Players who want automated healing assistance during gameplay, with potential ex
 - **Singleton Instances**: Minimize object creation overhead
 - **Efficient Resource Checking**: Cached values to reduce API calls
 - **Rate Limiting**: Prevent excessive user interaction processing
+
+## 12. Recent Updates (Version 2.0.1)
+
+### 12.1 Interface Integration ✅
+**Summary**: Integrated Auto Heal settings directly into the main GUMP interface for improved user experience.
+
+**Changes Made**:
+- **Removed Separate Settings GUMP**: No longer using dedicated settings window
+- **Integrated Controls**: All healing toggles now accessible directly from main interface  
+- **Two-Line Auto Heal Section**:
+  - Line 1: Main status with resource counts and usage statistics
+  - Line 2: Individual toggle buttons for bandages and potions with status labels
+- **Streamlined Navigation**: No settings button or window switching required
+- **Same Functionality**: All previous features maintained in more accessible design
+
+**Technical Improvements**:
+- Simplified GUMP state management (removed SETTINGS state)
+- Reduced code complexity by eliminating separate settings GUMP logic
+- Cleaner button handler implementation
+- Improved maintainability with fewer UI states to manage
+
+**User Benefits**:
+- **Faster Access**: Toggle healing methods without opening separate windows
+- **Better UX**: All controls visible and accessible in one interface
+- **Less Confusion**: Single, unified interface instead of multiple windows
+- **Space Efficient**: Compact two-line design fits more information

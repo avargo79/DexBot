@@ -1,16 +1,248 @@
 ﻿"""
-DexBot.py - Modular Bot System
+DexBot.py - Modular Dexxor Bot System
 A modular bot system with Auto Heal as the first component.
-Based on the proven Dexxor.py healing system.
 
-Author: DexBot Development Team
-Version: 2.0
+Author: RugRat79
+Version: 1.0
 License: MIT
 """
 
 from AutoComplete import *
 from typing import Dict, List, Optional, Union, Tuple
 import time
+import json
+import os
+
+# ===========================================
+# CONFIGURATION MANAGEMENT SYSTEM
+# ===========================================
+
+class ConfigManager:
+    """Configuration manager for loading and saving bot settings from JSON files
+    
+    Manages separate configuration files for different bot systems:
+    - main_config.json: Overall bot settings and system toggles
+    - auto_heal_config.json: Auto Heal system specific settings
+    """
+    _instance: Optional['ConfigManager'] = None
+    
+    def __new__(cls) -> 'ConfigManager':
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+            cls._instance._initialized = False
+        return cls._instance
+    
+    def __init__(self) -> None:
+        if self._initialized:
+            return
+        self._initialized = True
+        
+        # Get the script directory and config path
+        self.script_dir = os.path.dirname(os.path.abspath(__file__))
+        self.config_dir = os.path.join(self.script_dir, "config")
+        
+        # Ensure config directory exists
+        if not os.path.exists(self.config_dir):
+            os.makedirs(self.config_dir)
+        
+        # Configuration file paths
+        self.main_config_path = os.path.join(self.config_dir, "main_config.json")
+        self.auto_heal_config_path = os.path.join(self.config_dir, "auto_heal_config.json")
+        
+        # Load configurations
+        self.main_config = self._load_config(self.main_config_path, self._get_default_main_config())
+        self.auto_heal_config = self._load_config(self.auto_heal_config_path, self._get_default_auto_heal_config())
+    
+    def _load_config(self, config_path: str, default_config: Dict) -> Dict:
+        """Load configuration from JSON file, create with defaults if not exists"""
+        try:
+            if os.path.exists(config_path):
+                with open(config_path, 'r') as f:
+                    config = json.load(f)
+                # Merge with defaults to ensure all keys exist
+                return self._merge_configs(default_config, config)
+            else:
+                # Create default config file
+                self._save_config(config_path, default_config)
+                return default_config
+        except Exception as e:
+            print(f"[ConfigManager] Error loading {config_path}: {e}")
+            return default_config
+    
+    def _save_config(self, config_path: str, config: Dict) -> bool:
+        """Save configuration to JSON file"""
+        try:
+            with open(config_path, 'w') as f:
+                json.dump(config, f, indent=2)
+            return True
+        except Exception as e:
+            print(f"[ConfigManager] Error saving {config_path}: {e}")
+            return False
+    
+    def _merge_configs(self, default: Dict, loaded: Dict) -> Dict:
+        """Recursively merge loaded config with defaults to ensure all keys exist"""
+        result = default.copy()
+        for key, value in loaded.items():
+            if key in result and isinstance(result[key], dict) and isinstance(value, dict):
+                result[key] = self._merge_configs(result[key], value)
+            else:
+                result[key] = value
+        return result
+    
+    def save_main_config(self) -> bool:
+        """Save main configuration to file"""
+        return self._save_config(self.main_config_path, self.main_config)
+    
+    def save_auto_heal_config(self) -> bool:
+        """Save auto heal configuration to file"""
+        return self._save_config(self.auto_heal_config_path, self.auto_heal_config)
+    
+    def save_all_configs(self) -> bool:
+        """Save all configuration files"""
+        main_saved = self.save_main_config()
+        auto_heal_saved = self.save_auto_heal_config()
+        return main_saved and auto_heal_saved
+    
+    def reload_configs(self) -> None:
+        """Reload all configurations from files"""
+        self.main_config = self._load_config(self.main_config_path, self._get_default_main_config())
+        self.auto_heal_config = self._load_config(self.auto_heal_config_path, self._get_default_auto_heal_config())
+    
+    def get_main_setting(self, key_path: str, default=None):
+        """Get setting from main config using dot notation (e.g., 'system_toggles.healing_system_enabled')"""
+        return self._get_nested_value(self.main_config, key_path, default)
+    
+    def set_main_setting(self, key_path: str, value) -> None:
+        """Set setting in main config using dot notation"""
+        self._set_nested_value(self.main_config, key_path, value)
+    
+    def get_auto_heal_setting(self, key_path: str, default=None):
+        """Get setting from auto heal config using dot notation"""
+        return self._get_nested_value(self.auto_heal_config, key_path, default)
+    
+    def set_auto_heal_setting(self, key_path: str, value) -> None:
+        """Set setting in auto heal config using dot notation"""
+        self._set_nested_value(self.auto_heal_config, key_path, value)
+    
+    def _get_nested_value(self, config: Dict, key_path: str, default=None):
+        """Get nested dictionary value using dot notation"""
+        try:
+            keys = key_path.split('.')
+            value = config
+            for key in keys:
+                value = value[key]
+            return value
+        except (KeyError, TypeError):
+            return default
+    
+    def _set_nested_value(self, config: Dict, key_path: str, value) -> None:
+        """Set nested dictionary value using dot notation"""
+        keys = key_path.split('.')
+        current = config
+        for key in keys[:-1]:
+            if key not in current:
+                current[key] = {}
+            current = current[key]
+        current[keys[-1]] = value
+    
+    def _get_default_main_config(self) -> Dict:
+        """Get default main configuration"""
+        return {
+            "version": "2.0",
+            "last_updated": "2025-06-28",
+            "description": "DexBot Main Configuration - System toggles and global settings",
+            "system_toggles": {
+                "healing_system_enabled": True,
+                "combat_system_enabled": False,
+                "looting_system_enabled": False,
+                "fishing_system_enabled": False,
+                "buff_system_enabled": False,
+                "weapon_management_enabled": False,
+                "inventory_management_enabled": False
+            },
+            "global_settings": {
+                "debug_mode": False,
+                "main_loop_delay_ms": 250,
+                "error_recovery_delay_ms": 1000,
+                "target_wait_timeout_ms": 1000
+            },
+            "gump_interface": {
+                "enabled": True,
+                "main_gump": {
+                    "width": 320,
+                    "height": 240,
+                    "x_position": 100,
+                    "y_position": 100,
+                    "update_interval_cycles": 8
+                },
+                "minimized_gump": {
+                    "width": 100,
+                    "height": 30
+                },
+                "rate_limiting": {
+                    "button_press_delay_ms": 500
+                }
+            },
+            "safety_settings": {
+                "connection_check_enabled": True,
+                "death_pause_enabled": True,
+                "emergency_stop_on_critical_error": True
+            },
+            "logging": {
+                "console_logging": True,
+                "file_logging": False,
+                "log_level": "info",
+                "debug_status_interval_cycles": 20
+            }
+        }
+    
+    def _get_default_auto_heal_config(self) -> Dict:
+        """Get default auto heal configuration"""
+        return {
+            "version": "2.0",
+            "last_updated": "2025-06-28",
+            "description": "DexBot Auto Heal System Configuration",
+            "healing_toggles": {
+                "bandage_healing_enabled": True,
+                "potion_healing_enabled": True
+            },
+            "health_thresholds": {
+                "healing_threshold_percentage": 95,
+                "critical_health_threshold": 50,
+                "bandage_threshold_hp": 1
+            },
+            "item_ids": {
+                "bandage_id": "0x0E21",
+                "heal_potion_id": "0x0F0C",
+                "lesser_heal_potion_id": None,
+                "greater_heal_potion_id": None
+            },
+            "timing_settings": {
+                "healing_timer_duration_ms": 11000,
+                "potion_cooldown_ms": 10000,
+                "bandage_retry_delay_ms": 500,
+                "healing_check_interval": 1
+            },
+            "resource_management": {
+                "bandage_retry_attempts": 3,
+                "low_bandage_warning": 10,
+                "search_range": 2,
+                "bandage_check_interval_cycles": 120
+            },
+            "journal_monitoring": {
+                "healing_success_msg": "You finish applying the bandages.",
+                "healing_partial_msg": "You apply the bandages, but they barely help.",
+                "journal_message_type": "System"
+            },
+            "color_thresholds": {
+                "bandage_high_threshold": 20,
+                "bandage_medium_threshold": 10,
+                "potion_high_threshold": 10,
+                "potion_medium_threshold": 5,
+                "health_high_threshold": 75,
+                "health_medium_threshold": 50
+            }
+        }
 
 # ===========================================
 # ENUMS AND STATE MANAGEMENT
@@ -20,18 +252,17 @@ class GumpState:
     """Simple enumeration of possible GUMP states (using class constants for compatibility)"""
     CLOSED = "closed"
     MAIN_FULL = "main_full"
-    MAIN_MINIMIZED = "main_minimized"  
-    SETTINGS = "settings"
+    MAIN_MINIMIZED = "main_minimized"
 
 # ===========================================
 # CONSTANTS AND CONFIGURATION
 # ===========================================
 
 class BotConfig:
-    """Configuration constants for DexBot - Singleton pattern for performance
+    """Configuration constants for DexBot - now loads from JSON config files
     
     This class manages all configuration constants using the Singleton pattern
-    to ensure consistent settings across the application.
+    and ConfigManager for persistent storage.
     """
     _instance: Optional['BotConfig'] = None
     
@@ -45,100 +276,121 @@ class BotConfig:
         if self._initialized:
             return
         self._initialized = True
+        
+        # Initialize config manager
+        self.config_manager = ConfigManager()
+        self._load_settings()
     
-    # System toggles
-    HEALING_ENABLED = True  # Set to False to disable Auto Heal system (bandages + potions)
-    BANDAGE_HEALING_ENABLED = True  # Set to False to disable bandage healing
-    POTION_HEALING_ENABLED = True  # Set to False to disable potion healing
-    DEBUG_MODE = False
+    def _load_settings(self) -> None:
+        """Load all settings from configuration files"""
+        # System toggles from main config
+        self.HEALING_ENABLED = self.config_manager.get_main_setting('system_toggles.healing_system_enabled', True)
+        self.COMBAT_ENABLED = self.config_manager.get_main_setting('system_toggles.combat_system_enabled', False)
+        self.LOOTING_ENABLED = self.config_manager.get_main_setting('system_toggles.looting_system_enabled', False)
+        self.FISHING_ENABLED = self.config_manager.get_main_setting('system_toggles.fishing_system_enabled', False)
+        self.DEBUG_MODE = self.config_manager.get_main_setting('global_settings.debug_mode', False)
+        
+        # Auto Heal specific toggles
+        self.BANDAGE_HEALING_ENABLED = self.config_manager.get_auto_heal_setting('healing_toggles.bandage_healing_enabled', True)
+        self.POTION_HEALING_ENABLED = self.config_manager.get_auto_heal_setting('healing_toggles.potion_healing_enabled', True)
+        
+        # Item IDs (convert hex strings to integers)
+        bandage_id_str = self.config_manager.get_auto_heal_setting('item_ids.bandage_id', '0x0E21')
+        self.BANDAGE_ID = int(bandage_id_str, 16) if isinstance(bandage_id_str, str) else bandage_id_str
+        
+        heal_potion_id_str = self.config_manager.get_auto_heal_setting('item_ids.heal_potion_id', '0x0F0C')
+        self.HEAL_POTION_ID = int(heal_potion_id_str, 16) if isinstance(heal_potion_id_str, str) else heal_potion_id_str
+        
+        # Timer names (constants)
+        self.HEALING_TIMER = "HEALING"
+        
+        # Timing settings from configs
+        self.HEALING_TIMER_DURATION = self.config_manager.get_auto_heal_setting('timing_settings.healing_timer_duration_ms', 11000)
+        self.HEALING_CHECK_INTERVAL = self.config_manager.get_auto_heal_setting('timing_settings.healing_check_interval', 1)
+        self.POTION_COOLDOWN_MS = self.config_manager.get_auto_heal_setting('timing_settings.potion_cooldown_ms', 10000)
+        self.BANDAGE_RETRY_DELAY = self.config_manager.get_auto_heal_setting('timing_settings.bandage_retry_delay_ms', 500)
+        
+        # Global timing settings
+        self.DEFAULT_SCRIPT_DELAY = self.config_manager.get_main_setting('global_settings.main_loop_delay_ms', 250)
+        self.TARGET_WAIT_TIMEOUT = self.config_manager.get_main_setting('global_settings.target_wait_timeout_ms', 1000)
+        self.ERROR_RECOVERY_DELAY = self.config_manager.get_main_setting('global_settings.error_recovery_delay_ms', 1000)
+        self.WAITING_DELAY = 1000  # Static constant
+        
+        # Resource management settings
+        self.SEARCH_RANGE = self.config_manager.get_auto_heal_setting('resource_management.search_range', 2)
+        self.BANDAGE_RETRY_ATTEMPTS = self.config_manager.get_auto_heal_setting('resource_management.bandage_retry_attempts', 3)
+        self.LOW_BANDAGE_WARNING = self.config_manager.get_auto_heal_setting('resource_management.low_bandage_warning', 10)
+        self.BANDAGE_CHECK_INTERVAL_CYCLES = self.config_manager.get_auto_heal_setting('resource_management.bandage_check_interval_cycles', 120)
+        
+        # Health thresholds
+        self.BANDAGE_THRESHOLD = self.config_manager.get_auto_heal_setting('health_thresholds.bandage_threshold_hp', 1)
+        self.HEALING_THRESHOLD_PERCENTAGE = self.config_manager.get_auto_heal_setting('health_thresholds.healing_threshold_percentage', 95)
+        self.CRITICAL_HEALTH_THRESHOLD = self.config_manager.get_auto_heal_setting('health_thresholds.critical_health_threshold', 50)
+        
+        # Journal monitoring settings
+        self.HEALING_SUCCESS_MSG = self.config_manager.get_auto_heal_setting('journal_monitoring.healing_success_msg', "You finish applying the bandages.")
+        self.HEALING_PARTIAL_MSG = self.config_manager.get_auto_heal_setting('journal_monitoring.healing_partial_msg', "You apply the bandages, but they barely help.")
+        self.JOURNAL_MESSAGE_TYPE = self.config_manager.get_auto_heal_setting('journal_monitoring.journal_message_type', "System")
+        
+        # GUMP settings
+        self.GUMP_ID = 12345  # Static constant
+        self.GUMP_UPDATE_INTERVAL_CYCLES = self.config_manager.get_main_setting('gump_interface.main_gump.update_interval_cycles', 8)
+        self.GUMP_WIDTH = self.config_manager.get_main_setting('gump_interface.main_gump.width', 320)
+        self.GUMP_HEIGHT = self.config_manager.get_main_setting('gump_interface.main_gump.height', 240)
+        self.GUMP_X = self.config_manager.get_main_setting('gump_interface.main_gump.x_position', 100)
+        self.GUMP_Y = self.config_manager.get_main_setting('gump_interface.main_gump.y_position', 100)
+        self.GUMP_MIN_WIDTH = self.config_manager.get_main_setting('gump_interface.minimized_gump.width', 100)
+        self.GUMP_MIN_HEIGHT = self.config_manager.get_main_setting('gump_interface.minimized_gump.height', 30)
+        
+        # Color thresholds
+        self.BANDAGE_HIGH_THRESHOLD = self.config_manager.get_auto_heal_setting('color_thresholds.bandage_high_threshold', 20)
+        self.BANDAGE_MEDIUM_THRESHOLD = self.config_manager.get_auto_heal_setting('color_thresholds.bandage_medium_threshold', 10)
+        self.POTION_HIGH_THRESHOLD = self.config_manager.get_auto_heal_setting('color_thresholds.potion_high_threshold', 10)
+        self.POTION_MEDIUM_THRESHOLD = self.config_manager.get_auto_heal_setting('color_thresholds.potion_medium_threshold', 5)
+        self.HEALTH_HIGH_THRESHOLD = self.config_manager.get_auto_heal_setting('color_thresholds.health_high_threshold', 75)
+        self.HEALTH_MEDIUM_THRESHOLD = self.config_manager.get_auto_heal_setting('color_thresholds.health_medium_threshold', 50)
+        
+        # Button Icons - Static constants (these don't need to be configurable)
+        self.BUTTON_ENABLED = 4017
+        self.BUTTON_ENABLED_PRESSED = 4019
+        self.BUTTON_DISABLE = 4005
+        self.BUTTON_DISABLE_PRESSED = 4007
+        self.BUTTON_CANCEL = 4020
+        self.BUTTON_CANCEL_PRESSED = 4022
+        self.BUTTON_MINIMIZE_NORMAL = 5004
+        self.BUTTON_MINIMIZE_PRESSED = 5005
+        self.BUTTON_MAXIMIZE_NORMAL = 4011
+        self.BUTTON_MAXIMIZE_PRESSED = 4013
+        self.BUTTON_DEBUG_ENABLED = 4026
+        self.BUTTON_DEBUG_ENABLED_PRESSED = 4028
+        self.BUTTON_DEBUG_DISABLED = 4002
+        self.BUTTON_DEBUG_DISABLED_PRESSED = 4004
+        self.BUTTON_SETTINGS = 4014
+        self.BUTTON_SETTINGS_PRESSED = 4016
     
-    # Item IDs (hexadecimal values)
-    BANDAGE_ID = 0x0E21
-    # Heal potion item IDs - using regular heal potion for now
-    HEAL_POTION_ID = 0x0F0C  # Regular heal potion (orange/red)
-    # TODO: Add different potion IDs here if they differ in the future:
-    # LESSER_HEAL_POTION_ID = 0x????  # Lesser heal potion (yellow)
-    # GREATER_HEAL_POTION_ID = 0x????  # Greater heal potion (purple)
+    def save_settings(self) -> bool:
+        """Save current settings back to configuration files"""
+        try:
+            # Update main config values
+            self.config_manager.set_main_setting('system_toggles.healing_system_enabled', self.HEALING_ENABLED)
+            self.config_manager.set_main_setting('system_toggles.combat_system_enabled', self.COMBAT_ENABLED)
+            self.config_manager.set_main_setting('global_settings.debug_mode', self.DEBUG_MODE)
+            
+            # Update auto heal config values
+            self.config_manager.set_auto_heal_setting('healing_toggles.bandage_healing_enabled', self.BANDAGE_HEALING_ENABLED)
+            self.config_manager.set_auto_heal_setting('healing_toggles.potion_healing_enabled', self.POTION_HEALING_ENABLED)
+            
+            # Save all configs
+            return self.config_manager.save_all_configs()
+            
+        except Exception as e:
+            print(f"[BotConfig] Error saving settings: {e}")
+            return False
     
-    # Timer names
-    HEALING_TIMER = "HEALING"
-    
-    # Cooldown timers (milliseconds)
-    HEALING_TIMER_DURATION = 11000
-    HEALING_CHECK_INTERVAL = 1
-    
-    # Delays (milliseconds)
-    DEFAULT_SCRIPT_DELAY = 250
-    TARGET_WAIT_TIMEOUT = 1000
-    ERROR_RECOVERY_DELAY = 1000
-    WAITING_DELAY = 1000
-    
-    # Search settings
-    SEARCH_RANGE = 2
-    
-    # Health thresholds
-    BANDAGE_THRESHOLD = 1  # Use bandage when missing 1+ HP
-    HEALING_THRESHOLD_PERCENTAGE = 95  # Heal when below 95% health
-    CRITICAL_HEALTH_THRESHOLD = 50  # Use potions when below 50% health
-    BANDAGE_RETRY_ATTEMPTS = 3
-    LOW_BANDAGE_WARNING = 10
-    
-    # Periodic check intervals
-    BANDAGE_CHECK_INTERVAL_CYCLES = 120  # Check bandage supply every 120 cycles (~30 seconds)
-    BANDAGE_RETRY_DELAY = 500  # Delay between bandage retry attempts (milliseconds)
-    
-    # Journal messages
-    HEALING_SUCCESS_MSG = "You finish applying the bandages."
-    HEALING_PARTIAL_MSG = "You apply the bandages, but they barely help."
-    JOURNAL_MESSAGE_TYPE = "System"
-    
-    # GUMP settings
-    GUMP_ID = 12345
-    GUMP_AUTO_HEAL_SETTINGS_ID = 12346  # Separate GUMP for Auto Heal settings
-    GUMP_UPDATE_INTERVAL_CYCLES = 8  # Update GUMP every 8 cycles (~2 seconds for real-time health)
-    GUMP_WIDTH = 320
-    GUMP_HEIGHT = 240  # Reduced from 325 to 240 due to compact Auto Heal section
-    GUMP_X = 100
-    GUMP_Y = 100
-    # Minimized GUMP settings
-    GUMP_MIN_WIDTH = 100
-    GUMP_MIN_HEIGHT = 30
-    
-    # Potion settings
-    POTION_COOLDOWN_MS = 10000  # 10 second cooldown for heal potions
-    
-    # Resource thresholds for color coding
-    BANDAGE_HIGH_THRESHOLD = 20  # Green color when above this amount
-    BANDAGE_MEDIUM_THRESHOLD = 10  # Yellow color when above this amount
-    POTION_HIGH_THRESHOLD = 10  # Green color when above this amount
-    POTION_MEDIUM_THRESHOLD = 5  # Yellow color when above this amount
-    
-    # Health percentage thresholds for color coding
-    HEALTH_HIGH_THRESHOLD = 75  # Green color when above this percentage
-    HEALTH_MEDIUM_THRESHOLD = 50  # Yellow color when above this percentage
-    
-    # Retry settings
-    BANDAGE_RETRY_PAUSE_MS = 500  # Delay between bandage retry attempts
-    
-    # Button Icons - Reusable button art IDs
-    BUTTON_ENABLED = 4017
-    BUTTON_ENABLED_PRESSED = 4019
-    BUTTON_DISABLE = 4005
-    BUTTON_DISABLE_PRESSED = 4007
-    BUTTON_CANCEL = 4020
-    BUTTON_CANCEL_PRESSED = 4022
-    BUTTON_MINIMIZE_NORMAL = 5004
-    BUTTON_MINIMIZE_PRESSED = 5005
-    BUTTON_MAXIMIZE_NORMAL = 4011  # For expand button in minimized GUMP
-    BUTTON_MAXIMIZE_PRESSED = 4013
-    # Debug button icons - distinct from healing toggle using blue theme
-    BUTTON_DEBUG_ENABLED = 4026  # Blue button for debug enabled
-    BUTTON_DEBUG_ENABLED_PRESSED = 4028
-    BUTTON_DEBUG_DISABLED = 4002  # Dark gray button for debug disabled
-    BUTTON_DEBUG_DISABLED_PRESSED = 4004
-    # Settings button icons
-    BUTTON_SETTINGS = 4014  # Settings/gear button
-    BUTTON_SETTINGS_PRESSED = 4016
+    def reload_settings(self) -> None:
+        """Reload settings from configuration files"""
+        self.config_manager.reload_configs()
+        self._load_settings()
 
 class BotMessages:
     """Centralized message constants for consistent logging
@@ -659,34 +911,33 @@ class GumpInterface:
         
         @staticmethod
         def create_auto_heal_status_section(gd, x, y, width):
-            """Create a compact single-line Auto Heal section with enable/disable and settings buttons"""
+            """Create an Auto Heal section with integrated toggle controls for all healing options"""
             config = BotConfig()
             messages = BotMessages()
             status = SystemStatus()
             
-            # Calculate positions for the single-line layout
             current_y = y
             
-            # Enable/Disable toggle button (left side)
-            toggle_button_x = x - 45
-            toggle_button_y = current_y + 2
+            # Main Auto Heal toggle button (left side)
+            main_toggle_x = x - 45
+            main_toggle_y = current_y + 2
             
             # Choose button art based on enabled state
             if config.HEALING_ENABLED:
-                toggle_art = config.BUTTON_ENABLED
-                toggle_pressed_art = config.BUTTON_ENABLED_PRESSED
+                main_toggle_art = config.BUTTON_ENABLED
+                main_toggle_pressed_art = config.BUTTON_ENABLED_PRESSED
                 heal_status_text = f'<basefont color="#00FF00" size="3"><b>AUTO HEAL</b></basefont>'
                 status_text = f'{"Healing..." if status.healing_active else "Ready"}'
                 status_color = "#FFFF00" if status.healing_active else "#00FF00"
             else:
-                toggle_art = config.BUTTON_DISABLE
-                toggle_pressed_art = config.BUTTON_DISABLE_PRESSED
+                main_toggle_art = config.BUTTON_DISABLE
+                main_toggle_pressed_art = config.BUTTON_DISABLE_PRESSED
                 heal_status_text = f'<basefont color="#FF0000" size="3"><b>AUTO HEAL</b></basefont>'
                 status_text = "Disabled"
                 status_color = "#FF0000"
             
-            # Add enable/disable toggle button
-            Gumps.AddButton(gd, toggle_button_x, toggle_button_y, toggle_art, toggle_pressed_art, 1, 1, 0)
+            # Add main enable/disable toggle button
+            Gumps.AddButton(gd, main_toggle_x, main_toggle_y, main_toggle_art, main_toggle_pressed_art, 1, 1, 0)
             Gumps.AddTooltip(gd, f"Toggle Auto Heal System ({'ON' if config.HEALING_ENABLED else 'OFF'})")
             
             # Get resource counts for display
@@ -695,22 +946,58 @@ class GumpInterface:
             heal_potion_count = Items.FindByID(config.HEAL_POTION_ID, -1, Player.Backpack.Serial, config.SEARCH_RANGE)
             heal_potion_amount = heal_potion_count.Amount if heal_potion_count else 0
             
-            # Create compact status line: "AUTO HEAL - Status | B:15 P:8 | Used: 3/1"
-            compact_status = f'{heal_status_text} - <basefont color="{status_color}" size="2"><b>{status_text}</b></basefont> | ' \
-                           f'<basefont color="#CCCCCC" size="2">B:</basefont><basefont color="#FFFFFF" size="2"><b>{bandage_amount}</b></basefont> ' \
-                           f'<basefont color="#CCCCCC" size="2">P:</basefont><basefont color="#FFFFFF" size="2"><b>{heal_potion_amount}</b></basefont> | ' \
-                           f'<basefont color="#CCCCCC" size="2">Used: </basefont><basefont color="#FFFFFF" size="2"><b>{status.bandage_count}/{status.heal_potion_count}</b></basefont>'
+            # First line: Main status and resource counts
+            main_status_line = f'{heal_status_text} - <basefont color="{status_color}" size="2"><b>{status_text}</b></basefont> | ' \
+                             f'<basefont color="#CCCCCC" size="2">B:</basefont><basefont color="#FFFFFF" size="2"><b>{bandage_amount}</b></basefont> ' \
+                             f'<basefont color="#CCCCCC" size="2">P:</basefont><basefont color="#FFFFFF" size="2"><b>{heal_potion_amount}</b></basefont> | ' \
+                             f'<basefont color="#CCCCCC" size="2">Used: </basefont><basefont color="#FFFFFF" size="2"><b>{status.bandage_count}/{status.heal_potion_count}</b></basefont>'
             
-            # Add the compact status line
-            Gumps.AddHtml(gd, x, current_y, width - 50, 20, compact_status, False, False)
+            # Add the main status line
+            Gumps.AddHtml(gd, x, current_y, width, 20, main_status_line, False, False)
+            current_y += 22
             
-            # Settings button (right side)
-            settings_button_x = x + width - 25
-            settings_button_y = current_y + 2
-            Gumps.AddButton(gd, settings_button_x, settings_button_y, config.BUTTON_SETTINGS, config.BUTTON_SETTINGS_PRESSED, 9, 1, 0)  # Button ID 9 for settings
-            Gumps.AddTooltip(gd, "Auto Heal Settings")
+            # Second line: Individual healing method toggles
+            # Bandage healing toggle
+            bandage_toggle_x = x
+            bandage_toggle_y = current_y + 2
+            if config.BANDAGE_HEALING_ENABLED:
+                bandage_art = config.BUTTON_ENABLED
+                bandage_pressed_art = config.BUTTON_ENABLED_PRESSED
+                bandage_status = "ON"
+                bandage_color = "#00FF00"
+            else:
+                bandage_art = config.BUTTON_DISABLE
+                bandage_pressed_art = config.BUTTON_DISABLE_PRESSED
+                bandage_status = "OFF"
+                bandage_color = "#FF0000"
+                
+            Gumps.AddButton(gd, bandage_toggle_x, bandage_toggle_y, bandage_art, bandage_pressed_art, 7, 1, 0)  # Button ID 7 for bandages
+            Gumps.AddTooltip(gd, f"Toggle Bandage Healing ({'ON' if config.BANDAGE_HEALING_ENABLED else 'OFF'})")
             
-            return current_y + 25  # Return Y position after this single line
+            # Potion healing toggle
+            potion_toggle_x = x + 120
+            potion_toggle_y = current_y + 2
+            if config.POTION_HEALING_ENABLED:
+                potion_art = config.BUTTON_ENABLED
+                potion_pressed_art = config.BUTTON_ENABLED_PRESSED
+                potion_status = "ON"
+                potion_color = "#00FF00"
+            else:
+                potion_art = config.BUTTON_DISABLE
+                potion_pressed_art = config.BUTTON_DISABLE_PRESSED
+                potion_status = "OFF"
+                potion_color = "#FF0000"
+                
+            Gumps.AddButton(gd, potion_toggle_x, potion_toggle_y, potion_art, potion_pressed_art, 8, 1, 0)  # Button ID 8 for potions
+            Gumps.AddTooltip(gd, f"Toggle Potion Healing ({'ON' if config.POTION_HEALING_ENABLED else 'OFF'})")
+            
+            # Labels for the toggle buttons
+            toggle_labels = f'<basefont color="#CCCCCC" size="2">Bandages: </basefont><basefont color="{bandage_color}" size="2"><b>{bandage_status}</b></basefont>' \
+                          f'     <basefont color="#CCCCCC" size="2">Potions: </basefont><basefont color="{potion_color}" size="2"><b>{potion_status}</b></basefont>'
+            
+            Gumps.AddHtml(gd, x + 25, current_y + 4, width - 25, 15, toggle_labels, False, False)
+            
+            return current_y + 25  # Return Y position after both lines
     
     @staticmethod
     def create_status_gump():
@@ -720,9 +1007,8 @@ class GumpInterface:
         status = SystemStatus()
         
         try:
-            # Close any existing GUMPs to ensure clean state
+            # Close any existing GUMP to ensure clean state
             Gumps.CloseGump(config.GUMP_ID)
-            Gumps.CloseGump(config.GUMP_AUTO_HEAL_SETTINGS_ID)
             
             # Determine which GUMP to create based on state
             if status.gump_minimized:
@@ -856,112 +1142,7 @@ class GumpInterface:
         Gumps.SendGump(config.GUMP_ID, Player.Serial, config.GUMP_X, config.GUMP_Y, gd.gumpDefinition, gd.gumpStrings)
         
         Logger.debug("Minimized status GUMP created and displayed")
-    
-    @staticmethod
-    def create_auto_heal_settings_gump():
-        """Create the Auto Heal settings GUMP with detailed configuration options"""
-        config = BotConfig()
-        messages = BotMessages()
-        status = SystemStatus()
-        
-        # Close any existing settings GUMP
-        Gumps.CloseGump(config.GUMP_AUTO_HEAL_SETTINGS_ID)
-        
-        # Create settings GUMP
-        gd = Gumps.CreateGump(movable=True)
-        Gumps.AddPage(gd, 0)
-        
-        # Settings GUMP dimensions
-        settings_width = 280
-        settings_height = 220
-        
-        # Background
-        Gumps.AddBackground(gd, 0, 0, settings_width, settings_height, 30546)
-        Gumps.AddAlphaRegion(gd, 0, 0, settings_width, settings_height)
-        
-        # Title
-        Gumps.AddHtml(gd, 10, 5, settings_width - 20, 25, 
-                     f'<center><basefont color="#FFD700" size="4"><b>Auto Heal Settings</b></basefont></center>', 
-                     False, False)
-        
-        # Close button
-        close_x = settings_width - 30
-        close_y = 5
-        Gumps.AddButton(gd, close_x, close_y, config.BUTTON_CANCEL, config.BUTTON_CANCEL_PRESSED, 10, 1, 0)  # Button ID 10 for close
-        Gumps.AddTooltip(gd, "Close Settings")
-        
-        # Get resource information
-        bandage_count = Items.FindByID(config.BANDAGE_ID, -1, Player.Backpack.Serial, config.SEARCH_RANGE)
-        bandage_amount = bandage_count.Amount if bandage_count else 0
-        heal_potion_count = Items.FindByID(config.HEAL_POTION_ID, -1, Player.Backpack.Serial, config.SEARCH_RANGE)
-        heal_potion_amount = heal_potion_count.Amount if heal_potion_count else 0
-        
-        # Resource colors
-        bandage_color = get_resource_color(bandage_amount, config.BANDAGE_HIGH_THRESHOLD, config.BANDAGE_MEDIUM_THRESHOLD)
-        potion_color = get_resource_color(heal_potion_amount, config.POTION_HIGH_THRESHOLD, config.POTION_MEDIUM_THRESHOLD)
-        
-        current_y = 35
-        
-        # Main status
-        main_status = f'Status: <basefont color="{"#00FF00" if config.HEALING_ENABLED else "#FF0000"}" size="3"><b>{"ENABLED" if config.HEALING_ENABLED else "DISABLED"}</b></basefont>'
-        if status.healing_active:
-            main_status += f' <basefont color="#FFFF00" size="2">(Healing in progress...)</basefont>'
-        Gumps.AddHtml(gd, 20, current_y, settings_width - 40, 20, main_status, False, False)
-        current_y += 25
-        
-        # Bandage section
-        bandage_art = config.BUTTON_ENABLED if config.BANDAGE_HEALING_ENABLED else config.BUTTON_DISABLE
-        bandage_pressed_art = config.BUTTON_ENABLED_PRESSED if config.BANDAGE_HEALING_ENABLED else config.BUTTON_DISABLE_PRESSED
-        Gumps.AddButton(gd, 20, current_y, bandage_art, bandage_pressed_art, 7, 1, 0)  # Button ID 7 for bandages
-        Gumps.AddTooltip(gd, f"Toggle Bandage Healing ({'ON' if config.BANDAGE_HEALING_ENABLED else 'OFF'})")
-        
-        bandage_text = f'<basefont color="#FFFFFF" size="3"><b>Bandages:</b></basefont> ' \
-                      f'<basefont color="{bandage_color}" size="3"><b>{bandage_amount}</b></basefont> ' \
-                      f'<basefont color="#CCCCCC" size="2">available | Used: </basefont>' \
-                      f'<basefont color="#FFFFFF" size="3"><b>{status.bandage_count}</b></basefont> ' \
-                      f'<basefont color="{"#00FF00" if config.BANDAGE_HEALING_ENABLED else "#FF0000"}" size="2">[{"ON" if config.BANDAGE_HEALING_ENABLED else "OFF"}]</basefont>'
-        Gumps.AddHtml(gd, 50, current_y + 2, settings_width - 70, 20, bandage_text, False, False)
-        current_y += 25
-        
-        # Potion section
-        potion_art = config.BUTTON_ENABLED if config.POTION_HEALING_ENABLED else config.BUTTON_DISABLE
-        potion_pressed_art = config.BUTTON_ENABLED_PRESSED if config.POTION_HEALING_ENABLED else config.BUTTON_DISABLE_PRESSED
-        Gumps.AddButton(gd, 20, current_y, potion_art, potion_pressed_art, 8, 1, 0)  # Button ID 8 for potions
-        Gumps.AddTooltip(gd, f"Toggle Potion Healing ({'ON' if config.POTION_HEALING_ENABLED else 'OFF'})")
-        
-        potion_text = f'<basefont color="#FFFFFF" size="3"><b>Heal Potions:</b></basefont> ' \
-                     f'<basefont color="{potion_color}" size="3"><b>{heal_potion_amount}</b></basefont> ' \
-                     f'<basefont color="#CCCCCC" size="2">available | Used: </basefont>' \
-                     f'<basefont color="#FFFFFF" size="3"><b>{status.heal_potion_count}</b></basefont> ' \
-                     f'<basefont color="{"#00FF00" if config.POTION_HEALING_ENABLED else "#FF0000"}" size="2">[{"ON" if config.POTION_HEALING_ENABLED else "OFF"}]</basefont>'
-        Gumps.AddHtml(gd, 50, current_y + 2, settings_width - 70, 20, potion_text, False, False)
-        current_y += 30
-        
-        # Configuration info
-        config_info = f'<basefont color="#87CEEB" size="2"><b>Configuration:</b></basefont><br>' \
-                     f'<basefont color="#CCCCCC" size="2">Critical Health: {config.CRITICAL_HEALTH_THRESHOLD}% (uses potions)</basefont><br>' \
-                     f'<basefont color="#CCCCCC" size="2">Heal Threshold: {config.HEALING_THRESHOLD_PERCENTAGE}% (starts healing)</basefont><br>' \
-                     f'<basefont color="#CCCCCC" size="2">Potion Cooldown: {config.POTION_COOLDOWN_MS/1000:.0f}s</basefont>'
-        Gumps.AddHtml(gd, 20, current_y, settings_width - 40, 60, config_info, False, False)
-        
-        # Back to Main button in lower left corner
-        back_button_x = 20
-        back_button_y = settings_height - 35
-        Gumps.AddButton(gd, back_button_x, back_button_y, config.BUTTON_MAXIMIZE_NORMAL, config.BUTTON_MAXIMIZE_PRESSED, 11, 1, 0)  # Button ID 11 for back to main
-        Gumps.AddTooltip(gd, "Back to Main GUMP")
-        
-        # Back button label
-        Gumps.AddHtml(gd, back_button_x + 25, back_button_y + 2, 80, 20, '<basefont color="#CCCCCC" size="2">Back to Main</basefont>', False, False)
-        
-        # Send the settings GUMP (offset from main GUMP)
-        settings_x = config.GUMP_X + config.GUMP_WIDTH + 10
-        settings_y = config.GUMP_Y
-        Gumps.SendGump(config.GUMP_AUTO_HEAL_SETTINGS_ID, Player.Serial, settings_x, settings_y, gd.gumpDefinition, gd.gumpStrings)
-        
-        # Update GUMP state
-        status.set_gump_state(GumpState.SETTINGS)
-        Logger.debug("Auto Heal settings GUMP created and displayed")
-    
+
     @staticmethod
     def handle_gump_response():
         """Handle player interactions with the GUMP"""
@@ -993,6 +1174,9 @@ class GumpInterface:
                     config.HEALING_ENABLED = not config.HEALING_ENABLED
                     status_msg = "enabled" if config.HEALING_ENABLED else "disabled"
                     Logger.info(f"[DexBot] Auto Heal system {status_msg} via GUMP")
+                    # Save settings to config file
+                    if config.save_settings():
+                        Logger.debug("[DexBot] Settings saved to config files")
                     # Force update of displayed values and recreate GUMP
                     status.check_gump_data_changed()  # This will update the cached values
                     GumpInterface.create_status_gump()
@@ -1001,6 +1185,9 @@ class GumpInterface:
                     config.DEBUG_MODE = not config.DEBUG_MODE
                     status_msg = "enabled" if config.DEBUG_MODE else "disabled"
                     Logger.info(f"[DexBot] Debug mode {status_msg} via GUMP")
+                    # Save settings to config file
+                    if config.save_settings():
+                        Logger.debug("[DexBot] Settings saved to config files")
                     # Force update of displayed values and recreate GUMP
                     status.check_gump_data_changed()  # This will update the cached values
                     GumpInterface.create_status_gump()
@@ -1013,8 +1200,6 @@ class GumpInterface:
                     GumpInterface.create_status_gump()
                     
                 elif button_pressed == 4:  # Close GUMP (only in full GUMP)
-                    # Also close settings GUMP if it's open
-                    Gumps.CloseGump(config.GUMP_AUTO_HEAL_SETTINGS_ID)
                     status.gump_closed = True  # Mark GUMP as closed
                     status.set_gump_state(GumpState.CLOSED)  # Update state
                     Logger.info("[DexBot] Status GUMP closed")
@@ -1031,6 +1216,9 @@ class GumpInterface:
                     config.BANDAGE_HEALING_ENABLED = not config.BANDAGE_HEALING_ENABLED
                     status_msg = "enabled" if config.BANDAGE_HEALING_ENABLED else "disabled"
                     Logger.info(f"[DexBot] Bandage healing {status_msg} via GUMP")
+                    # Save settings to config file
+                    if config.save_settings():
+                        Logger.debug("[DexBot] Settings saved to config files")
                     # Force update of displayed values and recreate GUMP
                     status.check_gump_data_changed()  # This will update the cached values
                     GumpInterface.create_status_gump()
@@ -1039,60 +1227,12 @@ class GumpInterface:
                     config.POTION_HEALING_ENABLED = not config.POTION_HEALING_ENABLED
                     status_msg = "enabled" if config.POTION_HEALING_ENABLED else "disabled"
                     Logger.info(f"[DexBot] Potion healing {status_msg} via GUMP")
+                    # Save settings to config file
+                    if config.save_settings():
+                        Logger.debug("[DexBot] Settings saved to config files")
                     # Force update of displayed values and recreate GUMP
                     status.check_gump_data_changed()  # This will update the cached values
                     GumpInterface.create_status_gump()
-                    
-                elif button_pressed == 9:  # Open Auto Heal Settings (only in full GUMP)
-                    Logger.info("[DexBot] Opening Auto Heal settings")
-                    GumpInterface.create_auto_heal_settings_gump()
-            
-            # Check for Auto Heal settings GUMP responses
-            settings_gd = Gumps.GetGumpData(config.GUMP_AUTO_HEAL_SETTINGS_ID)
-            if settings_gd and settings_gd.buttonid > 0:
-                # Check rate limiting for settings GUMP too
-                if current_time - status.last_button_press_time < 0.5:
-                    return True  # Ignore rapid button presses
-                
-                settings_button = settings_gd.buttonid
-                
-                # Update last button press time
-                status.last_button_press_time = current_time
-                
-                # Close the settings GUMP to clear the button press
-                Gumps.CloseGump(config.GUMP_AUTO_HEAL_SETTINGS_ID)
-                
-                if settings_button == 7:  # Toggle Bandage Healing (from settings GUMP)
-                    config.BANDAGE_HEALING_ENABLED = not config.BANDAGE_HEALING_ENABLED
-                    status_msg = "enabled" if config.BANDAGE_HEALING_ENABLED else "disabled"
-                    Logger.info(f"[DexBot] Bandage healing {status_msg} via settings")
-                    # Update both GUMPs
-                    status.check_gump_data_changed()
-                    GumpInterface.create_status_gump()
-                    GumpInterface.create_auto_heal_settings_gump()
-                    
-                elif settings_button == 8:  # Toggle Potion Healing (from settings GUMP)
-                    config.POTION_HEALING_ENABLED = not config.POTION_HEALING_ENABLED
-                    status_msg = "enabled" if config.POTION_HEALING_ENABLED else "disabled"
-                    Logger.info(f"[DexBot] Potion healing {status_msg} via settings")
-                    # Update both GUMPs
-                    status.check_gump_data_changed()
-                    GumpInterface.create_status_gump()
-                    GumpInterface.create_auto_heal_settings_gump()
-                    
-                elif settings_button == 10:  # Close settings GUMP
-                    Logger.info("[DexBot] Auto Heal settings closed - returning to main GUMP")
-                    # Settings GUMP already closed above, now show main GUMP
-                    status.check_gump_data_changed()  # Refresh cached values
-                    status.set_gump_state(GumpState.MAIN_FULL if not status.gump_minimized else GumpState.MAIN_MINIMIZED)
-                    GumpInterface.create_status_gump()  # Show the main GUMP
-                    
-                elif settings_button == 11:  # Back to Main GUMP
-                    Logger.info("[DexBot] Returning to main GUMP")
-                    # Close settings GUMP (already closed above) and show main GUMP
-                    status.check_gump_data_changed()  # Refresh cached values
-                    status.set_gump_state(GumpState.MAIN_FULL if not status.gump_minimized else GumpState.MAIN_MINIMIZED)
-                    GumpInterface.create_status_gump()  # This will now create the correct main GUMP
                     
         except Exception as e:
             Logger.debug(f"GUMP response handling error: {str(e)}")
@@ -1224,7 +1364,6 @@ def run_dexbot():
         except KeyboardInterrupt:
             # Allow manual stopping with Ctrl+C or ESC
             Gumps.CloseGump(config.GUMP_ID)  # Close GUMP on exit
-            Gumps.CloseGump(config.GUMP_AUTO_HEAL_SETTINGS_ID)  # Close settings GUMP on exit
             Logger.info(messages.STOPPED)
             report = status.get_status_report()
             Logger.info(f"Final stats - Bandages used: {report['bandages_used']}, Heal potions used: {report['heal_potions_used']}")
@@ -1236,7 +1375,6 @@ def run_dexbot():
     
     # If we get here, player disconnected
     Gumps.CloseGump(config.GUMP_ID)  # Close GUMP on disconnect
-    Gumps.CloseGump(config.GUMP_AUTO_HEAL_SETTINGS_ID)  # Close settings GUMP on disconnect
     Logger.info(messages.DISCONNECTED)
     Logger.info(messages.STOPPED)
     
