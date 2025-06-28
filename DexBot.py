@@ -247,7 +247,7 @@ class GumpState:
     CLOSED = "closed"
     MAIN_FULL = "main_full"
     MAIN_MINIMIZED = "main_minimized"
-    AUTO_HEAL_SETTINGS = "auto_heal_settings"
+    BOT_SETTINGS = "bot_settings"
 
 # ===========================================
 # CONSTANTS AND CONFIGURATION
@@ -1076,8 +1076,8 @@ class GumpInterface:
             elif current_state == GumpState.MAIN_MINIMIZED or status.gump_minimized:
                 GumpInterface.create_minimized_gump()
                 status.set_gump_state(GumpState.MAIN_MINIMIZED)
-            elif current_state == GumpState.AUTO_HEAL_SETTINGS:
-                GumpInterface.create_auto_heal_settings_gump()
+            elif current_state == GumpState.BOT_SETTINGS:
+                GumpInterface.create_bot_settings_gump()
             else:
                 # Default to main GUMP (MAIN_FULL or unknown state)
                 GumpInterface.create_main_gump_new()
@@ -1291,8 +1291,8 @@ class GumpInterface:
                 
                 elif button_pressed == 10:  # Open Bot Settings GUMP
                     Logger.info("[DexBot] Opening Bot Settings")
-                    status.set_gump_state(GumpState.AUTO_HEAL_SETTINGS)
-                    GumpInterface.create_auto_heal_settings_gump()
+                    status.set_gump_state(GumpState.BOT_SETTINGS)
+                    GumpInterface.create_bot_settings_gump()
                 
                 elif button_pressed == 20:  # Back to Main GUMP (from Bot Settings)
                     Logger.info("[DexBot] Returning to main GUMP")
@@ -1307,7 +1307,7 @@ class GumpInterface:
                     if config.save_settings():
                         Logger.debug("[DexBot] Settings saved to config files")
                     # Recreate the Bot Settings GUMP to show updated state
-                    GumpInterface.create_auto_heal_settings_gump()
+                    GumpInterface.create_bot_settings_gump()
                 
                 elif button_pressed == 22:  # Toggle Potion Healing (in Bot Settings)
                     config.POTION_HEALING_ENABLED = not config.POTION_HEALING_ENABLED
@@ -1317,7 +1317,7 @@ class GumpInterface:
                     if config.save_settings():
                         Logger.debug("[DexBot] Settings saved to config files")
                     # Recreate the Bot Settings GUMP to show updated state
-                    GumpInterface.create_auto_heal_settings_gump()
+                    GumpInterface.create_bot_settings_gump()
                     
         except Exception as e:
             Logger.debug(f"GUMP response handling error: {str(e)}")
@@ -1413,7 +1413,7 @@ class GumpInterface:
         Logger.debug("New modular main GUMP created and displayed")
 
     @staticmethod
-    def create_auto_heal_settings_gump():
+    def create_bot_settings_gump():
         """Create the Bot Settings GUMP with detailed configuration options"""
         config = BotConfig()
         messages = BotMessages()
