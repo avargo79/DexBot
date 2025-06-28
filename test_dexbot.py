@@ -108,17 +108,84 @@ def test_config_file_structure():
         print(f"✗ Config file test error: {e}")
         return False
 
+def test_bot_settings_functionality():
+    """Test if Bot Settings GUMP and state functionality exists after renaming"""
+    try:
+        import sys
+        import os
+        
+        # Add current directory to path if needed
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        if current_dir not in sys.path:
+            sys.path.insert(0, current_dir)
+            
+        print("Testing Bot Settings functionality...")
+        
+        # Mock the AutoComplete import to avoid RazorEnhanced dependency
+        class MockAutoComplete:
+            pass
+        sys.modules['AutoComplete'] = MockAutoComplete()
+        
+        # Import the classes we need to test
+        print("Testing Bot Settings imports...")
+        from DexBot import GumpState, GumpInterface
+        print("✓ GumpState and GumpInterface imported successfully")
+        
+        # Test that BOT_SETTINGS state exists (renamed from AUTO_HEAL_SETTINGS)
+        print("Testing GumpState.BOT_SETTINGS...")
+        if hasattr(GumpState, 'BOT_SETTINGS'):
+            print(f"✓ GumpState.BOT_SETTINGS exists: {GumpState.BOT_SETTINGS}")
+        else:
+            print("✗ GumpState.BOT_SETTINGS not found")
+            return False
+        
+        # Test that create_bot_settings_gump method exists (renamed from create_auto_heal_settings_gump)
+        print("Testing GumpInterface.create_bot_settings_gump...")
+        if hasattr(GumpInterface, 'create_bot_settings_gump'):
+            print("✓ GumpInterface.create_bot_settings_gump method exists")
+        else:
+            print("✗ GumpInterface.create_bot_settings_gump method not found")
+            return False
+        
+        # Verify old names are gone
+        print("Verifying old naming is removed...")
+        if hasattr(GumpState, 'AUTO_HEAL_SETTINGS'):
+            print("✗ Old GumpState.AUTO_HEAL_SETTINGS still exists - should be removed")
+            return False
+        else:
+            print("✓ Old GumpState.AUTO_HEAL_SETTINGS successfully removed")
+        
+        if hasattr(GumpInterface, 'create_auto_heal_settings_gump'):
+            print("✗ Old GumpInterface.create_auto_heal_settings_gump still exists - should be removed")
+            return False
+        else:
+            print("✓ Old GumpInterface.create_auto_heal_settings_gump successfully removed")
+        
+        print("\nAll Bot Settings tests passed! Renaming was successful.")
+        return True
+        
+    except ImportError as e:
+        print(f"✗ Import error: {e}")
+        return False
+    except Exception as e:
+        print(f"✗ Unexpected error: {e}")
+        import traceback
+        traceback.print_exc()
+        return False
+
 if __name__ == "__main__":
     print("=== DexBot Configuration System Tests ===\n")
     
     config_test = test_dexbot_config()
     file_test = test_config_file_structure()
+    bot_settings_test = test_bot_settings_functionality()
     
     print(f"\n=== Test Results ===")
     print(f"Configuration System: {'PASS' if config_test else 'FAIL'}")
     print(f"Config File Structure: {'PASS' if file_test else 'FAIL'}")
+    print(f"Bot Settings Functionality: {'PASS' if bot_settings_test else 'FAIL'}")
     
-    if config_test and file_test:
-        print("\n🎉 All tests passed! DexBot is ready to run with configuration system.")
+    if config_test and file_test and bot_settings_test:
+        print("\n🎉 All tests passed! DexBot is ready to run with Bot Settings system.")
     else:
         print("\n❌ Some tests failed. Check the errors above.")
