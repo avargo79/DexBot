@@ -1681,6 +1681,9 @@ def run_dexbot():
     
     Logger.info(messages.ACTIVE)
     
+    # Initialize GUMP system - set initial state to show main GUMP
+    status.set_gump_state(GumpState.MAIN_FULL)
+    
     # Create initial status GUMP
     GumpInterface.create_status_gump()
     Logger.info("[DexBot] Status GUMP created - use buttons to control bot")
