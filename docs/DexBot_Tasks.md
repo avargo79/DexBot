@@ -4,16 +4,16 @@
 This document tracks planned features, current development tasks, and their implementation status for the DexBot modular bot system.
 
 **Last Updated**: June 28, 2025  
-**Current Version**: 2.0.1  
-**Active Sprint**: GUMP Interface Revamp ⚠️ IN PROGRESS
+**Current Version**: 2.1.0  
+**Active Sprint**: System Registration Framework ⚠️ NEXT UP
 
 ---
 
-## 🎯 Current Sprint: GUMP Interface Revamp
+## 🎯 Completed Sprint: GUMP Interface Revamp (COMPLETED)
 
-### ⚠️ Main GUMP Redesign (IN PROGRESS)
+### ✅ Main GUMP Redesign (COMPLETED)
 - **Priority**: HIGH
-- **Status**: ⚠️ IN PROGRESS
+- **Status**: ✅ COMPLETED
 - **Assigned**: RugRat79
 - **Estimated Effort**: 1-2 weeks
 - **Description**: Revamp main GUMP to support modular system interfaces
@@ -21,11 +21,11 @@ This document tracks planned features, current development tasks, and their impl
 - **Tasks**:
   - ✅ Design new main GUMP layout with system summary lines
   - ✅ Implement GUMP state management system
-  - ⚠️ Create navigation framework between GUMPs
+  - ✅ Create navigation framework between GUMPs
   - ✅ Add system enable/disable toggle buttons
   - ✅ Add system status indicators (active/inactive)
   - ✅ Add settings GUMP access buttons
-  - 🔲 Test main GUMP navigation flow
+  - ✅ Test main GUMP navigation flow
 
 ---
 
@@ -50,35 +50,54 @@ This document tracks planned features, current development tasks, and their impl
 
 ---
 
-## 🚀 Next Sprint: Settings GUMPs Implementation
+## 🚀 Next Sprint: System Registration Framework
 
-### 🔲 Auto Heal Settings GUMP (NEXT UP)
-- **Priority**: HIGH
+### 🔲 System Registration Framework (NEXT UP)
+- **Priority**: MEDIUM
 - **Status**: 🔲 NOT STARTED
 - **Assigned**: TBD
+- **Estimated Effort**: 2-3 days
+- **Description**: Create framework for registering systems with main GUMP
+- **Dependencies**: GUMP Interface Revamp ✅
+- **Tasks**:
+  - 🔲 Design system registration interface
+  - 🔲 Create system metadata structure (name, status, settings callback)
+  - 🔲 Implement dynamic main GUMP generation based on registered systems
+  - 🔲 Add system priority/ordering support
+  - 🔲 Create template for new system integration
+  - 🔲 Test system registration workflow
+
+---
+
+## 🚀 Following Sprint: Settings GUMPs Implementation
+
+### ✅ Auto Heal Settings GUMP (COMPLETED)
+- **Priority**: HIGH
+- **Status**: ✅ COMPLETED
+- **Assigned**: RugRat79
 - **Estimated Effort**: 3-5 days
 - **Description**: Create dedicated settings GUMP for Auto Heal configuration
 - **Dependencies**: Main GUMP Redesign ✅
 - **Tasks**:
-  - 🔲 Design Auto Heal settings GUMP layout
-  - 🔲 Add detailed healing configuration options
-  - 🔲 Implement back navigation to main GUMP
-  - 🔲 Add threshold sliders and timers configuration
-  - 🔲 Test Auto Heal settings workflow
+  - ✅ Design Auto Heal settings GUMP layout
+  - ✅ Add detailed healing configuration options
+  - ✅ Implement back navigation to main GUMP
+  - ✅ Add threshold and timing display
+  - ✅ Test Auto Heal settings workflow
 
-### 🔲 GUMP Navigation Framework (NEXT UP)
+### ✅ GUMP Navigation Framework (COMPLETED)
 - **Priority**: HIGH
-- **Status**: 🔲 NOT STARTED
-- **Assigned**: TBD
+- **Status**: ✅ COMPLETED
+- **Assigned**: RugRat79
 - **Estimated Effort**: 2-3 days
 - **Description**: Complete the navigation system between different GUMPs
 - **Dependencies**: Main GUMP Redesign ✅
 - **Tasks**:
-  - 🔲 Implement proper state transitions for settings GUMPs
-  - 🔲 Add navigation history tracking
-  - 🔲 Create consistent back button functionality
-  - 🔲 Add state validation and error handling
-  - 🔲 Test all navigation paths and edge cases
+  - ✅ Implement proper state transitions for settings GUMPs
+  - ✅ Add GUMP state management system
+  - ✅ Create back button functionality
+  - ✅ Add state validation and error handling
+  - ✅ Test all navigation paths
 
 ### 🔲 System Registration Framework (PLANNED)
 - **Priority**: MEDIUM

@@ -1070,7 +1070,7 @@ class GumpInterface:
     
     @staticmethod
     def create_status_gump():
-        """Create and display the main status GUMP"""
+        """Create and display the appropriate GUMP based on current state"""
         config = BotConfig()
         messages = BotMessages()
         status = SystemStatus()
@@ -1079,12 +1079,29 @@ class GumpInterface:
             # Close any existing GUMP to ensure clean state
             Gumps.CloseGump(config.GUMP_ID)
             
-            # Determine which GUMP to create based on state
-            if status.gump_minimized:
+            # Determine which GUMP to create based on current state
+            current_state = status.get_gump_state()
+            
+            if current_state == GumpState.CLOSED:
+                # Don't create any GUMP
+                return
+            elif current_state == GumpState.MAIN_MINIMIZED or status.gump_minimized:
                 GumpInterface.create_minimized_gump()
                 status.set_gump_state(GumpState.MAIN_MINIMIZED)
+            elif current_state == GumpState.AUTO_HEAL_SETTINGS:
+                GumpInterface.create_auto_heal_settings_gump()
+            elif current_state == GumpState.COMBAT_SETTINGS:
+                # TODO: Implement Combat Settings GUMP
+                Logger.info("[DexBot] Combat Settings GUMP not implemented yet, returning to main")
+                status.set_gump_state(GumpState.MAIN_FULL)
+                GumpInterface.create_main_gump_new()
+            elif current_state == GumpState.LOOTING_SETTINGS:
+                # TODO: Implement Looting Settings GUMP
+                Logger.info("[DexBot] Looting Settings GUMP not implemented yet, returning to main")
+                status.set_gump_state(GumpState.MAIN_FULL)
+                GumpInterface.create_main_gump_new()
             else:
-                # Use new modular GUMP design for testing
+                # Default to main GUMP (MAIN_FULL or unknown state)
                 GumpInterface.create_main_gump_new()
                 status.set_gump_state(GumpState.MAIN_FULL)
                 
@@ -1305,10 +1322,9 @@ class GumpInterface:
                     GumpInterface.create_status_gump()
                 
                 elif button_pressed == 10:  # Open Auto Heal Settings GUMP
-                    Logger.info("[DexBot] Opening Auto Heal Settings (placeholder)")
-                    # TODO: Implement Auto Heal Settings GUMP
-                    # For now, just recreate the main GUMP
-                    GumpInterface.create_status_gump()
+                    Logger.info("[DexBot] Opening Auto Heal Settings")
+                    status.set_gump_state(GumpState.AUTO_HEAL_SETTINGS)
+                    GumpInterface.create_auto_heal_settings_gump()
                 
                 elif button_pressed == 11:  # Toggle Combat System (future)
                     Logger.info("[DexBot] Combat System toggle pressed (not implemented)")
@@ -1325,6 +1341,31 @@ class GumpInterface:
                 elif button_pressed == 14:  # Open Looting Settings GUMP (future)
                     Logger.info("[DexBot] Looting Settings pressed (not implemented)")
                     GumpInterface.create_status_gump()
+                
+                elif button_pressed == 20:  # Back to Main GUMP (from Auto Heal Settings)
+                    Logger.info("[DexBot] Returning to main GUMP")
+                    status.set_gump_state(GumpState.MAIN_FULL)
+                    GumpInterface.create_status_gump()
+                
+                elif button_pressed == 21:  # Toggle Bandage Healing (in Auto Heal Settings)
+                    config.BANDAGE_HEALING_ENABLED = not config.BANDAGE_HEALING_ENABLED
+                    status_msg = "enabled" if config.BANDAGE_HEALING_ENABLED else "disabled"
+                    Logger.info(f"[DexBot] Bandage healing {status_msg} via Settings GUMP")
+                    # Save settings to config file
+                    if config.save_settings():
+                        Logger.debug("[DexBot] Settings saved to config files")
+                    # Recreate the Auto Heal Settings GUMP to show updated state
+                    GumpInterface.create_auto_heal_settings_gump()
+                
+                elif button_pressed == 22:  # Toggle Potion Healing (in Auto Heal Settings)
+                    config.POTION_HEALING_ENABLED = not config.POTION_HEALING_ENABLED
+                    status_msg = "enabled" if config.POTION_HEALING_ENABLED else "disabled"
+                    Logger.info(f"[DexBot] Potion healing {status_msg} via Settings GUMP")
+                    # Save settings to config file
+                    if config.save_settings():
+                        Logger.debug("[DexBot] Settings saved to config files")
+                    # Recreate the Auto Heal Settings GUMP to show updated state
+                    GumpInterface.create_auto_heal_settings_gump()
                     
         except Exception as e:
             Logger.debug(f"GUMP response handling error: {str(e)}")
@@ -1442,6 +1483,130 @@ class GumpInterface:
         Gumps.SendGump(config.GUMP_ID, Player.Serial, config.GUMP_X, config.GUMP_Y, gd.gumpDefinition, gd.gumpStrings)
         
         Logger.debug("New modular main GUMP created and displayed")
+
+    @staticmethod
+    def create_auto_heal_settings_gump():
+        """Create the Auto Heal Settings GUMP with detailed configuration options"""
+        config = BotConfig()
+        messages = BotMessages()
+        status = SystemStatus()
+        
+        # Create GUMP using proper Razor Enhanced pattern
+        gd = Gumps.CreateGump(movable=True)
+        Gumps.AddPage(gd, 0)
+        
+        # Background (slightly taller for more options)
+        settings_height = 300
+        Gumps.AddBackground(gd, 0, 0, config.GUMP_WIDTH, settings_height, 30546)
+        Gumps.AddAlphaRegion(gd, 0, 0, config.GUMP_WIDTH, settings_height)
+        
+        # Title
+        Gumps.AddHtml(gd, 50, 5, config.GUMP_WIDTH - 20, 25, f'<center><basefont color="#FFD700" size="5"><b>AUTO HEAL SETTINGS</b></basefont></center>', False, False)
+        
+        # Back button in upper left corner
+        back_button_x = 10
+        back_button_y = 5
+        Gumps.AddButton(gd, back_button_x, back_button_y, config.BUTTON_BACK, config.BUTTON_BACK_PRESSED, 20, 1, 0)  # Button ID 20 for back
+        Gumps.AddTooltip(gd, "Back to Main GUMP")
+        
+        # Close Button in upper right corner
+        close_button_x = config.GUMP_WIDTH - 30
+        close_button_y = 5
+        Gumps.AddButton(gd, close_button_x, close_button_y, config.BUTTON_CANCEL, config.BUTTON_CANCEL_PRESSED, 4, 1, 0)
+        Gumps.AddTooltip(gd, "Close Interface")
+        
+        # Content area
+        section_x = 20
+        section_width = config.GUMP_WIDTH - 40
+        current_y = 40
+        
+        # System Status Section
+        system_status = "ENABLED" if config.HEALING_ENABLED else "DISABLED"
+        system_color = "#00FF00" if config.HEALING_ENABLED else "#FF0000"
+        status_text = "Healing..." if status.healing_active else "Ready"
+        
+        status_line = f'<basefont color="#87CEEB" size="3"><b>System Status:</b></basefont> <basefont color="{system_color}" size="3"><b>{system_status}</b></basefont>'
+        if config.HEALING_ENABLED:
+            status_line += f' <basefont color="#CCCCCC" size="2">({status_text})</basefont>'
+        
+        Gumps.AddHtml(gd, section_x, current_y, section_width, 20, status_line, False, False)
+        current_y += 30
+        
+        # Healing Methods Section
+        current_y = GumpInterface.GumpSection.create_section(
+            gd, "HEALING METHODS", section_x, current_y, section_width,
+            title_color="#87CEEB"
+        )
+        current_y += 5
+        
+        # Bandage Healing Toggle
+        bandage_toggle_x = section_x + 10
+        bandage_toggle_y = current_y + 2
+        if config.BANDAGE_HEALING_ENABLED:
+            bandage_art = config.BUTTON_ENABLED
+            bandage_pressed_art = config.BUTTON_ENABLED_PRESSED
+            bandage_status = "ENABLED"
+            bandage_color = "#00FF00"
+        else:
+            bandage_art = config.BUTTON_DISABLE
+            bandage_pressed_art = config.BUTTON_DISABLE_PRESSED
+            bandage_status = "DISABLED"
+            bandage_color = "#FF0000"
+            
+        Gumps.AddButton(gd, bandage_toggle_x, bandage_toggle_y, bandage_art, bandage_pressed_art, 21, 1, 0)  # Button ID 21
+        Gumps.AddTooltip(gd, f"Toggle Bandage Healing ({'ON' if config.BANDAGE_HEALING_ENABLED else 'OFF'})")
+        
+        bandage_count = Items.FindByID(config.BANDAGE_ID, -1, Player.Backpack.Serial, config.SEARCH_RANGE)
+        bandage_amount = bandage_count.Amount if bandage_count else 0
+        bandage_line = f'<basefont color="#FFFFFF" size="3"><b>Bandage Healing:</b></basefont> <basefont color="{bandage_color}" size="2"><b>{bandage_status}</b></basefont> <basefont color="#CCCCCC" size="2">| Available: </basefont><basefont color="#FFFFFF" size="2"><b>{bandage_amount}</b></basefont> <basefont color="#CCCCCC" size="2">| Used: </basefont><basefont color="#FFFFFF" size="2"><b>{status.bandage_count}</b></basefont>'
+        
+        Gumps.AddHtml(gd, section_x + 30, current_y + 4, section_width - 30, 15, bandage_line, False, False)
+        current_y += 25
+        
+        # Potion Healing Toggle
+        potion_toggle_x = section_x + 10
+        potion_toggle_y = current_y + 2
+        if config.POTION_HEALING_ENABLED:
+            potion_art = config.BUTTON_ENABLED
+            potion_pressed_art = config.BUTTON_ENABLED_PRESSED
+            potion_status = "ENABLED"
+            potion_color = "#00FF00"
+        else:
+            potion_art = config.BUTTON_DISABLE
+            potion_pressed_art = config.BUTTON_DISABLE_PRESSED
+            potion_status = "DISABLED"
+            potion_color = "#FF0000"
+            
+        Gumps.AddButton(gd, potion_toggle_x, potion_toggle_y, potion_art, potion_pressed_art, 22, 1, 0)  # Button ID 22
+        Gumps.AddTooltip(gd, f"Toggle Potion Healing ({'ON' if config.POTION_HEALING_ENABLED else 'OFF'})")
+        
+        heal_potion_count = Items.FindByID(config.HEAL_POTION_ID, -1, Player.Backpack.Serial, config.SEARCH_RANGE)
+        heal_potion_amount = heal_potion_count.Amount if heal_potion_count else 0
+        potion_line = f'<basefont color="#FFFFFF" size="3"><b>Potion Healing:</b></basefont> <basefont color="{potion_color}" size="2"><b>{potion_status}</b></basefont> <basefont color="#CCCCCC" size="2">| Available: </basefont><basefont color="#FFFFFF" size="2"><b>{heal_potion_amount}</b></basefont> <basefont color="#CCCCCC" size="2">| Used: </basefont><basefont color="#FFFFFF" size="2"><b>{status.heal_potion_count}</b></basefont>'
+        
+        Gumps.AddHtml(gd, section_x + 30, current_y + 4, section_width - 30, 15, potion_line, False, False)
+        current_y += 35
+        
+        # Health Thresholds Section
+        current_y = GumpInterface.GumpSection.create_section(
+            gd, "HEALTH THRESHOLDS", section_x, current_y, section_width,
+            content_lines=[
+                {
+                    'text': f'Healing Threshold: <basefont color="#FFFF00" size="3"><b>{config.HEALING_THRESHOLD_PERCENTAGE}%</b></basefont> <basefont color="#CCCCCC" size="2">(Start healing below this %)</basefont>',
+                    'color': '#FFFFFF'
+                },
+                {
+                    'text': f'Critical Health: <basefont color="#FF6B6B" size="3"><b>{config.CRITICAL_HEALTH_THRESHOLD}%</b></basefont> <basefont color="#CCCCCC" size="2">(Use potions for fast healing)</basefont>',
+                    'color': '#FFFFFF'
+                }
+            ],
+            title_color="#87CEEB"
+        )
+        
+        # Send the GUMP
+        Gumps.SendGump(config.GUMP_ID, Player.Serial, config.GUMP_X, config.GUMP_Y, gd.gumpDefinition, gd.gumpStrings)
+        
+        Logger.debug("Auto Heal Settings GUMP created and displayed")
 
 def update_gump_system():
     """Update the GUMP system - handle responses and periodic updates with real-time health tracking"""
