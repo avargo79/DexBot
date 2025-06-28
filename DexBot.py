@@ -152,13 +152,7 @@ class ConfigManager:
             "last_updated": "2025-06-28",
             "description": "DexBot Main Configuration - System toggles and global settings",
             "system_toggles": {
-                "healing_system_enabled": True,
-                "combat_system_enabled": False,
-                "looting_system_enabled": False,
-                "fishing_system_enabled": False,
-                "buff_system_enabled": False,
-                "weapon_management_enabled": False,
-                "inventory_management_enabled": False
+                "healing_system_enabled": True
             },
             "global_settings": {
                 "debug_mode": False,
@@ -254,8 +248,6 @@ class GumpState:
     MAIN_FULL = "main_full"
     MAIN_MINIMIZED = "main_minimized"
     AUTO_HEAL_SETTINGS = "auto_heal_settings"
-    COMBAT_SETTINGS = "combat_settings"
-    LOOTING_SETTINGS = "looting_settings"
 
 # ===========================================
 # CONSTANTS AND CONFIGURATION
@@ -288,9 +280,6 @@ class BotConfig:
         """Load all settings from configuration files"""
         # System toggles from main config
         self.HEALING_ENABLED = self.config_manager.get_main_setting('system_toggles.healing_system_enabled', True)
-        self.COMBAT_ENABLED = self.config_manager.get_main_setting('system_toggles.combat_system_enabled', False)
-        self.LOOTING_ENABLED = self.config_manager.get_main_setting('system_toggles.looting_system_enabled', False)
-        self.FISHING_ENABLED = self.config_manager.get_main_setting('system_toggles.fishing_system_enabled', False)
         self.DEBUG_MODE = self.config_manager.get_main_setting('global_settings.debug_mode', False)
         
         # Auto Heal specific toggles
@@ -378,7 +367,6 @@ class BotConfig:
         try:
             # Update main config values
             self.config_manager.set_main_setting('system_toggles.healing_system_enabled', self.HEALING_ENABLED)
-            self.config_manager.set_main_setting('system_toggles.combat_system_enabled', self.COMBAT_ENABLED)
             self.config_manager.set_main_setting('global_settings.debug_mode', self.DEBUG_MODE)
             
             # Update auto heal config values
@@ -1090,16 +1078,6 @@ class GumpInterface:
                 status.set_gump_state(GumpState.MAIN_MINIMIZED)
             elif current_state == GumpState.AUTO_HEAL_SETTINGS:
                 GumpInterface.create_auto_heal_settings_gump()
-            elif current_state == GumpState.COMBAT_SETTINGS:
-                # TODO: Implement Combat Settings GUMP
-                Logger.info("[DexBot] Combat Settings GUMP not implemented yet, returning to main")
-                status.set_gump_state(GumpState.MAIN_FULL)
-                GumpInterface.create_main_gump_new()
-            elif current_state == GumpState.LOOTING_SETTINGS:
-                # TODO: Implement Looting Settings GUMP
-                Logger.info("[DexBot] Looting Settings GUMP not implemented yet, returning to main")
-                status.set_gump_state(GumpState.MAIN_FULL)
-                GumpInterface.create_main_gump_new()
             else:
                 # Default to main GUMP (MAIN_FULL or unknown state)
                 GumpInterface.create_main_gump_new()
@@ -1162,16 +1140,6 @@ class GumpInterface:
         
         # Auto Heal System Section with integrated toggle button
         current_y = GumpInterface.GumpSection.create_auto_heal_status_section(gd, section_x, current_y, section_width)
-        
-        # Example: Adding new sections is now easy with the reusable component
-        # current_y += 10  # Add spacing
-        # current_y = GumpInterface.GumpSection.create_section(
-        #     gd, "COMBAT SYSTEM", section_x, current_y, section_width,
-        #     content_lines=[
-        #         {'text': 'Status: <basefont color="#00FF00" size="3"><b>READY</b></basefont>', 'color': '#FFFFFF'},
-        #         {'text': 'Targets: <basefont color="#FFFF00" size="3"><b>3</b></basefont>', 'color': '#FFFFFF'}
-        #     ]
-        # )
         
         # Compact button layout in bottom area
         
@@ -1326,22 +1294,6 @@ class GumpInterface:
                     status.set_gump_state(GumpState.AUTO_HEAL_SETTINGS)
                     GumpInterface.create_auto_heal_settings_gump()
                 
-                elif button_pressed == 11:  # Toggle Combat System (future)
-                    Logger.info("[DexBot] Combat System toggle pressed (not implemented)")
-                    GumpInterface.create_status_gump()
-                
-                elif button_pressed == 12:  # Open Combat Settings GUMP (future)
-                    Logger.info("[DexBot] Combat Settings pressed (not implemented)")
-                    GumpInterface.create_status_gump()
-                
-                elif button_pressed == 13:  # Toggle Looting System (future)
-                    Logger.info("[DexBot] Looting System toggle pressed (not implemented)")
-                    GumpInterface.create_status_gump()
-                
-                elif button_pressed == 14:  # Open Looting Settings GUMP (future)
-                    Logger.info("[DexBot] Looting Settings pressed (not implemented)")
-                    GumpInterface.create_status_gump()
-                
                 elif button_pressed == 20:  # Back to Main GUMP (from Auto Heal Settings)
                     Logger.info("[DexBot] Returning to main GUMP")
                     status.set_gump_state(GumpState.MAIN_FULL)
@@ -1433,30 +1385,6 @@ class GumpInterface:
             enable_button_id=1,  # Toggle Auto Heal
             settings_button_id=10  # Open Auto Heal Settings
         )
-        current_y += 5  # Small spacing between systems
-        
-        # Combat System Summary Line (placeholder for future)
-        current_y = GumpInterface.GumpSection.create_system_summary_line(
-            gd, section_x, current_y, section_width,
-            system_name="COMBAT",
-            enabled=config.COMBAT_ENABLED,
-            active=False,  # Not implemented yet
-            status_text="Not Implemented",
-            enable_button_id=11,  # Toggle Combat (future)
-            settings_button_id=12  # Open Combat Settings (future)
-        )
-        current_y += 5
-        
-        # Looting System Summary Line (placeholder for future)
-        current_y = GumpInterface.GumpSection.create_system_summary_line(
-            gd, section_x, current_y, section_width,
-            system_name="LOOTING",
-            enabled=False,  # Not implemented yet
-            active=False,  # Not implemented yet
-            status_text="Not Implemented",
-            enable_button_id=13,  # Toggle Looting (future)
-            settings_button_id=14  # Open Looting Settings (future)
-        )
         
         # Debug Button - positioned in bottom left corner
         debug_button_x = 20
@@ -1495,13 +1423,14 @@ class GumpInterface:
         gd = Gumps.CreateGump(movable=True)
         Gumps.AddPage(gd, 0)
         
-        # Background (slightly taller for more options)
+        # Background (slightly taller and wider for more options and longer text)
         settings_height = 300
-        Gumps.AddBackground(gd, 0, 0, config.GUMP_WIDTH, settings_height, 30546)
-        Gumps.AddAlphaRegion(gd, 0, 0, config.GUMP_WIDTH, settings_height)
+        settings_width = 450  # Increased width to accommodate longer text
+        Gumps.AddBackground(gd, 0, 0, settings_width, settings_height, 30546)
+        Gumps.AddAlphaRegion(gd, 0, 0, settings_width, settings_height)
         
         # Title
-        Gumps.AddHtml(gd, 50, 5, config.GUMP_WIDTH - 20, 25, f'<center><basefont color="#FFD700" size="5"><b>AUTO HEAL SETTINGS</b></basefont></center>', False, False)
+        Gumps.AddHtml(gd, 50, 5, settings_width - 20, 25, f'<center><basefont color="#FFD700" size="5"><b>AUTO HEAL SETTINGS</b></basefont></center>', False, False)
         
         # Back button in upper left corner
         back_button_x = 10
@@ -1510,14 +1439,14 @@ class GumpInterface:
         Gumps.AddTooltip(gd, "Back to Main GUMP")
         
         # Close Button in upper right corner
-        close_button_x = config.GUMP_WIDTH - 30
+        close_button_x = settings_width - 30
         close_button_y = 5
         Gumps.AddButton(gd, close_button_x, close_button_y, config.BUTTON_CANCEL, config.BUTTON_CANCEL_PRESSED, 4, 1, 0)
         Gumps.AddTooltip(gd, "Close Interface")
         
         # Content area
         section_x = 20
-        section_width = config.GUMP_WIDTH - 40
+        section_width = settings_width - 40
         current_y = 40
         
         # System Status Section
@@ -1560,8 +1489,8 @@ class GumpInterface:
         bandage_amount = bandage_count.Amount if bandage_count else 0
         bandage_line = f'<basefont color="#FFFFFF" size="3"><b>Bandage Healing:</b></basefont> <basefont color="{bandage_color}" size="2"><b>{bandage_status}</b></basefont> <basefont color="#CCCCCC" size="2">| Available: </basefont><basefont color="#FFFFFF" size="2"><b>{bandage_amount}</b></basefont> <basefont color="#CCCCCC" size="2">| Used: </basefont><basefont color="#FFFFFF" size="2"><b>{status.bandage_count}</b></basefont>'
         
-        Gumps.AddHtml(gd, section_x + 30, current_y + 4, section_width - 30, 15, bandage_line, False, False)
-        current_y += 25
+        Gumps.AddHtml(gd, section_x + 50, current_y + 4, section_width - 50, 15, bandage_line, False, False)
+        current_y += 25  # Original spacing restored
         
         # Potion Healing Toggle
         potion_toggle_x = section_x + 10
@@ -1584,8 +1513,11 @@ class GumpInterface:
         heal_potion_amount = heal_potion_count.Amount if heal_potion_count else 0
         potion_line = f'<basefont color="#FFFFFF" size="3"><b>Potion Healing:</b></basefont> <basefont color="{potion_color}" size="2"><b>{potion_status}</b></basefont> <basefont color="#CCCCCC" size="2">| Available: </basefont><basefont color="#FFFFFF" size="2"><b>{heal_potion_amount}</b></basefont> <basefont color="#CCCCCC" size="2">| Used: </basefont><basefont color="#FFFFFF" size="2"><b>{status.heal_potion_count}</b></basefont>'
         
-        Gumps.AddHtml(gd, section_x + 30, current_y + 4, section_width - 30, 15, potion_line, False, False)
-        current_y += 35
+        Gumps.AddHtml(gd, section_x + 50, current_y + 4, section_width - 50, 15, potion_line, False, False)
+        current_y += 25
+        
+        # Add spacing between sections (same as between System Status and Healing Methods)
+        current_y += 30
         
         # Health Thresholds Section
         current_y = GumpInterface.GumpSection.create_section(
@@ -1720,14 +1652,6 @@ def run_dexbot():
             if config.HEALING_ENABLED:
                 process_healing_journal()
                 execute_auto_heal_system()
-            
-            # TODO: Add other bot systems here
-            # if config.COMBAT_ENABLED:
-            #     run_combat_system()
-            # if config.LOOTING_ENABLED:
-            #     run_looting_system()
-            # if config.FISHING_ENABLED:
-            #     run_fishing_system()
             
             # Increment runtime counter and main loop delay
             status.increment_runtime()
