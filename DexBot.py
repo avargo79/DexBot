@@ -919,13 +919,13 @@ class GumpInterface:
             if config.HEALING_ENABLED:
                 main_toggle_art = config.BUTTON_ENABLED
                 main_toggle_pressed_art = config.BUTTON_ENABLED_PRESSED
-                heal_status_text = f'<basefont color="#00FF00" size="3"><b>AUTO HEAL</b></basefont>'
+                heal_status_text = f'<basefont color="#00FF00" size="3"><b>BOT SETTINGS</b></basefont>'
                 status_text = f'{"Healing..." if status.healing_active else "Ready"}'
                 status_color = "#FFFF00" if status.healing_active else "#00FF00"
             else:
                 main_toggle_art = config.BUTTON_DISABLE
                 main_toggle_pressed_art = config.BUTTON_DISABLE_PRESSED
-                heal_status_text = f'<basefont color="#FF0000" size="3"><b>AUTO HEAL</b></basefont>'
+                heal_status_text = f'<basefont color="#FF0000" size="3"><b>BOT SETTINGS</b></basefont>'
                 status_text = "Disabled"
                 status_color = "#FF0000"
             
