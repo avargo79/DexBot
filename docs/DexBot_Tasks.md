@@ -4,28 +4,29 @@
 This document tracks planned features, current development tasks, and their implementation status for the DexBot modular bot system.
 
 **Last Updated**: June 28, 2025  
-**Current Version**: 2.0.1  
-**Active Sprint**: GUMP Interface Revamp ⚠️ IN PROGRESS
+**Current Version**: 2.1.0  
+**Active Sprint**: System Registration Framework ⚠️ NEXT UP
 
 ---
 
-## 🎯 Current Sprint: GUMP Interface Revamp
+## 🎯 Completed Sprint: GUMP Interface Revamp (COMPLETED)
 
-### ⚠️ Main GUMP Redesign (IN PROGRESS)
+### ✅ Main GUMP Redesign (COMPLETED)
 - **Priority**: HIGH
-- **Status**: ⚠️ IN PROGRESS
+- **Status**: ✅ COMPLETED
 - **Assigned**: RugRat79
 - **Estimated Effort**: 1-2 weeks
 - **Description**: Revamp main GUMP to support modular system interfaces
 - **Prerequisites**: Current interface system stable ✅
 - **Tasks**:
-  - ⚠️ Design new main GUMP layout with system summary lines
-  - 🔲 Implement GUMP state management system
-  - 🔲 Create navigation framework between GUMPs
-  - 🔲 Add system enable/disable toggle buttons
-  - 🔲 Add system status indicators (active/inactive)
-  - 🔲 Add settings GUMP access buttons
-  - 🔲 Test main GUMP navigation flow
+  - ✅ Design new main GUMP layout with system summary lines
+  - ✅ Implement GUMP state management system
+  - ✅ Create navigation framework between GUMPs
+  - ✅ Add system enable/disable toggle buttons
+  - ✅ Add system status indicators (active/inactive)
+  - ✅ Add settings GUMP access buttons
+  - ✅ Test main GUMP navigation flow
+  - ✅ Fix back button icon consistency (use settings icon)
 
 ---
 
@@ -38,7 +39,7 @@ This document tracks planned features, current development tasks, and their impl
 - **Status**: ✅ COMPLETED
 - **Assigned**: RugRat79
 - **Due Date**: June 28, 2025
-- **Description**: Integrate Auto Heal settings into main GUMP interface
+- **Description**: Integrate Bot settings into main GUMP interface
 - **Tasks**:
   - ✅ Remove separate settings GUMP
   - ✅ Add healing toggles to main interface
@@ -50,53 +51,54 @@ This document tracks planned features, current development tasks, and their impl
 
 ---
 
-## 🚀 Next Sprint: GUMP Interface Revamp
+## 🚀 Next Sprint: System Registration Framework
 
-### 🔲 Main GUMP Redesign (PLANNED)
-- **Priority**: HIGH
+### 🔲 System Registration Framework (NEXT UP)
+- **Priority**: MEDIUM
 - **Status**: 🔲 NOT STARTED
 - **Assigned**: TBD
-- **Estimated Effort**: 1-2 weeks
-- **Description**: Revamp main GUMP to support modular system interfaces
-- **Prerequisites**: Current interface system stable ✅
+- **Estimated Effort**: 2-3 days
+- **Description**: Create framework for registering systems with main GUMP
+- **Dependencies**: GUMP Interface Revamp ✅
 - **Tasks**:
-  - 🔲 Design new main GUMP layout with system summary lines
-  - 🔲 Implement GUMP state management system
-  - 🔲 Create navigation framework between GUMPs
-  - 🔲 Add system enable/disable toggle buttons
-  - 🔲 Add system status indicators (active/inactive)
-  - 🔲 Add settings GUMP access buttons
-  - 🔲 Test main GUMP navigation flow
+  - 🔲 Design system registration interface
+  - 🔲 Create system metadata structure (name, status, settings callback)
+  - 🔲 Implement dynamic main GUMP generation based on registered systems
+  - 🔲 Add system priority/ordering support
+  - 🔲 Create template for new system integration
+  - 🔲 Test system registration workflow
 
-### 🔲 Auto Heal Settings GUMP (PLANNED)
+---
+
+## 🚀 Following Sprint: Settings GUMPs Implementation
+
+### ✅ Bot Settings GUMP (COMPLETED)
 - **Priority**: HIGH
-- **Status**: 🔲 NOT STARTED
-- **Assigned**: TBD
+- **Status**: ✅ COMPLETED
+- **Assigned**: RugRat79
 - **Estimated Effort**: 3-5 days
-- **Description**: Move Auto Heal settings into dedicated GUMP
-- **Dependencies**: Main GUMP Redesign
+- **Description**: Create dedicated settings GUMP for Auto Heal configuration
+- **Dependencies**: Main GUMP Redesign ✅
 - **Tasks**:
-  - 🔲 Design Auto Heal settings GUMP layout
-  - 🔲 Move healing toggles to dedicated GUMP
-  - 🔲 Add detailed healing configuration options
-  - 🔲 Implement back navigation to main GUMP
-  - 🔲 Add Auto Heal system summary line to main GUMP
-  - 🔲 Test Auto Heal settings workflow
+  - ✅ Design Bot settings GUMP layout
+  - ✅ Add detailed healing configuration options
+  - ✅ Implement back navigation to main GUMP
+  - ✅ Add threshold and timing display
+  - ✅ Test Bot settings workflow
 
-### 🔲 GUMP State Management System (PLANNED)
+### ✅ GUMP Navigation Framework (COMPLETED)
 - **Priority**: HIGH
-- **Status**: 🔲 NOT STARTED
-- **Assigned**: TBD
-- **Estimated Effort**: 3-4 days
-- **Description**: Implement robust GUMP state tracking and navigation
-- **Dependencies**: Main GUMP Redesign
+- **Status**: ✅ COMPLETED
+- **Assigned**: RugRat79
+- **Estimated Effort**: 2-3 days
+- **Description**: Complete the navigation system between different GUMPs
+- **Dependencies**: Main GUMP Redesign ✅
 - **Tasks**:
-  - 🔲 Create GUMP state enumeration (MAIN, AUTO_HEAL_SETTINGS, etc.)
-  - 🔲 Implement state transition logic
-  - 🔲 Add navigation history tracking
-  - 🔲 Create consistent back button functionality
-  - 🔲 Add state validation and error handling
-  - 🔲 Test state transitions and edge cases
+  - ✅ Implement proper state transitions for settings GUMPs
+  - ✅ Add GUMP state management system
+  - ✅ Create back button functionality
+  - ✅ Add state validation and error handling
+  - ✅ Test all navigation paths
 
 ### 🔲 System Registration Framework (PLANNED)
 - **Priority**: MEDIUM

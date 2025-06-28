@@ -153,7 +153,7 @@ Players who want automated healing assistance during gameplay, with potential ex
 
 ## 5. Configuration Parameters (Current Implementation)
 
-### 5.1 Auto Heal Settings (IMPLEMENTED)
+### 5.1 Bot Settings (IMPLEMENTED)
 - `HEALING_ENABLED`: True (master toggle for entire healing system)
 - `BANDAGE_HEALING_ENABLED`: True (toggle for bandage healing)
 - `POTION_HEALING_ENABLED`: True (toggle for potion healing)
@@ -323,7 +323,7 @@ Players who want automated healing assistance during gameplay, with potential ex
 ## 12. Recent Updates (Version 2.0.1)
 
 ### 12.1 Interface Integration ✅
-**Summary**: Integrated Auto Heal settings directly into the main GUMP interface for improved user experience.
+**Summary**: Integrated Bot settings directly into the main GUMP interface for improved user experience.
 
 **Changes Made**:
 - **Removed Separate Settings GUMP**: No longer using dedicated settings window

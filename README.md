@@ -1,6 +1,6 @@
 # DexBot - Modular Bot System
 
-DexBot is a modular bot system for Ultima Online with RazorEnhanced, currently featuring an advanced Auto Heal system with a modern GUMP interface and robust state management. Built with scalability in mind for future combat, looting, and farming modules.
+DexBot is a modular bot system for Ultima Online with RazorEnhanced, currently featuring an advanced Auto Heal system with a modern GUMP interface and robust state management. Built with a clean, focused architecture for the active Auto Heal system.
 
 ## Recent Updates (v2.0.1)
 
@@ -65,9 +65,7 @@ DexBot/
 - **Comprehensive Logging**: Debug, info, warning, and error levels with toggle control
 
 ### 🔄 Planned Future Modules
-- **Combat System**: Auto-attack with enemy detection and targeting (placeholder exists)
-- **Looting System**: Automated corpse processing and resource collection (placeholder exists)
-- **Fishing System**: AFK fishing automation (placeholder exists)
+- **Fishing System**: AFK fishing automation
 - **Buff Management**: Automatic strength/agility potion maintenance
 - **Weapon Management**: Auto re-equip on disarm detection
 - **Inventory Management**: Smart item dropping when backpack full
@@ -112,7 +110,7 @@ exec(open('DexBot/DexBot.py').read())
 DexBot now uses a modern configuration system with separate JSON files:
 
 **Main Configuration (`config/main_config.json`):**
-- System toggles for all bot modules (healing, combat, looting, etc.)
+- System toggles for the healing system
 - Global settings (debug mode, timing, safety features)
 - GUMP interface settings (size, position, update intervals)
 - Logging preferences

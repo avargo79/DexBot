@@ -3,13 +3,7 @@
   "last_updated": "2025-06-28",
   "description": "DexBot Main Configuration - System toggles and global settings",
   "system_toggles": {
-    "healing_system_enabled": true,
-    "combat_system_enabled": false,
-    "looting_system_enabled": false,
-    "fishing_system_enabled": false,
-    "buff_system_enabled": false,
-    "weapon_management_enabled": false,
-    "inventory_management_enabled": false
+    "healing_system_enabled": true
   },
   "global_settings": {
     "debug_mode": true,

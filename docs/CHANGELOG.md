@@ -1,5 +1,36 @@
 # DexBot Changelog
 
+## Version 2.0.2 - 2025-06-28
+
+### Codebase Cleanup: Removed Unused Systems ✅
+
+#### 🧹 **Code Simplification**
+- **Removed Combat System References**: Eliminated all placeholder code and UI for Combat system
+- **Removed Looting System References**: Eliminated all placeholder code and UI for Looting system
+- **Cleaner Codebase**: Focused on active Auto Heal system only
+- **Simplified Configuration**: Removed unused system toggles from config files
+
+#### 🔧 **Technical Changes**
+- Removed `COMBAT_ENABLED` and `LOOTING_ENABLED` from BotConfig class
+- Removed `COMBAT_SETTINGS` and `LOOTING_SETTINGS` from GumpState enum
+- Eliminated Combat/Looting system summary lines from main GUMP
+- Removed button handlers for Combat/Looting toggles (buttons 11, 12, 13, 14)
+- Cleaned up config files to remove unused system_toggles entries
+- Removed commented placeholder code for future systems
+
+#### 🎨 **Interface Improvements**
+- **Cleaner Main GUMP**: Only shows active Auto Heal system
+- **Focused UI**: No confusing "Not Implemented" placeholders
+- **Better User Experience**: Interface only shows working features
+
+#### 📚 **Documentation Updates**
+- Updated README.md to remove references to Combat and Looting systems
+- Cleaned up feature descriptions to focus on current capabilities
+
+---
+
+# DexBot Changelog
+
 ## Version 2.0.1 - 2025-06-28
 
 ### Major Changes: Integrated Auto Heal Controls ✅

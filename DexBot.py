@@ -152,13 +152,7 @@ class ConfigManager:
             "last_updated": "2025-06-28",
             "description": "DexBot Main Configuration - System toggles and global settings",
             "system_toggles": {
-                "healing_system_enabled": True,
-                "combat_system_enabled": False,
-                "looting_system_enabled": False,
-                "fishing_system_enabled": False,
-                "buff_system_enabled": False,
-                "weapon_management_enabled": False,
-                "inventory_management_enabled": False
+                "healing_system_enabled": True
             },
             "global_settings": {
                 "debug_mode": False,
@@ -253,6 +247,7 @@ class GumpState:
     CLOSED = "closed"
     MAIN_FULL = "main_full"
     MAIN_MINIMIZED = "main_minimized"
+    BOT_SETTINGS = "bot_settings"
 
 # ===========================================
 # CONSTANTS AND CONFIGURATION
@@ -285,9 +280,6 @@ class BotConfig:
         """Load all settings from configuration files"""
         # System toggles from main config
         self.HEALING_ENABLED = self.config_manager.get_main_setting('system_toggles.healing_system_enabled', True)
-        self.COMBAT_ENABLED = self.config_manager.get_main_setting('system_toggles.combat_system_enabled', False)
-        self.LOOTING_ENABLED = self.config_manager.get_main_setting('system_toggles.looting_system_enabled', False)
-        self.FISHING_ENABLED = self.config_manager.get_main_setting('system_toggles.fishing_system_enabled', False)
         self.DEBUG_MODE = self.config_manager.get_main_setting('global_settings.debug_mode', False)
         
         # Auto Heal specific toggles
@@ -367,13 +359,14 @@ class BotConfig:
         self.BUTTON_DEBUG_DISABLED_PRESSED = 4004
         self.BUTTON_SETTINGS = 4014
         self.BUTTON_SETTINGS_PRESSED = 4016
+        self.BUTTON_BACK = 4001
+        self.BUTTON_BACK_PRESSED = 4003
     
     def save_settings(self) -> bool:
         """Save current settings back to configuration files"""
         try:
             # Update main config values
             self.config_manager.set_main_setting('system_toggles.healing_system_enabled', self.HEALING_ENABLED)
-            self.config_manager.set_main_setting('system_toggles.combat_system_enabled', self.COMBAT_ENABLED)
             self.config_manager.set_main_setting('global_settings.debug_mode', self.DEBUG_MODE)
             
             # Update auto heal config values
@@ -926,13 +919,13 @@ class GumpInterface:
             if config.HEALING_ENABLED:
                 main_toggle_art = config.BUTTON_ENABLED
                 main_toggle_pressed_art = config.BUTTON_ENABLED_PRESSED
-                heal_status_text = f'<basefont color="#00FF00" size="3"><b>AUTO HEAL</b></basefont>'
+                heal_status_text = f'<basefont color="#00FF00" size="3"><b>BOT SETTINGS</b></basefont>'
                 status_text = f'{"Healing..." if status.healing_active else "Ready"}'
                 status_color = "#FFFF00" if status.healing_active else "#00FF00"
             else:
                 main_toggle_art = config.BUTTON_DISABLE
                 main_toggle_pressed_art = config.BUTTON_DISABLE_PRESSED
-                heal_status_text = f'<basefont color="#FF0000" size="3"><b>AUTO HEAL</b></basefont>'
+                heal_status_text = f'<basefont color="#FF0000" size="3"><b>BOT SETTINGS</b></basefont>'
                 status_text = "Disabled"
                 status_color = "#FF0000"
             
@@ -998,10 +991,74 @@ class GumpInterface:
             Gumps.AddHtml(gd, x + 25, current_y + 4, width - 25, 15, toggle_labels, False, False)
             
             return current_y + 25  # Return Y position after both lines
+        
+        @staticmethod
+        def create_system_summary_line(gd, x, y, width, system_name, enabled, active, status_text, 
+                                     enable_button_id, settings_button_id):
+            """
+            Create a single-line system summary with toggle, name, status, and settings button
+            
+            Args:
+                gd: Gump definition object
+                x, y: Position coordinates
+                width: Line width
+                system_name: Display name of the system (e.g., "AUTO HEAL")
+                enabled: Whether the system is enabled
+                active: Whether the system is currently active/working
+                status_text: Status description (e.g., "Ready", "Healing...", "Disabled")
+                enable_button_id: Button ID for enable/disable toggle
+                settings_button_id: Button ID for opening settings GUMP
+            
+            Returns:
+                The Y position after this line (for positioning next elements)
+            """
+            config = BotConfig()
+            current_y = y
+            
+            # Enable/Disable toggle button (left side)
+            toggle_x = x - 40
+            toggle_y = current_y + 2
+            
+            if enabled:
+                toggle_art = config.BUTTON_ENABLED
+                toggle_pressed_art = config.BUTTON_ENABLED_PRESSED
+                system_color = "#00FF00" if active else "#FFFF00"
+                toggle_tooltip = f"Disable {system_name}"
+            else:
+                toggle_art = config.BUTTON_DISABLE
+                toggle_pressed_art = config.BUTTON_DISABLE_PRESSED
+                system_color = "#FF0000"
+                toggle_tooltip = f"Enable {system_name}"
+            
+            Gumps.AddButton(gd, toggle_x, toggle_y, toggle_art, toggle_pressed_art, enable_button_id, 1, 0)
+            Gumps.AddTooltip(gd, toggle_tooltip)
+            
+            # Settings button (right side)
+            settings_x = x + width - 25
+            settings_y = current_y + 2
+            Gumps.AddButton(gd, settings_x, settings_y, config.BUTTON_SETTINGS, config.BUTTON_SETTINGS_PRESSED, settings_button_id, 1, 0)
+            Gumps.AddTooltip(gd, f"Open Bot Settings")
+            
+            # System summary line
+            if enabled and active:
+                status_display = f'<basefont color="#FFFF00" size="2"><b>{status_text}</b></basefont>'
+            elif enabled:
+                status_display = f'<basefont color="#00FF00" size="2"><b>{status_text}</b></basefont>'
+            else:
+                status_display = f'<basefont color="#888888" size="2"><b>Disabled</b></basefont>'
+            
+            summary_line = f'<basefont color="{system_color}" size="3"><b>{system_name}</b></basefont> - {status_display}'
+            
+            # Add the summary line (with space for buttons on both sides)
+            line_x = x + 5  # Small margin from toggle button
+            line_width = width - 35  # Leave space for settings button
+            Gumps.AddHtml(gd, line_x, current_y, line_width, 20, summary_line, False, False)
+            
+            return current_y + 25  # Return Y position after this line
     
     @staticmethod
     def create_status_gump():
-        """Create and display the main status GUMP"""
+        """Create and display the appropriate GUMP based on current state"""
         config = BotConfig()
         messages = BotMessages()
         status = SystemStatus()
@@ -1010,12 +1067,20 @@ class GumpInterface:
             # Close any existing GUMP to ensure clean state
             Gumps.CloseGump(config.GUMP_ID)
             
-            # Determine which GUMP to create based on state
-            if status.gump_minimized:
+            # Determine which GUMP to create based on current state
+            current_state = status.get_gump_state()
+            
+            if current_state == GumpState.CLOSED:
+                # Don't create any GUMP
+                return
+            elif current_state == GumpState.MAIN_MINIMIZED or status.gump_minimized:
                 GumpInterface.create_minimized_gump()
                 status.set_gump_state(GumpState.MAIN_MINIMIZED)
+            elif current_state == GumpState.BOT_SETTINGS:
+                GumpInterface.create_bot_settings_gump()
             else:
-                GumpInterface.create_full_gump()
+                # Default to main GUMP (MAIN_FULL or unknown state)
+                GumpInterface.create_main_gump_new()
                 status.set_gump_state(GumpState.MAIN_FULL)
                 
         except Exception as e:
@@ -1075,16 +1140,6 @@ class GumpInterface:
         
         # Auto Heal System Section with integrated toggle button
         current_y = GumpInterface.GumpSection.create_auto_heal_status_section(gd, section_x, current_y, section_width)
-        
-        # Example: Adding new sections is now easy with the reusable component
-        # current_y += 10  # Add spacing
-        # current_y = GumpInterface.GumpSection.create_section(
-        #     gd, "COMBAT SYSTEM", section_x, current_y, section_width,
-        #     content_lines=[
-        #         {'text': 'Status: <basefont color="#00FF00" size="3"><b>READY</b></basefont>', 'color': '#FFFFFF'},
-        #         {'text': 'Targets: <basefont color="#FFFF00" size="3"><b>3</b></basefont>', 'color': '#FFFFFF'}
-        #     ]
-        # )
         
         # Compact button layout in bottom area
         
@@ -1233,11 +1288,257 @@ class GumpInterface:
                     # Force update of displayed values and recreate GUMP
                     status.check_gump_data_changed()  # This will update the cached values
                     GumpInterface.create_status_gump()
+                
+                elif button_pressed == 10:  # Open Bot Settings GUMP
+                    Logger.info("[DexBot] Opening Bot Settings")
+                    status.set_gump_state(GumpState.BOT_SETTINGS)
+                    GumpInterface.create_bot_settings_gump()
+                
+                elif button_pressed == 20:  # Back to Main GUMP (from Bot Settings)
+                    Logger.info("[DexBot] Returning to main GUMP")
+                    status.set_gump_state(GumpState.MAIN_FULL)
+                    GumpInterface.create_status_gump()
+                
+                elif button_pressed == 21:  # Toggle Bandage Healing (in Bot Settings)
+                    config.BANDAGE_HEALING_ENABLED = not config.BANDAGE_HEALING_ENABLED
+                    status_msg = "enabled" if config.BANDAGE_HEALING_ENABLED else "disabled"
+                    Logger.info(f"[DexBot] Bandage healing {status_msg} via Settings GUMP")
+                    # Save settings to config file
+                    if config.save_settings():
+                        Logger.debug("[DexBot] Settings saved to config files")
+                    # Recreate the Bot Settings GUMP to show updated state
+                    GumpInterface.create_bot_settings_gump()
+                
+                elif button_pressed == 22:  # Toggle Potion Healing (in Bot Settings)
+                    config.POTION_HEALING_ENABLED = not config.POTION_HEALING_ENABLED
+                    status_msg = "enabled" if config.POTION_HEALING_ENABLED else "disabled"
+                    Logger.info(f"[DexBot] Potion healing {status_msg} via Settings GUMP")
+                    # Save settings to config file
+                    if config.save_settings():
+                        Logger.debug("[DexBot] Settings saved to config files")
+                    # Recreate the Bot Settings GUMP to show updated state
+                    GumpInterface.create_bot_settings_gump()
                     
         except Exception as e:
             Logger.debug(f"GUMP response handling error: {str(e)}")
         
         return True  # GUMP is still active
+
+    @staticmethod
+    def create_main_gump_new():
+        """Create the new modular main GUMP with system summary lines"""
+        config = BotConfig()
+        messages = BotMessages()
+        status = SystemStatus()
+        
+        # Get current status information
+        runtime_minutes = status.get_runtime_minutes()
+        
+        # Create GUMP using proper Razor Enhanced pattern
+        gd = Gumps.CreateGump(movable=True)
+        Gumps.AddPage(gd, 0)
+        
+        # Background
+        Gumps.AddBackground(gd, 0, 0, config.GUMP_WIDTH, config.GUMP_HEIGHT, 30546)
+        Gumps.AddAlphaRegion(gd, 0, 0, config.GUMP_WIDTH, config.GUMP_HEIGHT)
+        
+        # Add title at the top center of the gump
+        Gumps.AddHtml(gd, 70, 5, config.GUMP_WIDTH - 20, 25, f'<center><basefont color="#FFD700" size="5"><b>{messages.GUMP_TITLE}</b></basefont></center>', False, False)
+        
+        # Window control buttons in upper right corner
+        # Close Button
+        close_button_x = config.GUMP_WIDTH - 40
+        close_button_y = 5
+        Gumps.AddButton(gd, close_button_x, close_button_y, config.BUTTON_CANCEL, config.BUTTON_CANCEL_PRESSED, 4, 1, 0)
+        Gumps.AddTooltip(gd, "Close Interface")
+        
+        # Minimize Button
+        minimize_button_x = config.GUMP_WIDTH - 70
+        minimize_button_y = 5
+        Gumps.AddButton(gd, minimize_button_x, minimize_button_y, config.BUTTON_MINIMIZE_NORMAL, config.BUTTON_MINIMIZE_PRESSED, 3, 1, 0)
+        Gumps.AddTooltip(gd, "Minimize Interface")
+        
+        # Add online status and runtime just below the title
+        Gumps.AddHtml(gd, 80, 30, config.GUMP_WIDTH - 20, 20, f'<center><basefont color="#00FF00" size="3"><b>● {messages.GUMP_STATUS_ONLINE}</b></basefont> <basefont color="#CCCCCC" size="2">| Runtime: </basefont><basefont color="#FFFFFF" size="3"><b>{runtime_minutes}m</b></basefont></center>', False, False)
+        
+        # System summary section
+        section_x = 65  # Centered position for system lines
+        section_width = config.GUMP_WIDTH - 130  # Leave space for buttons on both sides
+        current_y = 65
+        
+        # Player Status Section (keep as-is for now)
+        current_y = GumpInterface.GumpSection.create_player_status_section(gd, section_x, current_y, section_width)
+        current_y += 15  # Add spacing
+        
+        # Systems header
+        Gumps.AddHtml(gd, section_x, current_y, section_width, 20, f'<center><basefont color="#87CEEB" size="3"><b>SYSTEMS</b></basefont></center>', False, False)
+        current_y += 25
+        
+        # Auto Heal System Summary Line
+        heal_status_text = "Healing..." if status.healing_active else "Ready"
+        current_y = GumpInterface.GumpSection.create_system_summary_line(
+            gd, section_x, current_y, section_width,
+            system_name="CORE BOT",
+            enabled=config.HEALING_ENABLED,
+            active=status.healing_active,
+            status_text=heal_status_text,
+            enable_button_id=1,  # Toggle Auto Heal
+            settings_button_id=10  # Open Bot Settings
+        )
+        
+        # Debug Button - positioned in bottom left corner
+        debug_button_x = 20
+        debug_button_y = config.GUMP_HEIGHT - 35
+        
+        if config.DEBUG_MODE:
+            Gumps.AddButton(gd, debug_button_x, debug_button_y, config.BUTTON_DEBUG_ENABLED, config.BUTTON_DEBUG_ENABLED_PRESSED, 2, 1, 0)
+            debug_status = "ON"
+            debug_color = "#00BFFF"
+        else:
+            Gumps.AddButton(gd, debug_button_x, debug_button_y, config.BUTTON_DEBUG_DISABLED, config.BUTTON_DEBUG_DISABLED_PRESSED, 2, 1, 0)
+            debug_status = "OFF"
+            debug_color = "#888888"
+        Gumps.AddTooltip(gd, f"Toggle Debug Mode (Currently {debug_status})")
+        
+        # Debug button label
+        debug_labels = f"""
+        <basefont color="{debug_color}" size="2"><b>DEBUG</b></basefont><br>
+        <basefont color="#CCCCCC" size="1">{debug_status}</basefont>
+        """
+        Gumps.AddHtml(gd, debug_button_x - 3, debug_button_y + 15, 60, 25, debug_labels, False, False)
+        
+        # Send the GUMP
+        Gumps.SendGump(config.GUMP_ID, Player.Serial, config.GUMP_X, config.GUMP_Y, gd.gumpDefinition, gd.gumpStrings)
+        
+        Logger.debug("New modular main GUMP created and displayed")
+
+    @staticmethod
+    def create_bot_settings_gump():
+        """Create the Bot Settings GUMP with detailed configuration options"""
+        config = BotConfig()
+        messages = BotMessages()
+        status = SystemStatus()
+        
+        # Create GUMP using proper Razor Enhanced pattern
+        gd = Gumps.CreateGump(movable=True)
+        Gumps.AddPage(gd, 0)
+        
+        # Background (slightly taller and wider for more options and longer text)
+        settings_height = 300
+        settings_width = 450  # Increased width to accommodate longer text
+        Gumps.AddBackground(gd, 0, 0, settings_width, settings_height, 30546)
+        Gumps.AddAlphaRegion(gd, 0, 0, settings_width, settings_height)
+        
+        # Title
+        Gumps.AddHtml(gd, 50, 5, settings_width - 20, 25, f'<center><basefont color="#FFD700" size="5"><b>BOT SETTINGS</b></basefont></center>', False, False)
+        
+        # Back button in upper left corner
+        back_button_x = 10
+        back_button_y = 5
+        Gumps.AddButton(gd, back_button_x, back_button_y, config.BUTTON_SETTINGS, config.BUTTON_SETTINGS_PRESSED, 20, 1, 0)  # Button ID 20 for back
+        Gumps.AddTooltip(gd, "Back to Main GUMP")
+        
+        # Close Button in upper right corner
+        close_button_x = settings_width - 30
+        close_button_y = 5
+        Gumps.AddButton(gd, close_button_x, close_button_y, config.BUTTON_CANCEL, config.BUTTON_CANCEL_PRESSED, 4, 1, 0)
+        Gumps.AddTooltip(gd, "Close Interface")
+        
+        # Content area
+        section_x = 20
+        section_width = settings_width - 40
+        current_y = 40
+        
+        # System Status Section
+        system_status = "ENABLED" if config.HEALING_ENABLED else "DISABLED"
+        system_color = "#00FF00" if config.HEALING_ENABLED else "#FF0000"
+        status_text = "Healing..." if status.healing_active else "Ready"
+        
+        status_line = f'<basefont color="#87CEEB" size="3"><b>System Status:</b></basefont> <basefont color="{system_color}" size="3"><b>{system_status}</b></basefont>'
+        if config.HEALING_ENABLED:
+            status_line += f' <basefont color="#CCCCCC" size="2">({status_text})</basefont>'
+        
+        Gumps.AddHtml(gd, section_x, current_y, section_width, 20, status_line, False, False)
+        current_y += 30
+        
+        # Healing Methods Section
+        current_y = GumpInterface.GumpSection.create_section(
+            gd, "HEALING METHODS", section_x, current_y, section_width,
+            title_color="#87CEEB"
+        )
+        current_y += 5
+        
+        # Bandage Healing Toggle
+        bandage_toggle_x = section_x + 10
+        bandage_toggle_y = current_y + 2
+        if config.BANDAGE_HEALING_ENABLED:
+            bandage_art = config.BUTTON_ENABLED
+            bandage_pressed_art = config.BUTTON_ENABLED_PRESSED
+            bandage_status = "ENABLED"
+            bandage_color = "#00FF00"
+        else:
+            bandage_art = config.BUTTON_DISABLE
+            bandage_pressed_art = config.BUTTON_DISABLE_PRESSED
+            bandage_status = "DISABLED"
+            bandage_color = "#FF0000"
+            
+        Gumps.AddButton(gd, bandage_toggle_x, bandage_toggle_y, bandage_art, bandage_pressed_art, 21, 1, 0)  # Button ID 21
+        Gumps.AddTooltip(gd, f"Toggle Bandage Healing ({'ON' if config.BANDAGE_HEALING_ENABLED else 'OFF'})")
+        
+        bandage_count = Items.FindByID(config.BANDAGE_ID, -1, Player.Backpack.Serial, config.SEARCH_RANGE)
+        bandage_amount = bandage_count.Amount if bandage_count else 0
+        bandage_line = f'<basefont color="#FFFFFF" size="3"><b>Bandage Healing:</b></basefont> <basefont color="{bandage_color}" size="2"><b>{bandage_status}</b></basefont> <basefont color="#CCCCCC" size="2">| Available: </basefont><basefont color="#FFFFFF" size="2"><b>{bandage_amount}</b></basefont> <basefont color="#CCCCCC" size="2">| Used: </basefont><basefont color="#FFFFFF" size="2"><b>{status.bandage_count}</b></basefont>'
+        
+        Gumps.AddHtml(gd, section_x + 50, current_y + 4, section_width - 50, 15, bandage_line, False, False)
+        current_y += 25  # Original spacing restored
+        
+        # Potion Healing Toggle
+        potion_toggle_x = section_x + 10
+        potion_toggle_y = current_y + 2
+        if config.POTION_HEALING_ENABLED:
+            potion_art = config.BUTTON_ENABLED
+            potion_pressed_art = config.BUTTON_ENABLED_PRESSED
+            potion_status = "ENABLED"
+            potion_color = "#00FF00"
+        else:
+            potion_art = config.BUTTON_DISABLE
+            potion_pressed_art = config.BUTTON_DISABLE_PRESSED
+            potion_status = "DISABLED"
+            potion_color = "#FF0000"
+            
+        Gumps.AddButton(gd, potion_toggle_x, potion_toggle_y, potion_art, potion_pressed_art, 22, 1, 0)  # Button ID 22
+        Gumps.AddTooltip(gd, f"Toggle Potion Healing ({'ON' if config.POTION_HEALING_ENABLED else 'OFF'})")
+        
+        heal_potion_count = Items.FindByID(config.HEAL_POTION_ID, -1, Player.Backpack.Serial, config.SEARCH_RANGE)
+        heal_potion_amount = heal_potion_count.Amount if heal_potion_count else 0
+        potion_line = f'<basefont color="#FFFFFF" size="3"><b>Potion Healing:</b></basefont> <basefont color="{potion_color}" size="2"><b>{potion_status}</b></basefont> <basefont color="#CCCCCC" size="2">| Available: </basefont><basefont color="#FFFFFF" size="2"><b>{heal_potion_amount}</b></basefont> <basefont color="#CCCCCC" size="2">| Used: </basefont><basefont color="#FFFFFF" size="2"><b>{status.heal_potion_count}</b></basefont>'
+        
+        Gumps.AddHtml(gd, section_x + 50, current_y + 4, section_width - 50, 15, potion_line, False, False)
+        current_y += 25
+        
+        # Add spacing between sections (same as between System Status and Healing Methods)
+        current_y += 30
+        
+        # Health Thresholds Section
+        current_y = GumpInterface.GumpSection.create_section(
+            gd, "HEALTH THRESHOLDS", section_x, current_y, section_width,
+            content_lines=[
+                {
+                    'text': f'Healing Threshold: <basefont color="#FFFF00" size="3"><b>{config.HEALING_THRESHOLD_PERCENTAGE}%</b></basefont> <basefont color="#CCCCCC" size="2">(Start healing below this %)</basefont>',
+                    'color': '#FFFFFF'
+                },
+                {
+                    'text': f'Critical Health: <basefont color="#FF6B6B" size="3"><b>{config.CRITICAL_HEALTH_THRESHOLD}%</b></basefont> <basefont color="#CCCCCC" size="2">(Use potions for fast healing)</basefont>',
+                    'color': '#FFFFFF'
+                }
+            ],
+            title_color="#87CEEB"
+        )
+        
+        # Send the GUMP
+        Gumps.SendGump(config.GUMP_ID, Player.Serial, config.GUMP_X, config.GUMP_Y, gd.gumpDefinition, gd.gumpStrings)
+        
+        Logger.debug("Bot Settings GUMP created and displayed")
 
 def update_gump_system():
     """Update the GUMP system - handle responses and periodic updates with real-time health tracking"""
@@ -1312,6 +1613,9 @@ def run_dexbot():
     
     Logger.info(messages.ACTIVE)
     
+    # Initialize GUMP system - set initial state to show main GUMP
+    status.set_gump_state(GumpState.MAIN_FULL)
+    
     # Create initial status GUMP
     GumpInterface.create_status_gump()
     Logger.info("[DexBot] Status GUMP created - use buttons to control bot")
@@ -1348,14 +1652,6 @@ def run_dexbot():
             if config.HEALING_ENABLED:
                 process_healing_journal()
                 execute_auto_heal_system()
-            
-            # TODO: Add other bot systems here
-            # if config.COMBAT_ENABLED:
-            #     run_combat_system()
-            # if config.LOOTING_ENABLED:
-            #     run_looting_system()
-            # if config.FISHING_ENABLED:
-            #     run_fishing_system()
             
             # Increment runtime counter and main loop delay
             status.increment_runtime()
