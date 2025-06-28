@@ -1037,7 +1037,7 @@ class GumpInterface:
             settings_x = x + width - 25
             settings_y = current_y + 2
             Gumps.AddButton(gd, settings_x, settings_y, config.BUTTON_SETTINGS, config.BUTTON_SETTINGS_PRESSED, settings_button_id, 1, 0)
-            Gumps.AddTooltip(gd, f"Open {system_name} Settings")
+            Gumps.AddTooltip(gd, f"Open Bot Settings")
             
             # System summary line
             if enabled and active:
