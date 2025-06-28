@@ -26,6 +26,7 @@ This document tracks planned features, current development tasks, and their impl
   - ✅ Add system status indicators (active/inactive)
   - ✅ Add settings GUMP access buttons
   - ✅ Test main GUMP navigation flow
+  - ✅ Fix back button icon consistency (use settings icon)
 
 ---
 
