@@ -1378,7 +1378,7 @@ class GumpInterface:
         heal_status_text = "Healing..." if status.healing_active else "Ready"
         current_y = GumpInterface.GumpSection.create_system_summary_line(
             gd, section_x, current_y, section_width,
-            system_name="AUTO HEAL",
+            system_name="CORE BOT",
             enabled=config.HEALING_ENABLED,
             active=status.healing_active,
             status_text=heal_status_text,
