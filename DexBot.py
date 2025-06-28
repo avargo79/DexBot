@@ -253,6 +253,9 @@ class GumpState:
     CLOSED = "closed"
     MAIN_FULL = "main_full"
     MAIN_MINIMIZED = "main_minimized"
+    AUTO_HEAL_SETTINGS = "auto_heal_settings"
+    COMBAT_SETTINGS = "combat_settings"
+    LOOTING_SETTINGS = "looting_settings"
 
 # ===========================================
 # CONSTANTS AND CONFIGURATION
@@ -367,6 +370,8 @@ class BotConfig:
         self.BUTTON_DEBUG_DISABLED_PRESSED = 4004
         self.BUTTON_SETTINGS = 4014
         self.BUTTON_SETTINGS_PRESSED = 4016
+        self.BUTTON_BACK = 4001
+        self.BUTTON_BACK_PRESSED = 4003
     
     def save_settings(self) -> bool:
         """Save current settings back to configuration files"""
@@ -998,6 +1003,70 @@ class GumpInterface:
             Gumps.AddHtml(gd, x + 25, current_y + 4, width - 25, 15, toggle_labels, False, False)
             
             return current_y + 25  # Return Y position after both lines
+        
+        @staticmethod
+        def create_system_summary_line(gd, x, y, width, system_name, enabled, active, status_text, 
+                                     enable_button_id, settings_button_id):
+            """
+            Create a single-line system summary with toggle, name, status, and settings button
+            
+            Args:
+                gd: Gump definition object
+                x, y: Position coordinates
+                width: Line width
+                system_name: Display name of the system (e.g., "AUTO HEAL")
+                enabled: Whether the system is enabled
+                active: Whether the system is currently active/working
+                status_text: Status description (e.g., "Ready", "Healing...", "Disabled")
+                enable_button_id: Button ID for enable/disable toggle
+                settings_button_id: Button ID for opening settings GUMP
+            
+            Returns:
+                The Y position after this line (for positioning next elements)
+            """
+            config = BotConfig()
+            current_y = y
+            
+            # Enable/Disable toggle button (left side)
+            toggle_x = x - 40
+            toggle_y = current_y + 2
+            
+            if enabled:
+                toggle_art = config.BUTTON_ENABLED
+                toggle_pressed_art = config.BUTTON_ENABLED_PRESSED
+                system_color = "#00FF00" if active else "#FFFF00"
+                toggle_tooltip = f"Disable {system_name}"
+            else:
+                toggle_art = config.BUTTON_DISABLE
+                toggle_pressed_art = config.BUTTON_DISABLE_PRESSED
+                system_color = "#FF0000"
+                toggle_tooltip = f"Enable {system_name}"
+            
+            Gumps.AddButton(gd, toggle_x, toggle_y, toggle_art, toggle_pressed_art, enable_button_id, 1, 0)
+            Gumps.AddTooltip(gd, toggle_tooltip)
+            
+            # Settings button (right side)
+            settings_x = x + width - 25
+            settings_y = current_y + 2
+            Gumps.AddButton(gd, settings_x, settings_y, config.BUTTON_SETTINGS, config.BUTTON_SETTINGS_PRESSED, settings_button_id, 1, 0)
+            Gumps.AddTooltip(gd, f"Open {system_name} Settings")
+            
+            # System summary line
+            if enabled and active:
+                status_display = f'<basefont color="#FFFF00" size="2"><b>{status_text}</b></basefont>'
+            elif enabled:
+                status_display = f'<basefont color="#00FF00" size="2"><b>{status_text}</b></basefont>'
+            else:
+                status_display = f'<basefont color="#888888" size="2"><b>Disabled</b></basefont>'
+            
+            summary_line = f'<basefont color="{system_color}" size="3"><b>{system_name}</b></basefont> - {status_display}'
+            
+            # Add the summary line (with space for buttons on both sides)
+            line_x = x + 5  # Small margin from toggle button
+            line_width = width - 35  # Leave space for settings button
+            Gumps.AddHtml(gd, line_x, current_y, line_width, 20, summary_line, False, False)
+            
+            return current_y + 25  # Return Y position after this line
     
     @staticmethod
     def create_status_gump():
@@ -1015,7 +1084,8 @@ class GumpInterface:
                 GumpInterface.create_minimized_gump()
                 status.set_gump_state(GumpState.MAIN_MINIMIZED)
             else:
-                GumpInterface.create_full_gump()
+                # Use new modular GUMP design for testing
+                GumpInterface.create_main_gump_new()
                 status.set_gump_state(GumpState.MAIN_FULL)
                 
         except Exception as e:
@@ -1233,11 +1303,145 @@ class GumpInterface:
                     # Force update of displayed values and recreate GUMP
                     status.check_gump_data_changed()  # This will update the cached values
                     GumpInterface.create_status_gump()
+                
+                elif button_pressed == 10:  # Open Auto Heal Settings GUMP
+                    Logger.info("[DexBot] Opening Auto Heal Settings (placeholder)")
+                    # TODO: Implement Auto Heal Settings GUMP
+                    # For now, just recreate the main GUMP
+                    GumpInterface.create_status_gump()
+                
+                elif button_pressed == 11:  # Toggle Combat System (future)
+                    Logger.info("[DexBot] Combat System toggle pressed (not implemented)")
+                    GumpInterface.create_status_gump()
+                
+                elif button_pressed == 12:  # Open Combat Settings GUMP (future)
+                    Logger.info("[DexBot] Combat Settings pressed (not implemented)")
+                    GumpInterface.create_status_gump()
+                
+                elif button_pressed == 13:  # Toggle Looting System (future)
+                    Logger.info("[DexBot] Looting System toggle pressed (not implemented)")
+                    GumpInterface.create_status_gump()
+                
+                elif button_pressed == 14:  # Open Looting Settings GUMP (future)
+                    Logger.info("[DexBot] Looting Settings pressed (not implemented)")
+                    GumpInterface.create_status_gump()
                     
         except Exception as e:
             Logger.debug(f"GUMP response handling error: {str(e)}")
         
         return True  # GUMP is still active
+
+    @staticmethod
+    def create_main_gump_new():
+        """Create the new modular main GUMP with system summary lines"""
+        config = BotConfig()
+        messages = BotMessages()
+        status = SystemStatus()
+        
+        # Get current status information
+        runtime_minutes = status.get_runtime_minutes()
+        
+        # Create GUMP using proper Razor Enhanced pattern
+        gd = Gumps.CreateGump(movable=True)
+        Gumps.AddPage(gd, 0)
+        
+        # Background
+        Gumps.AddBackground(gd, 0, 0, config.GUMP_WIDTH, config.GUMP_HEIGHT, 30546)
+        Gumps.AddAlphaRegion(gd, 0, 0, config.GUMP_WIDTH, config.GUMP_HEIGHT)
+        
+        # Add title at the top center of the gump
+        Gumps.AddHtml(gd, 70, 5, config.GUMP_WIDTH - 20, 25, f'<center><basefont color="#FFD700" size="5"><b>{messages.GUMP_TITLE}</b></basefont></center>', False, False)
+        
+        # Window control buttons in upper right corner
+        # Close Button
+        close_button_x = config.GUMP_WIDTH - 40
+        close_button_y = 5
+        Gumps.AddButton(gd, close_button_x, close_button_y, config.BUTTON_CANCEL, config.BUTTON_CANCEL_PRESSED, 4, 1, 0)
+        Gumps.AddTooltip(gd, "Close Interface")
+        
+        # Minimize Button
+        minimize_button_x = config.GUMP_WIDTH - 70
+        minimize_button_y = 5
+        Gumps.AddButton(gd, minimize_button_x, minimize_button_y, config.BUTTON_MINIMIZE_NORMAL, config.BUTTON_MINIMIZE_PRESSED, 3, 1, 0)
+        Gumps.AddTooltip(gd, "Minimize Interface")
+        
+        # Add online status and runtime just below the title
+        Gumps.AddHtml(gd, 80, 30, config.GUMP_WIDTH - 20, 20, f'<center><basefont color="#00FF00" size="3"><b>● {messages.GUMP_STATUS_ONLINE}</b></basefont> <basefont color="#CCCCCC" size="2">| Runtime: </basefont><basefont color="#FFFFFF" size="3"><b>{runtime_minutes}m</b></basefont></center>', False, False)
+        
+        # System summary section
+        section_x = 65  # Centered position for system lines
+        section_width = config.GUMP_WIDTH - 130  # Leave space for buttons on both sides
+        current_y = 65
+        
+        # Player Status Section (keep as-is for now)
+        current_y = GumpInterface.GumpSection.create_player_status_section(gd, section_x, current_y, section_width)
+        current_y += 15  # Add spacing
+        
+        # Systems header
+        Gumps.AddHtml(gd, section_x, current_y, section_width, 20, f'<center><basefont color="#87CEEB" size="3"><b>SYSTEMS</b></basefont></center>', False, False)
+        current_y += 25
+        
+        # Auto Heal System Summary Line
+        heal_status_text = "Healing..." if status.healing_active else "Ready"
+        current_y = GumpInterface.GumpSection.create_system_summary_line(
+            gd, section_x, current_y, section_width,
+            system_name="AUTO HEAL",
+            enabled=config.HEALING_ENABLED,
+            active=status.healing_active,
+            status_text=heal_status_text,
+            enable_button_id=1,  # Toggle Auto Heal
+            settings_button_id=10  # Open Auto Heal Settings
+        )
+        current_y += 5  # Small spacing between systems
+        
+        # Combat System Summary Line (placeholder for future)
+        current_y = GumpInterface.GumpSection.create_system_summary_line(
+            gd, section_x, current_y, section_width,
+            system_name="COMBAT",
+            enabled=config.COMBAT_ENABLED,
+            active=False,  # Not implemented yet
+            status_text="Not Implemented",
+            enable_button_id=11,  # Toggle Combat (future)
+            settings_button_id=12  # Open Combat Settings (future)
+        )
+        current_y += 5
+        
+        # Looting System Summary Line (placeholder for future)
+        current_y = GumpInterface.GumpSection.create_system_summary_line(
+            gd, section_x, current_y, section_width,
+            system_name="LOOTING",
+            enabled=False,  # Not implemented yet
+            active=False,  # Not implemented yet
+            status_text="Not Implemented",
+            enable_button_id=13,  # Toggle Looting (future)
+            settings_button_id=14  # Open Looting Settings (future)
+        )
+        
+        # Debug Button - positioned in bottom left corner
+        debug_button_x = 20
+        debug_button_y = config.GUMP_HEIGHT - 35
+        
+        if config.DEBUG_MODE:
+            Gumps.AddButton(gd, debug_button_x, debug_button_y, config.BUTTON_DEBUG_ENABLED, config.BUTTON_DEBUG_ENABLED_PRESSED, 2, 1, 0)
+            debug_status = "ON"
+            debug_color = "#00BFFF"
+        else:
+            Gumps.AddButton(gd, debug_button_x, debug_button_y, config.BUTTON_DEBUG_DISABLED, config.BUTTON_DEBUG_DISABLED_PRESSED, 2, 1, 0)
+            debug_status = "OFF"
+            debug_color = "#888888"
+        Gumps.AddTooltip(gd, f"Toggle Debug Mode (Currently {debug_status})")
+        
+        # Debug button label
+        debug_labels = f"""
+        <basefont color="{debug_color}" size="2"><b>DEBUG</b></basefont><br>
+        <basefont color="#CCCCCC" size="1">{debug_status}</basefont>
+        """
+        Gumps.AddHtml(gd, debug_button_x - 3, debug_button_y + 15, 60, 25, debug_labels, False, False)
+        
+        # Send the GUMP
+        Gumps.SendGump(config.GUMP_ID, Player.Serial, config.GUMP_X, config.GUMP_Y, gd.gumpDefinition, gd.gumpStrings)
+        
+        Logger.debug("New modular main GUMP created and displayed")
 
 def update_gump_system():
     """Update the GUMP system - handle responses and periodic updates with real-time health tracking"""

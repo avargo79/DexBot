@@ -19,12 +19,12 @@ This document tracks planned features, current development tasks, and their impl
 - **Description**: Revamp main GUMP to support modular system interfaces
 - **Prerequisites**: Current interface system stable ✅
 - **Tasks**:
-  - ⚠️ Design new main GUMP layout with system summary lines
-  - 🔲 Implement GUMP state management system
-  - 🔲 Create navigation framework between GUMPs
-  - 🔲 Add system enable/disable toggle buttons
-  - 🔲 Add system status indicators (active/inactive)
-  - 🔲 Add settings GUMP access buttons
+  - ✅ Design new main GUMP layout with system summary lines
+  - ✅ Implement GUMP state management system
+  - ⚠️ Create navigation framework between GUMPs
+  - ✅ Add system enable/disable toggle buttons
+  - ✅ Add system status indicators (active/inactive)
+  - ✅ Add settings GUMP access buttons
   - 🔲 Test main GUMP navigation flow
 
 ---
@@ -50,53 +50,35 @@ This document tracks planned features, current development tasks, and their impl
 
 ---
 
-## 🚀 Next Sprint: GUMP Interface Revamp
+## 🚀 Next Sprint: Settings GUMPs Implementation
 
-### 🔲 Main GUMP Redesign (PLANNED)
-- **Priority**: HIGH
-- **Status**: 🔲 NOT STARTED
-- **Assigned**: TBD
-- **Estimated Effort**: 1-2 weeks
-- **Description**: Revamp main GUMP to support modular system interfaces
-- **Prerequisites**: Current interface system stable ✅
-- **Tasks**:
-  - 🔲 Design new main GUMP layout with system summary lines
-  - 🔲 Implement GUMP state management system
-  - 🔲 Create navigation framework between GUMPs
-  - 🔲 Add system enable/disable toggle buttons
-  - 🔲 Add system status indicators (active/inactive)
-  - 🔲 Add settings GUMP access buttons
-  - 🔲 Test main GUMP navigation flow
-
-### 🔲 Auto Heal Settings GUMP (PLANNED)
+### 🔲 Auto Heal Settings GUMP (NEXT UP)
 - **Priority**: HIGH
 - **Status**: 🔲 NOT STARTED
 - **Assigned**: TBD
 - **Estimated Effort**: 3-5 days
-- **Description**: Move Auto Heal settings into dedicated GUMP
-- **Dependencies**: Main GUMP Redesign
+- **Description**: Create dedicated settings GUMP for Auto Heal configuration
+- **Dependencies**: Main GUMP Redesign ✅
 - **Tasks**:
   - 🔲 Design Auto Heal settings GUMP layout
-  - 🔲 Move healing toggles to dedicated GUMP
   - 🔲 Add detailed healing configuration options
   - 🔲 Implement back navigation to main GUMP
-  - 🔲 Add Auto Heal system summary line to main GUMP
+  - 🔲 Add threshold sliders and timers configuration
   - 🔲 Test Auto Heal settings workflow
 
-### 🔲 GUMP State Management System (PLANNED)
+### 🔲 GUMP Navigation Framework (NEXT UP)
 - **Priority**: HIGH
 - **Status**: 🔲 NOT STARTED
 - **Assigned**: TBD
-- **Estimated Effort**: 3-4 days
-- **Description**: Implement robust GUMP state tracking and navigation
-- **Dependencies**: Main GUMP Redesign
+- **Estimated Effort**: 2-3 days
+- **Description**: Complete the navigation system between different GUMPs
+- **Dependencies**: Main GUMP Redesign ✅
 - **Tasks**:
-  - 🔲 Create GUMP state enumeration (MAIN, AUTO_HEAL_SETTINGS, etc.)
-  - 🔲 Implement state transition logic
+  - 🔲 Implement proper state transitions for settings GUMPs
   - 🔲 Add navigation history tracking
   - 🔲 Create consistent back button functionality
   - 🔲 Add state validation and error handling
-  - 🔲 Test state transitions and edge cases
+  - 🔲 Test all navigation paths and edge cases
 
 ### 🔲 System Registration Framework (PLANNED)
 - **Priority**: MEDIUM
