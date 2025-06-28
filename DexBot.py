@@ -1289,34 +1289,34 @@ class GumpInterface:
                     status.check_gump_data_changed()  # This will update the cached values
                     GumpInterface.create_status_gump()
                 
-                elif button_pressed == 10:  # Open Auto Heal Settings GUMP
-                    Logger.info("[DexBot] Opening Auto Heal Settings")
+                elif button_pressed == 10:  # Open Bot Settings GUMP
+                    Logger.info("[DexBot] Opening Bot Settings")
                     status.set_gump_state(GumpState.AUTO_HEAL_SETTINGS)
                     GumpInterface.create_auto_heal_settings_gump()
                 
-                elif button_pressed == 20:  # Back to Main GUMP (from Auto Heal Settings)
+                elif button_pressed == 20:  # Back to Main GUMP (from Bot Settings)
                     Logger.info("[DexBot] Returning to main GUMP")
                     status.set_gump_state(GumpState.MAIN_FULL)
                     GumpInterface.create_status_gump()
                 
-                elif button_pressed == 21:  # Toggle Bandage Healing (in Auto Heal Settings)
+                elif button_pressed == 21:  # Toggle Bandage Healing (in Bot Settings)
                     config.BANDAGE_HEALING_ENABLED = not config.BANDAGE_HEALING_ENABLED
                     status_msg = "enabled" if config.BANDAGE_HEALING_ENABLED else "disabled"
                     Logger.info(f"[DexBot] Bandage healing {status_msg} via Settings GUMP")
                     # Save settings to config file
                     if config.save_settings():
                         Logger.debug("[DexBot] Settings saved to config files")
-                    # Recreate the Auto Heal Settings GUMP to show updated state
+                    # Recreate the Bot Settings GUMP to show updated state
                     GumpInterface.create_auto_heal_settings_gump()
                 
-                elif button_pressed == 22:  # Toggle Potion Healing (in Auto Heal Settings)
+                elif button_pressed == 22:  # Toggle Potion Healing (in Bot Settings)
                     config.POTION_HEALING_ENABLED = not config.POTION_HEALING_ENABLED
                     status_msg = "enabled" if config.POTION_HEALING_ENABLED else "disabled"
                     Logger.info(f"[DexBot] Potion healing {status_msg} via Settings GUMP")
                     # Save settings to config file
                     if config.save_settings():
                         Logger.debug("[DexBot] Settings saved to config files")
-                    # Recreate the Auto Heal Settings GUMP to show updated state
+                    # Recreate the Bot Settings GUMP to show updated state
                     GumpInterface.create_auto_heal_settings_gump()
                     
         except Exception as e:
@@ -1383,7 +1383,7 @@ class GumpInterface:
             active=status.healing_active,
             status_text=heal_status_text,
             enable_button_id=1,  # Toggle Auto Heal
-            settings_button_id=10  # Open Auto Heal Settings
+            settings_button_id=10  # Open Bot Settings
         )
         
         # Debug Button - positioned in bottom left corner
@@ -1414,7 +1414,7 @@ class GumpInterface:
 
     @staticmethod
     def create_auto_heal_settings_gump():
-        """Create the Auto Heal Settings GUMP with detailed configuration options"""
+        """Create the Bot Settings GUMP with detailed configuration options"""
         config = BotConfig()
         messages = BotMessages()
         status = SystemStatus()
@@ -1430,7 +1430,7 @@ class GumpInterface:
         Gumps.AddAlphaRegion(gd, 0, 0, settings_width, settings_height)
         
         # Title
-        Gumps.AddHtml(gd, 50, 5, settings_width - 20, 25, f'<center><basefont color="#FFD700" size="5"><b>AUTO HEAL SETTINGS</b></basefont></center>', False, False)
+        Gumps.AddHtml(gd, 50, 5, settings_width - 20, 25, f'<center><basefont color="#FFD700" size="5"><b>BOT SETTINGS</b></basefont></center>', False, False)
         
         # Back button in upper left corner
         back_button_x = 10
@@ -1538,7 +1538,7 @@ class GumpInterface:
         # Send the GUMP
         Gumps.SendGump(config.GUMP_ID, Player.Serial, config.GUMP_X, config.GUMP_Y, gd.gumpDefinition, gd.gumpStrings)
         
-        Logger.debug("Auto Heal Settings GUMP created and displayed")
+        Logger.debug("Bot Settings GUMP created and displayed")
 
 def update_gump_system():
     """Update the GUMP system - handle responses and periodic updates with real-time health tracking"""

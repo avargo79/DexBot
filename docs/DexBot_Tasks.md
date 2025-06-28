@@ -39,7 +39,7 @@ This document tracks planned features, current development tasks, and their impl
 - **Status**: ✅ COMPLETED
 - **Assigned**: RugRat79
 - **Due Date**: June 28, 2025
-- **Description**: Integrate Auto Heal settings into main GUMP interface
+- **Description**: Integrate Bot settings into main GUMP interface
 - **Tasks**:
   - ✅ Remove separate settings GUMP
   - ✅ Add healing toggles to main interface
@@ -72,7 +72,7 @@ This document tracks planned features, current development tasks, and their impl
 
 ## 🚀 Following Sprint: Settings GUMPs Implementation
 
-### ✅ Auto Heal Settings GUMP (COMPLETED)
+### ✅ Bot Settings GUMP (COMPLETED)
 - **Priority**: HIGH
 - **Status**: ✅ COMPLETED
 - **Assigned**: RugRat79
@@ -80,11 +80,11 @@ This document tracks planned features, current development tasks, and their impl
 - **Description**: Create dedicated settings GUMP for Auto Heal configuration
 - **Dependencies**: Main GUMP Redesign ✅
 - **Tasks**:
-  - ✅ Design Auto Heal settings GUMP layout
+  - ✅ Design Bot settings GUMP layout
   - ✅ Add detailed healing configuration options
   - ✅ Implement back navigation to main GUMP
   - ✅ Add threshold and timing display
-  - ✅ Test Auto Heal settings workflow
+  - ✅ Test Bot settings workflow
 
 ### ✅ GUMP Navigation Framework (COMPLETED)
 - **Priority**: HIGH
