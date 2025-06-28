@@ -1506,7 +1506,7 @@ class GumpInterface:
         # Back button in upper left corner
         back_button_x = 10
         back_button_y = 5
-        Gumps.AddButton(gd, back_button_x, back_button_y, config.BUTTON_BACK, config.BUTTON_BACK_PRESSED, 20, 1, 0)  # Button ID 20 for back
+        Gumps.AddButton(gd, back_button_x, back_button_y, config.BUTTON_SETTINGS, config.BUTTON_SETTINGS_PRESSED, 20, 1, 0)  # Button ID 20 for back
         Gumps.AddTooltip(gd, "Back to Main GUMP")
         
         # Close Button in upper right corner
