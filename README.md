@@ -73,6 +73,7 @@ DexBot/
 ├── docs/                           # Documentation directory
 │   ├── DexBot_PRD.md               # Product Requirements Document
 │   ├── DevOps_Sprint.md            # DevOps sprint tracking document
+│   ├── GitHub_Environment_Setup.md # GitHub environment configuration guide
 │   ├── RazorEnhanced_API_Reference.md # Local API reference documentation
 │   └── DexBot_tasks.md             # Task tracking and development progress
 ├── src/                            # Source code (modular)
@@ -188,10 +189,12 @@ The project includes automated workflows that trigger on changes to the main bra
 1. **Code Quality**: Linting with flake8 and black formatting checks
 2. **Testing**: Automated test suite execution
 3. **Build**: Project validation and bundle creation
-4. **Release**: Automatic release creation with bundle artifacts
-5. **Documentation**: API documentation updates
+4. **Release**: Automatic release creation with bundle artifacts (production environment gated)
+5. **Documentation**: API documentation updates (production environment gated)
 
 **Workflow Status**: Check the build badge at the top of this README.
+
+**Production Releases**: Releases and documentation updates require approval through the GitHub production environment. See [`docs/GitHub_Environment_Setup.md`](docs/GitHub_Environment_Setup.md) for configuration details.
 
 ### 📚 API Documentation
 
