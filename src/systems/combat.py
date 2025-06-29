@@ -421,10 +421,10 @@ class CombatSystem:
                 target_name = target.get('name', 'Unknown')
                 health_info = ""
                 
-                # Add health information if available
+                # Add health percentage if available
                 if target.get('hits', 0) > 0 and target.get('hits_max', 0) > 0:
                     health_percentage = (target['hits'] / target['hits_max']) * 100
-                    health_info = f" [{target['hits']}/{target['hits_max']} - {health_percentage:.0f}%]"
+                    health_info = f" - {health_percentage:.0f}%"
                 
                 display_text = f"TARGET: {target_name}{health_info}"
                 
