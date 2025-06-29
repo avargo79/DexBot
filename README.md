@@ -1,6 +1,6 @@
 # DexBot - Modular Bot System
 
-![Build Status](https://github.com/avargo79/DexBot/workflows/CI-CD/badge.svg)
+![Build Status](https://github.com/avargo79/DexBot/actions/workflows/ci-cd.yml/badge.svg)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Python](https://img.shields.io/badge/python-3.7+-green.svg)
 
