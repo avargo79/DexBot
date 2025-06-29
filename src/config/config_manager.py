@@ -117,8 +117,8 @@ class ConfigManager:
 
     def reload_configs(self) -> None:
         """Reload all configurations from files"""
-        self.main_config = self._load_config(self.main_config_path, {})
-        self.auto_heal_config = self._load_config(self.auto_heal_config_path, {})
+        self.main_config = self._load_config(self.main_config_path, DEFAULT_MAIN_CONFIG)
+        self.auto_heal_config = self._load_config(self.auto_heal_config_path, DEFAULT_AUTO_HEAL_CONFIG)
 
     def get_main_setting(self, key_path: str, default=None):
         """Get setting from main config using dot notation (e.g., 'system_toggles.healing_system_enabled')"""
