@@ -210,6 +210,407 @@ This creates:
 - `docs/RazorEnhanced_API_Reference.md` - Comprehensive API reference
 - `docs/api_reference.json` - Structured API data for programmatic access
 
+## 🔄 Complete Developer Workflow
+
+### AI-First Development Process
+
+This project is designed for **AI-assisted development workflows**. Here's the complete process for adding new features or fixing issues:
+
+#### 1. 🌿 Branch Creation & Setup
+
+```bash
+# Create and switch to feature branch
+git checkout -b feature/your-feature-name
+
+# Verify clean working directory
+git status
+
+# Run initial build to ensure everything works
+./scripts/build.sh  # Unix/Linux/macOS
+# OR
+.\scripts\build.ps1  # Windows PowerShell
+```
+
+#### 2. 📋 Requirements Analysis (AI Prompts)
+
+**Start with these AI prompts to understand the project context:**
+
+```text
+"Please read and analyze the DexBot PRD file (docs/DexBot_PRD.md) and summarize the current feature requirements and project goals."
+
+"Review the task tracking file (docs/DexBot_tasks.md) to understand what features are planned, in progress, or completed."
+
+"Examine the project structure and identify which systems (healing, combat, UI, config) would be affected by implementing [your feature name]."
+
+"What are the key architectural patterns used in this codebase, and how should I follow them when adding new functionality?"
+```
+
+**For specific feature development:**
+
+```text
+"Based on the PRD requirements, help me design a [new system/feature] that integrates with the existing modular architecture."
+
+"What RazorEnhanced API methods would I need for implementing [feature description]? Reference the local API documentation in docs/RazorEnhanced_API_Reference.md."
+
+"Generate a feature implementation plan that follows the existing code structure in src/systems/ and includes proper error handling, logging, and configuration management."
+```
+
+#### 3. 🏗️ Development Phase
+
+**Development workflow with continuous validation:**
+
+```bash
+# Make your changes to src/ directory
+# Then test immediately:
+
+# 1. Run tests
+python -m invoke test
+
+# 2. Check code quality
+python -m invoke lint
+
+# 3. Bundle for testing
+python -m invoke bundle
+
+# 4. Test the bundled version in RazorEnhanced
+# Run dist/DexBot.py and verify functionality
+```
+
+**AI prompts for development:**
+
+```text
+"Review my code changes and ensure they follow the existing patterns for error handling, logging, and configuration management used in this project."
+
+"Help me integrate this new feature with the existing GUMP interface system, following the patterns used in src/ui/gump_interface.py."
+
+"Generate comprehensive error handling for this feature that matches the robustness patterns used throughout the DexBot codebase."
+
+"Create appropriate configuration options for this feature that integrate with the existing JSON config system."
+```
+
+#### 4. 📝 Documentation Updates
+
+**Always update relevant documentation:**
+
+```bash
+# Update these files as needed:
+# - README.md (if user-facing changes)
+# - docs/DexBot_tasks.md (mark tasks complete)
+# - docs/CHANGELOG.md (add your changes)
+# - src/ code comments and docstrings
+```
+
+**AI prompts for documentation:**
+
+```text
+"Help me update the README.md to document this new feature, following the existing format and style."
+
+"Generate comprehensive docstrings for my new functions that match the documentation style used throughout the project."
+
+"Update the CHANGELOG.md with an appropriate entry for this feature that follows the existing format."
+
+"Review the docs/DexBot_tasks.md file and help me update the task status for the features I've implemented."
+```
+
+#### 5. 🧪 Quality Assurance
+
+**Comprehensive testing before commit:**
+
+```bash
+# Full build pipeline
+python -m invoke build
+
+# Verify no linting issues
+python -m invoke lint
+
+# Run all tests
+python -m invoke test
+
+# Test in RazorEnhanced environment
+# 1. Copy dist/DexBot.py to RazorEnhanced Scripts
+# 2. Run and test all functionality
+# 3. Verify GUMP interface works correctly
+# 4. Test error scenarios and edge cases
+```
+
+#### 6. 📤 Commit & Push
+
+```bash
+# Add all changes
+git add .
+
+# Commit with descriptive message
+git commit -m "feat: Add [feature description] with [key capabilities]
+
+- Implemented [specific functionality]
+- Added [configuration options]
+- Updated [relevant documentation]
+- Includes comprehensive error handling and logging"
+
+# Push to your feature branch
+git push origin feature/your-feature-name
+```
+
+#### 7. 🔄 Pull Request Process
+
+**Create PR with comprehensive description:**
+
+```text
+## Feature: [Feature Name]
+
+### Changes Made
+- [ ] Implemented [specific functionality]
+- [ ] Added configuration options in [config file]
+- [ ] Updated GUMP interface with [new controls]
+- [ ] Added comprehensive error handling
+- [ ] Updated documentation
+
+### Testing Performed
+- [ ] All automated tests pass
+- [ ] Linting checks pass
+- [ ] Manual testing in RazorEnhanced
+- [ ] GUMP interface tested
+- [ ] Configuration persistence tested
+- [ ] Error scenarios tested
+
+### Documentation Updates
+- [ ] README.md updated (if user-facing)
+- [ ] CHANGELOG.md updated
+- [ ] Code comments and docstrings added
+- [ ] Task tracking updated
+
+### AI Development Notes
+This feature was developed using AI assistance with focus on:
+- Following existing architectural patterns
+- Maintaining code quality standards
+- Comprehensive error handling
+- Integration with existing systems
+```
+
+#### 8. 🚀 Post-Merge Tasks
+
+**After PR is merged to main:**
+
+```bash
+# Switch back to main
+git checkout main
+
+# Pull latest changes
+git pull origin main
+
+# Clean up feature branch
+git branch -d feature/your-feature-name
+git push origin --delete feature/your-feature-name
+
+# Verify CI/CD pipeline passes
+# Check GitHub Actions for build status
+```
+
+### 🤖 Advanced AI Development Prompts
+
+**For Complex Features:**
+
+```text
+"Design a complete system architecture for [complex feature] that integrates with DexBot's existing modular design, configuration system, and GUMP interface."
+
+"Generate comprehensive error handling strategies for [system name] that account for RazorEnhanced API failures, resource shortages, and user configuration errors."
+
+"Create a performance optimization plan for [feature] that includes caching strategies, adaptive timing, and memory management following the patterns used in the combat system."
+```
+
+**For Code Reviews:**
+
+```text
+"Review this code for adherence to DexBot's architectural patterns, error handling standards, and performance considerations."
+
+"Identify any potential integration issues with existing systems (healing, combat, configuration, UI) and suggest solutions."
+
+"Evaluate this implementation for robustness in the RazorEnhanced environment, considering API limitations and timing constraints."
+```
+
+**For Testing Strategy:**
+
+```text
+"Generate a comprehensive testing strategy for [feature] that covers normal operation, error conditions, resource limitations, and integration with existing systems."
+
+"Create mock scenarios for testing [feature] that simulate various RazorEnhanced game states and API responses."
+```
+
+### 🤖 Fully Automated AI Development Workflow
+
+**Complete End-to-End Feature Implementation:**
+
+For a completely AI-automated workflow, use this comprehensive prompt that handles the entire development cycle:
+
+```text
+"I need you to implement a complete new feature for the DexBot project with full automation. Please perform the following workflow:
+
+**PHASE 1: Analysis & Planning**
+1. Read and analyze docs/DexBot_PRD.md to understand project requirements and goals
+2. Review docs/DexBot_tasks.md to understand current task status and identify where this feature fits
+3. Examine the existing codebase structure in src/ to understand architectural patterns
+4. Review docs/RazorEnhanced_API_Reference.md for relevant API methods needed
+
+**PHASE 2: Feature Design**
+Create a detailed implementation plan for: [FEATURE_DESCRIPTION]
+- Define the system architecture following existing modular patterns
+- Identify required RazorEnhanced API integrations
+- Design configuration schema for config/ JSON files
+- Plan GUMP interface integration if needed
+- Design error handling and logging strategy
+- Plan testing approach
+
+**PHASE 3: Implementation**
+1. Create all necessary source files in appropriate src/ directories
+2. Implement comprehensive error handling and logging
+3. Add configuration options to JSON config files
+4. Update GUMP interface if needed
+5. Follow existing code patterns for consistency
+
+**PHASE 4: Quality Assurance**
+1. Create comprehensive test cases
+2. Ensure code follows project linting standards
+3. Verify integration with existing systems
+4. Test error scenarios and edge cases
+
+**PHASE 5: Documentation**
+1. Update README.md with new feature documentation
+2. Update docs/CHANGELOG.md with appropriate entry
+3. Update docs/DexBot_tasks.md to mark tasks complete
+4. Add comprehensive code comments and docstrings
+
+**PHASE 6: Build & Deployment Preparation**
+1. Ensure all code passes invoke lint checks
+2. Verify invoke test runs successfully
+3. Confirm invoke bundle creates working distribution
+4. Prepare commit message following conventional commit format
+
+Please implement this complete workflow and provide all files, updates, and documentation needed for this feature: [FEATURE_DESCRIPTION]
+
+Requirements:
+- Follow existing architectural patterns exactly
+- Maintain code quality standards throughout
+- Include comprehensive error handling
+- Ensure robust integration with existing systems
+- Provide complete documentation updates
+- Ready for immediate commit and deployment"
+```
+
+**Specific Feature Implementation Examples:**
+
+**For Inventory Management System:**
+```text
+"Implement a complete Inventory Management system for DexBot that automatically manages backpack space, drops low-value items when full, and organizes resources. Follow the complete automated workflow above.
+
+The system should:
+- Monitor backpack capacity in real-time
+- Configure item value priorities via JSON config
+- Integrate with the existing GUMP interface with toggle controls
+- Drop items based on configurable value/weight ratios
+- Log all inventory decisions
+- Handle errors gracefully (full containers, locked items, etc.)
+- Work seamlessly with existing healing/combat systems
+
+Provide complete implementation following all existing patterns."
+```
+
+**For Buff Management System:**
+```text
+"Create a complete Buff Management system for DexBot that maintains strength/agility potions, spell buffs, and other temporary enhancements. Use the full automated development workflow.
+
+Requirements:
+- Auto-cast beneficial spells when they expire
+- Manage potion buffs with configurable thresholds
+- Track buff durations and recast timing
+- Integrate with combat system for combat-specific buffs
+- Add GUMP controls for buff preferences
+- Handle resource shortages and spell failures
+- Configure buff priorities in JSON files
+- Include comprehensive error handling and logging
+
+Implement following all existing architectural patterns."
+```
+
+**For Training System:**
+```text
+"Develop a complete Skill Training system for DexBot that automates skill advancement with resource management and safety features. Execute the full AI development workflow.
+
+System requirements:
+- Configure training methods per skill in JSON config
+- Automate resource gathering for training materials
+- Implement safety features (health monitoring, resource limits)
+- Track skill progress and training efficiency
+- Integrate with existing systems (healing during training)
+- Add training controls to main GUMP interface
+- Handle various training scenarios (combat skills, crafting, etc.)
+- Include comprehensive logging and error recovery
+
+Follow all existing code patterns and quality standards."
+```
+
+**Single-Prompt Complete Automation:**
+
+```text
+"Execute a complete feature development cycle for DexBot using full AI automation:
+
+**TARGET FEATURE:** [Describe your feature here]
+
+**AUTOMATION REQUIREMENTS:**
+1. **Auto-analyze** existing codebase and documentation
+2. **Auto-design** architecture following existing patterns  
+3. **Auto-implement** all code with comprehensive error handling
+4. **Auto-integrate** with existing systems (healing, combat, UI, config)
+5. **Auto-test** with comprehensive validation scenarios
+6. **Auto-document** with README, changelog, and code comments
+7. **Auto-prepare** for deployment with proper file structure
+
+**QUALITY STANDARDS:**
+- Match existing code style and architecture exactly
+- Include robust error handling for RazorEnhanced API limitations
+- Integrate seamlessly with current GUMP interface
+- Add appropriate JSON configuration options
+- Follow existing logging and debugging patterns
+- Ensure compatibility with current systems
+- Include comprehensive inline documentation
+
+**DELIVERABLES:**
+- All source code files ready for src/ directory
+- Updated configuration JSON files
+- GUMP interface modifications
+- Complete documentation updates
+- Test scenarios and validation approach
+- Commit-ready package with proper git workflow
+
+Execute this complete automation and provide all files and documentation needed for immediate integration into the DexBot project."
+```
+
+These prompts enable complete AI automation of the entire development lifecycle, from analysis through deployment preparation.
+
+### 📋 Development Checklist
+
+**Before every commit:**
+- [ ] Code follows existing architectural patterns
+- [ ] Comprehensive error handling implemented
+- [ ] Logging added with appropriate levels
+- [ ] Configuration options added to JSON files
+- [ ] GUMP interface updated if needed
+- [ ] Documentation updated
+- [ ] All tests pass (`invoke test`)
+- [ ] Code quality checks pass (`invoke lint`)
+- [ ] Bundle builds successfully (`invoke bundle`)
+- [ ] Manual testing in RazorEnhanced completed
+- [ ] Task tracking file updated
+
+**Before Pull Request:**
+- [ ] Feature branch up to date with main
+- [ ] All development checklist items complete
+- [ ] CHANGELOG.md updated
+- [ ] README.md updated (if user-facing changes)
+- [ ] Comprehensive PR description written
+- [ ] Screenshots/demos prepared (if UI changes)
+
+This workflow ensures consistent, high-quality development while leveraging AI capabilities for complex feature implementation and code quality maintenance.
+
 ## Quick Start
 
 ### 1. Installation
