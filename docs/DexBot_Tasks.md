@@ -51,6 +51,17 @@ This document tracks planned features, current development tasks, and their impl
 - **FR-024**: Optimize performance of the bot.
 - **FR-025**: Implement a comprehensive logging system.
 
+### ✅ Refactor Configuration Manager
+- **Priority**: High
+- **Status**: Complete
+- **Dependencies**: None
+- **Description**: Refactor the `ConfigManager` to load default configurations from external `.json` files instead of having them hardcoded in the class. This will improve modularity and make it easier to manage default settings.
+- **Sub-tasks**:
+  - ✅ Create `default_main_config.json` and `default_auto_heal_config.json` in `src/config/`.
+  - ✅ Move the hardcoded default dictionaries from `ConfigManager` into these new files.
+  - ✅ Update `ConfigManager` to read these files to get the default settings.
+  - ✅ Modify the `bundle` task in `tasks.py` to prepend the contents of the default config files to the top of the bundled `dist/DexBot.py` script.
+
 ---
 
 ## 🔄 Planned Future Modules

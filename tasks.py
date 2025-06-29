@@ -6,6 +6,8 @@ Run with: python -m invoke <task_name>
 from invoke import task
 import os
 import shutil
+import json
+import pprint
 from pathlib import Path
 
 # Configuration
@@ -152,12 +154,14 @@ def bundle(c):
                 # Prepend default configs
                 try:
                     with open(DEFAULT_MAIN_CONFIG_PATH, 'r', encoding='utf-8') as f:
-                        main_config_content = f.read()
+                        main_config_json = json.load(f)
+                        main_config_content = pprint.pformat(main_config_json, indent=2)
                         out_f.write(f'DEFAULT_MAIN_CONFIG = {main_config_content}\n\n')
                     with open(DEFAULT_AUTO_HEAL_CONFIG_PATH, 'r', encoding='utf-8') as f:
-                        auto_heal_config_content = f.read()
+                        auto_heal_config_json = json.load(f)
+                        auto_heal_config_content = pprint.pformat(auto_heal_config_json, indent=2)
                         out_f.write(f'DEFAULT_AUTO_HEAL_CONFIG = {auto_heal_config_content}\n\n')
-                    print("  📦 Added default configurations")
+                    print("  📦 Added default configurations (as Python dicts)")
                 except Exception as e:
                     print(f"  ⚠️  Warning: Could not prepend default configs: {e}")
                 
