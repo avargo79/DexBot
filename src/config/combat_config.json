@@ -1,0 +1,18 @@
+{
+    "version": "1.0",
+    "last_updated": "2025-06-28",
+    "description": "DexBot Combat System Configuration",
+    "combat_toggles": {
+        "combat_system_enabled": true
+    },
+    "targeting": {
+        "scan_radius": 12,
+        "hostile_color": "0x0021",
+        "target_priority": ["closest", "lowest_health"],
+        "ignore_list": []
+    },
+    "engagement": {
+        "attack_range": 1,
+        "disengage_health_threshold": 30
+    }
+}
