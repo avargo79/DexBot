@@ -10,14 +10,15 @@ License: MIT
 import sys
 import os
 
-# Add the src directory to the Python path so we can import our modules
+# Add the project root and src directory to the Python path
 script_dir = os.path.dirname(os.path.abspath(__file__))
 src_dir = os.path.join(script_dir, "src")
+sys.path.insert(0, script_dir)
 sys.path.insert(0, src_dir)
 
 try:
     # Import and run the modular bot system
-    from src.core.main_loop import run_dexbot
+    from core.main_loop import run_dexbot
     
     # Script entry point
     if __name__ == "__main__":
@@ -25,6 +26,7 @@ try:
         
 except ImportError as e:
     print(f"[DexBot] Import error: {e}")
+    print(f"[DexBot] sys.path: {sys.path}")
     print("[DexBot] Falling back to legacy DexBot.py if available...")
     # If modular import fails, could fall back to the original file
     # but for now we'll just show the error

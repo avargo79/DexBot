@@ -92,17 +92,34 @@ DexBot/
 - Ensure all files are in the correct directory structure shown above
 
 ### 2. Usage
-Run the script from RazorEnhanced using one of these methods:
+For stable usage, it is recommended to run the bundled version of the script.
+
+**1. Bundle the Script**
+First, run the `bundle` task to create a single, optimized script file. This packages all the modules into one file for easy distribution and use.
+
+```bash
+python -m invoke bundle
+```
+
+This will create the file `dist/DexBot.py`.
+
+**2. Run the Bundled Script**
+Run the bundled script from RazorEnhanced using one of these methods:
 
 **Method 1: Direct execution**
 ```python
-exec(open('DexBot/main.py').read())
+exec(open('DexBot/dist/DexBot.py').read())
 ```
 
 **Method 2: RazorEnhanced Scripts interface**
 - Open RazorEnhanced Scripts tab
-- Navigate to DexBot folder
-- Double-click `main.py` to execute
+- Navigate to the `DexBot/dist` folder
+- Double-click `DexBot.py` to execute
+
+**For Developers:**
+If you are actively developing the script, you can run the main entry point directly:
+- `exec(open('DexBot/main.py').read())`
+- Or run `main.py` from the RazorEnhanced Scripts interface.
 
 ### 3. Interface Controls
 - **Enable/Disable Auto Heal**: Click the main toggle button (left side of Auto Heal section)
@@ -216,6 +233,21 @@ See the included documentation files for detailed information:
 - `docs/DexBot_PRD.md` - Product requirements and specifications
 - `docs/DexBot_Rebuild_Summary.md` - Development history and decisions
 - `docs/DexBot_tasks.md` - Task tracking and progress
+
+## Development Tasks
+
+This project uses `invoke` for task automation. The following tasks are available for developers:
+
+*   **`invoke clean`**: Removes build artifacts, caches, and other temporary files.
+*   **`invoke lint`**: Runs the linter to check for code quality and style issues.
+*   **`invoke test`**: Executes the test suite to ensure all components are working correctly.
+*   **`invoke bundle`**: Packages the entire `src` directory into a single distributable file, `dist/DexBot.py`, for easy deployment.
+
+To run a task, use `python -m invoke <task_name>` from the project root. For example:
+
+```bash
+python -m invoke test
+```
 
 ## Contributing
 
