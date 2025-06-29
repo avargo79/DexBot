@@ -12,21 +12,21 @@
   - 2x interval when target is healthy (CPU optimization)
   - Normal interval during active combat
 - **Distance Caching**: Cached distance calculations for improved responsiveness
-- **Cache Cleanup**: Automatic memory management prevents buildup
+- **Cache Management**: Automatic memory management with expiration-based cleanup
 
 #### 🔧 **Technical Enhancements**
 - Added `_get_cached_mobile_data()` and `_cache_mobile_data()` methods
 - Enhanced `_get_distance()` with caching support
 - Created `_get_adaptive_scan_interval()` for intelligent timing
-- Updated `_ensure_health_bar_smart()` for selective health bar opening
-- Added `_cleanup_old_cache()` for memory management
+- Updated `_ensure_health_bar()` for selective health bar opening
 - Improved exception handling with specific error types
+- Automatic cache expiration (expired entries cleaned on access)
 
 #### 📊 **Performance Metrics**
 - **50-80% faster** target scanning performance
 - **60-70% reduction** in redundant API calls
 - **Eliminated 50ms delays** per potential target during scanning
-- **Intelligent memory management** with automatic cache cleanup
+- **Intelligent memory management** with automatic cache expiration
 - **More responsive combat** with adaptive timing
 
 #### 🎯 **Optimized Combat Flow**

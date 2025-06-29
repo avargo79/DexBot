@@ -14,7 +14,7 @@ This document tracks planned features, current development tasks, and their impl
 - **FR-034**: Implement mobile data caching system to reduce API calls by 60-70%.
 - **FR-035**: Implement smart health bar management for selected targets only.
 - **FR-036**: Implement adaptive timing based on combat state for optimal performance.
-- **FR-037**: Implement intelligent cache cleanup to prevent memory buildup.
+- **FR-037**: Implement intelligent cache management to prevent memory buildup.
 - **FR-038**: Implement distance caching for improved responsiveness.
 - **FR-039**: Implement optimized target detection with 50-80% performance improvement.
 - **FR-040**: Implement enhanced exception handling with specific error types.

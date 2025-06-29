@@ -8,7 +8,7 @@ DexBot is a modular bot system for Ultima Online with RazorEnhanced, currently f
 - ✅ **Major Performance Boost**: 50-80% faster target scanning with intelligent caching
 - ✅ **Smart Health Bar Management**: Only opens health bars for selected targets (eliminates delays)
 - ✅ **Adaptive Timing**: Dynamic scan intervals based on combat state for optimal performance
-- ✅ **Memory Optimization**: Intelligent caching with automatic cleanup prevents memory buildup
+- ✅ **Memory Optimization**: Intelligent caching with automatic expiration prevents memory buildup
 - ✅ **API Optimization**: 60-70% reduction in redundant API calls through smart caching
 
 **⚔️ Combat System Enhancement** ✅ COMPLETED:

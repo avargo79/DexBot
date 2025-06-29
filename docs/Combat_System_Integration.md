@@ -9,10 +9,10 @@
   - `select_target()` - Chooses best target based on configured priority
   - `engage_target()` - Smart health bar management for selected targets
   - `monitor_combat()` - Enhanced monitoring with cached data
-  - `disengage()` - Includes cache cleanup for memory management
+  - `disengage()` - Clears current target and cancels combat state
   - `run()` - Main combat loop with adaptive timing
 - **Added** `_display_target_name_overhead()` - Shows target name above head
-- **Enhanced** `_ensure_health_bar_smart()` - Intelligent health bar management
+- **Enhanced** `_ensure_health_bar()` - Intelligent health bar management
 
 ### 2. Performance Optimizations (Version 1.3) 🚀
 - **Mobile Data Caching**: 500ms cache duration reduces redundant API calls by 60-70%
@@ -21,9 +21,9 @@
   - 100ms minimum when seeking targets (fast acquisition)
   - 2x interval when target is healthy (CPU optimization)
   - Normal interval during active combat
-- **Cache Cleanup**: Automatic cleanup prevents memory buildup
+- **Cache Management**: Automatic expiration-based cleanup prevents memory buildup
 - **Distance Caching**: Cached distance calculations for performance
-- **Cooldown Management**: Health bar opening cooldowns prevent spam
+- **Efficient Target Detection**: Improved scanning performance with optimized mobile filtering
 
 ### 3. War Mode Integration (Version 1.2)
 - **War Mode Requirement**: Combat system only activates when player is in War Mode
