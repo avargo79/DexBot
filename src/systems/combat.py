@@ -22,17 +22,33 @@ class CombatSystem:
         self.last_target_scan = 0
         self.last_attack_time = 0
         self.last_target_name_display = 0  # Track when we last displayed target name
+        
+        # Performance optimization: Mobile data caching
+        self.mobile_cache = {}  # Cache mobile data with timestamps
+        self.cache_duration = 500  # 500ms cache duration
+        self.health_bar_opened = {}  # Track which mobiles we've opened health bars for
 
     def _get_distance(self, serial: int) -> float:
         """Calculate distance to a mobile."""
         try:
+            # Check cache first
+            cached_data = self._get_cached_mobile_data(serial)
+            if cached_data and 'distance' in cached_data:
+                return cached_data['distance']
+            
             mobile = Mobiles.FindBySerial(serial)
-            if mobile:
+            if mobile and hasattr(mobile, 'Position'):
                 dx = Player.Position.X - mobile.Position.X
                 dy = Player.Position.Y - mobile.Position.Y
-                return math.sqrt(dx * dx + dy * dy)
-        except:
-            pass
+                distance = math.sqrt(dx * dx + dy * dy)
+                
+                # Cache the result
+                self._cache_mobile_data(serial, {'distance': distance})
+                return distance
+        except AttributeError as e:
+            Logger.debug(f"Position data unavailable for mobile {serial}: {e}")
+        except Exception as e:
+            Logger.debug(f"Error calculating distance to {serial}: {e}")
         return float('inf')
 
     def _is_valid_target(self, mobile) -> bool:
@@ -86,14 +102,9 @@ class CombatSystem:
         targets = []
         
         try:
-            # Check if enough time has passed since last scan (but be more aggressive when no target)
+            # Check if enough time has passed since last scan using adaptive timing
             current_time = time.time() * 1000  # Convert to milliseconds
-            scan_interval = self.config_manager.get_combat_setting('timing_settings.target_scan_interval')
-            
-            # Use faster scanning when we don't have a current target (aggressive mode)
-            if not self.current_target:
-                scan_interval = scan_interval // 2  # Half the scan interval when looking for targets
-                Logger.debug(f"No current target - using aggressive scan interval: {scan_interval}ms")
+            scan_interval = self._get_adaptive_scan_interval()
             
             # Skip interval check if this is the first scan (last_target_scan == 0)
             if self.last_target_scan > 0 and current_time - self.last_target_scan < scan_interval:
@@ -115,12 +126,8 @@ class CombatSystem:
                 if self._is_valid_target(mobile):
                     distance = self._get_distance(mobile.Serial)
                     
-                    # For new potential targets, ensure health bar is opened to get accurate data
-                    # This helps with the UO quirk where health data isn't populated until health bar is opened
-                    if not self.current_target or self.current_target['serial'] != mobile.Serial:
-                        self._ensure_health_bar(mobile.Serial)
-                    
-                    # Handle cases where health info might not be available (even after opening health bar)
+                    # PERFORMANCE OPTIMIZATION: Don't open health bars for all targets during scanning
+                    # Only get basic info here - we'll open health bar when we actually select a target
                     hits = getattr(mobile, 'Hits', 0)
                     hits_max = getattr(mobile, 'HitsMax', hits if hits > 0 else 100)  # Default to 100 if unknown
                     
@@ -131,6 +138,7 @@ class CombatSystem:
                         'hits_max': hits_max,
                         'distance': distance,
                         'notoriety': mobile.Notoriety,
+                        'health_bar_opened': False,  # Track if we've opened the health bar
                         'position': {
                             'x': mobile.Position.X,
                             'y': mobile.Position.Y,
@@ -467,6 +475,37 @@ class CombatSystem:
             
         except Exception as e:
             Logger.debug(f"Error displaying target name overhead: {e}")
+
+    def _get_cached_mobile_data(self, serial: int) -> Optional[Dict]:
+        """Get cached mobile data if still valid."""
+        current_time = time.time() * 1000
+        if serial in self.mobile_cache:
+            cache_entry = self.mobile_cache[serial]
+            if current_time - cache_entry['timestamp'] < self.cache_duration:
+                return cache_entry['data']
+            else:
+                # Clean up expired cache entry
+                del self.mobile_cache[serial]
+        return None
+
+    def _cache_mobile_data(self, serial: int, data: Dict) -> None:
+        """Cache mobile data with timestamp."""
+        current_time = time.time() * 1000
+        if serial not in self.mobile_cache:
+            self.mobile_cache[serial] = {'data': {}, 'timestamp': current_time}
+        
+        # Update data while preserving existing cached data
+        self.mobile_cache[serial]['data'].update(data)
+        self.mobile_cache[serial]['timestamp'] = current_time
+
+    def _get_adaptive_scan_interval(self) -> int:
+        """Get adaptive scan interval based on combat state."""
+        base_interval = self.config_manager.get_combat_setting('timing_settings.target_scan_interval')
+        if not self.current_target:
+            return max(base_interval // 3, 100)  # Minimum 100ms when looking for targets
+        elif self.current_target and self.current_target.get('hits', 0) > self.current_target.get('hits_max', 1) * 0.8:
+            return base_interval * 2  # Slower when target is healthy
+        return base_interval
 
 def execute_combat_system(config_manager: ConfigManager):
     """
