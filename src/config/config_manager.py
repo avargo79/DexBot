@@ -5,7 +5,25 @@ Handles loading and saving bot settings from JSON files
 
 import json
 import os
+import sys
 from typing import Dict, Optional
+
+
+# Helper to detect if running as bundled script (DexBot.py) or as modules
+IS_BUNDLED = hasattr(sys.modules.get('__main__'), 'DEFAULT_MAIN_CONFIG')
+
+if IS_BUNDLED:
+    DEFAULT_MAIN_CONFIG = sys.modules['__main__'].DEFAULT_MAIN_CONFIG
+    DEFAULT_AUTO_HEAL_CONFIG = sys.modules['__main__'].DEFAULT_AUTO_HEAL_CONFIG
+else:
+    # Load from JSON files in development mode
+    def load_json_config(path):
+        with open(path, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    import os as _os
+    _config_dir = _os.path.dirname(_os.path.abspath(__file__))
+    DEFAULT_MAIN_CONFIG = load_json_config(_os.path.join(_config_dir, 'default_main_config.json'))
+    DEFAULT_AUTO_HEAL_CONFIG = load_json_config(_os.path.join(_config_dir, 'default_auto_heal_config.json'))
 
 
 class ConfigManager:
@@ -44,8 +62,8 @@ class ConfigManager:
         self.auto_heal_config_path = os.path.join(self.config_dir, "auto_heal_config.json")
 
         # Load configurations
-        self.main_config = self._load_config(self.main_config_path, {})
-        self.auto_heal_config = self._load_config(self.auto_heal_config_path, {})
+        self.main_config = self._load_config(self.main_config_path, DEFAULT_MAIN_CONFIG)
+        self.auto_heal_config = self._load_config(self.auto_heal_config_path, DEFAULT_AUTO_HEAL_CONFIG)
 
     def _load_config(self, config_path: str, default_config: Dict) -> Dict:
         """Load configuration from JSON file, create with defaults if not exists"""
