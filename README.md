@@ -72,7 +72,6 @@ DexBot/
 │   └── auto_heal_config.json       # Auto Heal system specific settings
 ├── docs/                           # Documentation directory
 │   ├── DexBot_PRD.md               # Product Requirements Document
-│   ├── DevOps_Sprint.md            # DevOps sprint tracking document
 │   ├── GitHub_Environment_Setup.md # GitHub environment configuration guide
 │   ├── RazorEnhanced_API_Reference.md # Local API reference documentation
 │   └── DexBot_tasks.md             # Task tracking and development progress
