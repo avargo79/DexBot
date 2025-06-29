@@ -428,16 +428,19 @@ class CombatSystem:
                 
                 display_text = f"TARGET: {target_name}{health_info}"
                 
-                # Use Misc.SendMessage to display text overhead the target
-                # This is the most reliable method in RazorEnhanced for overhead messages
+                # Use Mobiles.Message to display text overhead the target
+                # This is the proper RazorEnhanced API method for overhead messages on mobiles
                 try:
-                    # Try using the mobile's serial for overhead message
-                    Misc.SendMessage(display_text, display_color, target['serial'])
+                    # Display message above the target mobile
+                    Mobiles.Message(target['serial'], display_color, display_text)
                     Logger.debug(f"Displayed target name overhead: {display_text}")
-                except:
+                except Exception as msg_error:
                     # Fallback to player message if overhead message fails
-                    Misc.SendMessage(f"Current Target: {target_name}{health_info}", display_color)
-                    Logger.debug(f"Displayed target name to player: {display_text}")
+                    try:
+                        Misc.SendMessage(f"Current Target: {target_name}{health_info}", display_color)
+                        Logger.debug(f"Displayed target name to player: {display_text}")
+                    except Exception as fallback_error:
+                        Logger.debug(f"Failed to display target message: {fallback_error}")
             
         except Exception as e:
             Logger.debug(f"Error displaying target name overhead: {e}")
