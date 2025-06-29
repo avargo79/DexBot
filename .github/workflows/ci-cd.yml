@@ -15,7 +15,7 @@ jobs:
       uses: actions/checkout@v4
       
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.9'
         
@@ -36,7 +36,7 @@ jobs:
       run: python -m invoke bundle
       
     - name: Upload bundle artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: dexbot-bundle
         path: dist/DexBot.py
@@ -53,7 +53,7 @@ jobs:
       uses: actions/checkout@v4
       
     - name: Download bundle artifact
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: dexbot-bundle
         path: dist/
@@ -75,13 +75,12 @@ jobs:
         echo "tag=v$(date +'%Y.%m.%d')-$(echo $GITHUB_SHA | cut -c1-8)" >> $GITHUB_OUTPUT
         
     - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
+      uses: softprops/action-gh-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         tag_name: ${{ steps.get_version.outputs.tag }}
-        release_name: DexBot ${{ steps.get_version.outputs.version }}
+        name: DexBot ${{ steps.get_version.outputs.version }}
         body: |
           Automated release of DexBot
           
@@ -102,16 +101,8 @@ jobs:
           - RazorEnhanced
         draft: false
         prerelease: false
-        
-    - name: Upload Release Asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: dist/DexBot.py
-        asset_name: DexBot.py
-        asset_content_type: text/plain
+        files: |
+          dist/DexBot.py
 
   # Job to update documentation if API reference needs refresh
   update-docs:
@@ -124,7 +115,7 @@ jobs:
       uses: actions/checkout@v4
       
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.9'
         
