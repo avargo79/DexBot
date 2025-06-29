@@ -4,12 +4,12 @@ DexBot is a modular bot system for Ultima Online with RazorEnhanced, currently f
 
 ## Recent Updates (v2.1.0)
 
-**🚧 Development Infrastructure & Build System** ⚠️ IN PROGRESS:
-- 🔲 **Modular Code Structure**: Reorganizing into src/ directory with system separation
-- 🔲 **Development Tooling**: Poetry + Invoke for modern Python development workflow  
-- 🔲 **Automated Build System**: Bundle modules into single distribution file
-- 🔲 **Enhanced Testing**: Structured testing framework with proper module imports
-- 🔲 **Code Quality Tools**: Integrated linting and formatting automation
+**🚧 Development Infrastructure & Build System** ⚠️ COMPLETE:
+- ✅ **Modular Code Structure**: Reorganized into src/ directory with system separation
+- ✅ **Development Tooling**: Modern Python development workflow
+- ✅ **Automated Build System**: Bundle modules into single distribution file
+- ✅ **Enhanced Testing**: Structured testing framework with proper module imports
+- ✅ **Code Quality Tools**: Integrated linting and formatting automation
 
 **🎯 Integrated Auto Heal Controls** ✅ COMPLETED:
 - ✅ **Streamlined Interface**: No separate settings window - all controls accessible from main GUMP
@@ -23,35 +23,25 @@ DexBot is a modular bot system for Ultima Online with RazorEnhanced, currently f
 ```
 DexBot/
 ├── __init__.py                     # Package initialization
-├── DexBot.py                       # Main DexBot application (Auto Heal system)
+├── main.py                         # Main entry point for modular DexBot (was DexBot_Modular.py)
 ├── test_dexbot.py                  # Unit tests for DexBot and configuration system
 ├── README.md                       # This file - project overview
 ├── .gitignore                      # Git ignore patterns for Python projects
 ├── config/                         # Configuration directory
 │   ├── main_config.json            # Main bot settings and system toggles
 │   └── auto_heal_config.json       # Auto Heal system specific settings
-└── docs/                           # Documentation directory
-    ├── DexBot_PRD.md               # Product Requirements Document
-    ├── DexBot_Rebuild_Summary.md   # Development summary and decisions
-    └── DexBot_tasks.md             # Task tracking and development progress
-```
-
-**Planned Structure** (Development Infrastructure Sprint):
-```
-DexBot/
-├── src/                            # Source code (NEW)
+├── docs/                           # Documentation directory
+│   ├── DexBot_PRD.md               # Product Requirements Document
+│   ├── DexBot_Rebuild_Summary.md   # Development summary and decisions
+│   └── DexBot_tasks.md             # Task tracking and development progress
+├── src/                            # Source code (modular)
 │   ├── core/                       # Core bot functionality
 │   ├── systems/                    # Individual bot systems (healing, combat, etc.)
 │   ├── ui/                         # GUMP interface code
 │   ├── config/                     # Configuration management
 │   └── utils/                      # Utility functions
-├── dist/                           # Built/bundled output (NEW)
-├── tests/                          # Test files (reorganized)
-├── config/                         # Runtime configuration files
-├── docs/                           # Documentation
-├── pyproject.toml                  # Poetry configuration (NEW)
-├── tasks.py                        # Development tasks (NEW)
-└── DexBot.py                       # Bundled output file
+├── dist/                           # Built/bundled output
+├── tasks.py                        # Development tasks
 ```
 
 ## Features
@@ -93,7 +83,6 @@ DexBot/
 ### 🔄 Planned Future Modules
 - **Fishing System**: AFK fishing automation
 - **Buff Management**: Automatic strength/agility potion maintenance
-- **Weapon Management**: Auto re-equip on disarm detection
 - **Inventory Management**: Smart item dropping when backpack full
 
 ## Quick Start
@@ -107,13 +96,13 @@ Run the script from RazorEnhanced using one of these methods:
 
 **Method 1: Direct execution**
 ```python
-exec(open('DexBot/DexBot.py').read())
+exec(open('DexBot/main.py').read())
 ```
 
 **Method 2: RazorEnhanced Scripts interface**
 - Open RazorEnhanced Scripts tab
 - Navigate to DexBot folder
-- Double-click `DexBot.py` to execute
+- Double-click `main.py` to execute
 
 ### 3. Interface Controls
 - **Enable/Disable Auto Heal**: Click the main toggle button (left side of Auto Heal section)
@@ -238,6 +227,6 @@ This project uses Git for version control. To contribute:
 
 ## Version
 
-Current Version: 2.0
+Current Version: 2.1.0
 Author: RugRat79 (DexBot Development Team)
 License: MIT

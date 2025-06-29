@@ -1,343 +1,109 @@
 # DexBot Development Tasks & Feature Tracking
 
+**Last Updated**: June 28, 2025
+**Current Version**: 2.1.0
+
 ## Overview
-This document tracks planned features, current development tasks, and their implementation status for the DexBot modular bot system.
-
-**Last Updated**: June 28, 2025  
-**Current Version**: 2.1.0  
-**Active Sprint**: Development Infrastructure & Build System ⚠️ IN PROGRESS
+This document tracks planned features, current development tasks, and their implementation status for the DexBot modular bot system, based on the official [Product Requirements Document](DexBot_PRD.md).
 
 ---
 
-## 🎯 Completed Sprint: GUMP Interface Revamp (COMPLETED)
+## ✅ Completed Tasks (v2.1.0)
 
-### ✅ Main GUMP Redesign (COMPLETED)
-- **Priority**: HIGH
-- **Status**: ✅ COMPLETED
-- **Assigned**: RugRat79
-- **Estimated Effort**: 1-2 weeks
-- **Description**: Revamp main GUMP to support modular system interfaces
-- **Prerequisites**: Current interface system stable ✅
-- **Tasks**:
-  - ✅ Design new main GUMP layout with system summary lines
-  - ✅ Implement GUMP state management system
-  - ✅ Create navigation framework between GUMPs
-  - ✅ Add system enable/disable toggle buttons
-  - ✅ Add system status indicators (active/inactive)
-  - ✅ Add settings GUMP access buttons
-  - ✅ Test main GUMP navigation flow
-  - ✅ Fix back button icon consistency (use settings icon)
+### ✅ Development Infrastructure & Build System
+- **Task**: Transition from a monolithic script to a modular project structure.
+- **Task**: Implement a `src` directory for separated source code.
+- **Task**: Set up development tooling (`invoke`, `pyproject.toml`).
+- **Task**: Create an automated build system to bundle modules into a single distribution file (`tasks.py`).
+- **Task**: Establish a structured testing framework (`tests/` directory).
+- **Task**: Integrate code quality tools (`.flake8`).
 
----
+### ✅ Auto Heal System
+- **FR-001**: Implement intelligent healing logic (potions for critical, bandages for normal).
+- **FR-002**: Implement dual resource management for bandages and potions.
+- **FR-003**: Implement real-time health monitoring.
+- **FR-004**: Implement advanced retry mechanism for bandages.
+- **FR-005**: Implement low resource warnings.
+- **FR-006**: Implement journal integration for cooldown tracking.
+- **FR-007**: Implement death and resurrection handling.
 
-## 📋 Completed Sprints
+### ✅ Modern GUMP Interface
+- **FR-008**: Create the main status GUMP.
+- **FR-009**: Integrate all settings into the main interface.
+- **FR-010**: Implement dynamic UI updates to optimize performance.
+- **FR-011**: Implement multiple view states (full/minimized).
+- **FR-012**: Implement interactive controls with tooltips.
+- **FR-013**: Implement color-coded status indicators.
+- **FR-014**: Implement rate limiting for button presses.
 
-### ✅ Interface Integration Sprint (COMPLETED)
+### ✅ Configuration Management System
+- **FR-015**: Implement JSON-based configuration.
+- **FR-016**: Implement persistent settings for GUMP toggles.
+- **FR-017**: Implement runtime reloading of configuration.
+- **FR-018**: Implement default value handling for new configurations.
+- **FR-019**: Implement merge protection for configuration updates.
 
-### ✅ Auto Heal Interface Integration (COMPLETED)
-- **Priority**: HIGH
-- **Status**: ✅ COMPLETED
-- **Assigned**: RugRat79
-- **Due Date**: June 28, 2025
-- **Description**: Integrate Bot settings into main GUMP interface
-- **Tasks**:
-  - ✅ Remove separate settings GUMP
-  - ✅ Add healing toggles to main interface
-  - ✅ Implement two-line Auto Heal section
-  - ✅ Update button handlers
-  - ✅ Add JSON configuration system
-  - ✅ Update all documentation
-  - ✅ Test and verify functionality
-
----
-
-## 🚀 Current Sprint: Development Infrastructure & Build System
-
-### ⚠️ Development Infrastructure Setup (IN PROGRESS)
-- **Priority**: MEDIUM-HIGH
-- **Status**: ⚠️ IN PROGRESS
-- **Assigned**: GitHub Copilot
-- **Estimated Effort**: 3-5 days
-- **Description**: Create modern development workflow with code organization and build tools
-- **Dependencies**: None (parallel development)
-- **Rationale**: 
-  - Establishes better development patterns for all future work
-  - Enables proper code organization and modularization
-  - Sets up automated build and bundling processes
-  - Improves testing and development workflow
-- **Tasks**:
-  - 🔲 Analyze current monolithic structure and identify split points
-  - 🔲 Design folder structure for modular code organization
-  - 🔲 Set up Python development tooling (Poetry/Invoke)
-  - 🔲 Create development task automation scripts
-  - 🔲 Implement file bundling system for dist output
-  - 🔲 Create automated build pipeline
-  - 🔲 Update documentation for new dev workflow
-  - 🔲 Test build process and validate output
-  - 🔲 Migrate existing code to new structure
-  - 🔲 Update all documentation and README
-
-### Technical Specifications:
-- **Build Tool**: Poetry for dependency management
-- **Task Runner**: Invoke (Python equivalent of npm scripts) 
-- **Structure**: Modular src/ directory with systems separation
-- **Output**: Single bundled DexBot.py file in dist/ directory
-- **Testing**: Automated testing with proper imports
-- **Linting**: Code quality tools integration
+### ✅ Robust Architecture
+- **FR-020**: Implement Singleton pattern for configuration and status.
+- **FR-021**: Implement a modular design for the codebase.
+- **FR-022**: Enforce type safety with type hints.
+- **FR-023**: Implement error recovery for common issues.
+- **FR-024**: Optimize performance of the bot.
+- **FR-025**: Implement a comprehensive logging system.
 
 ---
 
-## 🚀 Next Sprint: System Registration Framework
+## 🔄 Planned Future Modules
 
-### 🔲 System Registration Framework (PLANNED)
-- **Priority**: MEDIUM
-- **Status**: 🔲 NOT STARTED
-- **Assigned**: TBD
-- **Estimated Effort**: 2-3 days
-- **Description**: Create framework for registering systems with main GUMP
-- **Dependencies**: GUMP Interface Revamp ✅, Development Infrastructure ⚠️
-- **Tasks**:
-  - 🔲 Design system registration interface
-  - 🔲 Create system metadata structure (name, status, settings callback)
-  - 🔲 Implement dynamic main GUMP generation based on registered systems
-  - 🔲 Add system priority/ordering support
-  - 🔲 Create template for new system integration
-  - 🔲 Test system registration workflow
+### 🔲 Combat System
+- **Priority**: High
+- **Status**: Not Started
+- **Dependencies**: Auto Heal System
+- **Description**: A comprehensive combat system to engage and defeat enemies automatically. This is a foundational module for any PvE automation.
+- **Sub-tasks**:
+  - 🔲 Detect nearby hostile targets.
+  - 🔲 Select a target based on configurable priority (e.g., closest, lowest health).
+  - 🔲 Engage the target with the currently equipped weapon.
+  - 🔲 Monitor combat status (e.g., target is dead, player is being attacked).
+  - 🔲 Disengage or switch targets as needed.
 
----
-
-## 🚀 Following Sprint: Settings GUMPs Implementation
-
-### ✅ Bot Settings GUMP (COMPLETED)
-- **Priority**: HIGH
-- **Status**: ✅ COMPLETED
-- **Assigned**: RugRat79
-- **Estimated Effort**: 3-5 days
-- **Description**: Create dedicated settings GUMP for Auto Heal configuration
-- **Dependencies**: Main GUMP Redesign ✅
-- **Tasks**:
-  - ✅ Design Bot settings GUMP layout
-  - ✅ Add detailed healing configuration options
-  - ✅ Implement back navigation to main GUMP
-  - ✅ Add threshold and timing display
-  - ✅ Test Bot settings workflow
-
-### ✅ GUMP Navigation Framework (COMPLETED)
-- **Priority**: HIGH
-- **Status**: ✅ COMPLETED
-- **Assigned**: RugRat79
-- **Estimated Effort**: 2-3 days
-- **Description**: Complete the navigation system between different GUMPs
-- **Dependencies**: Main GUMP Redesign ✅
-- **Tasks**:
-  - ✅ Implement proper state transitions for settings GUMPs
-  - ✅ Add GUMP state management system
-  - ✅ Create back button functionality
-  - ✅ Add state validation and error handling
-  - ✅ Test all navigation paths
-
-### 🔲 System Registration Framework (PLANNED)
-- **Priority**: MEDIUM
-- **Status**: 🔲 NOT STARTED
-- **Assigned**: TBD
-- **Estimated Effort**: 2-3 days
-- **Description**: Create framework for registering systems with main GUMP
-- **Dependencies**: GUMP State Management System
-- **Tasks**:
-  - 🔲 Design system registration interface
-  - 🔲 Create system metadata structure (name, status, settings callback)
-  - 🔲 Implement dynamic main GUMP generation based on registered systems
-  - 🔲 Add system priority/ordering support
-  - 🔲 Create template for new system integration
-  - 🔲 Test system registration workflow
-
----
-
-## 🚀 Following Sprint: Combat System Foundation
-
-### 🔲 Combat System Core (PLANNED)
-- **Priority**: HIGH
-- **Status**: 🔲 NOT STARTED
-- **Assigned**: TBD
-- **Estimated Effort**: 2-3 weeks
-- **Description**: Implement basic combat automation system
-- **Prerequisites**: Auto Heal system stable ✅
-- **Tasks**:
-  - 🔲 Design combat state machine
-  - 🔲 Implement enemy detection system
-  - 🔲 Add war mode detection
-  - 🔲 Create target acquisition logic
-  - 🔲 Implement attack sequences
-  - 🔲 Add combat GUMP section
-  - 🔲 Test combat scenarios
-  - 🔲 Update documentation
-
-### 🔲 Combat Safety Systems (PLANNED)
-- **Priority**: HIGH
-- **Status**: 🔲 NOT STARTED
-- **Assigned**: TBD
-- **Estimated Effort**: 1 week
-- **Description**: Safety features for combat automation
-- **Dependencies**: Combat System Core
-- **Tasks**:
-  - 🔲 Implement safe zone detection
-  - 🔲 Add player vs player avoidance
-  - 🔲 Create emergency stop mechanisms
-  - 🔲 Add combat timeout handling
-  - 🔲 Implement flee conditions
-  - 🔲 Test safety scenarios
-
----
-
-## 📋 Backlog: Future Systems
-
-### 🔲 Looting & Corpse Processing System
-- **Priority**: MEDIUM
-- **Status**: 🔲 NOT STARTED
-- **Estimated Effort**: 2 weeks
-- **Description**: Automated corpse processing and item collection
-- **Tasks**:
-  - 🔲 Implement corpse detection
-  - 🔲 Add skinning automation
-  - 🔲 Create loot filtering system
-  - 🔲 Implement item pickup logic
-  - 🔲 Add inventory management
-  - 🔲 Create loot GUMP section
-  - 🔲 Test looting scenarios
+### 🔲 Looting System
+- **Priority**: High
+- **Status**: Not Started
+- **Dependencies**: Combat System
+- **Description**: Automatically loot corpses of defeated enemies and skin them for resources.
+- **Sub-tasks**:
+  - 🔲 Detect nearby corpses.
+  - 🔲 Open and loot items from corpses based on a configurable loot list.
+  - 🔲 Implement skinning logic for creatures that can be skinned.
+  - 🔲 Handle container logic (e.g., looting items from a bag on the corpse).
 
 ### 🔲 Buff Management System
-- **Priority**: MEDIUM
-- **Status**: 🔲 NOT STARTED
-- **Estimated Effort**: 1 week
-- **Description**: Automatic buff maintenance during activities
-- **Tasks**:
-  - 🔲 Implement buff detection
-  - 🔲 Add potion management
-  - 🔲 Create buff timers
-  - 🔲 Implement auto-renewal
-  - 🔲 Add buff GUMP section
-  - 🔲 Test buff scenarios
+- **Priority**: Medium-High
+- **Status**: Not Started
+- **Dependencies**: None, but most useful with the Combat System.
+- **Description**: Automatically maintain player buffs, such as Strength and Agility potions, to ensure peak combat effectiveness.
+- **Sub-tasks**:
+  - 🔲 Monitor active buffs on the player.
+  - 🔲 Use potions or spells to re-apply buffs when they expire.
+  - 🔲 Allow configuration of which buffs to maintain.
 
-### 🔲 Weapon Management System
-- **Priority**: LOW
-- **Status**: 🔲 NOT STARTED
-- **Estimated Effort**: 1 week
-- **Description**: Handle weapon disarm and rearm scenarios
-- **Tasks**:
-  - 🔲 Implement disarm detection
-  - 🔲 Add weapon location tracking
-  - 🔲 Create rearm logic
-  - 🔲 Implement backup weapon system
-  - 🔲 Add weapon status to GUMP
-  - 🔲 Test disarm scenarios
+### 🔲 Inventory Management System
+- **Priority**: Medium
+- **Status**: Not Started
+- **Dependencies**: Looting System
+- **Description**: A system to manage the player's inventory to prevent it from becoming full during long botting sessions.
+- **Sub-tasks**:
+  - 🔲 Monitor backpack item count/weight.
+  - 🔲 Automatically drop or move items based on a configurable list (e.g., drop junk items).
+  - 🔲 Potentially move valuable items to a secure container.
 
-### 🔲 Advanced Inventory Management
-- **Priority**: LOW
-- **Status**: 🔲 NOT STARTED
-- **Estimated Effort**: 2 weeks
-- **Description**: Intelligent inventory organization and management
-- **Tasks**:
-  - 🔲 Implement item sorting
-  - 🔲 Add auto-drop unwanted items
-  - 🔲 Create weight management
-  - 🔲 Implement container organization
-  - 🔲 Add inventory GUMP section
-  - 🔲 Test inventory scenarios
-
----
-
-## 🔧 Technical Debt & Improvements
-
-### 🔲 Code Optimization
-- **Priority**: MEDIUM
-- **Status**: 🔲 NOT STARTED
-- **Estimated Effort**: 1 week
-- **Description**: Performance improvements and code cleanup
-- **Tasks**:
-  - 🔲 Profile performance bottlenecks
-  - 🔲 Optimize GUMP update frequency
-  - 🔲 Improve memory usage
-  - 🔲 Add more comprehensive error handling
-  - 🔲 Refactor duplicate code
-  - 🔲 Add more unit tests
-
-### 🔲 Configuration Enhancement
-- **Priority**: LOW
-- **Status**: 🔲 NOT STARTED
-- **Estimated Effort**: 3 days
-- **Description**: Enhanced configuration system features
-- **Tasks**:
-  - 🔲 Add configuration validation
-  - 🔲 Implement config backup/restore
-  - 🔲 Add profile management
-  - 🔲 Create configuration import/export
-  - 🔲 Add config version migration
-  - 🔲 Test config scenarios
-
----
-
-## 📊 Status Legend
-
-- ✅ **COMPLETED**: Task is finished and tested
-- ⚠️ **IN PROGRESS**: Currently being worked on
-- 🔲 **NOT STARTED**: Planned but not yet begun
-- ❌ **BLOCKED**: Cannot proceed due to dependencies
-- ⏸️ **PAUSED**: Temporarily halted
-- 🚫 **CANCELLED**: No longer planned
-
-## 📈 Priority Levels
-
-- **HIGH**: Critical features needed for core functionality
-- **MEDIUM**: Important features that enhance user experience
-- **LOW**: Nice-to-have features for future releases
-
----
-
-## 📝 Notes & Decisions
-
-### Architecture Decisions
-- **Singleton Pattern**: Continue using for config and status management
-- **Modular Design**: Each system should be independently toggleable
-- **GUMP Integration**: All new systems should integrate into main GUMP
-- **JSON Config**: All settings should persist to JSON configuration files
-
-### Development Guidelines
-- **Testing**: All new features must include test coverage
-- **Documentation**: Update PRD and README for each new feature
-- **Safety First**: All automation must include safety mechanisms
-- **User Control**: Users must be able to disable any automation
-
-### Future Considerations
-- **Plugin System**: Consider making systems loadable plugins
-- **Remote Configuration**: Possible web-based configuration interface
-- **Multi-Character**: Support for managing multiple characters
-- **Advanced AI**: Machine learning for optimal farming routes
-
----
-
-## 🔄 Sprint Planning
-
-### Sprint Duration
-- **Standard Sprint**: 1-2 weeks
-- **Major Features**: May span multiple sprints
-- **Bug Fixes**: Can be completed within current sprint
-
-### Sprint Goals
-- **Previous Sprint**: Interface Integration ✅ COMPLETED
-- **Current Sprint**: GUMP Interface Revamp
-- **Next Sprint**: Combat System Foundation
-- **Following Sprint**: Combat Safety & Testing
-- **Future Sprint**: Looting System Implementation
-
----
-
-## 📞 Contact & Updates
-
-- **Project Lead**: RugRat79
-- **Repository**: [Add repository URL here]
-- **Issues**: Track bugs and feature requests in repository issues
-- **Updates**: This file updated with each sprint completion
-
----
-
-*This document is a living document and should be updated regularly as development progresses.*
+### 🔲 Fishing System
+- **Priority**: Low
+- **Status**: Not Started
+- **Dependencies**: None
+- **Description**: An AFK fishing system to automate the process of fishing for resources.
+- **Sub-tasks**:
+  - 🔲 Use a fishing pole on a water source.
+  - 🔲 Detect successful catches and reel them in.
+  - 🔲 Handle common fishing events (e.g., "the fish got away").

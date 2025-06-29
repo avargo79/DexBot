@@ -1,370 +1,112 @@
 # DexBot - Product Requirements Document (PRD)
 
+**Version**: 2.1.0
+**Last Updated**: June 28, 2025
+
 ## 1. Overview
 
 ### 1.1 Purpose
-DexBot is a modular bot system for Ultima Online using RazorEnhanced. Currently implements an advanced Auto Heal system as the first component, based on the proven Dexxor.py healing system. The bot is designed for scalability with plans to add combat, looting, and other automation modules.
+DexBot is a modular bot system for Ultima Online using RazorEnhanced. It is designed to be a scalable and maintainable bot with an initial focus on providing an advanced Auto Heal system. The long-term vision is to create a comprehensive bot that can handle a variety of automated tasks.
 
 ### 1.2 Target User
-Players who want automated healing assistance during gameplay, with potential expansion to full PvE farming automation for dexterity-based melee characters.
+The target users are Ultima Online players who use the RazorEnhanced client and want to automate repetitive tasks such as healing, looting, and resource gathering. The system is aimed at players who want a reliable and easy-to-use bot that can be customized to their needs.
 
 ### 1.3 Core Objectives (Current Implementation)
-- Provide intelligent healing management using bandages and heal potions
-- Real-time GUMP interface for bot control and status monitoring
-- Configurable healing thresholds and resource management
-- Death/resurrection handling and recovery
-- Modular architecture for future system additions
+- Provide intelligent, automated healing management using bandages and heal potions.
+- Offer a real-time GUMP (Graphical User Menu Popup) interface for bot control and status monitoring.
+- Allow for persistent configuration of healing thresholds and resource management.
+- Gracefully handle player death and resurrection.
+- Establish a modular architecture that allows for the easy addition of new systems in the future.
 
 ### 1.4 Future Objectives (Planned)
-- Automate enemy detection and combat engagement
-- Handle corpse skinning and scavenging
-- Maintain character buffs and stamina
-- Ensure weapon management (rearm when disarmed)
+- Automate enemy detection and combat engagement.
+- Implement corpse skinning and scavenging.
+- Maintain character buffs and stamina.
+- Automatically re-equip a weapon when disarmed.
+- Smart inventory management to drop items when the backpack is full.
+- AFK fishing automation.
 
 ## 2. Functional Requirements
 
-### 2.1 Auto Heal System (IMPLEMENTED)
-**FR-001: Intelligent Healing Management**
-- **Description**: Automatically manage player healing using bandages and heal potions
-- **Behavior**: 
-  - Monitor health continuously (95% threshold for healing activation)
-  - Prioritize heal potions for critical health (<50%)
-  - Use bandages for normal healing (when missing 1+ HP)
-  - Support independent enable/disable of bandage and potion healing
-  - Track healing cooldowns and prevent spam
-- **Dependencies**: Player.Hits, Player.HitsMax, Items.FindByID(), Items.UseItemByID(), Target.Self()
+### 2.1 Auto Heal System (Implemented)
+- **FR-001: Intelligent Healing Logic**: Prioritizes heal potions for critical health (<50%) and uses bandages for normal healing.
+- **FR-002: Dual Resource Management**: Allows independent toggling of bandages and heal potions.
+- **FR-003: Real-time Health Monitoring**: Continuously tracks player health and activates healing at a 95% threshold.
+- **FR-004: Advanced Retry Mechanism**: Implements a 3-attempt system for bandage application with 500ms delays.
+- **FR-005: Resource Warnings**: Alerts the user when bandage supply drops below 10.
+- **FR-006: Journal Integration**: Monitors healing completion messages for accurate cooldown tracking.
+- **FR-007: Death Handling**: Automatically pauses the system upon death and resumes upon resurrection.
 
-**FR-002: Bandage Healing**
-- **Description**: Use bandages for healing with intelligent retry mechanism
-- **Behavior**:
-  - Apply bandage when health threshold is met
-  - 3 retry attempts with 500ms delay between attempts
-  - Track bandage supply and warn when low (<10 bandages)
-  - 11-second cooldown timer for bandage applications
-  - Journal monitoring for healing completion messages
-- **Dependencies**: Items.UseItemByID(BANDAGE_ID), Target.Self(), Timer.Create(), Journal.SearchByType()
+### 2.2 Modern GUMP Interface (Implemented)
+- **FR-008: Main Status GUMP**: Displays real-time health, resources, and runtime statistics with integrated healing controls.
+- **FR-009: Integrated Settings**: All healing toggles are accessible directly from the main interface, eliminating the need for a separate settings window.
+- **FR-010: Dynamic UI Updates**: The interface refreshes only when data changes to optimize performance.
+- **FR-011: Multiple View States**: Supports both full and minimized modes.
+- **FR-012: Interactive Controls**: Provides toggle buttons with tooltips and visual feedback.
+- **FR-013: Color-coded Status**: Uses green, yellow, and red indicators for health and resource levels.
+- **FR-014: Rate Limiting**: A 500ms minimum delay between button presses prevents accidental spam.
 
-**FR-003: Heal Potion Usage**
-- **Description**: Use heal potions for critical health situations
-- **Behavior**:
-  - Activate when health drops below 50% (configurable)
-  - 10-second cooldown for potion usage
-  - Support for different potion types (currently regular heal potions)
-  - Prioritized over bandages for critical situations
-- **Dependencies**: Items.UseItemByID(HEAL_POTION_ID), Timer.Create()
+### 2.3 Configuration Management System (Implemented)
+- **FR-015: JSON-based Configuration**: Uses separate JSON files for main bot settings and the Auto Heal system.
+- **FR-016: Persistent Settings**: All GUMP toggles are automatically saved to the configuration files.
+- **FR-017: Runtime Reloading**: Configuration changes are applied immediately without requiring a script restart.
+- **FR-018: Default Value Handling**: Automatically creates configuration files with sensible defaults if they are missing.
+- **FR-019: Merge Protection**: New configuration keys are automatically added when updating versions, preserving user settings.
 
-### 2.2 GUMP Interface System (IMPLEMENTED)
-**FR-004: Main Status GUMP**
-- **Description**: Real-time status display and bot control interface with integrated healing controls
-- **Behavior**:
-  - Display current health, bandage count, runtime statistics
-  - Toggle Auto Heal system on/off
-  - Toggle individual healing methods (bandages/potions) directly in main interface
-  - Minimize/maximize interface
-  - Real-time updates when data changes
-  - Compact and full view modes
-- **Dependencies**: Gumps.CreateGump(), Gumps.SendGump(), Gumps.GetGumpData()
+### 2.4 Robust Architecture (Implemented)
+- **FR-020: Singleton Pattern**: Manages configuration and status efficiently.
+- **FR-021: Modular Design**: A clean separation of concerns allows for easy maintenance and future expansion.
+- **FR-022: Type Safety**: The codebase includes comprehensive type hints.
+- **FR-023: Error Recovery**: Gracefully handles missing resources and connection issues.
+- **FR-024: Performance Optimized**: Minimizes object creation and uses conditional updates to reduce overhead.
+- **FR-025: Comprehensive Logging**: Provides debug, info, warning, and error logging levels with a toggle control.
 
-**FR-005: GUMP Response Handling**
-- **Description**: Process user interactions with the integrated interface
-- **Behavior**:
-  - Rate limiting to prevent rapid button presses (500ms minimum)
-  - Real-time configuration updates without restart
-  - State management for different GUMP views (full/minimized)
-  - Button press feedback and tooltips
-  - Handle main system toggle, individual healing method toggles, and debug mode
-- **Dependencies**: Gumps.GetGumpData(), time tracking
+## 3. Non-Functional Requirements
 
-### 2.3 System Management (IMPLEMENTED)
-**FR-006: Death/Resurrection Handling**
-- **Description**: Detect player death and handle resurrection
-- **Behavior**:
-  - Pause all systems when player is ghost
-  - Display waiting message during death
-  - Resume operations upon resurrection
-  - Clear journal messages after resurrection
-- **Dependencies**: Player.IsGhost, Player.Visible
+### 3.1 Performance
+- The bot should have a minimal impact on client performance.
+- The main loop should be efficient, with a target delay of 250ms.
+- GUMP updates should be optimized to only occur when necessary.
 
-**FR-007: Resource Monitoring**
-- **Description**: Track and display healing resource availability
-- **Behavior**:
-  - Monitor bandage and heal potion counts
-  - Color-coded resource display (green/yellow/red thresholds)
-  - Low resource warnings
-  - Usage statistics tracking
-- **Dependencies**: Items.FindByID(), color threshold calculations
+### 3.2 Usability
+- The GUMP interface should be intuitive and easy to use.
+- Configuration should be straightforward, with most options accessible through the GUMP.
+- The bot should provide clear feedback to the user about its status and actions.
 
-### 2.4 Future Systems (PLANNED - NOT IMPLEMENTED)
-**FR-008: Combat System**
-- **Description**: Automatically attack enemies when player is in war mode
-- **Status**: Placeholder in code, not implemented
+### 3.3 Reliability
+- The bot should run stably for extended periods without crashing.
+- The healing logic should be robust and handle edge cases gracefully.
+- The bot should recover from common in-game events, such as player death or disconnection.
 
-**FR-009: Corpse Processing**
-- **Description**: Automatically skin and scavenge corpses within range
-- **Status**: Not implemented
+## 4. System Design
 
-**FR-010: Buff Management**
-- **Description**: Maintain strength and agility buffs during combat
-- **Status**: Not implemented
+### 4.1 Directory Structure
+The project is organized into a modular structure to facilitate development and maintenance:
+```
+DexBot/
+├── dist/                           # Bundled output for distribution
+├── docs/                           # Documentation files
+├── src/                            # Source code
+│   ├── config/                     # Configuration management
+│   ├── core/                       # Core bot functionality
+│   ├── systems/                    # Individual bot systems (e.g., auto_heal)
+│   ├── ui/                         # GUMP interface code
+│   └── utils/                      # Utility functions
+├── tests/                          # Test files
+├── main.py                         # Main script entry point
+├── tasks.py                        # Development tasks for invoke
+└── README.md                       # Project overview
+```
 
-**FR-011: Weapon Management**
-- **Description**: Handle weapon disarm situations
-- **Status**: Not implemented
+### 4.2 Core Components
+- **`main.py`**: The entry point of the script.
+- **`src/core/main_loop.py`**: The heart of the bot, responsible for orchestrating the different systems.
+- **`src/systems/auto_heal.py`**: The implementation of the Auto Heal system.
+- **`src/ui/gump_interface.py`**: Manages the GUMP interface.
+- **`src/config/config_manager.py`**: Handles loading and saving of configuration files.
 
-## 3. Technical Requirements
-
-### 3.1 Architecture (IMPLEMENTED)
-- **TR-001**: Modular design with singleton pattern for configuration management
-- **TR-002**: Separation of concerns: Config, Messages, Status, Interface, and Core systems
-- **TR-003**: Type hints and comprehensive documentation for maintainability
-- **TR-004**: Centralized logging system with debug, info, error, and warning levels
-
-### 3.2 Performance (IMPLEMENTED)
-- **TR-005**: Main loop execution frequency: 250ms intervals
-- **TR-006**: GUMP updates only when data changes (optimized UI performance)
-- **TR-007**: Singleton pattern for configuration to minimize object creation
-- **TR-008**: Response time: <500ms for critical actions (healing)
-
-### 3.3 Error Handling (IMPLEMENTED)
-- **TR-009**: Graceful handling of missing items (bandages, heal potions)
-- **TR-010**: Retry mechanisms for critical operations (3 attempts for bandage application)
-- **TR-011**: Timeout handling for targeting operations (1000ms)
-- **TR-012**: Exception handling in main loop with error recovery delays
-- **TR-013**: Connection loss detection and graceful shutdown
-
-### 3.4 Configuration (IMPLEMENTED)
-- **TR-014**: Runtime configuration updates via GUMP interface
-- **TR-015**: Centralized configuration constants in BotConfig class
-- **TR-016**: Individual enable/disable toggles for healing methods
-- **TR-017**: Configurable thresholds and timing parameters
-
-### 3.5 User Interface (IMPLEMENTED)
-- **TR-018**: Real-time GUMP interface with status display
-- **TR-019**: Rate limiting for button presses (500ms minimum)
-- **TR-020**: Multiple GUMP states: full and minimized
-- **TR-021**: Color-coded resource displays with thresholds
-- **TR-022**: Tooltips and user feedback for all interactive elements
-
-## 4. Item ID Constants (Current Implementation)
-
-### 4.1 Healing Items (IMPLEMENTED)
-- **Bandages**: 0x0E21
-- **Heal Potion**: 0x0F0C (Regular heal potion - orange/red)
-
-## 5. Configuration Parameters (Current Implementation)
-
-### 5.1 Bot Settings (IMPLEMENTED)
-- `HEALING_ENABLED`: True (master toggle for entire healing system)
-- `BANDAGE_HEALING_ENABLED`: True (toggle for bandage healing)
-- `POTION_HEALING_ENABLED`: True (toggle for potion healing)
-- `HEALING_THRESHOLD_PERCENTAGE`: 95% (health percentage to start healing)
-- `CRITICAL_HEALTH_THRESHOLD`: 50% (health percentage for potion priority)
-- `BANDAGE_THRESHOLD`: 1 HP (minimum HP loss to trigger bandage)
-
-### 5.2 Timing Settings (IMPLEMENTED)
-- `HEALING_TIMER_DURATION`: 11000ms (bandage application cooldown)
-- `POTION_COOLDOWN_MS`: 10000ms (heal potion cooldown)
-- `DEFAULT_SCRIPT_DELAY`: 250ms (main loop interval)
-- `TARGET_WAIT_TIMEOUT`: 1000ms (targeting operation timeout)
-- `BANDAGE_RETRY_DELAY`: 500ms (delay between bandage retry attempts)
-
-### 5.3 Resource Management (IMPLEMENTED)
-- `BANDAGE_RETRY_ATTEMPTS`: 3 (number of bandage application attempts)
-- `LOW_BANDAGE_WARNING`: 10 (warn when bandages below this amount)
-- `SEARCH_RANGE`: 2 (item search range in backpack)
-- `BANDAGE_CHECK_INTERVAL_CYCLES`: 120 cycles (~30 seconds)
-
-### 5.4 GUMP Interface Settings (IMPLEMENTED)
-- `GUMP_WIDTH`: 320 pixels
-- `GUMP_HEIGHT`: 240 pixels
-- `GUMP_MIN_WIDTH`: 100 pixels (minimized state)
-- `GUMP_MIN_HEIGHT`: 30 pixels (minimized state)
-- `GUMP_UPDATE_INTERVAL_CYCLES`: 8 cycles (~2 seconds)
-- `GUMP_X/Y`: 100, 100 (default position)
-
-### 5.5 Color Thresholds (IMPLEMENTED)
-- `BANDAGE_HIGH_THRESHOLD`: 20 (green color when above)
-- `BANDAGE_MEDIUM_THRESHOLD`: 10 (yellow color when above)
-- `HEALTH_HIGH_THRESHOLD`: 75% (green color when above)
-- `HEALTH_MEDIUM_THRESHOLD`: 50% (yellow color when above)
-
-## 6. Safety Requirements (Current Implementation)
-
-### 6.1 Fail-safes (IMPLEMENTED)
-- **SR-001**: Stop all healing actions if player is ghost/dead
-- **SR-002**: Connection loss detection with graceful shutdown
-- **SR-003**: Timeout mechanisms for all targeting operations (1000ms)
-- **SR-004**: Rate limiting for user interactions (500ms minimum between button presses)
-- **SR-005**: Retry limits to prevent infinite loops (3 attempts for bandages)
-
-### 6.2 User Control (IMPLEMENTED)
-- **SR-006**: Manual override via GUMP interface for all healing functions
-- **SR-007**: Real-time enable/disable toggles for bandage and potion healing
-- **SR-008**: Debug mode toggle for detailed logging
-- **SR-009**: GUMP close/minimize options for interface management
-- **SR-010**: Keyboard interrupt handling (Ctrl+C/ESC) for emergency stop
-
-### 6.3 Resource Management (IMPLEMENTED)
-- **SR-011**: Low resource warnings (bandages <10)
-- **SR-012**: Resource availability checks before healing attempts
-- **SR-013**: Graceful handling of missing healing items
-
-### 6.4 Future Safety Features (PLANNED)
-- Health threshold emergency stops
-- Inventory management safeguards
-
-## 7. Dependencies (Current Implementation)
-
-### 7.1 RazorEnhanced API Modules (USED)
-- **Player** (health monitoring, equipment status, death detection)
-- **Items** (inventory management, item usage, resource counting)
-- **Target** (self-targeting for healing actions)
-- **Timer** (cooldown management for healing actions)
-- **Misc** (utility functions, pause operations)
-- **Journal** (healing completion message monitoring)
-- **Gumps** (user interface creation and management)
-
-### 7.2 Python Modules (USED)
-- **typing** (type hints for code clarity)
-- **time** (timestamp management for rate limiting)
-- **AutoComplete** (RazorEnhanced import dependency)
-
-### 7.3 Future Dependencies (PLANNED)
-- **Mobiles** (enemy detection and targeting)
-- **Player.WarMode** (combat state detection)
-- **Player.BuffsExist()** (buff monitoring)
-
-### 7.4 External Files (CURRENT)
-- **AutoComplete.py** (required RazorEnhanced import)
-- **No external configuration files** (all config is internal)
-
-## 8. Current Implementation Status
-
-### 8.1 Completed Features ✅
-- **Auto Heal System**: Fully functional with bandages and heal potions
-- **GUMP Interface**: Real-time status display and configuration
-- **Resource Management**: Monitoring, warnings, and usage tracking
-- **Death Handling**: Automatic pause/resume on death/resurrection
-- **Error Handling**: Comprehensive exception handling and recovery
-- **Configuration Management**: Runtime toggles and centralized settings
-- **Logging System**: Debug, info, warning, and error levels
-- **Rate Limiting**: Protection against rapid user interactions
-
-### 8.2 Architecture Highlights ✅
-- **Singleton Pattern**: Efficient configuration and status management
-- **Modular Design**: Separation of concerns for maintainability
-- **Type Safety**: Comprehensive type hints throughout codebase
-- **Performance Optimization**: GUMP updates only when data changes
-- **User Experience**: Intuitive interface with tooltips and feedback
-
-### 8.3 Future Enhancements (Planned - In Code Comments)
-- **Combat System**: Auto-attack functionality (placeholder exists)
-- **Looting System**: Automated corpse processing (placeholder exists)
-- **Buff Management**: Strength/agility potion automation
-- **Inventory Management**: Auto-drop items when full
-
-## 9. Success Criteria
-
-### 9.1 Current Implementation Goals ✅
-- **Auto Heal Reliability**: 100% healing activation when health drops below 95%
-- **Resource Management**: Accurate tracking and low-resource warnings
-- **Interface Responsiveness**: Real-time GUMP updates within 2 seconds
-- **Error Recovery**: Graceful handling of all missing resource scenarios
-- **User Control**: Runtime configuration changes without script restart
-
-### 9.2 Performance Metrics (Achieved)
-- **Response Time**: <500ms for critical healing actions
-- **Memory Efficiency**: Singleton pattern minimizes object creation
-- **UI Performance**: GUMP updates only when data changes (optimized)
-- **Reliability**: 3-attempt retry mechanism for bandage application
-- **Safety**: Rate limiting prevents user interaction spam
-
-### 9.3 Future Success Criteria (Planned)
-- **Combat Integration**: Zero false-positive attacks outside war mode
-- **Resource Efficiency**: Minimal waste of potions and bandages
-- **Corpse Processing**: 100% processing rate within specified range
-- **Buff Maintenance**: Automatic buff renewal during combat
-
-## 10. Revision History
-
-| Version | Date | Author | Changes |
-|---------|------|--------|---------|
-| 1.0 | 2025-06-27 | Assistant | Initial PRD creation based on user requirements |
-| 2.0 | 2025-06-28 | RugRat79 | Complete rewrite based on actual implementation analysis - focused on Auto Heal system and GUMP interface |
-
-## 11. Technical Implementation Details
-
-### 11.1 Class Structure
-- **BotConfig**: Singleton configuration management with all constants
-- **BotMessages**: Centralized message constants for consistent logging
-- **Logger**: Static logging methods with debug mode support
-- **SystemStatus**: Singleton status tracking with runtime statistics
-- **GumpInterface**: Static methods for GUMP creation and management
-- **GumpInterface.GumpSection**: Reusable UI components for consistent design
-
-### 11.2 Key Design Patterns
-- **Singleton Pattern**: Used for configuration and status management
-- **Factory Pattern**: GUMP creation with standardized sections
-- **State Machine**: GUMP state management (closed, full, minimized) with integrated controls
-- **Observer Pattern**: Data change detection for optimized UI updates
-
-### 11.3 Error Handling Strategy
-- **Graceful Degradation**: Continue operation when non-critical resources missing
-- **Retry Mechanisms**: 3 attempts for critical operations with delays
-- **Timeout Protection**: All targeting operations have 1000ms timeout
-- **Exception Isolation**: Main loop continues despite individual system errors
-
-### 11.4 Performance Optimizations
-- **Conditional Updates**: GUMP refreshes only when data actually changes
-- **Singleton Instances**: Minimize object creation overhead
-- **Efficient Resource Checking**: Cached values to reduce API calls
-- **Rate Limiting**: Prevent excessive user interaction processing
-
-## 12. Recent Updates (Version 2.1.0)
-
-### 12.1 Development Infrastructure & Build System ⚠️ IN PROGRESS
-**Summary**: Implementing modern development workflow with code organization and automated build tools.
-
-**Planned Changes**:
-- **Modular Code Structure**: Split monolithic DexBot.py into organized modules
-- **Development Tooling**: Poetry for dependency management, Invoke for task automation
-- **Automated Build System**: Bundle modules into single distribution file
-- **Improved Testing**: Structured testing with proper module imports
-- **Code Quality**: Linting and formatting tools integration
-
-**Technical Improvements**:
-- **src/ Directory Structure**: Organize code by functionality (core, systems, ui, config, utils)
-- **Poetry Integration**: Modern Python dependency and virtual environment management
-- **Invoke Tasks**: Python-equivalent of npm scripts for development automation
-- **Build Pipeline**: Automated bundling process for distribution
-- **Testing Framework**: Enhanced test structure with modular components
-
-**Developer Benefits**:
-- **Better Organization**: Clear separation of concerns and responsibilities
-- **Easier Development**: Automated tasks for common development operations
-- **Reliable Builds**: Consistent bundling and distribution process
-- **Future-Ready**: Architecture supports planned system registration framework
-
-### 12.2 Interface Integration ✅ COMPLETED
-**Summary**: Integrated Bot settings directly into the main GUMP interface for improved user experience.
-
-**Changes Made**:
-- **Removed Separate Settings GUMP**: No longer using dedicated settings window
-- **Integrated Controls**: All healing toggles now accessible directly from main interface  
-- **Two-Line Auto Heal Section**:
-  - Line 1: Main status with resource counts and usage statistics
-  - Line 2: Individual toggle buttons for bandages and potions with status labels
-- **Streamlined Navigation**: No settings button or window switching required
-- **Same Functionality**: All previous features maintained in more accessible design
-
-**Technical Improvements**:
-- Simplified GUMP state management (removed SETTINGS state)
-- Reduced code complexity by eliminating separate settings GUMP logic
-- Cleaner button handler implementation
-- Improved maintainability with fewer UI states to manage
-
-**User Benefits**:
-- **Faster Access**: Toggle healing methods without opening separate windows
-- **Better UX**: All controls visible and accessible in one interface
-- **Less Confusion**: Single, unified interface instead of multiple windows
-- **Space Efficient**: Compact two-line design fits more information
+## 5. Out of Scope
+The following features are not planned for the current version of DexBot:
+- PvP (Player vs. Player) automation.
+- Complex questing or dungeon crawling logic.
+- Support for clients other than RazorEnhanced.
