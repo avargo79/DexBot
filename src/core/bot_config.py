@@ -3,6 +3,7 @@ Core Bot Configuration System
 Manages all configuration constants using the Singleton pattern and ConfigManager
 """
 
+import datetime
 from typing import Optional
 
 from ..config.config_manager import ConfigManager
@@ -14,6 +15,11 @@ class BotConfig:
     This class manages all configuration constants using the Singleton pattern
     and ConfigManager for persistent storage.
     """
+
+    # Version Information
+    VERSION = "2.1.0"
+    VERSION_NAME = "Phase 1 - Looting System"
+    BUILD_DATE = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 
     _instance: Optional["BotConfig"] = None
 
@@ -31,6 +37,10 @@ class BotConfig:
         # Initialize config manager
         self.config_manager = ConfigManager()
         self._load_settings()
+
+    def get_version_info(self) -> str:
+        """Get formatted version information for display"""
+        return f"DexBot v{self.VERSION} ({self.VERSION_NAME}) - Build: {self.BUILD_DATE}"
 
     def _load_settings(self) -> None:
         """Load all settings from configuration files"""

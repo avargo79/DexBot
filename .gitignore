@@ -69,6 +69,7 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.temp
+tmp/
 
 # Test automation results
 *test_results*.json

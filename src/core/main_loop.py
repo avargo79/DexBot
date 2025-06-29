@@ -25,6 +25,12 @@ def run_dexbot():
     # Initialize looting system
     looting_system = LootingSystem(config_manager)
 
+    # Display version and build information prominently
+    version_info = config.get_version_info()
+    Logger.info("=" * 60)
+    Logger.info(f"🤖 {version_info}")
+    Logger.info("=" * 60)
+    
     Logger.info(messages.STARTING)
 
     # Show status of different systems
@@ -65,6 +71,7 @@ def run_dexbot():
     # Create initial status GUMP
     GumpInterface.create_status_gump()
     Logger.info("[DexBot] Status GUMP created - use buttons to control bot")
+    Logger.info("[DexBot] Click the Close button to stop the script completely")
 
     # Track previous states to avoid spam messages
     was_alive = True
@@ -93,6 +100,11 @@ def run_dexbot():
                     Journal.Clear()
 
             # Player is connected and alive - run enabled bot systems
+
+            # Check for shutdown requests (e.g., from GUMP close button)
+            if status.is_shutdown_requested():
+                Logger.info("[DexBot] Shutdown requested - stopping script")
+                break
 
             # Update GUMP system (handle interactions and periodic updates)
             update_gump_system()
@@ -128,6 +140,17 @@ def run_dexbot():
             Logger.error(error_msg)
             Misc.Pause(config.ERROR_RECOVERY_DELAY)
 
+    # Check if shutdown was requested (e.g., via GUMP close button)
+    if status.is_shutdown_requested():
+        from ..utils.imports import Gumps
+        Gumps.CloseGump(config.GUMP_ID)  # Close GUMP on shutdown
+        Logger.info(messages.STOPPED)
+        report = status.get_status_report()
+        Logger.info(
+            f"Final stats - Bandages used: {report['bandages_used']}, Heal potions used: {report['heal_potions_used']}"
+        )
+        return
+
     # If we get here, player disconnected
     from ..utils.imports import Gumps
 
@@ -140,3 +163,7 @@ def run_dexbot():
     Logger.info(
         f"Final stats - Bandages used: {report['bandages_used']}, Heal potions used: {report['heal_potions_used']}"
     )
+
+
+
+

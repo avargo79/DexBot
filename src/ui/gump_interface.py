@@ -234,6 +234,8 @@ class GumpInterface:
                 GumpInterface.create_bot_settings_gump()
             elif current_state == GumpState.COMBAT_SETTINGS:
                 GumpInterface.create_combat_settings_gump()
+            elif current_state == GumpState.LOOTING_SETTINGS:
+                GumpInterface.create_looting_settings_gump()
             else:
                 # Default to main GUMP (MAIN_FULL or unknown state)
                 GumpInterface.create_main_gump_new()
@@ -387,9 +389,9 @@ class GumpInterface:
             settings_button_id=61,  # Open Looting Settings
         )
 
-        # Debug Button - positioned in bottom left corner
+        # Debug Button - positioned in upper left corner
         debug_button_x = 20
-        debug_button_y = config.GUMP_HEIGHT - 35
+        debug_button_y = 20
 
         if config.DEBUG_MODE:
             Gumps.AddButton(
@@ -977,9 +979,9 @@ class GumpInterface:
             gd,
             close_button_x,
             close_button_y,
-            config.BUTTON_CLOSE,
-            config.BUTTON_CLOSE_PRESSED,
-            3,  # Close GUMP
+            config.BUTTON_CANCEL,
+            config.BUTTON_CANCEL_PRESSED,
+            4,  # Close GUMP
             1,
             0,
         )
@@ -1168,10 +1170,10 @@ class GumpInterface:
                     status.check_gump_data_changed()  # This will update the cached values
                     GumpInterface.create_status_gump()
 
-                elif button_pressed == 4:  # Close GUMP (only in full GUMP)
-                    status.gump_closed = True  # Mark GUMP as closed
+                elif button_pressed == 4:  # Close GUMP (stop script completely)
+                    status.request_shutdown()  # Request script shutdown
                     status.set_gump_state(GumpState.CLOSED)  # Update state
-                    Logger.info("[DexBot] Status GUMP closed")
+                    Logger.info("[DexBot] Close button pressed - stopping script")
                     return False  # Signal that GUMP was closed
 
                 elif button_pressed == 5:  # Maximize GUMP (only in minimized GUMP)
@@ -1302,8 +1304,9 @@ class GumpInterface:
                     GumpInterface.create_status_gump()
 
                 elif button_pressed == 61:  # Open Looting Settings GUMP
+                    Logger.info("[DexBot] Opening Looting Settings")
                     status.set_gump_state(GumpState.LOOTING_SETTINGS)
-                    GumpInterface.create_looting_settings_gump()
+                    GumpInterface.create_status_gump()
 
                 elif button_pressed == 70:  # Back to Main GUMP (from Looting Settings)
                     status.set_gump_state(GumpState.MAIN_FULL)

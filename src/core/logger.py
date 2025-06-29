@@ -76,6 +76,7 @@ class SystemStatus:
             cls._instance.last_displayed_bandages_used = 0
             cls._instance.last_displayed_heal_potions_used = 0
             cls._instance.last_button_press_time = 0  # Prevent rapid button presses
+            cls._instance.shutdown_requested = False  # Flag to request script shutdown
             cls._instance.current_gump_state = (
                 "closed"  # Import GumpState later to avoid circular imports
             )
@@ -177,3 +178,12 @@ class SystemStatus:
             self.last_displayed_heal_potions_used = current_heal_potions_used
 
         return data_changed
+
+    def request_shutdown(self) -> None:
+        """Request that the script shuts down gracefully"""
+        self.shutdown_requested = True
+        Logger.info("[DexBot] Shutdown requested via GUMP close button")
+
+    def is_shutdown_requested(self) -> bool:
+        """Check if shutdown has been requested"""
+        return self.shutdown_requested
