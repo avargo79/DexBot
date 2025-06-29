@@ -109,16 +109,6 @@ This document tracks planned features, current development tasks, and their impl
   - 🔲 Automatically drop or move items based on a configurable list (e.g., drop junk items).
   - 🔲 Potentially move valuable items to a secure container.
 
-### 🔲 Fishing System
-- **Priority**: Low
-- **Status**: Not Started
-- **Dependencies**: None
-- **Description**: An AFK fishing system to automate the process of fishing for resources.
-- **Sub-tasks**:
-  - 🔲 Use a fishing pole on a water source.
-  - 🔲 Detect successful catches and reel them in.
-  - 🔲 Handle common fishing events (e.g., "the fish got away").
-
 ---
 
 ## 🛠️ Planned Refactoring & Maintenance
