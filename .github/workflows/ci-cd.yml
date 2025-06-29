@@ -2,9 +2,9 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ main, feature/devops-infrastructure ]
+    branches: [ main ]
   pull_request:
-    branches: [ main, feature/devops-infrastructure ]
+    branches: [ main ]
 
 jobs:
   lint-test-build:
