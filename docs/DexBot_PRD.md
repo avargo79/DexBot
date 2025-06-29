@@ -320,9 +320,32 @@ Players who want automated healing assistance during gameplay, with potential ex
 - **Efficient Resource Checking**: Cached values to reduce API calls
 - **Rate Limiting**: Prevent excessive user interaction processing
 
-## 12. Recent Updates (Version 2.0.1)
+## 12. Recent Updates (Version 2.1.0)
 
-### 12.1 Interface Integration ✅
+### 12.1 Development Infrastructure & Build System ⚠️ IN PROGRESS
+**Summary**: Implementing modern development workflow with code organization and automated build tools.
+
+**Planned Changes**:
+- **Modular Code Structure**: Split monolithic DexBot.py into organized modules
+- **Development Tooling**: Poetry for dependency management, Invoke for task automation
+- **Automated Build System**: Bundle modules into single distribution file
+- **Improved Testing**: Structured testing with proper module imports
+- **Code Quality**: Linting and formatting tools integration
+
+**Technical Improvements**:
+- **src/ Directory Structure**: Organize code by functionality (core, systems, ui, config, utils)
+- **Poetry Integration**: Modern Python dependency and virtual environment management
+- **Invoke Tasks**: Python-equivalent of npm scripts for development automation
+- **Build Pipeline**: Automated bundling process for distribution
+- **Testing Framework**: Enhanced test structure with modular components
+
+**Developer Benefits**:
+- **Better Organization**: Clear separation of concerns and responsibilities
+- **Easier Development**: Automated tasks for common development operations
+- **Reliable Builds**: Consistent bundling and distribution process
+- **Future-Ready**: Architecture supports planned system registration framework
+
+### 12.2 Interface Integration ✅ COMPLETED
 **Summary**: Integrated Bot settings directly into the main GUMP interface for improved user experience.
 
 **Changes Made**:

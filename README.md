@@ -2,9 +2,16 @@
 
 DexBot is a modular bot system for Ultima Online with RazorEnhanced, currently featuring an advanced Auto Heal system with a modern GUMP interface and robust state management. Built with a clean, focused architecture for the active Auto Heal system.
 
-## Recent Updates (v2.0.1)
+## Recent Updates (v2.1.0)
 
-**🎯 Integrated Auto Heal Controls**: All healing settings are now integrated directly into the main GUMP interface for improved user experience:
+**🚧 Development Infrastructure & Build System** ⚠️ IN PROGRESS:
+- 🔲 **Modular Code Structure**: Reorganizing into src/ directory with system separation
+- 🔲 **Development Tooling**: Poetry + Invoke for modern Python development workflow  
+- 🔲 **Automated Build System**: Bundle modules into single distribution file
+- 🔲 **Enhanced Testing**: Structured testing framework with proper module imports
+- 🔲 **Code Quality Tools**: Integrated linting and formatting automation
+
+**🎯 Integrated Auto Heal Controls** ✅ COMPLETED:
 - ✅ **Streamlined Interface**: No separate settings window - all controls accessible from main GUMP
 - ✅ **Two-Line Auto Heal Section**: Status line + toggle buttons for bandages and potions
 - ✅ **Faster Access**: Toggle healing methods without opening additional windows
@@ -12,6 +19,7 @@ DexBot is a modular bot system for Ultima Online with RazorEnhanced, currently f
 
 ## Directory Structure
 
+**Current Structure**:
 ```
 DexBot/
 ├── __init__.py                     # Package initialization
@@ -26,6 +34,24 @@ DexBot/
     ├── DexBot_PRD.md               # Product Requirements Document
     ├── DexBot_Rebuild_Summary.md   # Development summary and decisions
     └── DexBot_tasks.md             # Task tracking and development progress
+```
+
+**Planned Structure** (Development Infrastructure Sprint):
+```
+DexBot/
+├── src/                            # Source code (NEW)
+│   ├── core/                       # Core bot functionality
+│   ├── systems/                    # Individual bot systems (healing, combat, etc.)
+│   ├── ui/                         # GUMP interface code
+│   ├── config/                     # Configuration management
+│   └── utils/                      # Utility functions
+├── dist/                           # Built/bundled output (NEW)
+├── tests/                          # Test files (reorganized)
+├── config/                         # Runtime configuration files
+├── docs/                           # Documentation
+├── pyproject.toml                  # Poetry configuration (NEW)
+├── tasks.py                        # Development tasks (NEW)
+└── DexBot.py                       # Bundled output file
 ```
 
 ## Features

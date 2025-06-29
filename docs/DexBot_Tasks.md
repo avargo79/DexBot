@@ -5,7 +5,7 @@ This document tracks planned features, current development tasks, and their impl
 
 **Last Updated**: June 28, 2025  
 **Current Version**: 2.1.0  
-**Active Sprint**: System Registration Framework ⚠️ NEXT UP
+**Active Sprint**: Development Infrastructure & Build System ⚠️ IN PROGRESS
 
 ---
 
@@ -51,15 +51,51 @@ This document tracks planned features, current development tasks, and their impl
 
 ---
 
+## 🚀 Current Sprint: Development Infrastructure & Build System
+
+### ⚠️ Development Infrastructure Setup (IN PROGRESS)
+- **Priority**: MEDIUM-HIGH
+- **Status**: ⚠️ IN PROGRESS
+- **Assigned**: GitHub Copilot
+- **Estimated Effort**: 3-5 days
+- **Description**: Create modern development workflow with code organization and build tools
+- **Dependencies**: None (parallel development)
+- **Rationale**: 
+  - Establishes better development patterns for all future work
+  - Enables proper code organization and modularization
+  - Sets up automated build and bundling processes
+  - Improves testing and development workflow
+- **Tasks**:
+  - 🔲 Analyze current monolithic structure and identify split points
+  - 🔲 Design folder structure for modular code organization
+  - 🔲 Set up Python development tooling (Poetry/Invoke)
+  - 🔲 Create development task automation scripts
+  - 🔲 Implement file bundling system for dist output
+  - 🔲 Create automated build pipeline
+  - 🔲 Update documentation for new dev workflow
+  - 🔲 Test build process and validate output
+  - 🔲 Migrate existing code to new structure
+  - 🔲 Update all documentation and README
+
+### Technical Specifications:
+- **Build Tool**: Poetry for dependency management
+- **Task Runner**: Invoke (Python equivalent of npm scripts) 
+- **Structure**: Modular src/ directory with systems separation
+- **Output**: Single bundled DexBot.py file in dist/ directory
+- **Testing**: Automated testing with proper imports
+- **Linting**: Code quality tools integration
+
+---
+
 ## 🚀 Next Sprint: System Registration Framework
 
-### 🔲 System Registration Framework (NEXT UP)
+### 🔲 System Registration Framework (PLANNED)
 - **Priority**: MEDIUM
 - **Status**: 🔲 NOT STARTED
 - **Assigned**: TBD
 - **Estimated Effort**: 2-3 days
 - **Description**: Create framework for registering systems with main GUMP
-- **Dependencies**: GUMP Interface Revamp ✅
+- **Dependencies**: GUMP Interface Revamp ✅, Development Infrastructure ⚠️
 - **Tasks**:
   - 🔲 Design system registration interface
   - 🔲 Create system metadata structure (name, status, settings callback)
