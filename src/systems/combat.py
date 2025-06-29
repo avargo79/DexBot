@@ -419,14 +419,14 @@ class CombatSystem:
             mobile = Mobiles.FindBySerial(target['serial'])
             if mobile:
                 target_name = target.get('name', 'Unknown')
-                health_info = ""
                 
-                # Add health percentage if available
+                # Format as [NAME - HP PERCENT]
                 if target.get('hits', 0) > 0 and target.get('hits_max', 0) > 0:
                     health_percentage = (target['hits'] / target['hits_max']) * 100
-                    health_info = f" - {health_percentage:.0f}%"
-                
-                display_text = f"TARGET: {target_name}{health_info}"
+                    display_text = f"[{target_name} - {health_percentage:.0f}%]"
+                else:
+                    # If health data unavailable, show just the name
+                    display_text = f"[{target_name}]"
                 
                 # Use Mobiles.Message to display text overhead the target
                 # This is the proper RazorEnhanced API method for overhead messages on mobiles
@@ -437,7 +437,7 @@ class CombatSystem:
                 except Exception as msg_error:
                     # Fallback to player message if overhead message fails
                     try:
-                        Misc.SendMessage(f"Current Target: {target_name}{health_info}", display_color)
+                        Misc.SendMessage(f"Current Target: {display_text}", display_color)
                         Logger.debug(f"Displayed target name to player: {display_text}")
                     except Exception as fallback_error:
                         Logger.debug(f"Failed to display target message: {fallback_error}")
