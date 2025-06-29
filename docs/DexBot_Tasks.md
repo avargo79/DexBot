@@ -1,16 +1,25 @@
 # DexBot Development Tasks & Feature Tracking
 
 **Last Updated**: June 29, 2025
-**Current Version**: 2.1.1
+**Current Version**: 2.1.2
 
 ## Overview
 This document tracks planned features, current development tasks, and their implementation status for the DexBot modular bot system, based on the official [Product Requirements Document](DexBot_PRD.md).
 
 ---
 
-## ✅ Completed Tasks (v2.1.1)
+## ✅ Completed Tasks (v2.1.2)
 
-### ✅ Combat System (NEW in v2.1.0-2.1.1)
+### ✅ Combat System Performance Optimizations (NEW in v2.1.2)
+- **FR-034**: Implement mobile data caching system to reduce API calls by 60-70%.
+- **FR-035**: Implement smart health bar management for selected targets only.
+- **FR-036**: Implement adaptive timing based on combat state for optimal performance.
+- **FR-037**: Implement intelligent cache cleanup to prevent memory buildup.
+- **FR-038**: Implement distance caching for improved responsiveness.
+- **FR-039**: Implement optimized target detection with 50-80% performance improvement.
+- **FR-040**: Implement enhanced exception handling with specific error types.
+
+### ✅ Combat System (v2.1.0-2.1.1)
 - **FR-024**: Implement automated target detection using RazorEnhanced Mobiles API.
 - **FR-025**: Implement intelligent target selection with configurable priority modes.
 - **FR-026**: Implement automated combat engagement with timing management.
