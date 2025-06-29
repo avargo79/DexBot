@@ -71,8 +71,6 @@ DexBot is a modular bot system for Ultima Online with RazorEnhanced, currently f
 ```
 DexBot/
 ├── __init__.py                     # Package initialization
-├── main.py                         # Main entry point for modular DexBot (was DexBot_Modular.py)
-├── test_dexbot.py                  # Unit tests for DexBot and configuration system
 ├── README.md                       # This file - project overview
 ├── .gitignore                      # Git ignore patterns for Python projects
 ├── .github/                        # GitHub Actions workflows
@@ -82,14 +80,13 @@ DexBot/
 │   ├── build.ps1                   # PowerShell build script  
 │   ├── build.sh                    # Shell build script (Unix/Linux)
 │   └── update_api_docs.py          # API documentation fetcher
-├── config/                         # Configuration directory
-│   ├── main_config.json            # Main bot settings and system toggles
-│   └── auto_heal_config.json       # Auto Heal system specific settings
+├── tasks.py                        # Invoke task automation
 ├── docs/                           # Documentation directory
 │   ├── DexBot_PRD.md               # Product Requirements Document
 │   ├── GitHub_Environment_Setup.md # GitHub environment configuration guide
 │   ├── RazorEnhanced_API_Reference.md # Local API reference documentation
-│   └── DexBot_tasks.md             # Task tracking and development progress
+│   ├── DexBot_tasks.md             # Task tracking and development progress
+│   └── CHANGELOG.md                # Version history and changes
 ├── src/                            # Source code (modular)
 │   ├── core/                       # Core bot functionality
 │   ├── systems/                    # Individual bot systems (healing, combat, etc.)
@@ -287,10 +284,10 @@ python -m invoke lint
 ```
 
 **Development Mode (Direct Source):**
-For active development, you can run the modular version directly:
+For active development, you can run the bundled version directly:
 ```python
-# Run from source (for development only)
-exec(open('DexBot/main.py').read())
+# Run bundled version (recommended)
+exec(open('DexBot/dist/DexBot.py').read())
 ```
 
 ### 3. Interface Controls
