@@ -620,6 +620,26 @@ This workflow ensures consistent, high-quality development while leveraging AI c
 - Ensure all files are in the correct directory structure shown above
 - No additional dependencies needed - just run the bundled script!
 
+### RazorEnhanced Setup
+
+**Prerequisites:**
+1. **RazorEnhanced Application**: Download from [RazorEnhanced.net](https://razorenhanced.net/)
+   - Latest version: [RazorEnhanced 0.8.2.245](https://github.com/RazorEnhanced/RazorEnhanced/releases/download/v0.8.2.245/RazorEnhanced-0.8.2.245.zip)
+   - Supports Windows and Linux/Wine + ClassicUO
+   - Requires .NET Framework 4.8
+
+2. **Ultima Online Client**: Compatible with OSI clients and ClassicUO
+
+**DexBot Installation:**
+1. Extract DexBot to your RazorEnhanced Scripts directory:
+   ```
+   [RazorEnhanced Install]/Scripts/DexBot/
+   ```
+2. Ensure the directory structure matches the layout shown in the project overview above
+3. The bundled script (`dist/DexBot.py`) is ready to run immediately
+
+**Note:** RazorEnhanced has a built-in Python scripting engine (IronPython .NET) - no separate Python installation required for running scripts!
+
 **For Developers (Build & Development):**
 If you want to modify the code or run development tasks, you'll need Python with these packages:
 
@@ -630,6 +650,63 @@ pip install invoke
 # If you get typing errors, also install:
 pip install typing-extensions
 ```
+
+### VS Code Setup for Development
+
+**Essential Extensions:**
+```vscode-extensions
+ms-python.python,ms-python.vscode-pylance,ms-python.debugpy,RazorEnhanced-Development.razorenhanced
+```
+
+**Installation Steps:**
+
+1. **Install Python Extension Pack**:
+   - Open VS Code
+   - Press `Ctrl+Shift+X` to open Extensions view
+   - Search for "Python" by Microsoft
+   - Click "Install" on the Python extension (this installs Python, Pylance, and Python Debugger)
+
+2. **Install RazorEnhanced Extension**:
+   - In VS Code, press `Ctrl+P` to open Quick Open
+   - Paste: `ext install RazorEnhanced-Development.razorenhanced`
+   - Press Enter to install
+   - **OR** search for "RazorEnhanced" in the Extensions view and install
+
+3. **Configure Python Interpreter**:
+   - Open the DexBot project folder in VS Code
+   - Press `Ctrl+Shift+P` and type "Python: Select Interpreter"
+   - Choose your Python 3.7+ installation
+
+4. **Configure RazorEnhanced Connection**:
+   - Open VS Code Settings (`Ctrl+,`)
+   - Search for "RazorEnhanced"
+   - Set the "Razor Enhanced: Server Port" to match your RazorEnhanced instance
+   - Find the port number in RazorEnhanced's Help tab
+
+**RazorEnhanced Extension Features:**
+- ✅ **Direct Script Execution**: Play scripts directly from VS Code to RazorEnhanced
+- ✅ **Live Recording**: Record commands from RazorEnhanced directly into VS Code
+- ✅ **UOSteam Syntax Highlighting**: Enhanced syntax highlighting for script files
+- ✅ **Remote Control**: Send commands and receive responses from RazorEnhanced server
+
+**Available Commands:**
+- `RazorEnhanced: Play` - Execute current file in RazorEnhanced
+- `RazorEnhanced: Stop Playing` - Stop current script execution
+- `RazorEnhanced: Record` - Start recording from RazorEnhanced
+- `RazorEnhanced: Stop Record` - Stop recording session
+
+5. **Recommended Additional Extensions**:
+   ```vscode-extensions
+   github.copilot,github.copilot-chat,formulahendry.code-runner
+   ```
+
+**VS Code Workspace Benefits:**
+- ✅ Intelligent code completion and error detection
+- ✅ Integrated debugging for Python scripts
+- ✅ Built-in terminal for running invoke tasks
+- ✅ Git integration for version control
+- ✅ AI-powered development with GitHub Copilot
+- ✅ **Direct RazorEnhanced integration** for testing scripts without leaving VS Code
 
 **Optional development dependencies:**
 ```bash
@@ -649,16 +726,17 @@ The easiest way to use DexBot is with the pre-built version:
 - Run `DexBot.py` directly from RazorEnhanced Scripts interface
 - The bundled file is ready to use with no additional setup required
 
-**Manual Methods:**
-```python
-# Method 1: Direct execution in RazorEnhanced
-exec(open('DexBot/dist/DexBot.py').read())
+**RazorEnhanced Execution Methods:**
+1. **Recommended**: Use RazorEnhanced's built-in Scripts interface:
+   - Open RazorEnhanced application
+   - Go to the "Scripts" tab
+   - Navigate to your `DexBot/dist/` folder
+   - Double-click `DexBot.py` to execute
 
-# Method 2: Use RazorEnhanced Scripts interface
-# - Open RazorEnhanced Scripts tab
-# - Navigate to DexBot/dist/ folder  
-# - Double-click DexBot.py to execute
-```
+2. **Alternative**: Load via RazorEnhanced Script Manager:
+   - Use the "Add" button in the Scripts tab
+   - Browse to `DexBot/dist/DexBot.py`
+   - Click "Play" to run the script
 
 **🔧 For Developers:**
 If you want to build from source or modify the code:
@@ -683,12 +761,26 @@ python -m invoke lint
 # Use dist/DexBot.py in RazorEnhanced as described above
 ```
 
-**Development Mode (Direct Source):**
-For active development, you can run the bundled version directly:
-```python
-# Run bundled version (recommended)
-exec(open('DexBot/dist/DexBot.py').read())
+**Development Mode (Testing Changes):**
+For active development, test your changes by running the bundled version:
+```bash
+# 1. Make your code changes
+# 2. Build the bundled version
+python -m invoke bundle
+
+# 3. Test in RazorEnhanced using one of these methods:
+#    a) VS Code RazorEnhanced Extension (if installed):
+#       - Open dist/DexBot.py in VS Code
+#       - Use Command Palette: "RazorEnhanced: Play"
+#    b) RazorEnhanced Scripts interface (see above)
 ```
+
+**Enhanced Development with VS Code Extension:**
+If you have the RazorEnhanced VS Code extension installed, you can:
+- Test scripts directly from VS Code without switching applications
+- Use live recording to capture new UO interactions
+- Benefit from syntax highlighting for RazorEnhanced/UOSteam commands
+- Debug and iterate faster with integrated workflow
 
 ### 3. Interface Controls
 - **Enable/Disable Auto Heal**: Click the main toggle button (left side of Auto Heal section)
