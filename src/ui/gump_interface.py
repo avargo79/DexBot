@@ -5,6 +5,7 @@ Handles all in-game GUI interactions and displays
 
 import time
 
+from ..config.config_manager import ConfigManager
 from ..core.bot_config import BotConfig, BotMessages, GumpState
 from ..core.logger import Logger, SystemStatus
 from ..utils.helpers import get_resource_color
@@ -343,12 +344,29 @@ class GumpInterface:
             section_x,
             current_y,
             section_width,
-            system_name="CORE BOT",
+            system_name="HEALING",
             enabled=config.HEALING_ENABLED,
             active=status.healing_active,
             status_text=heal_status_text,
             enable_button_id=1,  # Toggle Auto Heal
             settings_button_id=10,  # Open Bot Settings
+        )
+
+        # Combat System Summary Line
+        config_manager = ConfigManager()
+        combat_enabled = config_manager.get_combat_setting('system_toggles.combat_system_enabled')
+        combat_status_text = "Scanning..." if combat_enabled else "Disabled"
+        current_y = GumpSection.create_system_summary_line(
+            gd,
+            section_x,
+            current_y,
+            section_width,
+            system_name="COMBAT",
+            enabled=combat_enabled,
+            active=False,  # We don't have active combat tracking in status yet
+            status_text=combat_status_text,
+            enable_button_id=30,  # Toggle Combat System
+            settings_button_id=31,  # Open Combat Settings
         )
 
         # Debug Button - positioned in bottom left corner
@@ -637,6 +655,166 @@ class GumpInterface:
         Logger.debug("Bot Settings GUMP created and displayed")
 
     @staticmethod
+    def create_combat_settings_gump():
+        """Create the Combat Settings GUMP for configuring combat system options."""
+        config = BotConfig()
+        config_manager = ConfigManager()
+        
+        gd = Gumps.CreateGump(True)
+        Gumps.AddPage(gd, 0)
+
+        # Background
+        Gumps.AddBackground(gd, 0, 0, config.GUMP_WIDTH, config.GUMP_HEIGHT + 50, config.BACKGROUND_ID)
+        Gumps.AddAlphaRegion(gd, 15, 15, config.GUMP_WIDTH - 30, config.GUMP_HEIGHT + 20)
+
+        # Header
+        header_y = 25
+        Gumps.AddHtml(
+            gd,
+            30,
+            header_y,
+            config.GUMP_WIDTH - 60,
+            30,
+            '<center><basefont color="#87CEEB" size="4"><b>COMBAT SETTINGS</b></basefont></center>',
+            False,
+            False,
+        )
+
+        # Current section Y position
+        current_y = header_y + 40
+        section_x = 30
+        section_width = config.GUMP_WIDTH - 60
+
+        # Combat System Toggle Section
+        combat_enabled = config_manager.get_combat_setting('system_toggles.combat_system_enabled')
+        current_y = GumpSection.create_section(
+            gd,
+            "Combat System",
+            section_x,
+            current_y,
+            section_width,
+            content_lines=[
+                {"text": f"System Status: {'ENABLED' if combat_enabled else 'DISABLED'}", 
+                 "color": "#00FF00" if combat_enabled else "#FF6B6B"},
+                {"text": "Automatically engages hostile targets"},
+            ],
+            toggle_button={
+                'enabled': combat_enabled,
+                'button_id': 40,  # Toggle Combat System
+                'enabled_art': config.BUTTON_HEAL_ENABLED,
+                'enabled_pressed_art': config.BUTTON_HEAL_ENABLED_PRESSED,
+                'disabled_art': config.BUTTON_HEAL_DISABLED,
+                'disabled_pressed_art': config.BUTTON_HEAL_DISABLED_PRESSED,
+                'tooltip': f"Toggle Combat System ({'ON' if combat_enabled else 'OFF'})"
+            }
+        )
+        current_y += 15
+
+        # Target Selection Settings
+        max_range = config_manager.get_combat_setting('target_selection.max_range')
+        priority_mode = config_manager.get_combat_setting('target_selection.priority_mode')
+        ignore_innocents = config_manager.get_combat_setting('target_selection.ignore_innocents')
+        
+        current_y = GumpSection.create_section(
+            gd,
+            "Target Selection",
+            section_x,
+            current_y,
+            section_width,
+            content_lines=[
+                {"text": f"Max Range: {max_range} tiles"},
+                {"text": f"Priority: {priority_mode.replace('_', ' ').title()}"},
+                {"text": f"Ignore Innocents: {'YES' if ignore_innocents else 'NO'}"},
+            ]
+        )
+        current_y += 15
+
+        # Combat Behavior Settings
+        retreat_enabled = config_manager.get_combat_setting('combat_behavior.retreat_on_low_health')
+        retreat_threshold = config_manager.get_combat_setting('combat_behavior.retreat_health_threshold')
+        attack_delay = config_manager.get_combat_setting('combat_behavior.attack_delay_ms')
+        
+        current_y = GumpSection.create_section(
+            gd,
+            "Combat Behavior",
+            section_x,
+            current_y,
+            section_width,
+            content_lines=[
+                {"text": f"Auto Retreat: {'YES' if retreat_enabled else 'NO'}"},
+                {"text": f"Retreat Health: {retreat_threshold}%"},
+                {"text": f"Attack Delay: {attack_delay}ms"},
+            ]
+        )
+        current_y += 15
+
+        # Auto Target & Auto Attack Toggles
+        auto_target = config_manager.get_combat_setting('system_toggles.auto_target_enabled')
+        auto_attack = config_manager.get_combat_setting('system_toggles.auto_attack_enabled')
+        
+        current_y = GumpSection.create_section(
+            gd,
+            "Combat Features",
+            section_x,
+            current_y,
+            section_width,
+            content_lines=[
+                {"text": f"Auto Targeting: {'ON' if auto_target else 'OFF'}", 
+                 "color": "#00FF00" if auto_target else "#FF6B6B"},
+                {"text": f"Auto Attack: {'ON' if auto_attack else 'OFF'}", 
+                 "color": "#00FF00" if auto_attack else "#FF6B6B"},
+            ],
+            toggle_button={
+                'enabled': auto_target,
+                'button_id': 41,  # Toggle Auto Target
+                'enabled_art': config.BUTTON_HEAL_ENABLED,
+                'enabled_pressed_art': config.BUTTON_HEAL_ENABLED_PRESSED,
+                'disabled_art': config.BUTTON_HEAL_DISABLED,
+                'disabled_pressed_art': config.BUTTON_HEAL_DISABLED_PRESSED,
+                'tooltip': f"Toggle Auto Targeting ({'ON' if auto_target else 'OFF'})"
+            }
+        )
+        current_y += 15
+
+        # Back button
+        back_button_y = config.GUMP_HEIGHT - 15
+        Gumps.AddButton(
+            gd,
+            30,
+            back_button_y,
+            config.BUTTON_BACK,
+            config.BUTTON_BACK_PRESSED,
+            50,  # Back to Main
+            1,
+            0,
+        )
+        Gumps.AddTooltip(gd, "Back to Main GUMP")
+
+        # Back button label
+        Gumps.AddHtml(
+            gd,
+            65,
+            back_button_y + 5,
+            100,
+            20,
+            '<basefont color="#CCCCCC" size="2">Back to Main</basefont>',
+            False,
+            False,
+        )
+
+        # Send the GUMP
+        Gumps.SendGump(
+            config.GUMP_ID,
+            Player.Serial,
+            config.GUMP_X,
+            config.GUMP_Y,
+            gd.gumpDefinition,
+            gd.gumpStrings,
+        )
+
+        Logger.debug("Combat Settings GUMP created and displayed")
+
+    @staticmethod
     def handle_gump_response():
         """Handle player interactions with the GUMP"""
         config = BotConfig()
@@ -756,6 +934,44 @@ class GumpInterface:
                         Logger.debug("[DexBot] Settings saved to config files")
                     # Recreate the Bot Settings GUMP to show updated state
                     GumpInterface.create_bot_settings_gump()
+
+                elif button_pressed == 30:  # Toggle Combat System (only in full GUMP)
+                    config_manager = ConfigManager()
+                    current_enabled = config_manager.get_combat_setting('system_toggles.combat_system_enabled')
+                    config_manager.set_combat_setting('system_toggles.combat_system_enabled', not current_enabled)
+                    config_manager.save_combat_config()
+                    status_msg = "enabled" if not current_enabled else "disabled"
+                    Logger.info(f"[DexBot] Combat system {status_msg} via GUMP")
+                    # Recreate the main GUMP to show updated state
+                    GumpInterface.create_status_gump()
+
+                elif button_pressed == 31:  # Open Combat Settings GUMP
+                    status.set_gump_state(GumpState.COMBAT_SETTINGS)
+                    GumpInterface.create_combat_settings_gump()
+
+                elif button_pressed == 40:  # Toggle Combat System (in Combat Settings)
+                    config_manager = ConfigManager()
+                    current_enabled = config_manager.get_combat_setting('system_toggles.combat_system_enabled')
+                    config_manager.set_combat_setting('system_toggles.combat_system_enabled', not current_enabled)
+                    config_manager.save_combat_config()
+                    status_msg = "enabled" if not current_enabled else "disabled"
+                    Logger.info(f"[DexBot] Combat system {status_msg} via Combat Settings")
+                    # Recreate the Combat Settings GUMP to show updated state
+                    GumpInterface.create_combat_settings_gump()
+
+                elif button_pressed == 41:  # Toggle Auto Target (in Combat Settings)
+                    config_manager = ConfigManager()
+                    current_enabled = config_manager.get_combat_setting('system_toggles.auto_target_enabled')
+                    config_manager.set_combat_setting('system_toggles.auto_target_enabled', not current_enabled)
+                    config_manager.save_combat_config()
+                    status_msg = "enabled" if not current_enabled else "disabled"
+                    Logger.info(f"[DexBot] Auto targeting {status_msg} via Combat Settings")
+                    # Recreate the Combat Settings GUMP to show updated state
+                    GumpInterface.create_combat_settings_gump()
+
+                elif button_pressed == 50:  # Back to Main GUMP (from Combat Settings)
+                    status.set_gump_state(GumpState.MAIN_FULL)
+                    GumpInterface.create_status_gump()
 
         except Exception as e:
             Logger.debug(f"GUMP response handling error: {str(e)}")

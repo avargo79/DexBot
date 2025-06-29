@@ -285,3 +285,4 @@ class GumpState:
     MAIN_FULL = "main_full"
     MAIN_MINIMIZED = "main_minimized"
     BOT_SETTINGS = "bot_settings"
+    COMBAT_SETTINGS = "combat_settings"

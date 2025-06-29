@@ -3,9 +3,11 @@ Main Bot Loop and Entry Point for DexBot
 Coordinates all bot systems and handles the main execution loop
 """
 
+from ..config.config_manager import ConfigManager
 from ..core.bot_config import BotConfig, BotMessages, GumpState
 from ..core.logger import Logger, SystemStatus
 from ..systems.auto_heal import execute_auto_heal_system, process_healing_journal
+from ..systems.combat import execute_combat_system
 from ..ui.gump_interface import GumpInterface, update_gump_system
 from ..utils.imports import Misc, Player
 
@@ -17,6 +19,7 @@ def run_dexbot():
     config = BotConfig()
     messages = BotMessages()
     status = SystemStatus()
+    config_manager = ConfigManager()
 
     Logger.info(messages.STARTING)
 
@@ -34,6 +37,12 @@ def run_dexbot():
             Logger.info("[DexBot] - Potion healing: disabled")
     else:
         Logger.info(messages.HEALING_DISABLED)
+
+    # Show combat system status
+    if config_manager.get_combat_setting('system_toggles.combat_system_enabled'):
+        Logger.info("[DexBot] Combat system: enabled")
+    else:
+        Logger.info("[DexBot] Combat system: disabled")
 
     if config.DEBUG_MODE:
         Logger.debug("Debug mode is enabled")
@@ -82,6 +91,9 @@ def run_dexbot():
             if config.HEALING_ENABLED:
                 process_healing_journal()
                 execute_auto_heal_system()
+
+            # Combat system (if enabled)
+            execute_combat_system(config_manager)
 
             # Increment runtime counter and main loop delay
             status.increment_runtime()

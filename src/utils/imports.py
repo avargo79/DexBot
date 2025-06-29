@@ -9,6 +9,7 @@ try:
     import Items
     import Journal
     import Misc
+    import Mobiles
 
     # These imports are available in the RazorEnhanced environment
     # Import stubs to avoid IDE errors, but the actual implementation comes from RazorEnhanced
@@ -131,6 +132,25 @@ except ImportError:
 
             return MockGumpData()
 
+    class MockMobiles:
+        @staticmethod
+        def Filter():
+            # Return empty list for development
+            return []
+
+        @staticmethod
+        def FindBySerial(serial):
+            # Mock mobile object
+            class MockMobile:
+                Serial = serial
+                Name = "TestMobile"
+                Hits = 100
+                HitsMax = 100
+                Notoriety = 3  # Gray
+                Position = type('Position', (), {'X': 100, 'Y': 100, 'Z': 0})()
+
+            return MockMobile()
+
     # Assign mock objects
     Player = MockPlayer()
     Items = MockItems()
@@ -139,3 +159,4 @@ except ImportError:
     Target = MockTarget()
     Misc = MockMisc()
     Gumps = MockGumps()
+    Mobiles = MockMobiles()

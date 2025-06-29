@@ -1,0 +1,34 @@
+{
+  "description": "DexBot Combat System Configuration",
+  "version": "1.0",
+  "last_updated": "2025-06-29",
+  "system_toggles": {
+    "combat_system_enabled": false,
+    "auto_target_enabled": true,
+    "auto_attack_enabled": true
+  },
+  "target_selection": {
+    "max_range": 10,
+    "priority_mode": "closest",
+    "target_types": ["monsters", "hostiles"],
+    "ignore_innocents": true,
+    "ignore_pets": true
+  },
+  "combat_behavior": {
+    "attack_delay_ms": 1000,
+    "target_switch_delay_ms": 2000,
+    "combat_timeout_ms": 30000,
+    "retreat_on_low_health": true,
+    "retreat_health_threshold": 30
+  },
+  "weapon_settings": {
+    "auto_equip_weapon": false,
+    "preferred_weapon_type": "any",
+    "weapon_durability_warning": 10
+  },
+  "timing_settings": {
+    "combat_check_interval": 500,
+    "target_scan_interval": 1000,
+    "combat_loop_delay_ms": 250
+  }
+}
