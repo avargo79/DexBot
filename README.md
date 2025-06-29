@@ -83,7 +83,6 @@ DexBot/
 ├── tasks.py                        # Invoke task automation
 ├── docs/                           # Documentation directory
 │   ├── DexBot_PRD.md               # Product Requirements Document
-│   ├── GitHub_Environment_Setup.md # GitHub environment configuration guide
 │   ├── RazorEnhanced_API_Reference.md # Local API reference documentation
 │   ├── DexBot_tasks.md             # Task tracking and development progress
 │   └── CHANGELOG.md                # Version history and changes
@@ -196,7 +195,7 @@ The project includes automated workflows that trigger on changes to the main bra
 
 **Workflow Status**: Check the build badge at the top of this README.
 
-**Production Releases**: Releases and documentation updates require approval through the GitHub production environment. See [`docs/GitHub_Environment_Setup.md`](docs/GitHub_Environment_Setup.md) for configuration details.
+**Production Releases**: Releases and documentation updates are automatically handled through the CI/CD pipeline on the main branch.
 
 ### 📚 API Documentation
 
@@ -438,6 +437,23 @@ pip install black flake8 pytest
 *   **`invoke test`**: Executes the test suite to ensure all components are working correctly.
 *   **`invoke bundle`**: Packages the entire `src` directory into a single distributable file, `dist/DexBot.py`, for easy deployment.
 *   **`invoke build`**: Full build pipeline (clean + lint + test + bundle).
+*   **`invoke docs`**: Updates the RazorEnhanced API documentation by crawling official docs and generating a comprehensive reference guide with examples.
+
+**API Documentation Tool:**
+```bash
+# Update API documentation (standalone tool)
+python scripts/update_api_docs.py
+
+# Or use the invoke task
+invoke docs
+```
+
+The API documentation tool:
+- Crawls the official RazorEnhanced API documentation
+- Extracts modules, methods, properties, and parameters
+- Generates comprehensive developer guide with practical examples
+- Creates both Markdown and JSON output formats
+- Should be run manually when you need updated API reference
 *   **`invoke dev`**: Development mode (test + lint + bundle for quick iteration).
 
 **Usage Examples:**

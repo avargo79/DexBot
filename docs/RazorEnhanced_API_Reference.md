@@ -1,690 +1,1389 @@
-# RazorEnhanced API Reference
+# RazorEnhanced API Reference Guide
 
-> **Generated on**: 2025-06-29 10:18:50
+> **Generated on**: 2025-06-29 12:32:25
 > 
-> This is a local reference for the RazorEnhanced API, automatically generated for DexBot development.
-> For the most current information, always refer to the [official documentation](https://github.com/RazorEnhanced/ScriptLibrary/wiki).
+> This comprehensive API reference guide was automatically generated from the official
+> RazorEnhanced documentation. It provides detailed information about modules, methods,
+> parameters, and usage examples for developers.
+> 
+> **Official Documentation**: [https://razorenhanced.github.io/doc/api/](https://razorenhanced.github.io/doc/api/)
+
+## Overview
+
+RazorEnhanced is a powerful scripting framework for Ultima Online that provides extensive
+APIs for automating gameplay, creating tools, and enhancing the user experience.
+
+This guide includes:
+- **Complete API coverage** - Core modules and their methods/properties
+- **Method signatures** - Parameter details and return types
+- **Usage examples** - Practical code examples for each API
+- **Best practices** - Error handling and implementation patterns
+- **Quick reference** - Common patterns and imports
 
 ## Table of Contents
 
-- [Gumps](#gumps)
+- [Quick Reference](#quick-reference)
+- [Player](#player)
 - [Items](#items)
+- [Target](#target)
 - [Journal](#journal)
 - [Misc](#misc)
-- [Mobile](#mobile)
-- [Player](#player)
-- [Spells](#spells)
-- [Target](#target)
-- [Timer](#timer)
-- [Trade](#trade)
+- [Best Practices](#best-practices)
+- [Additional Resources](#additional-resources)
 
 ## Quick Reference
 
-
-### Common Import Pattern
+### Import RazorEnhanced
 ```python
+# Method 1: Import specific modules
+from RazorEnhanced import Player, Items, Target, Journal
+
+# Method 2: Import with CLR (recommended for stability)
 import clr
 clr.AddReference('RazorEnhanced')
+from RazorEnhanced import Player, Items, Target
+
+# Method 3: Import with alias
 import RazorEnhanced as RE
-from RazorEnhanced import *
+# Usage: RE.Player.Name, RE.Items.FindBySerial(), etc.
 ```
 
-### Basic Usage Examples
+### Essential Patterns
+
+#### Basic Script Structure
 ```python
-# Player information
-player_name = Player.Name
-player_hp = Player.Hits
-player_position = Player.Position
+from RazorEnhanced import Player, Items, Misc
 
-# Item handling
-item = Items.FindBySerial(0x12345678)
-if item:
-    Items.Move(item.Serial, Player.Backpack.Serial, 1)
+def main():
+    try:
+        # Your script logic here
+        Misc.SendMessage("Script started", 0x40)
+        
+        # Check player status
+        if Player.IsGhost:
+            Misc.SendMessage("Player is dead, stopping script", 0x20)
+            return
+            
+        # Your automation logic here
+        
+    except Exception as e:
+        Misc.SendMessage(f"Script error: {e}", 0x20)
 
-# Gump interaction
-if Gumps.HasGump():
-    gump = Gumps.GetGump()
-    Gumps.SendAction(gump.Serial, 1)  # Press button 1
-
-# Journal monitoring
-Journal.Clear()
-# ... perform action ...
-if Journal.Search("You successfully"):
-    print("Action succeeded!")
+if __name__ == "__main__":
+    main()
 ```
 
-### Error Handling Best Practices
+#### Error Handling Template
 ```python
-try:
-    # Your RazorEnhanced code here
-    result = Items.FindBySerial(serial)
-    if result is None:
-        raise ValueError("Item not found")
-except Exception as e:
-    print(f"Error: {e}")
-    # Handle the error appropriately
+def safe_operation():
+    try:
+        # Potentially risky operation
+        item = Items.FindBySerial(0x12345678)
+        if item is None:
+            raise ValueError("Item not found")
+            
+        # Process the item
+        Items.Move(item.Serial, Player.Backpack.Serial, 1)
+        
+        return True
+        
+    except Exception as e:
+        Misc.SendMessage(f"Operation failed: {e}", 0x20)
+        return False
 ```
-
-## Detailed API Documentation
-
-
-## Gumps
-
-# Gumps API
-
-> **Note**: This documentation is automatically generated for DexBot development.
-> For the most up-to-date information, please visit the [official API documentation](https://razorenhanced.github.io/doc/api/).
-
-## Overview
-
-Gumps API - User interface interaction
-
-## Common Methods
-
-### Basic Usage Pattern
-```python
-import clr
-clr.AddReference('RazorEnhanced')
-from RazorEnhanced import Gumps
-
-# Example usage
-# Gumps-specific methods will be documented here
-```
-
-## Examples
-
-```python
-# Basic gumps operations
-try:
-    # Your Gumps code here
-    pass
-except Exception as e:
-    print(f"Error in Gumps operation: {e}")
-```
-
-## Error Handling
-
-When working with the Gumps API, always implement proper error handling:
-
-```python
-try:
-    # Gumps operations
-    pass
-except Exception as e:
-    # Log the error
-    print(f"Gumps API Error: {e}")
-    # Handle gracefully
-```
-
-## See Also
-
-- [Official RazorEnhanced API Documentation](https://razorenhanced.github.io/doc/api/)
-- [RazorEnhanced Wiki](http://razorenhanced.net/dokuwiki/doku.php)
-- [RazorEnhanced GitHub Repository](https://github.com/RazorEnhanced/RazorEnhanced)
-
----
-*Last updated: 2025-06-29 10:18:50*
-
-
----
 
 ## Items
 
-# Items API
+> **Import**: `from RazorEnhanced import Items`
 
-> **Note**: This documentation is automatically generated for DexBot development.
-> For the most up-to-date information, please visit the [official API documentation](https://razorenhanced.github.io/doc/api/).
+Handles item manipulation, searching, and container operations.
 
-## Overview
+### Properties
 
-Items API - Item manipulation and queries
+#### `Items.Name`
 
-## Common Methods
+Gets the name value
 
-### Basic Usage Pattern
+**Example**:
 ```python
-import clr
-clr.AddReference('RazorEnhanced')
 from RazorEnhanced import Items
 
-# Example usage
-# Items-specific methods will be documented here
+# Get name value
+value = Items.Name
+print(f"Name: {value}")
 ```
+#### `Items.Serial`
 
-## Examples
+Gets the serial value
 
+**Example**:
 ```python
-# Basic items operations
-try:
-    # Your Items code here
-    pass
-except Exception as e:
-    print(f"Error in Items operation: {e}")
+from RazorEnhanced import Items
+
+# Get serial value
+value = Items.Serial
+print(f"Serial: {value}")
 ```
+### Methods
 
-## Error Handling
+#### `Items.ApplyFilter`
 
-When working with the Items API, always implement proper error handling:
+**Signature**: `ApplyFilter(filter)`
 
+Method for ApplyFilter operations
+
+**Example**:
 ```python
+from RazorEnhanced import Items, Misc
+
+# Use ApplyFilter method
 try:
-    # Items operations
-    pass
+    result = Items.ApplyFilter(filter)
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
 except Exception as e:
-    # Log the error
-    print(f"Items API Error: {e}")
-    # Handle gracefully
+    Misc.SendMessage(f"Error: {e}", 0x20)
 ```
+#### `Items.ApplyFilter`
 
-## See Also
+**Signature**: `ApplyFilter(filter)`
 
-- [Official RazorEnhanced API Documentation](https://razorenhanced.github.io/doc/api/)
-- [RazorEnhanced Wiki](http://razorenhanced.net/dokuwiki/doku.php)
-- [RazorEnhanced GitHub Repository](https://github.com/RazorEnhanced/RazorEnhanced)
+Method for ApplyFilter operations
 
----
-*Last updated: 2025-06-29 10:18:50*
+**Example**:
+```python
+from RazorEnhanced import Items, Misc
 
+# Use ApplyFilter method
+try:
+    result = Items.ApplyFilter(filter)
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
+except Exception as e:
+    Misc.SendMessage(f"Error: {e}", 0x20)
+```
+#### `Items.BackpackCount`
 
+**Signature**: `BackpackCount(itemid, color)`
+
+Method for BackpackCount operations
+
+**Example**:
+```python
+from RazorEnhanced import Items, Misc
+
+# Use BackpackCount method
+try:
+    result = Items.BackpackCount(itemid, color)
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
+except Exception as e:
+    Misc.SendMessage(f"Error: {e}", 0x20)
+```
+#### `Items.BackpackCount`
+
+**Signature**: `BackpackCount(itemid, color)`
+
+Method for BackpackCount operations
+
+**Example**:
+```python
+from RazorEnhanced import Items, Misc
+
+# Use BackpackCount method
+try:
+    result = Items.BackpackCount(itemid, color)
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
+except Exception as e:
+    Misc.SendMessage(f"Error: {e}", 0x20)
+```
+#### `Items.ChangeDyeingTubColor`
+
+**Signature**: `ChangeDyeingTubColor(dyes, dyeingTub, color)`
+
+Method for ChangeDyeingTubColor operations
+
+**Example**:
+```python
+from RazorEnhanced import Items, Misc
+
+# Use ChangeDyeingTubColor method
+try:
+    result = Items.ChangeDyeingTubColor(dyes, dyeingTub, color)
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
+except Exception as e:
+    Misc.SendMessage(f"Error: {e}", 0x20)
+```
+#### `Items.ChangeDyeingTubColor`
+
+**Signature**: `ChangeDyeingTubColor(dyes, dyeingTub, color)`
+
+Method for ChangeDyeingTubColor operations
+
+**Example**:
+```python
+from RazorEnhanced import Items, Misc
+
+# Use ChangeDyeingTubColor method
+try:
+    result = Items.ChangeDyeingTubColor(dyes, dyeingTub, color)
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
+except Exception as e:
+    Misc.SendMessage(f"Error: {e}", 0x20)
+```
+#### `Items.Close`
+
+**Signature**: `Close(serial)`
+
+Method for Close operations
+
+**Example**:
+```python
+from RazorEnhanced import Items, Misc
+
+# Use Close method
+try:
+    result = Items.Close(serial)
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
+except Exception as e:
+    Misc.SendMessage(f"Error: {e}", 0x20)
+```
+#### `Items.Close`
+
+**Signature**: `Close(serial)`
+
+Method for Close operations
+
+**Example**:
+```python
+from RazorEnhanced import Items, Misc
+
+# Use Close method
+try:
+    result = Items.Close(serial)
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
+except Exception as e:
+    Misc.SendMessage(f"Error: {e}", 0x20)
+```
+#### `Items.ContainerCount`
+
+**Signature**: `ContainerCount(container, itemid, color, recursive)`
+
+Method for ContainerCount operations
+
+**Example**:
+```python
+from RazorEnhanced import Items, Misc
+
+# Use ContainerCount method
+try:
+    result = Items.ContainerCount(container, itemid, color, recursive)
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
+except Exception as e:
+    Misc.SendMessage(f"Error: {e}", 0x20)
+```
+#### `Items.ContainerCount`
+
+**Signature**: `ContainerCount(container, itemid, color, recursive)`
+
+Method for ContainerCount operations
+
+**Example**:
+```python
+from RazorEnhanced import Items, Misc
+
+# Use ContainerCount method
+try:
+    result = Items.ContainerCount(container, itemid, color, recursive)
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
+except Exception as e:
+    Misc.SendMessage(f"Error: {e}", 0x20)
+```
 ---
 
 ## Journal
 
-# Journal API
+> **Import**: `from RazorEnhanced import Journal`
 
-> **Note**: This documentation is automatically generated for DexBot development.
-> For the most up-to-date information, please visit the [official API documentation](https://razorenhanced.github.io/doc/api/).
+Monitors and searches game messages and journal entries.
 
-## Overview
+### Properties
 
-Journal API - Game message monitoring
+#### `Journal.Name`
 
-## Common Methods
+Gets the name value
 
-### Basic Usage Pattern
+**Example**:
 ```python
-import clr
-clr.AddReference('RazorEnhanced')
 from RazorEnhanced import Journal
 
-# Example usage
-# Journal-specific methods will be documented here
+# Get name value
+value = Journal.Name
+print(f"Name: {value}")
 ```
+#### `Journal.Serial`
 
-## Examples
+Gets the serial value
 
+**Example**:
 ```python
-# Basic journal operations
-try:
-    # Your Journal code here
-    pass
-except Exception as e:
-    print(f"Error in Journal operation: {e}")
+from RazorEnhanced import Journal
+
+# Get serial value
+value = Journal.Serial
+print(f"Serial: {value}")
 ```
+### Methods
 
-## Error Handling
+#### `Journal.Clear`
 
-When working with the Journal API, always implement proper error handling:
+**Signature**: `Clear(toBeRemoved)`
 
+Method for Clear operations
+
+**Example**:
 ```python
+from RazorEnhanced import Journal, Misc
+
+# Use Clear method
 try:
-    # Journal operations
-    pass
+    result = Journal.Clear(toBeRemoved)
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
 except Exception as e:
-    # Log the error
-    print(f"Journal API Error: {e}")
-    # Handle gracefully
+    Misc.SendMessage(f"Error: {e}", 0x20)
 ```
+#### `Journal.Clear`
 
-## See Also
+**Signature**: `Clear(toBeRemoved)`
 
-- [Official RazorEnhanced API Documentation](https://razorenhanced.github.io/doc/api/)
-- [RazorEnhanced Wiki](http://razorenhanced.net/dokuwiki/doku.php)
-- [RazorEnhanced GitHub Repository](https://github.com/RazorEnhanced/RazorEnhanced)
+Method for Clear operations
 
----
-*Last updated: 2025-06-29 10:18:50*
+**Example**:
+```python
+from RazorEnhanced import Journal, Misc
 
+# Use Clear method
+try:
+    result = Journal.Clear(toBeRemoved)
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
+except Exception as e:
+    Misc.SendMessage(f"Error: {e}", 0x20)
+```
+#### `Journal.FilterText`
 
+**Signature**: `FilterText(text)`
+
+Method for FilterText operations
+
+**Example**:
+```python
+from RazorEnhanced import Journal, Misc
+
+# Use FilterText method
+try:
+    result = Journal.FilterText(text)
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
+except Exception as e:
+    Misc.SendMessage(f"Error: {e}", 0x20)
+```
+#### `Journal.FilterText`
+
+**Signature**: `FilterText(text)`
+
+Method for FilterText operations
+
+**Example**:
+```python
+from RazorEnhanced import Journal, Misc
+
+# Use FilterText method
+try:
+    result = Journal.FilterText(text)
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
+except Exception as e:
+    Misc.SendMessage(f"Error: {e}", 0x20)
+```
+#### `Journal.GetJournalEntry`
+
+**Signature**: `GetJournalEntry(afterTimestap)`
+
+Method for GetJournalEntry operations
+
+**Example**:
+```python
+from RazorEnhanced import Journal, Misc
+
+# Use GetJournalEntry method
+try:
+    result = Journal.GetJournalEntry(afterTimestap)
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
+except Exception as e:
+    Misc.SendMessage(f"Error: {e}", 0x20)
+```
+#### `Journal.GetJournalEntry`
+
+**Signature**: `GetJournalEntry(afterTimestap)`
+
+Method for GetJournalEntry operations
+
+**Example**:
+```python
+from RazorEnhanced import Journal, Misc
+
+# Use GetJournalEntry method
+try:
+    result = Journal.GetJournalEntry(afterTimestap)
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
+except Exception as e:
+    Misc.SendMessage(f"Error: {e}", 0x20)
+```
+#### `Journal.GetLineText`
+
+**Signature**: `GetLineText(text, addname)`
+
+Method for GetLineText operations
+
+**Example**:
+```python
+from RazorEnhanced import Journal, Misc
+
+# Use GetLineText method
+try:
+    result = Journal.GetLineText(text, addname)
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
+except Exception as e:
+    Misc.SendMessage(f"Error: {e}", 0x20)
+```
+#### `Journal.GetLineText`
+
+**Signature**: `GetLineText(text, addname)`
+
+Method for GetLineText operations
+
+**Example**:
+```python
+from RazorEnhanced import Journal, Misc
+
+# Use GetLineText method
+try:
+    result = Journal.GetLineText(text, addname)
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
+except Exception as e:
+    Misc.SendMessage(f"Error: {e}", 0x20)
+```
+#### `Journal.GetSpeechName`
+
+**Signature**: `GetSpeechName()`
+
+Method for GetSpeechName operations
+
+**Example**:
+```python
+from RazorEnhanced import Journal, Misc
+
+# Use GetSpeechName method
+try:
+    result = Journal.GetSpeechName()
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
+except Exception as e:
+    Misc.SendMessage(f"Error: {e}", 0x20)
+```
+#### `Journal.GetSpeechName`
+
+**Signature**: `GetSpeechName()`
+
+Method for GetSpeechName operations
+
+**Example**:
+```python
+from RazorEnhanced import Journal, Misc
+
+# Use GetSpeechName method
+try:
+    result = Journal.GetSpeechName()
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
+except Exception as e:
+    Misc.SendMessage(f"Error: {e}", 0x20)
+```
 ---
 
 ## Misc
 
-# Misc API
+> **Import**: `from RazorEnhanced import Misc`
 
-> **Note**: This documentation is automatically generated for DexBot development.
-> For the most up-to-date information, please visit the [official API documentation](https://razorenhanced.github.io/doc/api/).
+Provides miscellaneous utility functions and game operations.
 
-## Overview
+### Properties
 
-Misc API - Utility functions
+#### `Misc.Name`
 
-## Common Methods
+Gets the name value
 
-### Basic Usage Pattern
+**Example**:
 ```python
-import clr
-clr.AddReference('RazorEnhanced')
 from RazorEnhanced import Misc
 
-# Example usage
-# Misc-specific methods will be documented here
+# Get name value
+value = Misc.Name
+print(f"Name: {value}")
 ```
+#### `Misc.Serial`
 
-## Examples
+Gets the serial value
 
+**Example**:
 ```python
-# Basic misc operations
+from RazorEnhanced import Misc
+
+# Get serial value
+value = Misc.Serial
+print(f"Serial: {value}")
+```
+#### `Misc.Position`
+
+Gets the position value
+
+**Example**:
+```python
+from RazorEnhanced import Misc
+
+# Get position value
+value = Misc.Position
+print(f"Position: {value}")
+```
+#### `Misc.Status`
+
+Gets the status value
+
+**Example**:
+```python
+from RazorEnhanced import Misc
+
+# Get status value
+value = Misc.Status
+print(f"Status: {value}")
+```
+### Methods
+
+#### `Misc.AllSharedValue`
+
+**Signature**: `AllSharedValue()`
+
+Method for AllSharedValue operations
+
+**Example**:
+```python
+from RazorEnhanced import Misc, Misc
+
+# Use AllSharedValue method
 try:
-    # Your Misc code here
-    pass
+    result = Misc.AllSharedValue()
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
 except Exception as e:
-    print(f"Error in Misc operation: {e}")
+    Misc.SendMessage(f"Error: {e}", 0x20)
 ```
+#### `Misc.AllSharedValue`
 
-## Error Handling
+**Signature**: `AllSharedValue()`
 
-When working with the Misc API, always implement proper error handling:
+Method for AllSharedValue operations
 
+**Example**:
 ```python
+from RazorEnhanced import Misc, Misc
+
+# Use AllSharedValue method
 try:
-    # Misc operations
-    pass
+    result = Misc.AllSharedValue()
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
 except Exception as e:
-    # Log the error
-    print(f"Misc API Error: {e}")
-    # Handle gracefully
+    Misc.SendMessage(f"Error: {e}", 0x20)
 ```
+#### `Misc.AppendNotDupToFile`
 
-## See Also
+**Signature**: `AppendNotDupToFile(fileName, lineOfData)`
 
-- [Official RazorEnhanced API Documentation](https://razorenhanced.github.io/doc/api/)
-- [RazorEnhanced Wiki](http://razorenhanced.net/dokuwiki/doku.php)
-- [RazorEnhanced GitHub Repository](https://github.com/RazorEnhanced/RazorEnhanced)
+Method for AppendNotDupToFile operations
 
----
-*Last updated: 2025-06-29 10:18:50*
-
-
----
-
-## Mobile
-
-# Mobile API
-
-> **Note**: This documentation is automatically generated for DexBot development.
-> For the most up-to-date information, please visit the [official API documentation](https://razorenhanced.github.io/doc/api/).
-
-## Overview
-
-Mobile API - Mobile/NPC interactions
-
-## Common Methods
-
-### Basic Usage Pattern
+**Example**:
 ```python
-import clr
-clr.AddReference('RazorEnhanced')
-from RazorEnhanced import Mobile
+from RazorEnhanced import Misc, Misc
 
-# Example usage
-# Mobile-specific methods will be documented here
-```
-
-## Examples
-
-```python
-# Basic mobile operations
+# Use AppendNotDupToFile method
 try:
-    # Your Mobile code here
-    pass
+    result = Misc.AppendNotDupToFile(fileName, lineOfData)
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
 except Exception as e:
-    print(f"Error in Mobile operation: {e}")
+    Misc.SendMessage(f"Error: {e}", 0x20)
 ```
+#### `Misc.AppendNotDupToFile`
 
-## Error Handling
+**Signature**: `AppendNotDupToFile(fileName, lineOfData)`
 
-When working with the Mobile API, always implement proper error handling:
+Method for AppendNotDupToFile operations
 
+**Example**:
 ```python
+from RazorEnhanced import Misc, Misc
+
+# Use AppendNotDupToFile method
 try:
-    # Mobile operations
-    pass
+    result = Misc.AppendNotDupToFile(fileName, lineOfData)
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
 except Exception as e:
-    # Log the error
-    print(f"Mobile API Error: {e}")
-    # Handle gracefully
+    Misc.SendMessage(f"Error: {e}", 0x20)
 ```
+#### `Misc.AppendToFile`
 
-## See Also
+**Signature**: `AppendToFile(fileName, lineOfData)`
 
-- [Official RazorEnhanced API Documentation](https://razorenhanced.github.io/doc/api/)
-- [RazorEnhanced Wiki](http://razorenhanced.net/dokuwiki/doku.php)
-- [RazorEnhanced GitHub Repository](https://github.com/RazorEnhanced/RazorEnhanced)
+Method for AppendToFile operations
 
----
-*Last updated: 2025-06-29 10:18:50*
+**Example**:
+```python
+from RazorEnhanced import Misc, Misc
 
+# Use AppendToFile method
+try:
+    result = Misc.AppendToFile(fileName, lineOfData)
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
+except Exception as e:
+    Misc.SendMessage(f"Error: {e}", 0x20)
+```
+#### `Misc.AppendToFile`
 
+**Signature**: `AppendToFile(fileName, lineOfData)`
+
+Method for AppendToFile operations
+
+**Example**:
+```python
+from RazorEnhanced import Misc, Misc
+
+# Use AppendToFile method
+try:
+    result = Misc.AppendToFile(fileName, lineOfData)
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
+except Exception as e:
+    Misc.SendMessage(f"Error: {e}", 0x20)
+```
+#### `Misc.Beep`
+
+**Signature**: `Beep()`
+
+Method for Beep operations
+
+**Example**:
+```python
+from RazorEnhanced import Misc, Misc
+
+# Use Beep method
+try:
+    result = Misc.Beep()
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
+except Exception as e:
+    Misc.SendMessage(f"Error: {e}", 0x20)
+```
+#### `Misc.Beep`
+
+**Signature**: `Beep()`
+
+Method for Beep operations
+
+**Example**:
+```python
+from RazorEnhanced import Misc, Misc
+
+# Use Beep method
+try:
+    result = Misc.Beep()
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
+except Exception as e:
+    Misc.SendMessage(f"Error: {e}", 0x20)
+```
+#### `Misc.CancelPrompt`
+
+**Signature**: `CancelPrompt()`
+
+Method for CancelPrompt operations
+
+**Example**:
+```python
+from RazorEnhanced import Misc, Misc
+
+# Use CancelPrompt method
+try:
+    result = Misc.CancelPrompt()
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
+except Exception as e:
+    Misc.SendMessage(f"Error: {e}", 0x20)
+```
+#### `Misc.CancelPrompt`
+
+**Signature**: `CancelPrompt()`
+
+Method for CancelPrompt operations
+
+**Example**:
+```python
+from RazorEnhanced import Misc, Misc
+
+# Use CancelPrompt method
+try:
+    result = Misc.CancelPrompt()
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
+except Exception as e:
+    Misc.SendMessage(f"Error: {e}", 0x20)
+```
 ---
 
 ## Player
 
-# Player API
+> **Import**: `from RazorEnhanced import Player`
 
-> **Note**: This documentation is automatically generated for DexBot development.
-> For the most up-to-date information, please visit the [official API documentation](https://razorenhanced.github.io/doc/api/).
+Provides access to player character information, stats, and actions.
 
-## Overview
+### Properties
 
-Player API - Character information and actions
+#### `Player.Name`
 
-## Common Methods
+Gets the name value
 
-### Basic Usage Pattern
+**Example**:
 ```python
-import clr
-clr.AddReference('RazorEnhanced')
 from RazorEnhanced import Player
 
-# Example usage
-# Player-specific methods will be documented here
+# Get player name
+player_name = Player.Name
+print(f"Character name: {player_name}")
 ```
+#### `Player.Serial`
 
-## Examples
+Gets the serial value
 
+**Example**:
 ```python
-# Basic player operations
+from RazorEnhanced import Player
+
+# Get serial value
+value = Player.Serial
+print(f"Serial: {value}")
+```
+#### `Player.Position`
+
+Gets the position value
+
+**Example**:
+```python
+from RazorEnhanced import Player
+
+# Get player position
+pos = Player.Position
+print(f"Player at: X={pos.X}, Y={pos.Y}, Z={pos.Z}")
+```
+#### `Player.Hits`
+
+Gets the hits value
+
+**Example**:
+```python
+from RazorEnhanced import Player, Misc
+
+# Check player health
+current_hp = Player.Hits
+max_hp = Player.HitsMax
+health_percent = (current_hp / max_hp) * 100
+
+if health_percent < 50:
+    Misc.SendMessage("Health is low!", 0x20)
+```
+#### `Player.Mana`
+
+Gets the mana value
+
+**Example**:
+```python
+from RazorEnhanced import Player
+
+# Get mana value
+value = Player.Mana
+print(f"Mana: {value}")
+```
+#### `Player.Stamina`
+
+Gets the stamina value
+
+**Example**:
+```python
+from RazorEnhanced import Player
+
+# Get stamina value
+value = Player.Stamina
+print(f"Stamina: {value}")
+```
+#### `Player.Status`
+
+Gets the status value
+
+**Example**:
+```python
+from RazorEnhanced import Player
+
+# Get status value
+value = Player.Status
+print(f"Status: {value}")
+```
+### Methods
+
+#### `Player.MobileID`
+
+**Signature**: `MobileID (see: Mobile.Body)`
+
+Method for MobileID operations
+
+**Example**:
+```python
+from RazorEnhanced import Player, Misc
+
+# Use MobileID method
 try:
-    # Your Player code here
-    pass
+    result = Player.MobileID (see: Mobile.Body)
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
 except Exception as e:
-    print(f"Error in Player operation: {e}")
+    Misc.SendMessage(f"Error: {e}", 0x20)
 ```
+#### `Player.Enpowerment`
 
-## Error Handling
+**Signature**: `Enpowerment (new)`
 
-When working with the Player API, always implement proper error handling:
+Method for Enpowerment operations
 
+**Example**:
 ```python
+from RazorEnhanced import Player, Misc
+
+# Use Enpowerment method
 try:
-    # Player operations
-    pass
+    result = Player.Enpowerment (new)
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
 except Exception as e:
-    # Log the error
-    print(f"Player API Error: {e}")
-    # Handle gracefully
+    Misc.SendMessage(f"Error: {e}", 0x20)
 ```
+#### `Player.Oath`
 
-## See Also
+**Signature**: `Oath (caster)`
 
-- [Official RazorEnhanced API Documentation](https://razorenhanced.github.io/doc/api/)
-- [RazorEnhanced Wiki](http://razorenhanced.net/dokuwiki/doku.php)
-- [RazorEnhanced GitHub Repository](https://github.com/RazorEnhanced/RazorEnhanced)
+Method for Oath operations
 
----
-*Last updated: 2025-06-29 10:18:50*
-
-
----
-
-## Spells
-
-# Spells API
-
-> **Note**: This documentation is automatically generated for DexBot development.
-> For the most up-to-date information, please visit the [official API documentation](https://razorenhanced.github.io/doc/api/).
-
-## Overview
-
-Spells API - Spell casting
-
-## Common Methods
-
-### Basic Usage Pattern
+**Example**:
 ```python
-import clr
-clr.AddReference('RazorEnhanced')
-from RazorEnhanced import Spells
+from RazorEnhanced import Player, Misc
 
-# Example usage
-# Spells-specific methods will be documented here
-```
-
-## Examples
-
-```python
-# Basic spells operations
+# Use Oath method
 try:
-    # Your Spells code here
-    pass
+    result = Player.Oath (caster)
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
 except Exception as e:
-    print(f"Error in Spells operation: {e}")
+    Misc.SendMessage(f"Error: {e}", 0x20)
 ```
+#### `Player.Oath`
 
-## Error Handling
+**Signature**: `Oath (curse)`
 
-When working with the Spells API, always implement proper error handling:
+Method for Oath operations
 
+**Example**:
 ```python
+from RazorEnhanced import Player, Misc
+
+# Use Oath method
 try:
-    # Spells operations
-    pass
+    result = Player.Oath (curse)
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
 except Exception as e:
-    # Log the error
-    print(f"Spells API Error: {e}")
-    # Handle gracefully
+    Misc.SendMessage(f"Error: {e}", 0x20)
 ```
+#### `Player.Despair`
 
-## See Also
+**Signature**: `Despair (target)`
 
-- [Official RazorEnhanced API Documentation](https://razorenhanced.github.io/doc/api/)
-- [RazorEnhanced Wiki](http://razorenhanced.net/dokuwiki/doku.php)
-- [RazorEnhanced GitHub Repository](https://github.com/RazorEnhanced/RazorEnhanced)
+Method for Despair operations
 
----
-*Last updated: 2025-06-29 10:18:50*
+**Example**:
+```python
+from RazorEnhanced import Player, Misc
 
+# Use Despair method
+try:
+    result = Player.Despair (target)
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
+except Exception as e:
+    Misc.SendMessage(f"Error: {e}", 0x20)
+```
+#### `Player.Disarm`
 
+**Signature**: `Disarm (new)`
+
+Method for Disarm operations
+
+**Example**:
+```python
+from RazorEnhanced import Player, Misc
+
+# Use Disarm method
+try:
+    result = Player.Disarm (new)
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
+except Exception as e:
+    Misc.SendMessage(f"Error: {e}", 0x20)
+```
+#### `Player.One`
+
+**Signature**: `One (new)`
+
+Method for One operations
+
+**Example**:
+```python
+from RazorEnhanced import Player, Misc
+
+# Use One method
+try:
+    result = Player.One (new)
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
+except Exception as e:
+    Misc.SendMessage(f"Error: {e}", 0x20)
+```
+#### `Player.Focusing`
+
+**Signature**: `Focusing (target)`
+
+Method for Focusing operations
+
+**Example**:
+```python
+from RazorEnhanced import Player, Misc
+
+# Use Focusing method
+try:
+    result = Player.Focusing (target)
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
+except Exception as e:
+    Misc.SendMessage(f"Error: {e}", 0x20)
+```
+#### `Player.Focusing`
+
+**Signature**: `Focusing (target)`
+
+Method for Focusing operations
+
+**Example**:
+```python
+from RazorEnhanced import Player, Misc
+
+# Use Focusing method
+try:
+    result = Player.Focusing (target)
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
+except Exception as e:
+    Misc.SendMessage(f"Error: {e}", 0x20)
+```
+#### `Player.Body`
+
+**Signature**: `Body (see: Mobile.MobileID)`
+
+Method for Body operations
+
+**Example**:
+```python
+from RazorEnhanced import Player, Misc
+
+# Use Body method
+try:
+    result = Player.Body (see: Mobile.MobileID)
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
+except Exception as e:
+    Misc.SendMessage(f"Error: {e}", 0x20)
+```
 ---
 
 ## Target
 
-# Target API
+> **Import**: `from RazorEnhanced import Target`
 
-> **Note**: This documentation is automatically generated for DexBot development.
-> For the most up-to-date information, please visit the [official API documentation](https://razorenhanced.github.io/doc/api/).
+Controls target selection and targeting operations.
 
-## Overview
+### Properties
 
-Target API - Target selection
+#### `Target.Name`
 
-## Common Methods
+Gets the name value
 
-### Basic Usage Pattern
+**Example**:
 ```python
-import clr
-clr.AddReference('RazorEnhanced')
 from RazorEnhanced import Target
 
-# Example usage
-# Target-specific methods will be documented here
+# Get name value
+value = Target.Name
+print(f"Name: {value}")
 ```
+#### `Target.Serial`
 
-## Examples
+Gets the serial value
 
+**Example**:
 ```python
-# Basic target operations
+from RazorEnhanced import Target
+
+# Get serial value
+value = Target.Serial
+print(f"Serial: {value}")
+```
+### Methods
+
+#### `Target.AttackTargetFromList`
+
+**Signature**: `AttackTargetFromList(target_name)`
+
+Method for AttackTargetFromList operations
+
+**Example**:
+```python
+from RazorEnhanced import Target, Misc
+
+# Use AttackTargetFromList method
 try:
-    # Your Target code here
-    pass
+    result = Target.AttackTargetFromList(target_name)
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
 except Exception as e:
-    print(f"Error in Target operation: {e}")
+    Misc.SendMessage(f"Error: {e}", 0x20)
 ```
+#### `Target.AttackTargetFromList`
 
-## Error Handling
+**Signature**: `AttackTargetFromList(target_name)`
 
-When working with the Target API, always implement proper error handling:
+Method for AttackTargetFromList operations
 
+**Example**:
 ```python
+from RazorEnhanced import Target, Misc
+
+# Use AttackTargetFromList method
 try:
-    # Target operations
-    pass
+    result = Target.AttackTargetFromList(target_name)
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
 except Exception as e:
-    # Log the error
-    print(f"Target API Error: {e}")
-    # Handle gracefully
+    Misc.SendMessage(f"Error: {e}", 0x20)
 ```
+#### `Target.Cancel`
 
-## See Also
+**Signature**: `Cancel()`
 
-- [Official RazorEnhanced API Documentation](https://razorenhanced.github.io/doc/api/)
-- [RazorEnhanced Wiki](http://razorenhanced.net/dokuwiki/doku.php)
-- [RazorEnhanced GitHub Repository](https://github.com/RazorEnhanced/RazorEnhanced)
+Method for Cancel operations
 
----
-*Last updated: 2025-06-29 10:18:50*
-
-
----
-
-## Timer
-
-# Timer API
-
-> **Note**: This documentation is automatically generated for DexBot development.
-> For the most up-to-date information, please visit the [official API documentation](https://razorenhanced.github.io/doc/api/).
-
-## Overview
-
-Timer API - Timing utilities
-
-## Common Methods
-
-### Basic Usage Pattern
+**Example**:
 ```python
-import clr
-clr.AddReference('RazorEnhanced')
-from RazorEnhanced import Timer
+from RazorEnhanced import Target, Misc
 
-# Example usage
-# Timer-specific methods will be documented here
-```
-
-## Examples
-
-```python
-# Basic timer operations
+# Use Cancel method
 try:
-    # Your Timer code here
-    pass
+    result = Target.Cancel()
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
 except Exception as e:
-    print(f"Error in Timer operation: {e}")
+    Misc.SendMessage(f"Error: {e}", 0x20)
 ```
+#### `Target.Cancel`
 
-## Error Handling
+**Signature**: `Cancel()`
 
-When working with the Timer API, always implement proper error handling:
+Method for Cancel operations
 
+**Example**:
 ```python
+from RazorEnhanced import Target, Misc
+
+# Use Cancel method
 try:
-    # Timer operations
-    pass
+    result = Target.Cancel()
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
 except Exception as e:
-    # Log the error
-    print(f"Timer API Error: {e}")
-    # Handle gracefully
+    Misc.SendMessage(f"Error: {e}", 0x20)
 ```
+#### `Target.ClearLast`
 
-## See Also
+**Signature**: `ClearLast()`
 
-- [Official RazorEnhanced API Documentation](https://razorenhanced.github.io/doc/api/)
-- [RazorEnhanced Wiki](http://razorenhanced.net/dokuwiki/doku.php)
-- [RazorEnhanced GitHub Repository](https://github.com/RazorEnhanced/RazorEnhanced)
+Method for ClearLast operations
 
----
-*Last updated: 2025-06-29 10:18:50*
-
-
----
-
-## Trade
-
-# Trade API
-
-> **Note**: This documentation is automatically generated for DexBot development.
-> For the most up-to-date information, please visit the [official API documentation](https://razorenhanced.github.io/doc/api/).
-
-## Overview
-
-Trade API - Trading functionality
-
-## Common Methods
-
-### Basic Usage Pattern
+**Example**:
 ```python
-import clr
-clr.AddReference('RazorEnhanced')
-from RazorEnhanced import Trade
+from RazorEnhanced import Target, Misc
 
-# Example usage
-# Trade-specific methods will be documented here
-```
-
-## Examples
-
-```python
-# Basic trade operations
+# Use ClearLast method
 try:
-    # Your Trade code here
-    pass
+    result = Target.ClearLast()
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
 except Exception as e:
-    print(f"Error in Trade operation: {e}")
+    Misc.SendMessage(f"Error: {e}", 0x20)
 ```
+#### `Target.ClearLast`
 
-## Error Handling
+**Signature**: `ClearLast()`
 
-When working with the Trade API, always implement proper error handling:
+Method for ClearLast operations
+
+**Example**:
+```python
+from RazorEnhanced import Target, Misc
+
+# Use ClearLast method
+try:
+    result = Target.ClearLast()
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
+except Exception as e:
+    Misc.SendMessage(f"Error: {e}", 0x20)
+```
+#### `Target.ClearLastAttack`
+
+**Signature**: `ClearLastAttack()`
+
+Method for ClearLastAttack operations
+
+**Example**:
+```python
+from RazorEnhanced import Target, Misc
+
+# Use ClearLastAttack method
+try:
+    result = Target.ClearLastAttack()
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
+except Exception as e:
+    Misc.SendMessage(f"Error: {e}", 0x20)
+```
+#### `Target.ClearLastAttack`
+
+**Signature**: `ClearLastAttack()`
+
+Method for ClearLastAttack operations
+
+**Example**:
+```python
+from RazorEnhanced import Target, Misc
+
+# Use ClearLastAttack method
+try:
+    result = Target.ClearLastAttack()
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
+except Exception as e:
+    Misc.SendMessage(f"Error: {e}", 0x20)
+```
+#### `Target.ClearLastandQueue`
+
+**Signature**: `ClearLastandQueue()`
+
+Method for ClearLastandQueue operations
+
+**Example**:
+```python
+from RazorEnhanced import Target, Misc
+
+# Use ClearLastandQueue method
+try:
+    result = Target.ClearLastandQueue()
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
+except Exception as e:
+    Misc.SendMessage(f"Error: {e}", 0x20)
+```
+#### `Target.ClearLastandQueue`
+
+**Signature**: `ClearLastandQueue()`
+
+Method for ClearLastandQueue operations
+
+**Example**:
+```python
+from RazorEnhanced import Target, Misc
+
+# Use ClearLastandQueue method
+try:
+    result = Target.ClearLastandQueue()
+    if result:
+        Misc.SendMessage("Operation successful", 0x40)
+except Exception as e:
+    Misc.SendMessage(f"Error: {e}", 0x20)
+```
+---
+
+## Best Practices
+
+### 1. Always Use Error Handling
+Every RazorEnhanced script should include proper error handling to prevent crashes.
 
 ```python
-try:
-    # Trade operations
-    pass
-except Exception as e:
-    # Log the error
-    print(f"Trade API Error: {e}")
-    # Handle gracefully
+from RazorEnhanced import Items, Player, Misc
+
+def safe_item_operation(item_serial):
+    try:
+        item = Items.FindBySerial(item_serial)
+        if item is None:
+            raise ValueError("Item not found")
+        
+        # Perform operation
+        Items.Move(item.Serial, Player.Backpack.Serial, 1)
+        return True
+        
+    except Exception as e:
+        Misc.SendMessage(f"Error: {e}", 0x20)
+        return False
 ```
 
-## See Also
+### 2. Use Timeouts for Waiting Operations
+Always specify timeouts to prevent infinite waiting.
 
-- [Official RazorEnhanced API Documentation](https://razorenhanced.github.io/doc/api/)
-- [RazorEnhanced Wiki](http://razorenhanced.net/dokuwiki/doku.php)
-- [RazorEnhanced GitHub Repository](https://github.com/RazorEnhanced/RazorEnhanced)
+```python
+from RazorEnhanced import Target, Items, Misc
 
----
-*Last updated: 2025-06-29 10:18:50*
+# Good: Use timeout
+Target.PromptTarget()
+if Target.WaitForTarget(5000):  # 5 second timeout
+    target = Target.GetTargetSerial()
+    # Process target
+else:
+    Misc.SendMessage("Target selection timed out", 0x20)
 
+# Good: Wait for container contents with timeout
+Items.WaitForContents(Player.Backpack.Serial, 2000)
+```
 
----
+### 3. Check Return Values
+Many methods return success/failure status - always check these.
+
+```python
+from RazorEnhanced import Items, Player, Misc
+
+# Check if operation succeeded
+success = Items.Move(item_serial, Player.Backpack.Serial, 1)
+if success:
+    Misc.SendMessage("Item moved successfully", 0x40)
+else:
+    Misc.SendMessage("Failed to move item", 0x20)
+```
+
+### 4. Use Appropriate Delays
+Give the server time to process operations between commands.
+
+```python
+from RazorEnhanced import Items, Misc
+
+# Move multiple items with delays
+for item_serial in item_list:
+    Items.Move(item_serial, container, 1)
+    Misc.Pause(100)  # Small delay between moves
+```
+
+### 5. Clear Journal Before Monitoring
+Always clear the journal before performing actions you want to monitor.
+
+```python
+from RazorEnhanced import Journal, Player, Misc
+
+# Clear journal before skill use
+Journal.Clear()
+Player.UseSkill("Hiding")
+
+# Then check for messages
+Misc.Pause(1000)
+if Journal.Search("You have hidden"):
+    Misc.SendMessage("Hidden successfully", 0x40)
+```
+
+### 6. Validate Objects Before Use
+Check that objects exist and are valid before using them.
+
+```python
+from RazorEnhanced import Items, Player, Misc
+
+# Always validate items
+item = Items.FindBySerial(serial)
+if item and item.Serial != 0:
+    # Item is valid, safe to use
+    Items.UseItem(item.Serial)
+else:
+    Misc.SendMessage("Invalid item", 0x20)
+
+# Check containers before accessing
+backpack = Player.Backpack
+if backpack and backpack.Serial != 0:
+    Items.WaitForContents(backpack.Serial, 1000)
+```
 
 ## Additional Resources
 
 ### Official Documentation
-- [RazorEnhanced Wiki](https://github.com/RazorEnhanced/ScriptLibrary/wiki)
-- [RazorEnhanced GitHub](https://github.com/RazorEnhanced/RazorEnhanced)
+- [RazorEnhanced API Documentation](https://razorenhanced.github.io/doc/api/)
+- [RazorEnhanced GitHub Repository](https://github.com/RazorEnhanced/RazorEnhanced)
 - [Script Library](https://github.com/RazorEnhanced/ScriptLibrary)
 
-### DexBot Integration
-This API reference is maintained as part of the DexBot project to provide
-offline access to RazorEnhanced documentation during development.
+### Community Resources
+- [RazorEnhanced Discord](https://discord.gg/VdyCpjQ)
+- [UO Script Examples](https://github.com/RazorEnhanced/ScriptLibrary/tree/master/Examples)
+
+### Development Tools
+- Use RazorEnhanced's built-in script editor for development
+- Enable debug logging for troubleshooting
+- Test scripts in safe environments before production use
 
 ### Contributing
-If you notice any discrepancies or have improvements to suggest, please:
-1. Check the official documentation first
-2. Update this reference by running `python scripts/update_api_docs.py`
-3. Submit a pull request with your changes
+This documentation is generated automatically. For the most current information,
+always refer to the official RazorEnhanced documentation.
 
 ---
-*This document was automatically generated by DexBot's API documentation fetcher.*
-*Last updated: 2025-06-29 10:18:50*
+**Generated**: 2025-06-29 12:32:25  
+**Source**: Official RazorEnhanced API Documentation  
+**Generator Version**: 1.0  

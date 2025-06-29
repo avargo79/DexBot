@@ -87,6 +87,9 @@ if check_prerequisites; then
         echo -e "${YELLOW}🚀 Next steps:${NC}"
         echo -e "${WHITE}  1. Copy dist/DexBot.py to your RazorEnhanced Scripts folder${NC}"
         echo -e "${WHITE}  2. Run the script in RazorEnhanced${NC}"
+        echo ""
+        echo -e "${CYAN}Optional:${NC}"
+        echo -e "${WHITE}  - Update API docs: $PYTHON_CMD scripts/update_api_docs.py${NC}"
         exit 0
     else
         echo ""
