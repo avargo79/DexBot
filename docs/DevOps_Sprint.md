@@ -182,10 +182,11 @@ This sprint successfully established the foundation for efficient development an
 - [x] Add production environment gating to workflow
 - [x] Create comprehensive onboarding and contribution guides
 - [x] Fix GitHub Actions deprecation warnings (updated to latest versions)
+- [x] Refactor dev-tools scripts to focused build scripts (auto-run full pipeline)
 
 ### In Progress 🔄
 - [ ] Monitor workflow performance and stability
-- [ ] Gather feedback on developer scripts usability
+- [ ] Gather feedback on build script usability
 
 ### Pending 📋
 - [ ] Team review of DevOps infrastructure

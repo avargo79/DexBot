@@ -64,8 +64,8 @@ DexBot/
 │   └── workflows/
 │       └── ci-cd.yml               # Automated CI/CD pipeline
 ├── scripts/                        # Developer utility scripts
-│   ├── dev-tools.ps1               # PowerShell development tools
-│   ├── dev-tools.sh                # Shell development tools (Unix/Linux)
+│   ├── build.ps1                   # PowerShell build script  
+│   ├── build.sh                    # Shell build script (Unix/Linux)
 │   └── update_api_docs.py          # API documentation fetcher
 ├── config/                         # Configuration directory
 │   ├── main_config.json            # Main bot settings and system toggles
@@ -139,47 +139,38 @@ DexBot/
 
 ## Developer Workflow
 
-### 🛠️ Local Development Scripts
+### 🛠️ Local Build Scripts
 
-DexBot provides cross-platform developer scripts for streamlined development:
+DexBot provides cross-platform build scripts that automatically run the complete build pipeline:
+
+#### Quick Build (Recommended)
 
 **PowerShell (Windows):**
 ```powershell
-# Lint code
-.\scripts\dev-tools.ps1 lint
-
-# Run tests
-.\scripts\dev-tools.ps1 test
-
-# Build project
-.\scripts\dev-tools.ps1 build
-
-# Create bundle
-.\scripts\dev-tools.ps1 bundle
-
-# Run all tasks
-.\scripts\dev-tools.ps1 all
+# Run complete build pipeline (clean, lint, test, bundle)
+.\scripts\build.ps1
 ```
 
 **Shell (Unix/Linux/macOS):**
 ```bash
 # Make script executable (first time only)
-chmod +x scripts/dev-tools.sh
+chmod +x scripts/build.sh
 
-# Lint code
-./scripts/dev-tools.sh lint
+# Run complete build pipeline (clean, lint, test, bundle)  
+./scripts/build.sh
+```
 
-# Run tests
-./scripts/dev-tools.sh test
+#### Manual Task Execution
 
-# Build project
-./scripts/dev-tools.sh build
+**PowerShell/Shell:**
+```bash
+# Individual tasks
+python -m invoke lint
+python -m invoke test
+python -m invoke bundle
 
-# Create bundle
-./scripts/dev-tools.sh bundle
-
-# Run all tasks
-./scripts/dev-tools.sh all
+# Full pipeline (same as build scripts above)
+python -m invoke build
 ```
 
 ### 🚀 GitHub Actions CI/CD
@@ -466,7 +457,7 @@ python -m invoke help
 1. Fork the repository
 2. Create a feature branch: `git checkout -b feature/your-feature-name`
 3. Make your changes
-4. Run the development workflow: `./scripts/dev-tools.sh all` (or `.ps1` on Windows)
+4. Run the build script: `./scripts/build.sh` (or `build.ps1` on Windows)
 5. Commit changes: `git commit -m "Description of changes"`
 6. Push to your fork: `git push origin feature/your-feature-name`
 7. Create a Pull Request
