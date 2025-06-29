@@ -232,6 +232,8 @@ class GumpInterface:
                 status.set_gump_state(GumpState.MAIN_MINIMIZED)
             elif current_state == GumpState.BOT_SETTINGS:
                 GumpInterface.create_bot_settings_gump()
+            elif current_state == GumpState.COMBAT_SETTINGS:
+                GumpInterface.create_combat_settings_gump()
             else:
                 # Default to main GUMP (MAIN_FULL or unknown state)
                 GumpInterface.create_main_gump_new()
@@ -663,143 +665,212 @@ class GumpInterface:
         gd = Gumps.CreateGump(True)
         Gumps.AddPage(gd, 0)
 
-        # Background
-        Gumps.AddBackground(gd, 0, 0, config.GUMP_WIDTH, config.GUMP_HEIGHT + 50, config.BACKGROUND_ID)
-        Gumps.AddAlphaRegion(gd, 15, 15, config.GUMP_WIDTH - 30, config.GUMP_HEIGHT + 20)
+        # Background (same style as Bot Settings but taller for more content)
+        settings_height = 400  # Increased from 320 to 400 for more vertical space
+        settings_width = 450
+        Gumps.AddBackground(gd, 0, 0, settings_width, settings_height, 30546)
+        Gumps.AddAlphaRegion(gd, 0, 0, settings_width, settings_height)
 
-        # Header
-        header_y = 25
+        # Title (consistent with Bot Settings)
         Gumps.AddHtml(
             gd,
-            30,
-            header_y,
-            config.GUMP_WIDTH - 60,
-            30,
-            '<center><basefont color="#87CEEB" size="4"><b>COMBAT SETTINGS</b></basefont></center>',
+            50,
+            5,
+            settings_width - 20,
+            25,
+            f'<center><basefont color="#FFD700" size="5"><b>COMBAT SETTINGS</b></basefont></center>',
             False,
             False,
         )
 
-        # Current section Y position
-        current_y = header_y + 40
-        section_x = 30
-        section_width = config.GUMP_WIDTH - 60
-
-        # Combat System Toggle Section
-        combat_enabled = config_manager.get_combat_setting('system_toggles.combat_system_enabled')
-        current_y = GumpSection.create_section(
-            gd,
-            "Combat System",
-            section_x,
-            current_y,
-            section_width,
-            content_lines=[
-                {"text": f"System Status: {'ENABLED' if combat_enabled else 'DISABLED'}", 
-                 "color": "#00FF00" if combat_enabled else "#FF6B6B"},
-                {"text": "Automatically engages hostile targets"},
-            ],
-            toggle_button={
-                'enabled': combat_enabled,
-                'button_id': 40,  # Toggle Combat System
-                'enabled_art': config.BUTTON_HEAL_ENABLED,
-                'enabled_pressed_art': config.BUTTON_HEAL_ENABLED_PRESSED,
-                'disabled_art': config.BUTTON_HEAL_DISABLED,
-                'disabled_pressed_art': config.BUTTON_HEAL_DISABLED_PRESSED,
-                'tooltip': f"Toggle Combat System ({'ON' if combat_enabled else 'OFF'})"
-            }
-        )
-        current_y += 15
-
-        # Target Selection Settings
-        max_range = config_manager.get_combat_setting('target_selection.max_range')
-        priority_mode = config_manager.get_combat_setting('target_selection.priority_mode')
-        ignore_innocents = config_manager.get_combat_setting('target_selection.ignore_innocents')
-        
-        current_y = GumpSection.create_section(
-            gd,
-            "Target Selection",
-            section_x,
-            current_y,
-            section_width,
-            content_lines=[
-                {"text": f"Max Range: {max_range} tiles"},
-                {"text": f"Priority: {priority_mode.replace('_', ' ').title()}"},
-                {"text": f"Ignore Innocents: {'YES' if ignore_innocents else 'NO'}"},
-            ]
-        )
-        current_y += 15
-
-        # Combat Behavior Settings
-        retreat_enabled = config_manager.get_combat_setting('combat_behavior.retreat_on_low_health')
-        retreat_threshold = config_manager.get_combat_setting('combat_behavior.retreat_health_threshold')
-        attack_delay = config_manager.get_combat_setting('combat_behavior.attack_delay_ms')
-        
-        current_y = GumpSection.create_section(
-            gd,
-            "Combat Behavior",
-            section_x,
-            current_y,
-            section_width,
-            content_lines=[
-                {"text": f"Auto Retreat: {'YES' if retreat_enabled else 'NO'}"},
-                {"text": f"Retreat Health: {retreat_threshold}%"},
-                {"text": f"Attack Delay: {attack_delay}ms"},
-            ]
-        )
-        current_y += 15
-
-        # Auto Target & Auto Attack Toggles
-        auto_target = config_manager.get_combat_setting('system_toggles.auto_target_enabled')
-        auto_attack = config_manager.get_combat_setting('system_toggles.auto_attack_enabled')
-        
-        current_y = GumpSection.create_section(
-            gd,
-            "Combat Features",
-            section_x,
-            current_y,
-            section_width,
-            content_lines=[
-                {"text": f"Auto Targeting: {'ON' if auto_target else 'OFF'}", 
-                 "color": "#00FF00" if auto_target else "#FF6B6B"},
-                {"text": f"Auto Attack: {'ON' if auto_attack else 'OFF'}", 
-                 "color": "#00FF00" if auto_attack else "#FF6B6B"},
-            ],
-            toggle_button={
-                'enabled': auto_target,
-                'button_id': 41,  # Toggle Auto Target
-                'enabled_art': config.BUTTON_HEAL_ENABLED,
-                'enabled_pressed_art': config.BUTTON_HEAL_ENABLED_PRESSED,
-                'disabled_art': config.BUTTON_HEAL_DISABLED,
-                'disabled_pressed_art': config.BUTTON_HEAL_DISABLED_PRESSED,
-                'tooltip': f"Toggle Auto Targeting ({'ON' if auto_target else 'OFF'})"
-            }
-        )
-        current_y += 15
-
-        # Back button
-        back_button_y = config.GUMP_HEIGHT - 15
+        # Back button in upper left corner (same as Bot Settings)
+        back_button_x = 10
+        back_button_y = 5
         Gumps.AddButton(
             gd,
-            30,
+            back_button_x,
             back_button_y,
-            config.BUTTON_BACK,
-            config.BUTTON_BACK_PRESSED,
+            config.BUTTON_SETTINGS,
+            config.BUTTON_SETTINGS_PRESSED,
             50,  # Back to Main
             1,
             0,
         )
         Gumps.AddTooltip(gd, "Back to Main GUMP")
 
-        # Back button label
-        Gumps.AddHtml(
+        # Close Button in upper right corner (same as Bot Settings)
+        close_button_x = settings_width - 30
+        close_button_y = 5
+        Gumps.AddButton(
             gd,
-            65,
-            back_button_y + 5,
-            100,
-            20,
-            '<basefont color="#CCCCCC" size="2">Back to Main</basefont>',
-            False,
-            False,
+            close_button_x,
+            close_button_y,
+            config.BUTTON_CANCEL,
+            config.BUTTON_CANCEL_PRESSED,
+            4,
+            1,
+            0,
+        )
+        Gumps.AddTooltip(gd, "Close Interface")
+
+        # Content area (same as Bot Settings)
+        section_x = 20
+        section_width = settings_width - 40
+        current_y = 40
+
+        # System Status Section (similar to Bot Settings)
+        combat_enabled = config_manager.get_combat_setting('system_toggles.combat_system_enabled')
+        system_status = "ENABLED" if combat_enabled else "DISABLED"
+        system_color = "#00FF00" if combat_enabled else "#FF0000"
+        status_text = "Scanning..." if combat_enabled else "Disabled"
+
+        status_line = f'<basefont color="#87CEEB" size="3"><b>Combat Status:</b></basefont> <basefont color="{system_color}" size="3"><b>{system_status}</b></basefont>'
+        if combat_enabled:
+            status_line += f' <basefont color="#CCCCCC" size="2">({status_text})</basefont>'
+
+        Gumps.AddHtml(gd, section_x, current_y, section_width, 20, status_line, False, False)
+        current_y += 30
+
+        # Combat System Toggle Section (using same pattern as Bot Settings)
+        current_y = GumpSection.create_section(
+            gd, "COMBAT SYSTEM", section_x, current_y, section_width, title_color="#87CEEB"
+        )
+        current_y += 5
+
+        # Combat System Toggle
+        combat_toggle_x = section_x + 10
+        combat_toggle_y = current_y + 2
+        if combat_enabled:
+            combat_art = config.BUTTON_ENABLED
+            combat_pressed_art = config.BUTTON_ENABLED_PRESSED
+            combat_status = "ENABLED"
+            combat_color = "#00FF00"
+        else:
+            combat_art = config.BUTTON_DISABLE
+            combat_pressed_art = config.BUTTON_DISABLE_PRESSED
+            combat_status = "DISABLED"
+            combat_color = "#FF0000"
+
+        Gumps.AddButton(
+            gd, combat_toggle_x, combat_toggle_y, combat_art, combat_pressed_art, 40, 1, 0
+        )
+        Gumps.AddTooltip(gd, f"Toggle Combat System ({'ON' if combat_enabled else 'OFF'})")
+
+        combat_line = f'<basefont color="#FFFFFF" size="3"><b>Combat System:</b></basefont> <basefont color="{combat_color}" size="2"><b>{combat_status}</b></basefont> <basefont color="#CCCCCC" size="2">| Automatically engages hostile targets</basefont>'
+
+        Gumps.AddHtml(
+            gd, section_x + 50, current_y + 4, section_width - 50, 15, combat_line, False, False
+        )
+        current_y += 40  # Increased spacing from 35 to 40
+
+        # Target Settings Section
+        current_y = GumpSection.create_section(
+            gd,
+            "TARGET SETTINGS",
+            section_x,
+            current_y,
+            section_width,
+            content_lines=[
+                {
+                    "text": f'Max Range: <basefont color="#FFFF00" size="3"><b>{config_manager.get_combat_setting("target_selection.max_range")} tiles</b></basefont> <basefont color="#CCCCCC" size="2">(Maximum targeting distance)</basefont>',
+                    "color": "#FFFFFF",
+                },
+                {
+                    "text": f'Priority: <basefont color="#FFFF00" size="3"><b>{config_manager.get_combat_setting("target_selection.priority_mode").replace("_", " ").title()}</b></basefont> <basefont color="#CCCCCC" size="2">(Target selection method)</basefont>',
+                    "color": "#FFFFFF",
+                },
+                {
+                    "text": f'Ignore Innocents: <basefont color="#FFFF00" size="3"><b>{"YES" if config_manager.get_combat_setting("target_selection.ignore_innocents") else "NO"}</b></basefont> <basefont color="#CCCCCC" size="2">(Skip blue players)</basefont>',
+                    "color": "#FFFFFF",
+                },
+            ],
+            title_color="#87CEEB",
+        )
+        current_y += 20  # Increased spacing from 15 to 20
+
+        # Combat Features Section (using same pattern as Bot Settings)
+        current_y = GumpSection.create_section(
+            gd, "COMBAT FEATURES", section_x, current_y, section_width, title_color="#87CEEB"
+        )
+        current_y += 5
+
+        # Auto Target Toggle
+        auto_target = config_manager.get_combat_setting('system_toggles.auto_target_enabled')
+        auto_attack = config_manager.get_combat_setting('system_toggles.auto_attack_enabled')
+        
+        auto_target_toggle_x = section_x + 10
+        auto_target_toggle_y = current_y + 2
+        if auto_target:
+            auto_target_art = config.BUTTON_ENABLED
+            auto_target_pressed_art = config.BUTTON_ENABLED_PRESSED
+            auto_target_status = "ENABLED"
+            auto_target_color = "#00FF00"
+        else:
+            auto_target_art = config.BUTTON_DISABLE
+            auto_target_pressed_art = config.BUTTON_DISABLE_PRESSED
+            auto_target_status = "DISABLED"
+            auto_target_color = "#FF0000"
+
+        Gumps.AddButton(
+            gd, auto_target_toggle_x, auto_target_toggle_y, auto_target_art, auto_target_pressed_art, 41, 1, 0
+        )
+        Gumps.AddTooltip(gd, f"Toggle Auto Targeting ({'ON' if auto_target else 'OFF'})")
+
+        auto_target_line = f'<basefont color="#FFFFFF" size="3"><b>Auto Targeting:</b></basefont> <basefont color="{auto_target_color}" size="2"><b>{auto_target_status}</b></basefont> <basefont color="#CCCCCC" size="2">| Automatically selects targets</basefont>'
+
+        Gumps.AddHtml(
+            gd, section_x + 50, current_y + 4, section_width - 50, 15, auto_target_line, False, False
+        )
+        current_y += 25
+
+        # Auto Attack Toggle
+        auto_attack_toggle_x = section_x + 10
+        auto_attack_toggle_y = current_y + 2
+        if auto_attack:
+            auto_attack_art = config.BUTTON_ENABLED
+            auto_attack_pressed_art = config.BUTTON_ENABLED_PRESSED
+            auto_attack_status = "ENABLED"
+            auto_attack_color = "#00FF00"
+        else:
+            auto_attack_art = config.BUTTON_DISABLE
+            auto_attack_pressed_art = config.BUTTON_DISABLE_PRESSED
+            auto_attack_status = "DISABLED"
+            auto_attack_color = "#FF0000"
+
+        Gumps.AddButton(
+            gd, auto_attack_toggle_x, auto_attack_toggle_y, auto_attack_art, auto_attack_pressed_art, 42, 1, 0
+        )
+        Gumps.AddTooltip(gd, f"Toggle Auto Attack ({'ON' if auto_attack else 'OFF'})")
+
+        auto_attack_line = f'<basefont color="#FFFFFF" size="3"><b>Auto Attack:</b></basefont> <basefont color="{auto_attack_color}" size="2"><b>{auto_attack_status}</b></basefont> <basefont color="#CCCCCC" size="2">| Automatically attacks targets</basefont>'
+
+        Gumps.AddHtml(
+            gd, section_x + 50, current_y + 4, section_width - 50, 15, auto_attack_line, False, False
+        )
+        current_y += 35
+
+        # Combat Behavior Section
+        current_y = GumpSection.create_section(
+            gd,
+            "COMBAT BEHAVIOR",
+            section_x,
+            current_y,
+            section_width,
+            content_lines=[
+                {
+                    "text": f'Auto Retreat: <basefont color="#FF6B6B" size="3"><b>{"YES" if config_manager.get_combat_setting("combat_behavior.retreat_on_low_health") else "NO"}</b></basefont> <basefont color="#CCCCCC" size="2">(Retreat when health is low)</basefont>',
+                    "color": "#FFFFFF",
+                },
+                {
+                    "text": f'Retreat Health: <basefont color="#FF6B6B" size="3"><b>{config_manager.get_combat_setting("combat_behavior.retreat_health_threshold")}%</b></basefont> <basefont color="#CCCCCC" size="2">(Health % to trigger retreat)</basefont>',
+                    "color": "#FFFFFF",
+                },
+                {
+                    "text": f'Attack Delay: <basefont color="#FFFF00" size="3"><b>{config_manager.get_combat_setting("combat_behavior.attack_delay_ms")}ms</b></basefont> <basefont color="#CCCCCC" size="2">(Delay between attacks)</basefont>',
+                    "color": "#FFFFFF",
+                },
+            ],
+            title_color="#87CEEB",
         )
 
         # Send the GUMP
@@ -966,6 +1037,16 @@ class GumpInterface:
                     config_manager.save_combat_config()
                     status_msg = "enabled" if not current_enabled else "disabled"
                     Logger.info(f"[DexBot] Auto targeting {status_msg} via Combat Settings")
+                    # Recreate the Combat Settings GUMP to show updated state
+                    GumpInterface.create_combat_settings_gump()
+
+                elif button_pressed == 42:  # Toggle Auto Attack (in Combat Settings)
+                    config_manager = ConfigManager()
+                    current_enabled = config_manager.get_combat_setting('system_toggles.auto_attack_enabled')
+                    config_manager.set_combat_setting('system_toggles.auto_attack_enabled', not current_enabled)
+                    config_manager.save_combat_config()
+                    status_msg = "enabled" if not current_enabled else "disabled"
+                    Logger.info(f"[DexBot] Auto attack {status_msg} via Combat Settings")
                     # Recreate the Combat Settings GUMP to show updated state
                     GumpInterface.create_combat_settings_gump()
 

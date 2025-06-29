@@ -164,7 +164,8 @@ def bundle(c):
                 out_f.write('import Journal\n')
                 out_f.write('import Target\n')
                 out_f.write('import Misc\n')
-                out_f.write('import Gumps\n\n')
+                out_f.write('import Gumps\n')
+                out_f.write('import Mobiles\n\n')
                 
                 # Prepend default configs
                 try:

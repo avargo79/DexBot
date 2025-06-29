@@ -173,6 +173,9 @@ class BotConfig:
             "color_thresholds.health_medium_threshold", 50
         )
 
+        # GUMP Background ID
+        self.BACKGROUND_ID = 9200  # Standard UO GUMP background
+
         # Button Icons - Static constants (these don't need to be configurable)
         self.BUTTON_ENABLED = 4017
         self.BUTTON_ENABLED_PRESSED = 4019
@@ -192,6 +195,12 @@ class BotConfig:
         self.BUTTON_SETTINGS_PRESSED = 4016
         self.BUTTON_BACK = 4001
         self.BUTTON_BACK_PRESSED = 4003
+        
+        # Healing-specific button icons (combat system uses these for consistency)
+        self.BUTTON_HEAL_ENABLED = 4017
+        self.BUTTON_HEAL_ENABLED_PRESSED = 4019
+        self.BUTTON_HEAL_DISABLED = 4005
+        self.BUTTON_HEAL_DISABLED_PRESSED = 4007
 
     def save_settings(self) -> bool:
         """Save current settings back to configuration files"""
