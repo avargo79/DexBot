@@ -8,6 +8,7 @@ from ..core.bot_config import BotConfig, BotMessages, GumpState
 from ..core.logger import Logger, SystemStatus
 from ..systems.auto_heal import execute_auto_heal_system, process_healing_journal
 from ..systems.combat import execute_combat_system
+from ..systems.looting import LootingSystem
 from ..ui.gump_interface import GumpInterface, update_gump_system
 from ..utils.imports import Misc, Player
 
@@ -20,6 +21,9 @@ def run_dexbot():
     messages = BotMessages()
     status = SystemStatus()
     config_manager = ConfigManager()
+    
+    # Initialize looting system
+    looting_system = LootingSystem(config_manager)
 
     Logger.info(messages.STARTING)
 
@@ -43,6 +47,12 @@ def run_dexbot():
         Logger.info("[DexBot] Combat system: enabled")
     else:
         Logger.info("[DexBot] Combat system: disabled")
+
+    # Show looting system status
+    if looting_system.is_enabled():
+        Logger.info("[DexBot] Looting system: enabled")
+    else:
+        Logger.info("[DexBot] Looting system: disabled")
 
     if config.DEBUG_MODE:
         Logger.debug("Debug mode is enabled")
@@ -94,6 +104,9 @@ def run_dexbot():
 
             # Combat system (if enabled)
             execute_combat_system(config_manager)
+
+            # Looting system (if enabled)
+            looting_system.update()
 
             # Increment runtime counter and main loop delay
             status.increment_runtime()
