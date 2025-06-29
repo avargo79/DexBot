@@ -71,6 +71,9 @@ try {
         Write-Host "Next steps:" -ForegroundColor Yellow
         Write-Host "  1. Copy dist/DexBot.py to your RazorEnhanced Scripts folder" -ForegroundColor White
         Write-Host "  2. Run the script in RazorEnhanced" -ForegroundColor White
+        Write-Host ""
+        Write-Host "Optional:" -ForegroundColor Cyan
+        Write-Host "  - Update API docs: python scripts/update_api_docs.py" -ForegroundColor White
         exit 0
     } else {
         Write-Host ""
