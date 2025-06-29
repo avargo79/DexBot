@@ -1,6 +1,6 @@
 {
-  "description": "DexBot Combat System Configuration",
-  "version": "1.0",
+  "description": "DexBot Combat System Configuration - Only activates when player is in War Mode",
+  "version": "1.2",
   "last_updated": "2025-06-29",
   "system_toggles": {
     "combat_system_enabled": false,
@@ -30,5 +30,10 @@
     "combat_check_interval": 250,
     "target_scan_interval": 250,
     "combat_loop_delay_ms": 250
+  },
+  "display_settings": {
+    "show_target_name_overhead": true,
+    "target_name_display_interval_ms": 3000,
+    "target_name_display_color": 53
   }
 }

@@ -847,6 +847,33 @@ class GumpInterface:
         Gumps.AddHtml(
             gd, section_x + 50, current_y + 4, section_width - 50, 15, auto_attack_line, False, False
         )
+        current_y += 25
+
+        # Target Name Display Toggle
+        show_target_name = config_manager.get_combat_setting('display_settings.show_target_name_overhead')
+        target_name_toggle_x = section_x + 10
+        target_name_toggle_y = current_y + 2
+        if show_target_name:
+            target_name_art = config.BUTTON_ENABLED
+            target_name_pressed_art = config.BUTTON_ENABLED_PRESSED
+            target_name_status = "ENABLED"
+            target_name_color = "#00FF00"
+        else:
+            target_name_art = config.BUTTON_DISABLE
+            target_name_pressed_art = config.BUTTON_DISABLE_PRESSED
+            target_name_status = "DISABLED"
+            target_name_color = "#FF0000"
+
+        Gumps.AddButton(
+            gd, target_name_toggle_x, target_name_toggle_y, target_name_art, target_name_pressed_art, 43, 1, 0
+        )
+        Gumps.AddTooltip(gd, f"Toggle Target Name Display ({'ON' if show_target_name else 'OFF'})")
+
+        target_name_line = f'<basefont color="#FFFFFF" size="3"><b>Target Name Display:</b></basefont> <basefont color="{target_name_color}" size="2"><b>{target_name_status}</b></basefont> <basefont color="#CCCCCC" size="2">| Shows target name overhead</basefont>'
+
+        Gumps.AddHtml(
+            gd, section_x + 50, current_y + 4, section_width - 50, 15, target_name_line, False, False
+        )
         current_y += 35
 
         # Combat Behavior Section
@@ -1047,6 +1074,16 @@ class GumpInterface:
                     config_manager.save_combat_config()
                     status_msg = "enabled" if not current_enabled else "disabled"
                     Logger.info(f"[DexBot] Auto attack {status_msg} via Combat Settings")
+                    # Recreate the Combat Settings GUMP to show updated state
+                    GumpInterface.create_combat_settings_gump()
+
+                elif button_pressed == 43:  # Toggle Target Name Display (in Combat Settings)
+                    config_manager = ConfigManager()
+                    current_enabled = config_manager.get_combat_setting('display_settings.show_target_name_overhead')
+                    config_manager.set_combat_setting('display_settings.show_target_name_overhead', not current_enabled)
+                    config_manager.save_combat_config()
+                    status_msg = "enabled" if not current_enabled else "disabled"
+                    Logger.info(f"[DexBot] Target name display {status_msg} via Combat Settings")
                     # Recreate the Combat Settings GUMP to show updated state
                     GumpInterface.create_combat_settings_gump()
 

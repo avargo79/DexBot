@@ -21,6 +21,7 @@ class CombatSystem:
         self.combat_start_time = None
         self.last_target_scan = 0
         self.last_attack_time = 0
+        self.last_target_name_display = 0  # Track when we last displayed target name
 
     def _get_distance(self, serial: int) -> float:
         """Calculate distance to a mobile."""
@@ -244,6 +245,19 @@ class CombatSystem:
                 self.disengage()
                 return False
             
+            # Display target name overhead if enabled and player is in war mode
+            if Player.WarMode:
+                # Update target health info for display
+                hits = getattr(mobile, 'Hits', target.get('hits', 0))
+                hits_max = getattr(mobile, 'HitsMax', target.get('hits_max', hits if hits > 0 else 100))
+                
+                # Update target info with current health
+                target['hits'] = hits
+                target['hits_max'] = hits_max
+                
+                # Show target name overhead
+                self._display_target_name_overhead(target)
+            
             # Check combat timeout
             if self.combat_start_time:
                 current_time = time.time() * 1000  # Convert to milliseconds
@@ -380,6 +394,53 @@ class CombatSystem:
                 Logger.debug(f"Opened health bar for {getattr(mobile, 'Name', 'Unknown')} ({mobile_serial})")
         except Exception as e:
             Logger.debug(f"Error opening health bar for {mobile_serial}: {e}")
+
+    def _display_target_name_overhead(self, target: Dict) -> None:
+        """Display the target's name above its head."""
+        try:
+            # Check if target name display is enabled
+            show_target_name = self.config_manager.get_combat_setting('display_settings.show_target_name_overhead')
+            if not show_target_name:
+                return
+            
+            current_time = time.time() * 1000  # Convert to milliseconds
+            display_interval = self.config_manager.get_combat_setting('display_settings.target_name_display_interval_ms')
+            
+            # Check if enough time has passed since last display
+            if current_time - self.last_target_name_display < display_interval:
+                return
+            
+            self.last_target_name_display = current_time
+            
+            # Get display color setting
+            display_color = self.config_manager.get_combat_setting('display_settings.target_name_display_color')
+            
+            # Find the mobile to display the name over
+            mobile = Mobiles.FindBySerial(target['serial'])
+            if mobile:
+                target_name = target.get('name', 'Unknown')
+                health_info = ""
+                
+                # Add health information if available
+                if target.get('hits', 0) > 0 and target.get('hits_max', 0) > 0:
+                    health_percentage = (target['hits'] / target['hits_max']) * 100
+                    health_info = f" [{target['hits']}/{target['hits_max']} - {health_percentage:.0f}%]"
+                
+                display_text = f"TARGET: {target_name}{health_info}"
+                
+                # Use Misc.SendMessage to display text overhead the target
+                # This is the most reliable method in RazorEnhanced for overhead messages
+                try:
+                    # Try using the mobile's serial for overhead message
+                    Misc.SendMessage(display_text, display_color, target['serial'])
+                    Logger.debug(f"Displayed target name overhead: {display_text}")
+                except:
+                    # Fallback to player message if overhead message fails
+                    Misc.SendMessage(f"Current Target: {target_name}{health_info}", display_color)
+                    Logger.debug(f"Displayed target name to player: {display_text}")
+            
+        except Exception as e:
+            Logger.debug(f"Error displaying target name overhead: {e}")
 
 def execute_combat_system(config_manager: ConfigManager):
     """
