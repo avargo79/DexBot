@@ -1,6 +1,6 @@
 # DexBot - Modular Bot System
 
-![Build Status](https://github.com/YOUR_USERNAME/DexBot/workflows/CI-CD/badge.svg)
+![Buil**🚀 De**🏗️ Development Infrastructure & Build System** ✅ COMPLETED:Ops Infrastructure & Build System** ✅ COMPLETED: Status](https://github.com/avargo79/DexBot/workflows/CI-CD/badge.svg)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Python](https://img.shields.io/badge/python-3.7+-green.svg)
 
@@ -21,7 +21,7 @@ The entire codebase, documentation, build system, and DevOps infrastructure were
 
 DexBot is a modular bot system for Ultima Online with RazorEnhanced, currently featuring an advanced Auto Heal system and a high-performance Combat System with a modern GUMP interface and robust state management. Built with a clean, focused architecture optimized for performance and user experience.
 
-## Recent Updates (v2.1.2)
+## Recent Updates (v2.2.0)
 
 **🚀 Combat System Performance Optimizations** ✅ COMPLETED:
 - ✅ **Major Performance Boost**: 50-80% faster target scanning with intelligent caching
@@ -84,7 +84,7 @@ DexBot/
 ├── docs/                           # Documentation directory
 │   ├── DexBot_PRD.md               # Product Requirements Document
 │   ├── RazorEnhanced_API_Reference.md # Local API reference documentation
-│   ├── DexBot_tasks.md             # Task tracking and development progress
+│   ├── DexBot_Tasks.md             # Task tracking and development progress
 │   └── CHANGELOG.md                # Version history and changes
 ├── src/                            # Source code (modular)
 │   ├── core/                       # Core bot functionality
@@ -238,7 +238,7 @@ git status
 ```text
 "Please read and analyze the DexBot PRD file (docs/DexBot_PRD.md) and summarize the current feature requirements and project goals."
 
-"Review the task tracking file (docs/DexBot_tasks.md) to understand what features are planned, in progress, or completed."
+"Review the task tracking file (docs/DexBot_Tasks.md) to understand what features are planned, in progress, or completed."
 
 "Examine the project structure and identify which systems (healing, combat, UI, config) would be affected by implementing [your feature name]."
 
@@ -295,7 +295,7 @@ python -m invoke bundle
 ```bash
 # Update these files as needed:
 # - README.md (if user-facing changes)
-# - docs/DexBot_tasks.md (mark tasks complete)
+# - docs/DexBot_Tasks.md (mark tasks complete)
 # - docs/CHANGELOG.md (add your changes)
 # - src/ code comments and docstrings
 ```
@@ -309,7 +309,7 @@ python -m invoke bundle
 
 "Update the CHANGELOG.md with an appropriate entry for this feature that follows the existing format."
 
-"Review the docs/DexBot_tasks.md file and help me update the task status for the features I've implemented."
+"Review the docs/DexBot_Tasks.md file and help me update the task status for the features I've implemented."
 ```
 
 #### 5. 🧪 Quality Assurance
@@ -447,7 +447,7 @@ For a completely AI-automated workflow, use this comprehensive prompt that handl
 
 **PHASE 1: Analysis & Planning**
 1. Read and analyze docs/DexBot_PRD.md to understand project requirements and goals
-2. Review docs/DexBot_tasks.md to understand current task status and identify where this feature fits
+2. Review docs/DexBot_Tasks.md to understand current task status and identify where this feature fits
 3. Examine the existing codebase structure in src/ to understand architectural patterns
 4. Review docs/RazorEnhanced_API_Reference.md for relevant API methods needed
 
@@ -476,7 +476,7 @@ Create a detailed implementation plan for: [FEATURE_DESCRIPTION]
 **PHASE 5: Documentation**
 1. Update README.md with new feature documentation
 2. Update docs/CHANGELOG.md with appropriate entry
-3. Update docs/DexBot_tasks.md to mark tasks complete
+3. Update docs/DexBot_Tasks.md to mark tasks complete
 4. Add comprehensive code comments and docstrings
 
 **PHASE 6: Build & Deployment Preparation**
@@ -813,8 +813,8 @@ Enable debug mode via the GUMP interface for detailed logging:
 
 See the included documentation files for detailed information:
 - `docs/DexBot_PRD.md` - Product requirements and specifications
-- `docs/DexBot_Rebuild_Summary.md` - Development history and decisions
-- `docs/DexBot_tasks.md` - Task tracking and progress
+- `docs/DexBot_Tasks.md` - Task tracking and development progress
+- `docs/CHANGELOG.md` - Version history and changes
 
 ## Development Tasks
 
