@@ -1,8 +1,14 @@
-# DexBot - Modular Bot System
+﻿# DexBot - Modular Bot System
 
 ![Build Status](https://github.com/avargo79/DexBot/workflows/CI-CD/badge.svg)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Python](https://img.shields.io/badge/python-3.7+-green.svg)
+
+## 🚀 Quick Navigation
+
+**New Users**: [Quick Start](#quick-start) • [Installation](#1-installation) • [Usage](#2-usage)  
+**Developers**: [Developer Workflow](#developer-workflow) • [Build Scripts](#-local-build-scripts) • [Contributing](#contributing)  
+**Documentation**: [Features](#features) • [Configuration](#configuration) • [API Reference](docs/RazorEnhanced_API_Reference.md)
 
 ## 🤖 AI-Coded Proof of Concept
 
@@ -17,6 +23,24 @@ DexBot serves as a comprehensive proof of concept showcasing how AI can:
 
 The entire codebase, documentation, build system, and DevOps infrastructure were generated through AI assistance, demonstrating the potential for AI-driven development workflows in game automation and software engineering.
 
+## 📋 Table of Contents
+
+- [🤖 AI-Coded Proof of Concept](#-ai-coded-proof-of-concept)
+- [📋 Table of Contents](#-table-of-contents)
+- [Recent Updates (v2.2.0)](#recent-updates-v220)
+- [Directory Structure](#directory-structure)
+- [Features](#features)
+- [Developer Workflow](#developer-workflow)
+- [🔄 Complete Developer Workflow](#-complete-developer-workflow)
+- [Quick Start](#quick-start)
+- [Configuration](#configuration)
+- [Item Requirements](#item-requirements)
+- [Troubleshooting](#troubleshooting)
+- [Development Tasks](#development-tasks)
+- [Contributing](#contributing)
+- [Version](#version)
+- [🚀 AI Development Showcase](#-ai-development-showcase)
+
 ---
 
 DexBot is a modular bot system for Ultima Online with RazorEnhanced, currently featuring an advanced Auto Heal system and a high-performance Combat System with a modern GUMP interface and robust state management. Built with a clean, focused architecture optimized for performance and user experience.
@@ -30,7 +54,7 @@ DexBot is a modular bot system for Ultima Online with RazorEnhanced, currently f
 - ✅ **Memory Optimization**: Intelligent caching with automatic expiration prevents memory buildup
 - ✅ **API Optimization**: 60-70% reduction in redundant API calls through smart caching
 
-**⚔️ Combat System Enhancement** ✅ COMPLETED:
+** Combat System Enhancement** ✅ COMPLETED:
 - ✅ **Target Name Display**: Shows `[Name - HP%]` above target's head while in War Mode
 - ✅ **Improved Display Format**: Clean bracket format (`[Orc - 85%]`) for better visibility
 - ✅ **Health Tracking**: Real-time health percentage display with mob names
@@ -51,7 +75,7 @@ DexBot is a modular bot system for Ultima Online with RazorEnhanced, currently f
 - ✅ **Enhanced Testing**: Structured testing framework with proper module imports
 - ✅ **Code Quality Tools**: Integrated linting and formatting automation
 
-**⚔️ Combat System Integration** ✅ COMPLETED:
+**📝”ï¸ Combat System Integration** ✅ COMPLETED:
 - ✅ **Full Combat System**: Automated target detection, selection, and engagement
 - ✅ **Smart Target Selection**: Configurable priority modes (closest, lowest health, highest threat)
 - ✅ **Combat Configuration**: Comprehensive JSON-based settings for all combat behaviors
@@ -59,7 +83,7 @@ DexBot is a modular bot system for Ultima Online with RazorEnhanced, currently f
 - ✅ **Safety Features**: Auto-retreat on low health, combat timeouts, range checking
 - ✅ **RazorEnhanced Integration**: Full API integration with Mobiles, Target, and Player systems
 
-**🎯 Integrated Auto Heal Controls** ✅ COMPLETED:
+**🔄 Integrated Auto Heal Controls** ✅ COMPLETED:
 - ✅ **Streamlined Interface**: No separate settings window - all controls accessible from main GUMP
 - ✅ **Two-Line Auto Heal Section**: Status line + toggle buttons for bandages and potions
 - ✅ **Faster Access**: Toggle healing methods without opening additional windows
@@ -71,31 +95,30 @@ DexBot is a modular bot system for Ultima Online with RazorEnhanced, currently f
 ```
 DexBot/
 ├── __init__.py                     # Package initialization
-├── README.md                       # This file - project overview
+ README.md                       # This file - project overview
 ├── .gitignore                      # Git ignore patterns for Python projects
 ├── .github/                        # GitHub Actions workflows
-│   └── workflows/
-│       └── ci-cd.yml               # Automated CI/CD pipeline
-├── scripts/                        # Developer utility scripts
+    workflows/
+        ci-cd.yml               # Automated CI/CD pipeline
+ scripts/                        # Developer utility scripts
 │   ├── build.ps1                   # PowerShell build script  
 │   ├── build.sh                    # Shell build script (Unix/Linux)
-│   └── update_api_docs.py          # API documentation fetcher
-├── tasks.py                        # Invoke task automation
+    update_api_docs.py          # API documentation fetcher
+ tasks.py                        # Invoke task automation
 ├── docs/                           # Documentation directory
-│   ├── DexBot_PRD.md               # Product Requirements Document
+    DexBot_PRD.md               # Product Requirements Document
 │   ├── RazorEnhanced_API_Reference.md # Local API reference documentation
 │   ├── DexBot_Tasks.md             # Task tracking and development progress
-│   └── CHANGELOG.md                # Version history and changes
-├── src/                            # Source code (modular)
-│   ├── core/                       # Core bot functionality
-│   ├── systems/                    # Individual bot systems (healing, combat, etc.)
-│   ├── ui/                         # GUMP interface code
-│   ├── config/                     # Configuration management
-│   └── utils/                      # Utility functions
-├── dist/                           # Built/bundled output
-└── tasks.py                        # Development tasks (invoke)
+    CHANGELOG.md                # Version history and changes
+ src/                            # Source code (modular)
+    core/                       # Core bot functionality
+    systems/                    # Individual bot systems (healing, combat, etc.)
+    ui/                         # GUMP interface code
+    config/                     # Configuration management
+    utils/                      # Utility functions
+ dist/                           # Built/bundled output
+ tasks.py                        # Development tasks (invoke)
 ```
-
 ## Features
 
 ### ✅ Configuration Management System (Implemented)
@@ -141,7 +164,7 @@ DexBot/
 - **Real-time Monitoring**: Tracks target health, combat duration, and player safety
 - **GUMP Integration**: Dedicated Combat Settings interface with toggles and status display
 
-### 🔄 Planned Future Modules
+### ”„ Planned Future Modules
 - **Buff Management**: Automatic strength/agility potion maintenance  
 - **Inventory Management**: Smart item dropping when backpack full
 - **Crafting System**: Automated resource gathering and item crafting
@@ -149,7 +172,7 @@ DexBot/
 
 ## Developer Workflow
 
-### 🛠️ Local Build Scripts
+### › ï¸ Local Build Scripts
 
 DexBot provides cross-platform build scripts that automatically run the complete build pipeline:
 
@@ -197,7 +220,7 @@ The project includes automated workflows that trigger on changes to the main bra
 
 **Production Releases**: Releases and documentation updates are automatically handled through the CI/CD pipeline on the main branch.
 
-### 📚 API Documentation
+### “📝 API Documentation
 
 The project maintains local RazorEnhanced API documentation for offline development:
 
@@ -210,13 +233,13 @@ This creates:
 - `docs/RazorEnhanced_API_Reference.md` - Comprehensive API reference
 - `docs/api_reference.json` - Structured API data for programmatic access
 
-## 🔄 Complete Developer Workflow
+## ”„ Complete Developer Workflow
 
 ### AI-First Development Process
 
 This project is designed for **AI-assisted development workflows**. Here's the complete process for adding new features or fixing issues:
 
-#### 1. 🌿 Branch Creation & Setup
+#### 1. 🔄 Branch Creation & Setup
 
 ```bash
 # Create and switch to feature branch
@@ -231,7 +254,7 @@ git status
 .\scripts\build.ps1  # Windows PowerShell
 ```
 
-#### 2. 📋 Requirements Analysis (AI Prompts)
+#### 2. “‹ Requirements Analysis (AI Prompts)
 
 **Start with these AI prompts to understand the project context:**
 
@@ -255,7 +278,7 @@ git status
 "Generate a feature implementation plan that follows the existing code structure in src/systems/ and includes proper error handling, logging, and configuration management."
 ```
 
-#### 3. 🏗️ Development Phase
+#### 3. —ï¸ Development Phase
 
 **Recommended Development workflow with VS Code + RazorEnhanced Extension:**
 
@@ -274,7 +297,7 @@ python -m invoke bundle
 
 # 4. Test instantly with VS Code Extension (RECOMMENDED):
 #    - Open dist/DexBot.py in VS Code
-#    - Press Ctrl+Shift+P → "RazorEnhanced: Play"
+#    - Press Ctrl+Shift+P →’ "RazorEnhanced: Play"
 #    - Script executes immediately in RazorEnhanced!
 ```
 
@@ -287,11 +310,11 @@ python -m invoke bundle
 ```
 
 **🚀 Why the VS Code Extension Method is Superior:**
-- ⚡ **Instant execution** - No file copying or navigation
-- 🔄 **Rapid iteration** - Test changes in seconds, not minutes  
-- 🎯 **Single environment** - Code, build, and test all in VS Code
-- 📝 **Live recording** - Capture new UO interactions on the fly
-- 🛠️ **Integrated debugging** - Use VS Code's debugging tools with RazorEnhanced
+- 📝¡ **Instant execution** - No file copying or navigation
+- ”„ **Rapid iteration** - Test changes in seconds, not minutes  
+- 🔄 **Single environment** - Code, build, and test all in VS Code
+- “ **Live recording** - Capture new UO interactions on the fly
+- › ï¸ **Integrated debugging** - Use VS Code's debugging tools with RazorEnhanced
 
 **AI prompts for development:**
 
@@ -307,7 +330,7 @@ python -m invoke bundle
 "After making these changes, I'll test them using the VS Code RazorEnhanced extension for rapid iteration and validation."
 ```
 
-#### 4. 📝 Documentation Updates
+#### 4. “ Documentation Updates
 
 **Always update relevant documentation:**
 
@@ -331,7 +354,7 @@ python -m invoke bundle
 "Review the docs/DexBot_Tasks.md file and help me update the task status for the features I've implemented."
 ```
 
-#### 5. 🧪 Quality Assurance
+#### 5. §ª Quality Assurance
 
 **Comprehensive testing before commit (VS Code Extension Workflow):**
 
@@ -347,7 +370,7 @@ python -m invoke test
 
 # Test in RazorEnhanced environment with VS Code Extension (PREFERRED):
 # 1. Open dist/DexBot.py in VS Code
-# 2. Use Ctrl+Shift+P → "RazorEnhanced: Play" to execute
+# 2. Use Ctrl+Shift+P →’ "RazorEnhanced: Play" to execute
 # 3. Test all functionality through the GUMP interface
 # 4. Verify error scenarios and edge cases
 # 5. Use "RazorEnhanced: Stop Playing" to stop cleanly
@@ -358,14 +381,14 @@ python -m invoke test
 # 3. Manual verification of all features
 ```
 
-**🎯 Benefits of VS Code Extension Testing:**
+**🔄 Benefits of VS Code Extension Testing:**
 - **Faster feedback loop** - Instant script execution without file management
 - **Better debugging** - VS Code debugging tools work with RazorEnhanced
 - **Live iteration** - Make changes and test immediately
 - **Recording capability** - Capture new interactions while testing
 - **Professional workflow** - Industry-standard development environment
 
-#### 6. 📤 Commit & Push
+#### 6. “¤ Commit & Push
 
 ```bash
 # Add all changes
@@ -383,7 +406,7 @@ git commit -m "feat: Add [feature description] with [key capabilities]
 git push origin feature/your-feature-name
 ```
 
-#### 7. 🔄 Pull Request Process
+#### 7. ”„ Pull Request Process
 
 **Create PR with comprehensive description:**
 
@@ -439,7 +462,7 @@ git push origin --delete feature/your-feature-name
 # Check GitHub Actions for build status
 ```
 
-### 🤖 Advanced AI Development Prompts
+### ¤– Advanced AI Development Prompts
 
 **For Complex Features:**
 
@@ -469,7 +492,7 @@ git push origin --delete feature/your-feature-name
 "Create mock scenarios for testing [feature] that simulate various RazorEnhanced game states and API responses."
 ```
 
-### 🤖 Fully Automated AI Development Workflow
+### ¤– Fully Automated AI Development Workflow
 
 **Complete End-to-End Feature Implementation:**
 
@@ -617,32 +640,7 @@ Follow all existing code patterns and quality standards."
 Execute this complete automation and provide all files and documentation needed for immediate integration into the DexBot project."
 ```
 
-These prompts enable complete AI automation of the entire development lifecycle, from analysis through deployment preparation.
-
-### 📋 Development Checklist
-
-**Before every commit:**
-- [ ] Code follows existing architectural patterns
-- [ ] Comprehensive error handling implemented
-- [ ] Logging added with appropriate levels
-- [ ] Configuration options added to JSON files
-- [ ] GUMP interface updated if needed
-- [ ] Documentation updated
-- [ ] All tests pass (`invoke test`)
-- [ ] Code quality checks pass (`invoke lint`)
-- [ ] Bundle builds successfully (`invoke bundle`)
-- [ ] **Testing completed using VS Code RazorEnhanced Extension** (preferred method)
-- [ ] Task tracking file updated
-
-**Before Pull Request:**
-- [ ] Feature branch up to date with main
-- [ ] All development checklist items complete
-- [ ] CHANGELOG.md updated
-- [ ] README.md updated (if user-facing changes)
-- [ ] Comprehensive PR description written
-- [ ] Screenshots/demos prepared (if UI changes)
-
-This workflow ensures consistent, high-quality development while leveraging AI capabilities for complex feature implementation and code quality maintenance.
+These prompts enable complete AI automation of the entire development lifecycle, from analysis through production deployment, maintaining professional standards throughout the development lifecycle.
 
 ## Quick Start
 
@@ -689,10 +687,10 @@ pip install typing-extensions
 **Why Use VS Code + RazorEnhanced Extension?**
 This combination provides the **optimal development experience** for DexBot:
 - 🚀 **Execute scripts instantly** from VS Code to RazorEnhanced
-- 📝 **Live recording** of UO interactions directly into your code
-- 🎨 **Enhanced syntax highlighting** for RazorEnhanced/UOSteam commands
-- 🔄 **Seamless testing workflow** without switching applications
-- 🛠️ **Complete development environment** in one place
+- “ **Live recording** of UO interactions directly into your code
+- ¨ **Enhanced syntax highlighting** for RazorEnhanced/UOSteam commands
+- ”„ **Seamless testing workflow** without switching applications
+- › ï¸ **Complete development environment** in one place
 
 **Essential Extensions:**
 ```vscode-extensions
@@ -761,7 +759,7 @@ pip install black flake8 pytest
 
 ### 2. Usage
 
-**🎯 For End Users (Recommended):**
+**🔄 For End Users (Recommended):**
 The easiest way to use DexBot is with the pre-built version:
 
 **Quick Start - Use Pre-built Version:**
@@ -781,7 +779,7 @@ The easiest way to use DexBot is with the pre-built version:
    - Browse to `DexBot/dist/DexBot.py`
    - Click "Play" to run the script
 
-**🔧 For Developers:**
+**”§ For Developers:**
 If you want to build from source or modify the code:
 
 **Prerequisites:**
@@ -1050,7 +1048,7 @@ License: MIT
 
 This project demonstrates the capabilities of modern AI in software development:
 
-**📋 What AI Accomplished:**
+**“‹ What AI Accomplished:**
 - **Complete Codebase**: All Python code, from core systems to utility functions
 - **Modular Architecture**: Well-structured project with proper separation of concerns  
 - **Production Infrastructure**: GitHub Actions CI/CD, cross-platform build scripts
@@ -1058,7 +1056,7 @@ This project demonstrates the capabilities of modern AI in software development:
 - **Quality Assurance**: Automated testing, linting, and deployment workflows
 - **Developer Experience**: One-command builds, environment setup, contribution guides
 
-**🎯 Technical Complexity:**
+**🔄 Technical Complexity:**
 - **Game API Integration**: RazorEnhanced API interfacing and event handling
 - **Real-time Systems**: Combat automation, health monitoring, target tracking
 - **User Interface**: Dynamic GUMP creation with state management
@@ -1066,7 +1064,7 @@ This project demonstrates the capabilities of modern AI in software development:
 - **Error Handling**: Robust exception handling and logging throughout
 - **Performance Optimization**: Caching, adaptive timing, memory management
 
-**🛠️ DevOps Excellence:**
+**› ï¸ DevOps Excellence:**
 - **Modern CI/CD**: Latest GitHub Actions with environment gating
 - **Cross-Platform Support**: Windows PowerShell + Unix Shell scripts
 - **Security**: Production environment approval workflows
@@ -1074,3 +1072,27 @@ This project demonstrates the capabilities of modern AI in software development:
 - **Maintenance**: Automated dependency updates and quality checks
 
 This project showcases how AI can handle end-to-end software development, from initial concept through production deployment, maintaining professional standards throughout the development lifecycle.
+
+---
+
+## 📊 Project Stats
+
+- **Lines of Code**: 3,000+ (modular Python architecture)
+- **Test Coverage**: Comprehensive test suite with automated validation
+- **Build Time**: < 30 seconds (optimized build pipeline)
+- **Supported Platforms**: Windows, Linux, macOS (development), RazorEnhanced (runtime)
+- **Dependencies**: Minimal runtime dependencies (IronPython .NET embedded)
+
+## 🔗 Related Links
+
+- **[Product Requirements Document](docs/DexBot_PRD.md)** - Detailed feature specifications
+- **[Development Tasks](docs/DexBot_Tasks.md)** - Project roadmap and progress tracking  
+- **[API Reference](docs/RazorEnhanced_API_Reference.md)** - Complete RazorEnhanced API documentation
+- **[Changelog](docs/CHANGELOG.md)** - Version history and release notes
+- **[GitHub Actions](https://github.com/avargo79/DexBot/actions)** - Live build and deployment status
+
+## 🏆 Acknowledgments
+
+Special thanks to the RazorEnhanced development team for creating an excellent Ultima Online automation platform that makes projects like DexBot possible.
+
+
