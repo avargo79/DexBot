@@ -15,8 +15,8 @@
     "ignore_pets": true
   },
   "combat_behavior": {
-    "attack_delay_ms": 1000,
-    "target_switch_delay_ms": 2000,
+    "attack_delay_ms": 250,
+    "target_switch_delay_ms": 500,
     "combat_timeout_ms": 30000,
     "retreat_on_low_health": true,
     "retreat_health_threshold": 30
@@ -27,8 +27,8 @@
     "weapon_durability_warning": 10
   },
   "timing_settings": {
-    "combat_check_interval": 500,
-    "target_scan_interval": 1000,
+    "combat_check_interval": 250,
+    "target_scan_interval": 250,
     "combat_loop_delay_ms": 250
   }
 }

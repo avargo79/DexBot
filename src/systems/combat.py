@@ -4,6 +4,7 @@ Automates engaging and defeating enemies with smart target selection and combat 
 """
 
 import math
+import time
 from typing import List, Optional, Dict
 
 from ..config.config_manager import ConfigManager
@@ -45,8 +46,15 @@ class CombatSystem:
             if not mobile or mobile.Serial == Player.Serial:
                 return False
             
-            # Check if mobile is dead
-            if mobile.Hits <= 0:
+            # UO Health Data Quirk Handling:
+            # Many mobiles don't populate .Hits until health bar is opened
+            # We should NOT reject targets with unpopulated health data (Hits = 0 or missing)
+            # Only reject if we're confident the mobile is actually dead
+            
+            # Don't be too strict about health - many alive mobs show 0 hits until health bar is opened
+            # Only reject if we have strong evidence the mobile is actually dead
+            if hasattr(mobile, 'Hits') and mobile.Hits < 0:
+                # Negative health definitely means dead
                 return False
             
             # Check distance
@@ -77,29 +85,46 @@ class CombatSystem:
         targets = []
         
         try:
-            # Check if enough time has passed since last scan
-            current_time = Timer.Get()
+            # Check if enough time has passed since last scan (but be more aggressive when no target)
+            current_time = time.time() * 1000  # Convert to milliseconds
             scan_interval = self.config_manager.get_combat_setting('timing_settings.target_scan_interval')
             
-            if current_time - self.last_target_scan < scan_interval:
+            # Use faster scanning when we don't have a current target (aggressive mode)
+            if not self.current_target:
+                scan_interval = scan_interval // 2  # Half the scan interval when looking for targets
+            
+            # Skip interval check if this is the first scan (last_target_scan == 0)
+            if self.last_target_scan > 0 and current_time - self.last_target_scan < scan_interval:
                 return targets
             
             self.last_target_scan = current_time
             
             max_range = self.config_manager.get_combat_setting('target_selection.max_range')
             
-            # Get all mobiles in range
-            mobiles_list = Mobiles.Filter()
+            # Get all mobiles using Filter (RazorEnhanced API)
+            mobile_filter = Mobiles.Filter()
+            mobile_filter.Enabled = True
+            mobile_filter.RangeMax = max_range * 2  # Use larger range for initial filtering
+            mobiles_list = Mobiles.ApplyFilter(mobile_filter)
             
             for mobile in mobiles_list:
                 if self._is_valid_target(mobile):
                     distance = self._get_distance(mobile.Serial)
                     
+                    # For new potential targets, ensure health bar is opened to get accurate data
+                    # This helps with the UO quirk where health data isn't populated until health bar is opened
+                    if not self.current_target or self.current_target['serial'] != mobile.Serial:
+                        self._ensure_health_bar(mobile.Serial)
+                    
+                    # Handle cases where health info might not be available (even after opening health bar)
+                    hits = getattr(mobile, 'Hits', 0)
+                    hits_max = getattr(mobile, 'HitsMax', hits if hits > 0 else 100)  # Default to 100 if unknown
+                    
                     target_info = {
                         'serial': mobile.Serial,
                         'name': getattr(mobile, 'Name', 'Unknown'),
-                        'hits': mobile.Hits,
-                        'hits_max': getattr(mobile, 'HitsMax', mobile.Hits),
+                        'hits': hits,
+                        'hits_max': hits_max,
                         'distance': distance,
                         'notoriety': mobile.Notoriety,
                         'position': {
@@ -110,7 +135,8 @@ class CombatSystem:
                     }
                     targets.append(target_info)
             
-            Logger.debug(f"Found {len(targets)} valid targets")
+            if targets:
+                Logger.debug(f"Found {len(targets)} valid targets")
             
         except Exception as e:
             Logger.error(f"Error detecting targets: {e}")
@@ -157,22 +183,48 @@ class CombatSystem:
     def engage_target(self, target: Dict) -> bool:
         """Engage the selected target with the currently equipped weapon."""
         try:
-            current_time = Timer.Get()
+            # Check if auto attack is enabled
+            auto_attack_enabled = self.config_manager.get_combat_setting('system_toggles.auto_attack_enabled')
+            if not auto_attack_enabled:
+                Logger.debug("Auto attack disabled - setting target but not attacking")
+                # Still set the target for manual combat
+                Target.SetLast(target['serial'])
+                return True
+            
+            current_time = time.time() * 1000  # Convert to milliseconds
             attack_delay = self.config_manager.get_combat_setting('combat_behavior.attack_delay_ms')
             
-            # Check attack delay
-            if current_time - self.last_attack_time < attack_delay:
+            # Be more aggressive - allow immediate attacks in more cases
+            should_attack = False
+            
+            if self.last_attack_time == 0:
+                # First attack ever - always immediate
+                should_attack = True
+            elif self.current_target and self.current_target['serial'] != target['serial']:
+                # Switching targets - immediate attack allowed
+                should_attack = True
+            elif current_time - self.last_attack_time >= attack_delay:
+                # Normal attack delay has passed
+                should_attack = True
+            
+            if not should_attack:
+                # Still set target even if we're not attacking yet
+                Target.SetLast(target['serial'])
                 return False
             
             # Set the target and attack
             Target.SetLast(target['serial'])
             
-            # Start combat if not already in combat
-            if not self.combat_start_time:
+            # Ensure health bar is open for accurate health tracking
+            if self.last_attack_time == 0 or (self.current_target and self.current_target['serial'] != target['serial']):
+                self._ensure_health_bar(target['serial'])
+            
+            # Start combat if not already in combat or switching targets
+            if not self.combat_start_time or (self.current_target and self.current_target['serial'] != target['serial']):
                 self.combat_start_time = current_time
                 Logger.info(f"Engaging target: {target['name']} (Distance: {target['distance']:.1f})")
             
-            # Attack the target
+            # Attack the target (only if auto attack is enabled)
             Player.Attack(target['serial'])
             self.last_attack_time = current_time
             
@@ -194,7 +246,7 @@ class CombatSystem:
             
             # Check combat timeout
             if self.combat_start_time:
-                current_time = Timer.Get()
+                current_time = time.time() * 1000  # Convert to milliseconds
                 timeout = self.config_manager.get_combat_setting('combat_behavior.combat_timeout_ms')
                 if current_time - self.combat_start_time > timeout:
                     Logger.warning(f"Combat timeout reached for {target['name']}")
@@ -254,6 +306,14 @@ class CombatSystem:
                     self.disengage()
                 return
             
+            # WAR MODE CHECK: Only engage in combat when player is in war mode
+            if not Player.WarMode:
+                # If player exits war mode while fighting, disengage current target
+                if self.current_target:
+                    Logger.info("Player exited war mode - disengaging from combat")
+                    self.disengage()
+                return
+            
             # Check if we should retreat due to low health first
             retreat_on_low_health = self.config_manager.get_combat_setting('combat_behavior.retreat_on_low_health')
             if retreat_on_low_health:
@@ -266,29 +326,60 @@ class CombatSystem:
                         self.disengage()
                     return
             
+            # Check Auto Target and Auto Attack settings
+            auto_target_enabled = self.config_manager.get_combat_setting('system_toggles.auto_target_enabled')
+            auto_attack_enabled = self.config_manager.get_combat_setting('system_toggles.auto_attack_enabled')
+            
             # If we have a current target, continue monitoring
             if self.current_target:
                 if not self.monitor_combat(self.current_target):
                     # Target lost, disengage already called in monitor_combat
                     return
                 
-                # Continue attacking current target
-                self.engage_target(self.current_target)
+                # Only continue attacking if auto attack is enabled
+                if auto_attack_enabled:
+                    self.engage_target(self.current_target)
+                else:
+                    Logger.debug("Auto attack disabled - not attacking current target")
                 return
             
-            # No current target, look for new ones
-            targets = self.detect_targets()
-            target = self.select_target(targets)
-            
-            if target:
-                self.current_target = target
-                if not self.engage_target(target):
-                    self.disengage()
+            # Only look for new targets if auto targeting is enabled
+            if auto_target_enabled:
+                targets = self.detect_targets()
+                target = self.select_target(targets)
+                
+                if target:
+                    self.current_target = target
+                    Logger.info(f"Auto target selected: {target['name']} (Distance: {target['distance']:.1f})")
+                    
+                    # Only engage if auto attack is also enabled
+                    if auto_attack_enabled:
+                        if not self.engage_target(target):
+                            self.disengage()
+                    else:
+                        Logger.debug("Auto attack disabled - target selected but not attacking")
+            else:
+                Logger.debug("Auto targeting disabled - not scanning for new targets")
             
         except Exception as e:
             Logger.error(f"Error in combat system run: {e}")
             self.disengage()
 
+    def _ensure_health_bar(self, mobile_serial: int) -> None:
+        """Ensure health bar is open for a mobile to get accurate health data."""
+        try:
+            # Open health bar to get accurate health information
+            # This is needed because many mobiles don't populate health data until their bar is opened
+            mobile = Mobiles.FindBySerial(mobile_serial)
+            if mobile:
+                # The most reliable way to populate health data is to single-click the mobile
+                # This opens their health bar and populates the health information
+                Target.SetLast(mobile_serial)
+                # Give a small pause to let the data populate
+                Misc.Pause(50)  # Slightly longer pause to ensure data updates
+                Logger.debug(f"Opened health bar for {getattr(mobile, 'Name', 'Unknown')} ({mobile_serial})")
+        except Exception as e:
+            Logger.debug(f"Error opening health bar for {mobile_serial}: {e}")
 
 def execute_combat_system(config_manager: ConfigManager):
     """
