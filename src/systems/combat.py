@@ -93,14 +93,17 @@ class CombatSystem:
             # Use faster scanning when we don't have a current target (aggressive mode)
             if not self.current_target:
                 scan_interval = scan_interval // 2  # Half the scan interval when looking for targets
+                Logger.debug(f"No current target - using aggressive scan interval: {scan_interval}ms")
             
             # Skip interval check if this is the first scan (last_target_scan == 0)
             if self.last_target_scan > 0 and current_time - self.last_target_scan < scan_interval:
+                Logger.debug(f"Target scan on cooldown - {scan_interval - (current_time - self.last_target_scan):.0f}ms remaining")
                 return targets
             
             self.last_target_scan = current_time
             
             max_range = self.config_manager.get_combat_setting('target_selection.max_range')
+            Logger.debug(f"Scanning for targets within {max_range} tiles...")
             
             # Get all mobiles using Filter (RazorEnhanced API)
             mobile_filter = Mobiles.Filter()
@@ -195,18 +198,25 @@ class CombatSystem:
             current_time = time.time() * 1000  # Convert to milliseconds
             attack_delay = self.config_manager.get_combat_setting('combat_behavior.attack_delay_ms')
             
+            Logger.debug(f"Engage target - Current time: {current_time:.0f}, Last attack: {self.last_attack_time:.0f}, Attack delay: {attack_delay}ms")
+            
             # Be more aggressive - allow immediate attacks in more cases
             should_attack = False
             
             if self.last_attack_time == 0:
                 # First attack ever - always immediate
                 should_attack = True
+                Logger.debug("First attack - immediate engagement allowed")
             elif self.current_target and self.current_target['serial'] != target['serial']:
                 # Switching targets - immediate attack allowed
                 should_attack = True
+                Logger.debug("Target switch - immediate engagement allowed")
             elif current_time - self.last_attack_time >= attack_delay:
                 # Normal attack delay has passed
                 should_attack = True
+                Logger.debug(f"Attack delay passed ({current_time - self.last_attack_time:.0f}ms >= {attack_delay}ms)")
+            else:
+                Logger.debug(f"Attack on cooldown - {attack_delay - (current_time - self.last_attack_time):.0f}ms remaining")
             
             if not should_attack:
                 # Still set target even if we're not attacking yet
@@ -312,11 +322,13 @@ class CombatSystem:
         try:
             # Check if combat system is enabled
             if not self.config_manager.get_combat_setting('system_toggles.combat_system_enabled'):
+                Logger.debug("Combat system disabled - skipping combat logic")
                 return
             
             # Safety checks
             if Player.IsGhost or not Player.Visible:
                 if self.current_target:
+                    Logger.debug("Player is ghost or invisible - disengaging from combat")
                     self.disengage()
                 return
             
@@ -326,6 +338,8 @@ class CombatSystem:
                 if self.current_target:
                     Logger.info("Player exited war mode - disengaging from combat")
                     self.disengage()
+                else:
+                    Logger.debug("Player not in war mode - combat system inactive")
                 return
             
             # Check if we should retreat due to low health first
@@ -333,6 +347,8 @@ class CombatSystem:
             if retreat_on_low_health:
                 health_threshold = self.config_manager.get_combat_setting('combat_behavior.retreat_health_threshold')
                 health_percentage = (Player.Hits / Player.HitsMax) * 100
+                
+                Logger.debug(f"Health check: {health_percentage:.1f}% (retreat threshold: {health_threshold}%)")
                 
                 if health_percentage < health_threshold:
                     if self.current_target:
@@ -344,8 +360,11 @@ class CombatSystem:
             auto_target_enabled = self.config_manager.get_combat_setting('system_toggles.auto_target_enabled')
             auto_attack_enabled = self.config_manager.get_combat_setting('system_toggles.auto_attack_enabled')
             
+            Logger.debug(f"Combat settings - Auto Target: {auto_target_enabled}, Auto Attack: {auto_attack_enabled}")
+            
             # If we have a current target, continue monitoring
             if self.current_target:
+                Logger.debug(f"Monitoring current target: {self.current_target.get('name', 'Unknown')} ({self.current_target.get('serial', 'N/A')})")
                 if not self.monitor_combat(self.current_target):
                     # Target lost, disengage already called in monitor_combat
                     return
@@ -359,12 +378,14 @@ class CombatSystem:
             
             # Only look for new targets if auto targeting is enabled
             if auto_target_enabled:
+                Logger.debug("Scanning for new targets...")
                 targets = self.detect_targets()
                 target = self.select_target(targets)
                 
                 if target:
                     self.current_target = target
                     Logger.info(f"Auto target selected: {target['name']} (Distance: {target['distance']:.1f})")
+                    Logger.debug(f"Target details - Serial: {target['serial']}, Health: {target.get('hits', 'Unknown')}/{target.get('hits_max', 'Unknown')}, Notoriety: {target.get('notoriety', 'Unknown')}")
                     
                     # Only engage if auto attack is also enabled
                     if auto_attack_enabled:
@@ -372,6 +393,8 @@ class CombatSystem:
                             self.disengage()
                     else:
                         Logger.debug("Auto attack disabled - target selected but not attacking")
+                else:
+                    Logger.debug("No valid targets found")
             else:
                 Logger.debug("Auto targeting disabled - not scanning for new targets")
             
