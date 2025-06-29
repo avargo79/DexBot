@@ -44,13 +44,27 @@ def lint(c):
     """Run basic syntax checks"""
     print("🔍 Running syntax checks...")
 
-    # Basic syntax check for main file
-    try:
-        c.run("python -m py_compile DexBot.py", hide=True)
-        print("✅ DexBot.py syntax check passed")
-    except Exception as e:
-        print(f"❌ DexBot.py syntax check failed: {e}")
-        return False
+    # Basic syntax check for main file (try bundled version first, then original)
+    main_file_checked = False
+    if os.path.exists(BUNDLED_FILE):
+        try:
+            c.run(f"python -m py_compile {BUNDLED_FILE}", hide=True)
+            print(f"✅ {BUNDLED_FILE} syntax check passed")
+            main_file_checked = True
+        except Exception as e:
+            print(f"❌ {BUNDLED_FILE} syntax check failed: {e}")
+            return False
+    elif os.path.exists(MAIN_FILE):
+        try:
+            c.run(f"python -m py_compile {MAIN_FILE}", hide=True)
+            print(f"✅ {MAIN_FILE} syntax check passed")
+            main_file_checked = True
+        except Exception as e:
+            print(f"❌ {MAIN_FILE} syntax check failed: {e}")
+            return False
+    
+    if not main_file_checked:
+        print(f"⚠️  Warning: Neither {BUNDLED_FILE} nor {MAIN_FILE} found for syntax check")
 
     # Check all Python files in src/
     if os.path.exists(SRC_DIR):
@@ -117,6 +131,7 @@ def bundle(c):
             "src/core/logger.py",
             "src/utils/helpers.py",
             "src/systems/auto_heal.py",
+            "src/systems/combat.py",
             "src/ui/gump_interface.py",
             "src/core/main_loop.py"
         ]
@@ -149,7 +164,8 @@ def bundle(c):
                 out_f.write('import Journal\n')
                 out_f.write('import Target\n')
                 out_f.write('import Misc\n')
-                out_f.write('import Gumps\n\n')
+                out_f.write('import Gumps\n')
+                out_f.write('import Mobiles\n\n')
                 
                 # Prepend default configs
                 try:
