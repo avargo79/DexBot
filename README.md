@@ -11,6 +11,14 @@ DexBot is a modular bot system for Ultima Online with RazorEnhanced, currently f
 - ✅ **Enhanced Testing**: Structured testing framework with proper module imports
 - ✅ **Code Quality Tools**: Integrated linting and formatting automation
 
+**⚔️ Combat System Integration** ✅ COMPLETED:
+- ✅ **Full Combat System**: Automated target detection, selection, and engagement
+- ✅ **Smart Target Selection**: Configurable priority modes (closest, lowest health, highest threat)
+- ✅ **Combat Configuration**: Comprehensive JSON-based settings for all combat behaviors
+- ✅ **GUMP Integration**: Dedicated Combat Settings interface with real-time toggles
+- ✅ **Safety Features**: Auto-retreat on low health, combat timeouts, range checking
+- ✅ **RazorEnhanced Integration**: Full API integration with Mobiles, Target, and Player systems
+
 **🎯 Integrated Auto Heal Controls** ✅ COMPLETED:
 - ✅ **Streamlined Interface**: No separate settings window - all controls accessible from main GUMP
 - ✅ **Two-Line Auto Heal Section**: Status line + toggle buttons for bandages and potions
@@ -80,46 +88,100 @@ DexBot/
 - **Performance Optimized**: Minimal object creation, conditional updates
 - **Comprehensive Logging**: Debug, info, warning, and error levels with toggle control
 
+### ✅ Combat System (Implemented)
+- **Intelligent Target Detection**: Scans for hostile mobiles using configurable range and filters
+- **Smart Target Selection**: Multiple priority modes - closest, lowest health, highest threat
+- **Automated Combat**: Engages targets with proper attack timing and weapon management  
+- **Safety Features**: Auto-retreat on low health, combat timeouts, range validation
+- **Advanced Configuration**: JSON-based settings for all combat behaviors and preferences
+- **Real-time Monitoring**: Tracks target health, combat duration, and player safety
+- **GUMP Integration**: Dedicated Combat Settings interface with toggles and status display
+
 ### 🔄 Planned Future Modules
 - **Fishing System**: AFK fishing automation
-- **Buff Management**: Automatic strength/agility potion maintenance
+- **Buff Management**: Automatic strength/agility potion maintenance  
 - **Inventory Management**: Smart item dropping when backpack full
+- **Crafting System**: Automated resource gathering and item crafting
+- **Training System**: Skill training automation with resource management
 
 ## Quick Start
 
 ### 1. Installation
+
+**For Users (Run Only):**
 - Download or clone the DexBot directory to your RazorEnhanced Scripts folder
 - Ensure all files are in the correct directory structure shown above
+- No additional dependencies needed - just run the bundled script!
 
-### 2. Usage
-For stable usage, it is recommended to run the bundled version of the script.
-
-**1. Bundle the Script**
-First, run the `bundle` task to create a single, optimized script file. This packages all the modules into one file for easy distribution and use.
+**For Developers (Build & Development):**
+If you want to modify the code or run development tasks, you'll need Python with these packages:
 
 ```bash
-python -m invoke bundle
+# Install required Python packages
+pip install invoke
+
+# If you get typing errors, also install:
+pip install typing-extensions
 ```
 
-This will create the file `dist/DexBot.py`.
+**Optional development dependencies:**
+```bash
+# For enhanced development experience
+pip install black flake8 pytest
+```
 
-**2. Run the Bundled Script**
-Run the bundled script from RazorEnhanced using one of these methods:
+**Note:** The bundled `dist/DexBot.py` file runs directly in RazorEnhanced without any external dependencies.
 
-**Method 1: Direct execution**
+### 2. Usage
+
+**🎯 For End Users (Recommended):**
+The easiest way to use DexBot is with the pre-built version:
+
+**Quick Start - Use Pre-built Version:**
+- Navigate to the `DexBot/dist/` folder
+- Run `DexBot.py` directly from RazorEnhanced Scripts interface
+- The bundled file is ready to use with no additional setup required
+
+**Manual Methods:**
 ```python
+# Method 1: Direct execution in RazorEnhanced
 exec(open('DexBot/dist/DexBot.py').read())
+
+# Method 2: Use RazorEnhanced Scripts interface
+# - Open RazorEnhanced Scripts tab
+# - Navigate to DexBot/dist/ folder  
+# - Double-click DexBot.py to execute
 ```
 
-**Method 2: RazorEnhanced Scripts interface**
-- Open RazorEnhanced Scripts tab
-- Navigate to the `DexBot/dist` folder
-- Double-click `DexBot.py` to execute
+**🔧 For Developers:**
+If you want to build from source or modify the code:
 
-**For Developers:**
-If you are actively developing the script, you can run the main entry point directly:
-- `exec(open('DexBot/main.py').read())`
-- Or run `main.py` from the RazorEnhanced Scripts interface.
+**Prerequisites:**
+- Python 3.7+ installed on your system
+- Required packages: `pip install invoke`
+- If you get typing errors: `pip install typing-extensions`
+
+**Development Workflow:**
+```bash
+# 1. Build the bundled version
+python -m invoke bundle
+
+# 2. Run tests (optional)
+python -m invoke test
+
+# 3. Check code quality (optional)  
+python -m invoke lint
+
+# 4. Run the built version
+# Use dist/DexBot.py in RazorEnhanced as described above
+```
+
+**Development Mode (Direct Source):**
+For active development, you can run the modular version directly:
+```python
+# Run from source (for development only)
+exec(open('DexBot/main.py').read())
+```
 
 ### 3. Interface Controls
 - **Enable/Disable Auto Heal**: Click the main toggle button (left side of Auto Heal section)
@@ -220,6 +282,19 @@ Ensure these items are in your backpack for the Auto Heal system:
 3. **GUMP not updating** - Try closing and reopening the interface
 4. **Script stops unexpectedly** - Check console for error messages
 
+### Typing/Import Issues
+If you encounter errors about missing `typing` module or type annotations:
+
+```bash
+# Install typing extensions for older Python versions
+pip install typing-extensions
+
+# For Python 3.7 users specifically:
+pip install dataclasses typing-extensions
+```
+
+**Note:** These issues only affect development tasks outside RazorEnhanced. The bundled `dist/DexBot.py` runs without any dependencies.
+
 ### Debug Mode
 Enable debug mode via the GUMP interface for detailed logging:
 - Shows health monitoring details
@@ -236,18 +311,49 @@ See the included documentation files for detailed information:
 
 ## Development Tasks
 
-This project uses `invoke` for task automation. The following tasks are available for developers:
+This project uses `invoke` for task automation. **Note: Development tasks require Python and the `invoke` package.**
 
+**Setup for Development:**
+```bash
+# Install required development tools
+pip install invoke
+
+# If you encounter typing/import errors:
+pip install typing-extensions
+
+# Optional: Install additional development tools
+pip install black flake8 pytest
+```
+
+**Available Tasks:**
 *   **`invoke clean`**: Removes build artifacts, caches, and other temporary files.
-*   **`invoke lint`**: Runs the linter to check for code quality and style issues.
+*   **`invoke lint`**: Runs syntax checks and code quality validation.
 *   **`invoke test`**: Executes the test suite to ensure all components are working correctly.
 *   **`invoke bundle`**: Packages the entire `src` directory into a single distributable file, `dist/DexBot.py`, for easy deployment.
+*   **`invoke build`**: Full build pipeline (clean + lint + test + bundle).
+*   **`invoke dev`**: Development mode (test + lint + bundle for quick iteration).
 
-To run a task, use `python -m invoke <task_name>` from the project root. For example:
-
+**Usage Examples:**
 ```bash
+# Run individual tasks
+python -m invoke bundle
 python -m invoke test
+python -m invoke lint
+
+# Run full build pipeline
+python -m invoke build
+
+# Quick development build
+python -m invoke dev
+
+# Get help
+python -m invoke help
 ```
+
+**Important Notes:**
+- **End users don't need these tools** - the `dist/DexBot.py` file runs directly in RazorEnhanced
+- **Development tasks only work outside RazorEnhanced** - use a regular Python environment
+- **Always run `invoke bundle` after making changes** to update the distributable version
 
 ## Contributing
 
