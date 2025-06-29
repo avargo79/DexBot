@@ -257,11 +257,11 @@ git status
 
 #### 3. 🏗️ Development Phase
 
-**Development workflow with continuous validation:**
+**Recommended Development workflow with VS Code + RazorEnhanced Extension:**
 
 ```bash
-# Make your changes to src/ directory
-# Then test immediately:
+# Make your changes to src/ directory in VS Code
+# Then test immediately with the integrated workflow:
 
 # 1. Run tests
 python -m invoke test
@@ -272,9 +272,26 @@ python -m invoke lint
 # 3. Bundle for testing
 python -m invoke bundle
 
-# 4. Test the bundled version in RazorEnhanced
-# Run dist/DexBot.py and verify functionality
+# 4. Test instantly with VS Code Extension (RECOMMENDED):
+#    - Open dist/DexBot.py in VS Code
+#    - Press Ctrl+Shift+P → "RazorEnhanced: Play"
+#    - Script executes immediately in RazorEnhanced!
 ```
+
+**Alternative testing methods:**
+```bash
+# Traditional method (if not using VS Code extension):
+# 1. Copy dist/DexBot.py to RazorEnhanced Scripts folder
+# 2. Use RazorEnhanced Scripts interface to run
+# 3. Manual testing and verification
+```
+
+**🚀 Why the VS Code Extension Method is Superior:**
+- ⚡ **Instant execution** - No file copying or navigation
+- 🔄 **Rapid iteration** - Test changes in seconds, not minutes  
+- 🎯 **Single environment** - Code, build, and test all in VS Code
+- 📝 **Live recording** - Capture new UO interactions on the fly
+- 🛠️ **Integrated debugging** - Use VS Code's debugging tools with RazorEnhanced
 
 **AI prompts for development:**
 
@@ -286,6 +303,8 @@ python -m invoke bundle
 "Generate comprehensive error handling for this feature that matches the robustness patterns used throughout the DexBot codebase."
 
 "Create appropriate configuration options for this feature that integrate with the existing JSON config system."
+
+"After making these changes, I'll test them using the VS Code RazorEnhanced extension for rapid iteration and validation."
 ```
 
 #### 4. 📝 Documentation Updates
@@ -314,7 +333,7 @@ python -m invoke bundle
 
 #### 5. 🧪 Quality Assurance
 
-**Comprehensive testing before commit:**
+**Comprehensive testing before commit (VS Code Extension Workflow):**
 
 ```bash
 # Full build pipeline
@@ -326,12 +345,25 @@ python -m invoke lint
 # Run all tests
 python -m invoke test
 
-# Test in RazorEnhanced environment
-# 1. Copy dist/DexBot.py to RazorEnhanced Scripts
-# 2. Run and test all functionality
-# 3. Verify GUMP interface works correctly
-# 4. Test error scenarios and edge cases
+# Test in RazorEnhanced environment with VS Code Extension (PREFERRED):
+# 1. Open dist/DexBot.py in VS Code
+# 2. Use Ctrl+Shift+P → "RazorEnhanced: Play" to execute
+# 3. Test all functionality through the GUMP interface
+# 4. Verify error scenarios and edge cases
+# 5. Use "RazorEnhanced: Stop Playing" to stop cleanly
+
+# Alternative traditional testing:
+# 1. Copy dist/DexBot.py to RazorEnhanced Scripts folder
+# 2. Run via RazorEnhanced Scripts interface
+# 3. Manual verification of all features
 ```
+
+**🎯 Benefits of VS Code Extension Testing:**
+- **Faster feedback loop** - Instant script execution without file management
+- **Better debugging** - VS Code debugging tools work with RazorEnhanced
+- **Live iteration** - Make changes and test immediately
+- **Recording capability** - Capture new interactions while testing
+- **Professional workflow** - Industry-standard development environment
 
 #### 6. 📤 Commit & Push
 
@@ -368,10 +400,11 @@ git push origin feature/your-feature-name
 ### Testing Performed
 - [ ] All automated tests pass
 - [ ] Linting checks pass
-- [ ] Manual testing in RazorEnhanced
-- [ ] GUMP interface tested
+- [ ] **Testing with VS Code RazorEnhanced Extension** (preferred method)
+- [ ] GUMP interface tested and functional
 - [ ] Configuration persistence tested
 - [ ] Error scenarios tested
+- [ ] Alternative: Manual testing in RazorEnhanced Scripts interface
 
 ### Documentation Updates
 - [ ] README.md updated (if user-facing)
@@ -598,7 +631,7 @@ These prompts enable complete AI automation of the entire development lifecycle,
 - [ ] All tests pass (`invoke test`)
 - [ ] Code quality checks pass (`invoke lint`)
 - [ ] Bundle builds successfully (`invoke bundle`)
-- [ ] Manual testing in RazorEnhanced completed
+- [ ] **Testing completed using VS Code RazorEnhanced Extension** (preferred method)
 - [ ] Task tracking file updated
 
 **Before Pull Request:**
@@ -651,7 +684,15 @@ pip install invoke
 pip install typing-extensions
 ```
 
-### VS Code Setup for Development
+### VS Code Setup for Development (HIGHLY RECOMMENDED)
+
+**Why Use VS Code + RazorEnhanced Extension?**
+This combination provides the **optimal development experience** for DexBot:
+- 🚀 **Execute scripts instantly** from VS Code to RazorEnhanced
+- 📝 **Live recording** of UO interactions directly into your code
+- 🎨 **Enhanced syntax highlighting** for RazorEnhanced/UOSteam commands
+- 🔄 **Seamless testing workflow** without switching applications
+- 🛠️ **Complete development environment** in one place
 
 **Essential Extensions:**
 ```vscode-extensions
@@ -666,7 +707,7 @@ ms-python.python,ms-python.vscode-pylance,ms-python.debugpy,RazorEnhanced-Develo
    - Search for "Python" by Microsoft
    - Click "Install" on the Python extension (this installs Python, Pylance, and Python Debugger)
 
-2. **Install RazorEnhanced Extension**:
+2. **Install RazorEnhanced Extension (ESSENTIAL FOR DEVELOPMENT)**:
    - In VS Code, press `Ctrl+P` to open Quick Open
    - Paste: `ext install RazorEnhanced-Development.razorenhanced`
    - Press Enter to install
@@ -683,16 +724,18 @@ ms-python.python,ms-python.vscode-pylance,ms-python.debugpy,RazorEnhanced-Develo
    - Set the "Razor Enhanced: Server Port" to match your RazorEnhanced instance
    - Find the port number in RazorEnhanced's Help tab
 
-**RazorEnhanced Extension Features:**
+**🚀 RazorEnhanced Extension Features (Why It's Essential):**
 - ✅ **Direct Script Execution**: Play scripts directly from VS Code to RazorEnhanced
 - ✅ **Live Recording**: Record commands from RazorEnhanced directly into VS Code
 - ✅ **UOSteam Syntax Highlighting**: Enhanced syntax highlighting for script files
 - ✅ **Remote Control**: Send commands and receive responses from RazorEnhanced server
+- ✅ **Instant Testing**: No more switching between applications to test changes
+- ✅ **Development Speed**: 10x faster iteration cycle for script development
 
-**Available Commands:**
-- `RazorEnhanced: Play` - Execute current file in RazorEnhanced
+**Essential Commands for Development:**
+- `RazorEnhanced: Play` - **Primary testing method** - Execute current file in RazorEnhanced
 - `RazorEnhanced: Stop Playing` - Stop current script execution
-- `RazorEnhanced: Record` - Start recording from RazorEnhanced
+- `RazorEnhanced: Record` - Start recording from RazorEnhanced to capture new features
 - `RazorEnhanced: Stop Record` - Stop recording session
 
 5. **Recommended Additional Extensions**:
@@ -700,13 +743,13 @@ ms-python.python,ms-python.vscode-pylance,ms-python.debugpy,RazorEnhanced-Develo
    github.copilot,github.copilot-chat,formulahendry.code-runner
    ```
 
-**VS Code Workspace Benefits:**
+**VS Code + RazorEnhanced Workspace Benefits:**
 - ✅ Intelligent code completion and error detection
 - ✅ Integrated debugging for Python scripts
 - ✅ Built-in terminal for running invoke tasks
 - ✅ Git integration for version control
 - ✅ AI-powered development with GitHub Copilot
-- ✅ **Direct RazorEnhanced integration** for testing scripts without leaving VS Code
+- ✅ **Direct RazorEnhanced integration** - The killer feature for UO script development!
 
 **Optional development dependencies:**
 ```bash
@@ -745,8 +788,25 @@ If you want to build from source or modify the code:
 - Python 3.7+ installed on your system
 - Required packages: `pip install invoke`
 - If you get typing errors: `pip install typing-extensions`
+- **Recommended**: VS Code with RazorEnhanced extension (see setup above)
 
-**Development Workflow:**
+**Preferred Development Workflow (VS Code + RazorEnhanced Extension):**
+```bash
+# 1. Make your code changes in VS Code
+# 2. Build the bundled version
+python -m invoke bundle
+
+# 3. Test directly from VS Code (RECOMMENDED):
+#    - Open dist/DexBot.py in VS Code
+#    - Press Ctrl+Shift+P and run "RazorEnhanced: Play"
+#    - Script executes immediately in RazorEnhanced
+
+# 4. Run tests and quality checks
+python -m invoke test
+python -m invoke lint
+```
+
+**Alternative Development Workflow (Traditional):**
 ```bash
 # 1. Build the bundled version
 python -m invoke bundle
@@ -757,30 +817,17 @@ python -m invoke test
 # 3. Check code quality (optional)  
 python -m invoke lint
 
-# 4. Run the built version
-# Use dist/DexBot.py in RazorEnhanced as described above
+# 4. Test manually in RazorEnhanced Scripts interface
 ```
 
-**Development Mode (Testing Changes):**
-For active development, test your changes by running the bundled version:
-```bash
-# 1. Make your code changes
-# 2. Build the bundled version
-python -m invoke bundle
-
-# 3. Test in RazorEnhanced using one of these methods:
-#    a) VS Code RazorEnhanced Extension (if installed):
-#       - Open dist/DexBot.py in VS Code
-#       - Use Command Palette: "RazorEnhanced: Play"
-#    b) RazorEnhanced Scripts interface (see above)
-```
-
-**Enhanced Development with VS Code Extension:**
-If you have the RazorEnhanced VS Code extension installed, you can:
-- Test scripts directly from VS Code without switching applications
-- Use live recording to capture new UO interactions
-- Benefit from syntax highlighting for RazorEnhanced/UOSteam commands
-- Debug and iterate faster with integrated workflow
+**🚀 Enhanced Development with VS Code Extension (RECOMMENDED):**
+Using the RazorEnhanced VS Code extension provides the optimal development experience:
+- ✅ **Instant Testing**: Execute scripts directly from VS Code without switching applications
+- ✅ **Live Recording**: Capture new UO interactions directly into your code
+- ✅ **Enhanced Syntax**: Dedicated highlighting for RazorEnhanced/UOSteam commands
+- ✅ **Integrated Workflow**: Debug, build, and test all within VS Code
+- ✅ **Faster Iteration**: Test changes immediately with a single command
+- ✅ **Remote Control**: Bi-directional communication between VS Code and RazorEnhanced
 
 ### 3. Interface Controls
 - **Enable/Disable Auto Heal**: Click the main toggle button (left side of Auto Heal section)
