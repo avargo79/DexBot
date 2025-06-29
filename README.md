@@ -1,6 +1,6 @@
 # DexBot - Modular Bot System
 
-![Buil**🚀 De**🏗️ Development Infrastructure & Build System** ✅ COMPLETED:Ops Infrastructure & Build System** ✅ COMPLETED: Status](https://github.com/avargo79/DexBot/workflows/CI-CD/badge.svg)
+![Build Status](https://github.com/avargo79/DexBot/workflows/CI-CD/badge.svg)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Python](https://img.shields.io/badge/python-3.7+-green.svg)
 
@@ -37,14 +37,14 @@ DexBot is a modular bot system for Ultima Online with RazorEnhanced, currently f
 - ✅ **War Mode Integration**: Only activates combat features when ready for battle
 - ✅ **User Configurable**: Toggle target display on/off via Combat Settings GUMP
 
-**� DevOps Infrastructure & Build System** ✅ COMPLETED:
+**🚀 DevOps Infrastructure & Build System** ✅ COMPLETED:
 - ✅ **GitHub Actions CI/CD**: Automated lint, test, build, and release pipeline
 - ✅ **Developer Scripts**: PowerShell and Shell scripts for local development
 - ✅ **API Documentation**: Automated RazorEnhanced API reference generation
 - ✅ **Documentation Updates**: Comprehensive docs with workflow and contribution guides
 - ✅ **Branch-based Development**: Feature branches with automated integration
 
-**�🚧 Development Infrastructure & Build System** ⚠️ COMPLETE:
+**🚧 Development Infrastructure & Build System** ✅ COMPLETED:
 - ✅ **Modular Code Structure**: Reorganized into src/ directory with system separation
 - ✅ **Development Tooling**: Modern Python development workflow
 - ✅ **Automated Build System**: Bundle modules into single distribution file
