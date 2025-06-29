@@ -17,6 +17,7 @@ MAIN_FILE = "DexBot.py"
 BUNDLED_FILE = f"{DIST_DIR}/{MAIN_FILE}"
 DEFAULT_MAIN_CONFIG_PATH = "src/config/default_main_config.json"
 DEFAULT_AUTO_HEAL_CONFIG_PATH = "src/config/default_auto_heal_config.json"
+DEFAULT_LOOTING_CONFIG_PATH = "src/config/looting_config.json"
 
 @task
 def clean(c):
@@ -132,6 +133,7 @@ def bundle(c):
             "src/utils/helpers.py",
             "src/systems/auto_heal.py",
             "src/systems/combat.py",
+            "src/systems/looting.py",
             "src/ui/gump_interface.py",
             "src/core/main_loop.py"
         ]
@@ -177,6 +179,10 @@ def bundle(c):
                         auto_heal_config_json = json.load(f)
                         auto_heal_config_content = pformat(auto_heal_config_json, indent=2)
                         out_f.write(f'DEFAULT_AUTO_HEAL_CONFIG = {auto_heal_config_content}\n\n')
+                    with open(DEFAULT_LOOTING_CONFIG_PATH, 'r', encoding='utf-8') as f:
+                        looting_config_json = json.load(f)
+                        looting_config_content = pformat(looting_config_json, indent=2)
+                        out_f.write(f'DEFAULT_LOOTING_CONFIG = {looting_config_content}\n\n')
                     print("  📦 Added default configurations (as Python dicts)")
                 except Exception as e:
                     print(f"  ⚠️  Warning: Could not prepend default configs: {e}")
