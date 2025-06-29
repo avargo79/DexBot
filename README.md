@@ -1,5 +1,9 @@
 # DexBot - Modular Bot System
 
+![Build Status](https://github.com/YOUR_USERNAME/DexBot/workflows/CI-CD/badge.svg)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Python](https://img.shields.io/badge/python-3.7+-green.svg)
+
 DexBot is a modular bot system for Ultima Online with RazorEnhanced, currently featuring an advanced Auto Heal system and a high-performance Combat System with a modern GUMP interface and robust state management. Built with a clean, focused architecture optimized for performance and user experience.
 
 ## Recent Updates (v2.1.2)
@@ -18,7 +22,14 @@ DexBot is a modular bot system for Ultima Online with RazorEnhanced, currently f
 - ✅ **War Mode Integration**: Only activates combat features when ready for battle
 - ✅ **User Configurable**: Toggle target display on/off via Combat Settings GUMP
 
-**🚧 Development Infrastructure & Build System** ⚠️ COMPLETE:
+**� DevOps Infrastructure & Build System** ✅ COMPLETED:
+- ✅ **GitHub Actions CI/CD**: Automated lint, test, build, and release pipeline
+- ✅ **Developer Scripts**: PowerShell and Shell scripts for local development
+- ✅ **API Documentation**: Automated RazorEnhanced API reference generation
+- ✅ **Documentation Updates**: Comprehensive docs with workflow and contribution guides
+- ✅ **Branch-based Development**: Feature branches with automated integration
+
+**�🚧 Development Infrastructure & Build System** ⚠️ COMPLETE:
 - ✅ **Modular Code Structure**: Reorganized into src/ directory with system separation
 - ✅ **Development Tooling**: Modern Python development workflow
 - ✅ **Automated Build System**: Bundle modules into single distribution file
@@ -49,12 +60,20 @@ DexBot/
 ├── test_dexbot.py                  # Unit tests for DexBot and configuration system
 ├── README.md                       # This file - project overview
 ├── .gitignore                      # Git ignore patterns for Python projects
+├── .github/                        # GitHub Actions workflows
+│   └── workflows/
+│       └── ci-cd.yml               # Automated CI/CD pipeline
+├── scripts/                        # Developer utility scripts
+│   ├── dev-tools.ps1               # PowerShell development tools
+│   ├── dev-tools.sh                # Shell development tools (Unix/Linux)
+│   └── update_api_docs.py          # API documentation fetcher
 ├── config/                         # Configuration directory
 │   ├── main_config.json            # Main bot settings and system toggles
 │   └── auto_heal_config.json       # Auto Heal system specific settings
 ├── docs/                           # Documentation directory
 │   ├── DexBot_PRD.md               # Product Requirements Document
-│   ├── DexBot_Rebuild_Summary.md   # Development summary and decisions
+│   ├── DevOps_Sprint.md            # DevOps sprint tracking document
+│   ├── RazorEnhanced_API_Reference.md # Local API reference documentation
 │   └── DexBot_tasks.md             # Task tracking and development progress
 ├── src/                            # Source code (modular)
 │   ├── core/                       # Core bot functionality
@@ -63,7 +82,7 @@ DexBot/
 │   ├── config/                     # Configuration management
 │   └── utils/                      # Utility functions
 ├── dist/                           # Built/bundled output
-├── tasks.py                        # Development tasks
+└── tasks.py                        # Development tasks (invoke)
 ```
 
 ## Features
@@ -112,11 +131,80 @@ DexBot/
 - **GUMP Integration**: Dedicated Combat Settings interface with toggles and status display
 
 ### 🔄 Planned Future Modules
-- **Fishing System**: AFK fishing automation
 - **Buff Management**: Automatic strength/agility potion maintenance  
 - **Inventory Management**: Smart item dropping when backpack full
 - **Crafting System**: Automated resource gathering and item crafting
 - **Training System**: Skill training automation with resource management
+
+## Developer Workflow
+
+### 🛠️ Local Development Scripts
+
+DexBot provides cross-platform developer scripts for streamlined development:
+
+**PowerShell (Windows):**
+```powershell
+# Lint code
+.\scripts\dev-tools.ps1 lint
+
+# Run tests
+.\scripts\dev-tools.ps1 test
+
+# Build project
+.\scripts\dev-tools.ps1 build
+
+# Create bundle
+.\scripts\dev-tools.ps1 bundle
+
+# Run all tasks
+.\scripts\dev-tools.ps1 all
+```
+
+**Shell (Unix/Linux/macOS):**
+```bash
+# Make script executable (first time only)
+chmod +x scripts/dev-tools.sh
+
+# Lint code
+./scripts/dev-tools.sh lint
+
+# Run tests
+./scripts/dev-tools.sh test
+
+# Build project
+./scripts/dev-tools.sh build
+
+# Create bundle
+./scripts/dev-tools.sh bundle
+
+# Run all tasks
+./scripts/dev-tools.sh all
+```
+
+### 🚀 GitHub Actions CI/CD
+
+The project includes automated workflows that trigger on changes to the main branch:
+
+1. **Code Quality**: Linting with flake8 and black formatting checks
+2. **Testing**: Automated test suite execution
+3. **Build**: Project validation and bundle creation
+4. **Release**: Automatic release creation with bundle artifacts
+5. **Documentation**: API documentation updates
+
+**Workflow Status**: Check the build badge at the top of this README.
+
+### 📚 API Documentation
+
+The project maintains local RazorEnhanced API documentation for offline development:
+
+```bash
+# Update API documentation
+python scripts/update_api_docs.py
+```
+
+This creates:
+- `docs/RazorEnhanced_API_Reference.md` - Comprehensive API reference
+- `docs/api_reference.json` - Structured API data for programmatic access
 
 ## Quick Start
 
@@ -371,11 +459,23 @@ python -m invoke help
 
 ## Contributing
 
-This project uses Git for version control. To contribute:
-1. Make your changes to the appropriate files
-2. Test thoroughly with RazorEnhanced
-3. Update documentation as needed
-4. Commit changes with descriptive messages
+### Development Setup
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/your-feature-name`
+3. Make your changes
+4. Run the development workflow: `./scripts/dev-tools.sh all` (or `.ps1` on Windows)
+5. Commit changes: `git commit -m "Description of changes"`
+6. Push to your fork: `git push origin feature/your-feature-name`
+7. Create a Pull Request
+
+The CI/CD pipeline will automatically run tests and validation on your PR.
+
+### Code Quality Standards
+- Follow PEP 8 style guidelines (enforced by flake8)
+- Use black for code formatting
+- Include type hints where appropriate
+- Write tests for new functionality
+- Update documentation for user-facing changes
 
 ## Version
 

@@ -24,7 +24,7 @@ The target users are Ultima Online players who use the RazorEnhanced client and 
 - Maintain character buffs and stamina.
 - Automatically re-equip a weapon when disarmed.
 - Smart inventory management to drop items when the backpack is full.
-- AFK fishing automation.
+- Advanced skill training systems.
 
 ## 2. Functional Requirements
 
