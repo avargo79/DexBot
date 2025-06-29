@@ -30,7 +30,6 @@ jobs:
       
     - name: Run tests
       run: python -m invoke test
-      continue-on-error: true  # Don't fail build if tests fail (for now)
       
     - name: Build bundle
       run: python -m invoke bundle
