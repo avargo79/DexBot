@@ -51,6 +51,17 @@ This document tracks planned features, current development tasks, and their impl
 - **FR-024**: Optimize performance of the bot.
 - **FR-025**: Implement a comprehensive logging system.
 
+### ✅ Refactor Configuration Manager
+- **Priority**: High
+- **Status**: Complete
+- **Dependencies**: None
+- **Description**: Refactor the `ConfigManager` to load default configurations from external `.json` files instead of having them hardcoded in the class. This will improve modularity and make it easier to manage default settings.
+- **Sub-tasks**:
+  - ✅ Create `default_main_config.json` and `default_auto_heal_config.json` in `src/config/`.
+  - ✅ Move the hardcoded default dictionaries from `ConfigManager` into these new files.
+  - ✅ Update `ConfigManager` to read these files to get the default settings.
+  - ✅ Modify the `bundle` task in `tasks.py` to prepend the contents of the default config files to the top of the bundled `dist/DexBot.py` script.
+
 ---
 
 ## 🔄 Planned Future Modules
@@ -98,12 +109,6 @@ This document tracks planned features, current development tasks, and their impl
   - 🔲 Automatically drop or move items based on a configurable list (e.g., drop junk items).
   - 🔲 Potentially move valuable items to a secure container.
 
-### 🔲 Fishing System
-- **Priority**: Low
-- **Status**: Not Started
-- **Dependencies**: None
-- **Description**: An AFK fishing system to automate the process of fishing for resources.
-- **Sub-tasks**:
-  - 🔲 Use a fishing pole on a water source.
-  - 🔲 Detect successful catches and reel them in.
-  - 🔲 Handle common fishing events (e.g., "the fish got away").
+---
+
+## 🛠️ Planned Refactoring & Maintenance

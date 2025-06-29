@@ -5,7 +5,25 @@ Handles loading and saving bot settings from JSON files
 
 import json
 import os
+import sys
 from typing import Dict, Optional
+
+
+# Helper to detect if running as bundled script (DexBot.py) or as modules
+IS_BUNDLED = hasattr(sys.modules.get('__main__'), 'DEFAULT_MAIN_CONFIG')
+
+if IS_BUNDLED:
+    DEFAULT_MAIN_CONFIG = sys.modules['__main__'].DEFAULT_MAIN_CONFIG
+    DEFAULT_AUTO_HEAL_CONFIG = sys.modules['__main__'].DEFAULT_AUTO_HEAL_CONFIG
+else:
+    # Load from JSON files in development mode
+    def load_json_config(path):
+        with open(path, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    import os as _os
+    _config_dir = _os.path.dirname(_os.path.abspath(__file__))
+    DEFAULT_MAIN_CONFIG = load_json_config(_os.path.join(_config_dir, 'default_main_config.json'))
+    DEFAULT_AUTO_HEAL_CONFIG = load_json_config(_os.path.join(_config_dir, 'default_auto_heal_config.json'))
 
 
 class ConfigManager:
@@ -44,10 +62,8 @@ class ConfigManager:
         self.auto_heal_config_path = os.path.join(self.config_dir, "auto_heal_config.json")
 
         # Load configurations
-        self.main_config = self._load_config(self.main_config_path, self._get_default_main_config())
-        self.auto_heal_config = self._load_config(
-            self.auto_heal_config_path, self._get_default_auto_heal_config()
-        )
+        self.main_config = self._load_config(self.main_config_path, DEFAULT_MAIN_CONFIG)
+        self.auto_heal_config = self._load_config(self.auto_heal_config_path, DEFAULT_AUTO_HEAL_CONFIG)
 
     def _load_config(self, config_path: str, default_config: Dict) -> Dict:
         """Load configuration from JSON file, create with defaults if not exists"""
@@ -101,10 +117,8 @@ class ConfigManager:
 
     def reload_configs(self) -> None:
         """Reload all configurations from files"""
-        self.main_config = self._load_config(self.main_config_path, self._get_default_main_config())
-        self.auto_heal_config = self._load_config(
-            self.auto_heal_config_path, self._get_default_auto_heal_config()
-        )
+        self.main_config = self._load_config(self.main_config_path, DEFAULT_MAIN_CONFIG)
+        self.auto_heal_config = self._load_config(self.auto_heal_config_path, DEFAULT_AUTO_HEAL_CONFIG)
 
     def get_main_setting(self, key_path: str, default=None):
         """Get setting from main config using dot notation (e.g., 'system_toggles.healing_system_enabled')"""
@@ -142,86 +156,3 @@ class ConfigManager:
                 current[key] = {}
             current = current[key]
         current[keys[-1]] = value
-
-    def _get_default_main_config(self) -> Dict:
-        """Get default main configuration"""
-        return {
-            "version": "2.0",
-            "last_updated": "2025-06-28",
-            "description": "DexBot Main Configuration - System toggles and global settings",
-            "system_toggles": {"healing_system_enabled": True},
-            "global_settings": {
-                "debug_mode": False,
-                "main_loop_delay_ms": 250,
-                "error_recovery_delay_ms": 1000,
-                "target_wait_timeout_ms": 1000,
-            },
-            "gump_interface": {
-                "enabled": True,
-                "main_gump": {
-                    "width": 320,
-                    "height": 240,
-                    "x_position": 100,
-                    "y_position": 100,
-                    "update_interval_cycles": 8,
-                },
-                "minimized_gump": {"width": 100, "height": 30},
-                "rate_limiting": {"button_press_delay_ms": 500},
-            },
-            "safety_settings": {
-                "connection_check_enabled": True,
-                "death_pause_enabled": True,
-                "emergency_stop_on_critical_error": True,
-            },
-            "logging": {
-                "console_logging": True,
-                "file_logging": False,
-                "log_level": "info",
-                "debug_status_interval_cycles": 20,
-            },
-        }
-
-    def _get_default_auto_heal_config(self) -> Dict:
-        """Get default auto heal configuration"""
-        return {
-            "version": "2.0",
-            "last_updated": "2025-06-28",
-            "description": "DexBot Auto Heal System Configuration",
-            "healing_toggles": {"bandage_healing_enabled": True, "potion_healing_enabled": True},
-            "health_thresholds": {
-                "healing_threshold_percentage": 95,
-                "critical_health_threshold": 50,
-                "bandage_threshold_hp": 1,
-            },
-            "item_ids": {
-                "bandage_id": "0x0E21",
-                "heal_potion_id": "0x0F0C",
-                "lesser_heal_potion_id": None,
-                "greater_heal_potion_id": None,
-            },
-            "timing_settings": {
-                "healing_timer_duration_ms": 11000,
-                "potion_cooldown_ms": 10000,
-                "bandage_retry_delay_ms": 500,
-                "healing_check_interval": 1,
-            },
-            "resource_management": {
-                "bandage_retry_attempts": 3,
-                "low_bandage_warning": 10,
-                "search_range": 2,
-                "bandage_check_interval_cycles": 120,
-            },
-            "journal_monitoring": {
-                "healing_success_msg": "You finish applying the bandages.",
-                "healing_partial_msg": "You apply the bandages, but they barely help.",
-                "journal_message_type": "System",
-            },
-            "color_thresholds": {
-                "bandage_high_threshold": 20,
-                "bandage_medium_threshold": 10,
-                "potion_high_threshold": 10,
-                "potion_medium_threshold": 5,
-                "health_high_threshold": 75,
-                "health_medium_threshold": 50,
-            },
-        }
