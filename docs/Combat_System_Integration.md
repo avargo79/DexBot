@@ -88,11 +88,12 @@
 - **Visual feedback**: All combat displays only show during War Mode
 
 ### Target Name Display
-- **Overhead messages**: Shows "TARGET: [name] [HP/MaxHP - %]" above target's head
+- **Overhead messages**: Shows `[Name - HP%]` format above target's head  
 - **Smart timing**: Displays every 3 seconds (configurable) to avoid spam
-- **Health tracking**: Real-time health information with percentage display  
+- **Health tracking**: Real-time health percentage display in clean format
 - **War Mode only**: Only displays when player is actively in War Mode
 - **User configurable**: Can be toggled on/off in Combat Settings GUMP
+- **Format examples**: `[Orc - 85%]`, `[Dragon - 42%]`, `[Skeleton]` (no health data)
 
 ### Target Detection & Selection
 - **Range-based scanning** (configurable max range)

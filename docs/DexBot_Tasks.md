@@ -1,14 +1,26 @@
 # DexBot Development Tasks & Feature Tracking
 
-**Last Updated**: June 28, 2025
-**Current Version**: 2.1.0
+**Last Updated**: June 29, 2025
+**Current Version**: 2.1.1
 
 ## Overview
 This document tracks planned features, current development tasks, and their implementation status for the DexBot modular bot system, based on the official [Product Requirements Document](DexBot_PRD.md).
 
 ---
 
-## ✅ Completed Tasks (v2.1.0)
+## ✅ Completed Tasks (v2.1.1)
+
+### ✅ Combat System (NEW in v2.1.0-2.1.1)
+- **FR-024**: Implement automated target detection using RazorEnhanced Mobiles API.
+- **FR-025**: Implement intelligent target selection with configurable priority modes.
+- **FR-026**: Implement automated combat engagement with timing management.
+- **FR-027**: Implement combat monitoring with health tracking and status updates.
+- **FR-028**: Implement target switching and disengagement logic.
+- **FR-029**: Implement War Mode integration for combat safety.
+- **FR-030**: Implement target name display with `[Name - HP%]` format above targets.
+- **FR-031**: Implement comprehensive combat configuration system.
+- **FR-032**: Implement Combat Settings GUMP with real-time toggles.
+- **FR-033**: Implement UO health bar quirk handling for accurate target data.
 
 ### ✅ Development Infrastructure & Build System
 - **Task**: Transition from a monolithic script to a modular project structure.
@@ -66,17 +78,20 @@ This document tracks planned features, current development tasks, and their impl
 
 ## 🔄 Planned Future Modules
 
-### 🔲 Combat System
+### ✅ Combat System
 - **Priority**: High
-- **Status**: Not Started
+- **Status**: ✅ COMPLETED (v2.1.0-2.1.1)
 - **Dependencies**: Auto Heal System
 - **Description**: A comprehensive combat system to engage and defeat enemies automatically. This is a foundational module for any PvE automation.
 - **Sub-tasks**:
-  - 🔲 Detect nearby hostile targets.
-  - 🔲 Select a target based on configurable priority (e.g., closest, lowest health).
-  - 🔲 Engage the target with the currently equipped weapon.
-  - 🔲 Monitor combat status (e.g., target is dead, player is being attacked).
-  - 🔲 Disengage or switch targets as needed.
+  - ✅ Detect nearby hostile targets using RazorEnhanced Mobiles API.
+  - ✅ Select a target based on configurable priority (closest, lowest health, highest threat).
+  - ✅ Engage the target with the currently equipped weapon.
+  - ✅ Monitor combat status (target health, death detection, range checking).
+  - ✅ Disengage or switch targets as needed with proper cleanup.
+  - ✅ War Mode integration for combat safety and user control.
+  - ✅ Target name display showing `[Name - HP%]` above targets.
+  - ✅ Comprehensive GUMP interface with Combat Settings panel.
 
 ### 🔲 Looting System
 - **Priority**: High

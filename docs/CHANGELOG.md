@@ -1,5 +1,24 @@
 # DexBot Changelog
 
+## Version 2.1.1 - Combat System v1.2.1 - 2025-06-29
+
+### Combat System: Updated Target Display Format ✅
+
+#### 🎨 **Display Format Enhancement**
+- **Updated Display Format**: Changed from `TARGET: Name - HP%` to clean `[Name - HP%]` format
+- **Examples**: 
+  - With health data: `[Orc - 85%]`, `[Dragon - 42%]`
+  - Without health data: `[Orc]`, `[Skeleton]`
+- **Consistent Formatting**: Maintains health percentage when available, shows just name when unavailable
+- **Both Message Types**: Updated both overhead messages and fallback console messages
+
+#### 🔧 **Technical Updates**
+- Modified `_display_target_name_overhead()` method for cleaner format
+- Updated fallback message handling for consistency
+- Maintained all existing functionality with improved visual presentation
+
+---
+
 ## Version 2.1.0 - Combat System v1.2 - 2025-06-29
 
 ### Combat System: Target Name Display Feature ✅

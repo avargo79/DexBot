@@ -2,7 +2,14 @@
 
 DexBot is a modular bot system for Ultima Online with RazorEnhanced, currently featuring an advanced Auto Heal system with a modern GUMP interface and robust state management. Built with a clean, focused architecture for the active Auto Heal system.
 
-## Recent Updates (v2.1.0)
+## Recent Updates (v2.1.1)
+
+**⚔️ Combat System Enhancement** ✅ COMPLETED:
+- ✅ **Target Name Display**: Shows `[Name - HP%]` above target's head while in War Mode
+- ✅ **Improved Display Format**: Clean bracket format (`[Orc - 85%]`) for better visibility
+- ✅ **Health Tracking**: Real-time health percentage display with mob names
+- ✅ **War Mode Integration**: Only activates combat features when ready for battle
+- ✅ **User Configurable**: Toggle target display on/off via Combat Settings GUMP
 
 **🚧 Development Infrastructure & Build System** ⚠️ COMPLETE:
 - ✅ **Modular Code Structure**: Reorganized into src/ directory with system separation
