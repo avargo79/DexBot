@@ -400,7 +400,11 @@ class LootingSystem:
         return self.corpse_queue[0]
 
     def _has_inventory_space(self) -> bool:
-        """Check if there's enough inventory space."""
+        """Check if there's enough inventory space for looting.
+        
+        Returns:
+            bool: True if there's adequate space, False otherwise
+        """
         config = self.config_manager.get_looting_config()
         weight_limit = config.get('behavior', {}).get('inventory_weight_limit_percent', 80)
         item_limit = config.get('behavior', {}).get('inventory_item_limit', 120)
@@ -408,66 +412,267 @@ class LootingSystem:
         # Check weight limit
         current_weight = Player.Weight
         max_weight = Player.MaxWeight
-        weight_percent = (current_weight / max_weight) * 100 if max_weight > 0 else 100
+        
+        if max_weight <= 0:
+            Logger.warning("Max weight is 0, assuming inventory full")
+            return False
+            
+        weight_percent = (current_weight / max_weight) * 100
         
         if weight_percent >= weight_limit:
+            Logger.debug(f"Weight limit exceeded: {weight_percent:.1f}% >= {weight_limit}%")
             return False
         
-        # Check item count (simplified - would need proper counting in real implementation)
+        # Check item count limit
+        current_item_count = self._count_backpack_items()
+        if current_item_count >= item_limit:
+            Logger.debug(f"Item count limit exceeded: {current_item_count} >= {item_limit}")
+            return False
+            
+        Logger.debug(f"Inventory space available: {weight_percent:.1f}% weight, {current_item_count}/{item_limit} items")
         return True
+        
+    def _count_backpack_items(self) -> int:
+        """Count the number of items in the player's backpack.
+        
+        Returns:
+            int: Number of items in backpack
+        """
+        try:
+            backpack_items = Items.FindAllBySerial(Player.Backpack.Serial)
+            if backpack_items:
+                return len(backpack_items)
+            return 0
+        except Exception as e:
+            Logger.debug(f"Error counting backpack items: {e}")
+            return 0  # Assume empty on error
 
     def _open_corpse_container(self, corpse_serial: int) -> bool:
-        """Open a corpse container."""
+        """Open a corpse container with retry logic.
+        
+        Args:
+            corpse_serial: Serial number of the corpse to open
+            
+        Returns:
+            bool: True if successfully opened, False otherwise
+        """
+        config = self.config_manager.get_looting_config()
+        timeout_ms = config.get('timing', {}).get('container_open_timeout_ms', 2000)
+        max_attempts = 3
+        retry_delay_ms = 250
+        
+        for attempt in range(max_attempts):
+            try:
+                Logger.debug(f"Opening corpse {corpse_serial}, attempt {attempt + 1}/{max_attempts}")
+                
+                # Use the corpse to open it
+                Items.UseItem(corpse_serial)
+                Misc.Pause(timeout_ms)
+                
+                # Verify the container is accessible
+                if self._verify_container_opened(corpse_serial):
+                    Logger.debug(f"Successfully opened corpse {corpse_serial}")
+                    return True
+                    
+                # If not opened and not last attempt, wait and retry
+                if attempt < max_attempts - 1:
+                    Logger.debug(f"Container not opened, retrying in {retry_delay_ms}ms")
+                    Misc.Pause(retry_delay_ms)
+                    
+            except Exception as e:
+                Logger.error(f"Exception opening corpse {corpse_serial} on attempt {attempt + 1}: {e}")
+                if attempt < max_attempts - 1:
+                    Misc.Pause(retry_delay_ms)
+        
+        Logger.warning(f"Failed to open corpse {corpse_serial} after {max_attempts} attempts")
+        return False
+        
+    def _verify_container_opened(self, corpse_serial: int) -> bool:
+        """Verify that a container was successfully opened.
+        
+        Args:
+            corpse_serial: Serial number of the container to verify
+            
+        Returns:
+            bool: True if container is accessible
+        """
         try:
-            config = self.config_manager.get_looting_config()
-            timeout = config.get('timing', {}).get('container_open_timeout_ms', 2000)
-            
-            Items.UseItem(corpse_serial)
-            Misc.Pause(timeout)
-            return True  # Simplified - would check if actually opened
-            
+            # Try to get items from the container
+            items = Items.FindAllBySerial(corpse_serial)
+            return items is not None  # If we can get items list, container is open
         except Exception as e:
-            Logger.error(f"Failed to open corpse {corpse_serial}: {e}")
+            Logger.debug(f"Container verification failed for {corpse_serial}: {e}")
             return False
 
     def _should_loot_item(self, item: Any) -> bool:
-        """Determine if an item should be looted."""
+        """Determine if an item should be looted based on decision logic.
+        
+        Args:
+            item: The item to evaluate
+            
+        Returns:
+            bool: True if item should be looted
+        """
         decision = self.evaluate_item(item)
-        return decision in [LootDecision.ALWAYS_TAKE, LootDecision.TAKE_IF_SPACE]
+        
+        if decision == LootDecision.ALWAYS_TAKE:
+            return True
+        elif decision == LootDecision.NEVER_TAKE:
+            return False
+        elif decision == LootDecision.TAKE_IF_SPACE:
+            # Only take if we have adequate inventory space
+            return self._has_inventory_space()
+        elif decision == LootDecision.UNKNOWN:
+            # For unknown items, check if configured to take unknowns
+            config = self.config_manager.get_looting_config()
+            take_unknowns = config.get('behavior', {}).get('take_unknown_items', False)
+            
+            if take_unknowns and self._has_inventory_space():
+                Logger.debug(f"Taking unknown item: {getattr(item, 'Name', 'Unknown')}")
+                return True
+            else:
+                Logger.debug(f"Skipping unknown item: {getattr(item, 'Name', 'Unknown')}")
+                return False
+        
+        return False
 
     def _take_item(self, item: Any) -> bool:
-        """Take an item from a container."""
+        """Take an item from a container with error handling.
+        
+        Args:
+            item: The item to take
+            
+        Returns:
+            bool: True if item was successfully taken
+        """
+        if not item or not hasattr(item, 'Serial'):
+            Logger.debug("Invalid item provided to _take_item")
+            return False
+            
         try:
-            Items.Move(item.Serial, Player.Backpack.Serial, item.Amount)
-            Misc.Pause(200)  # Wait for move to complete
-            return True  # Simplified - would verify the move succeeded
+            item_name = getattr(item, 'Name', 'Unknown')
+            item_amount = getattr(item, 'Amount', 1)
+            
+            Logger.debug(f"Attempting to take item: {item_name} (Amount: {item_amount})")
+            
+            # Check if we have space before attempting to move
+            if not self._has_inventory_space():
+                Logger.debug(f"No inventory space for {item_name}")
+                return False
+            
+            # Move the item to player's backpack
+            Items.Move(item.Serial, Player.Backpack.Serial, item_amount)
+            
+            # Wait for the move to process
+            config = self.config_manager.get_looting_config()
+            action_delay = config.get('timing', {}).get('loot_action_delay_ms', 200)
+            Misc.Pause(action_delay)
+            
+            # Verify the item was moved successfully
+            if self._verify_item_moved(item.Serial):
+                Logger.debug(f"Successfully took {item_name}")
+                self.stats['items_collected'] += 1
+                
+                # Track gold specifically
+                if 'gold' in item_name.lower() or item.ItemID in [0x0EED, 0x0EEF]:  # Gold pile IDs
+                    self.stats['gold_collected'] += item_amount
+                    
+                return True
+            else:
+                Logger.debug(f"Failed to verify {item_name} was moved")
+                return False
+                
         except Exception as e:
-            Logger.error(f"Failed to take item {item.Name}: {e}")
+            Logger.error(f"Exception taking item {getattr(item, 'Name', 'Unknown')}: {e}")
+            return False
+            
+    def _verify_item_moved(self, item_serial: int) -> bool:
+        """Verify that an item was successfully moved to backpack.
+        
+        Args:
+            item_serial: Serial number of the item to verify
+            
+        Returns:
+            bool: True if item is now in backpack
+        """
+        try:
+            # Check if item is now in the player's backpack
+            item_in_backpack = Items.FindBySerial(item_serial)
+            if item_in_backpack and hasattr(item_in_backpack, 'Container'):
+                return item_in_backpack.Container == Player.Backpack.Serial
+            return False
+        except Exception as e:
+            Logger.debug(f"Error verifying item move for {item_serial}: {e}")
             return False
 
     def _evaluate_item_by_rules(self, item: Any) -> LootDecision:
-        """Evaluate an item based on configured rules."""
+        """Evaluate an item based on configured rules.
+        
+        Args:
+            item: The item to evaluate
+            
+        Returns:
+            LootDecision: The looting decision for this item
+        """
+        if not item or not hasattr(item, 'Name'):
+            return LootDecision.NEVER_TAKE
+            
         config = self.config_manager.get_looting_config()
         loot_lists = config.get('loot_lists', {})
         
         item_name = item.Name.lower() if item.Name else ""
+        item_id = getattr(item, 'ItemID', 0)
         
-        # Check always take list
-        always_take = loot_lists.get('always_take', [])
-        if any(rule.lower() in item_name for rule in always_take):
-            return LootDecision.ALWAYS_TAKE
-        
-        # Check never take list
+        # Check never take list first (highest priority)
         never_take = loot_lists.get('never_take', [])
-        if any(rule.lower() in item_name for rule in never_take):
+        if self._matches_loot_rules(item_name, item_id, never_take):
+            Logger.debug(f"Item {item_name} matches never_take rules")
             return LootDecision.NEVER_TAKE
         
-        # Check take if space list
+        # Check always take list (second priority) 
+        always_take = loot_lists.get('always_take', [])
+        if self._matches_loot_rules(item_name, item_id, always_take):
+            Logger.debug(f"Item {item_name} matches always_take rules")
+            return LootDecision.ALWAYS_TAKE
+        
+        # Check take if space list (third priority)
         take_if_space = loot_lists.get('take_if_space', [])
-        if any(rule.lower() in item_name for rule in take_if_space):
+        if self._matches_loot_rules(item_name, item_id, take_if_space):
+            Logger.debug(f"Item {item_name} matches take_if_space rules")
             return LootDecision.TAKE_IF_SPACE
         
+        # Default: unknown items are not taken unless explicitly configured
+        Logger.debug(f"Item {item_name} (ID: {item_id}) not in any loot list - marked as unknown")
         return LootDecision.UNKNOWN
+        
+    def _matches_loot_rules(self, item_name: str, item_id: int, rule_list: List[str]) -> bool:
+        """Check if an item matches any rule in a loot list.
+        
+        Args:
+            item_name: The item name (lowercase)
+            item_id: The item ID
+            rule_list: List of rules to check against
+            
+        Returns:
+            bool: True if item matches any rule
+        """
+        for rule in rule_list:
+            rule_lower = rule.lower()
+            
+            # Check for exact item ID match (hex format like "0x0F0C")
+            if rule_lower.startswith('0x'):
+                try:
+                    rule_id = int(rule_lower, 16)
+                    if item_id == rule_id:
+                        return True
+                except ValueError:
+                    pass  # Invalid hex format, continue with name matching
+            
+            # Check for partial name match
+            elif rule_lower in item_name:
+                return True
+                
+        return False
 
     def _is_corpse_skinnable(self, corpse_item: Any) -> bool:
         """Determine if a corpse can be skinned."""
