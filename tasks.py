@@ -13,6 +13,8 @@ SRC_DIR = "src"
 DIST_DIR = "dist"
 MAIN_FILE = "DexBot.py"
 BUNDLED_FILE = f"{DIST_DIR}/{MAIN_FILE}"
+DEFAULT_MAIN_CONFIG_PATH = "src/config/default_main_config.json"
+DEFAULT_AUTO_HEAL_CONFIG_PATH = "src/config/default_auto_heal_config.json"
 
 @task
 def clean(c):
@@ -146,6 +148,18 @@ def bundle(c):
                 out_f.write('import Target\n')
                 out_f.write('import Misc\n')
                 out_f.write('import Gumps\n\n')
+                
+                # Prepend default configs
+                try:
+                    with open(DEFAULT_MAIN_CONFIG_PATH, 'r', encoding='utf-8') as f:
+                        main_config_content = f.read()
+                        out_f.write(f'DEFAULT_MAIN_CONFIG = {main_config_content}\n\n')
+                    with open(DEFAULT_AUTO_HEAL_CONFIG_PATH, 'r', encoding='utf-8') as f:
+                        auto_heal_config_content = f.read()
+                        out_f.write(f'DEFAULT_AUTO_HEAL_CONFIG = {auto_heal_config_content}\n\n')
+                    print("  📦 Added default configurations")
+                except Exception as e:
+                    print(f"  ⚠️  Warning: Could not prepend default configs: {e}")
                 
                 # Process each source file
                 for src_file in source_files:

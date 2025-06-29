@@ -1,0 +1,45 @@
+{
+  "version": "2.0",
+  "last_updated": "2025-06-28",
+  "description": "DexBot Auto Heal System Configuration",
+  "healing_toggles": {
+    "bandage_healing_enabled": true,
+    "potion_healing_enabled": true
+  },
+  "health_thresholds": {
+    "healing_threshold_percentage": 95,
+    "critical_health_threshold": 50,
+    "bandage_threshold_hp": 1
+  },
+  "item_ids": {
+    "bandage_id": "0x0E21",
+    "heal_potion_id": "0x0F0C",
+    "lesser_heal_potion_id": null,
+    "greater_heal_potion_id": null
+  },
+  "timing_settings": {
+    "healing_timer_duration_ms": 11000,
+    "potion_cooldown_ms": 10000,
+    "bandage_retry_delay_ms": 500,
+    "healing_check_interval": 1
+  },
+  "resource_management": {
+    "bandage_retry_attempts": 3,
+    "low_bandage_warning": 10,
+    "search_range": 2,
+    "bandage_check_interval_cycles": 120
+  },
+  "journal_monitoring": {
+    "healing_success_msg": "You finish applying the bandages.",
+    "healing_partial_msg": "You apply the bandages, but they barely help.",
+    "journal_message_type": "System"
+  },
+  "color_thresholds": {
+    "bandage_high_threshold": 20,
+    "bandage_medium_threshold": 10,
+    "potion_high_threshold": 10,
+    "potion_medium_threshold": 5,
+    "health_high_threshold": 75,
+    "health_medium_threshold": 50
+  }
+}
