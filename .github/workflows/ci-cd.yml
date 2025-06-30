@@ -3,8 +3,32 @@ name: CI/CD Pipeline
 on:
   push:
     branches: [ main ]
+    paths:
+      # Source code files that affect the build
+      - 'src/**/*.py'
+      - 'src/**/*.json'
+      # Build and configuration files
+      - 'tasks.py'
+      - 'requirements.txt'
+      - 'pyproject.toml'
+      # Test files
+      - 'tests/**/*.py'
+      # CI/CD configuration itself
+      - '.github/workflows/**'
   pull_request:
     branches: [ main ]
+    paths:
+      # Source code files that affect the build
+      - 'src/**/*.py'
+      - 'src/**/*.json'
+      # Build and configuration files
+      - 'tasks.py'
+      - 'requirements.txt'
+      - 'pyproject.toml'
+      # Test files
+      - 'tests/**/*.py'
+      # CI/CD configuration itself
+      - '.github/workflows/**'
 
 # Grant necessary permissions for the entire workflow
 permissions:

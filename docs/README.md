@@ -1,52 +1,144 @@
-# Documentation Index
+# DexBot Documentation
 
-This directory contains all project documentation for DexBot, organized by system and purpose.
+This directory contains all project documentation for DexBot, organized according to industry best practices for product management and development.
 
-## Product Requirements Documents (PRDs)
+## Quick Navigation
 
-### Master Architecture
-- **[PRD_Master.md](PRD_Master.md)** - Master PRD focusing on overall system architecture, integration patterns, and cross-system requirements
+### 📋 Product Information
+- **[Product Overview](PRODUCT_OVERVIEW.md)** - Executive summary, vision, and market position
+- **[Features & Capabilities](FEATURES.md)** - Comprehensive feature documentation
 
-### System-Specific PRDs
-- **[PRD_Auto_Heal_System.md](PRD_Auto_Heal_System.md)** - Complete requirements for the Auto Heal system including configuration schema, functional requirements, and testing criteria
-- **[PRD_Combat_System.md](PRD_Combat_System.md)** - Combat system requirements covering enemy detection, targeting, engagement logic, and configuration options
-- **[PRD_Looting_System.md](PRD_Looting_System.md)** - Looting system requirements including corpse processing, item filtering, and performance optimizations
+### 📋 Product Backlog
+- **[Product Backlog](backlog/PRODUCT_BACKLOG.md)** - Master prioritized list of features, bugs, and tasks
+- **[Backlog Management Guide](backlog/README.md)** - Process documentation and best practices
 
-## Project Management
-- **[Development_Status.md](Development_Status.md)** - Development tasks, roadmap, and project tracking
-- **[CHANGELOG.md](CHANGELOG.md)** - Version history and release notes
+### 📄 Product Requirements Documents (PRDs)  
+- **[PRD Index](prds/README.md)** - Detailed specifications for approved features
+- **[Active PRDs](prds/)** - Features ready for or in development
+- **[Archived PRDs](prds/archived/)** - Completed or cancelled features
 
-## Documentation Organization
+### 📊 Project Status
+- **[Development Status](Development_Status.md)** - Current project status and roadmap
+- **[Change Log](CHANGELOG.md)** - Version history and release notes
 
-### PRD Structure
-Each system PRD follows a consistent structure:
-1. **Overview** - Purpose, goals, and integration points
-2. **Functional Requirements** - Detailed feature requirements with FR codes
-3. **Technical Requirements** - Performance, reliability, and integration specs with TR codes
-4. **Configuration Schema** - Complete configuration documentation with examples
-5. **System Architecture** - Component descriptions and interaction patterns
-6. **Testing Requirements** - Unit, integration, performance, and user acceptance tests
-7. **Success Criteria** - Measurable goals and acceptance criteria
-8. **Future Enhancements** - Planned features and extensibility considerations
-9. **Dependencies** - External and internal dependencies
-10. **Risk Assessment** - Identified risks and mitigation strategies
+## Documentation Structure
 
-### Requirement Numbering
-- **FR-[SYSTEM]-###**: Functional Requirements (e.g., FR-AH-001 for Auto Heal)
-- **TR-[SYSTEM]-###**: Technical Requirements (e.g., TR-CB-001 for Combat)
-- **AR-[CATEGORY]-###**: Architecture Requirements (e.g., AR-PERF-001 for Performance)
-- **UT/IT/PT/UAT-[SYSTEM]-###**: Testing Requirements by type
+```
+docs/
+├── README.md                     # This file - main documentation index
+├── Development_Status.md         # Project status and roadmap
+├── CHANGELOG.md                  # Version history
+│
+├── backlog/                      # Product backlog organization
+│   ├── PRODUCT_BACKLOG.md       # Master prioritized backlog
+│   ├── README.md                 # Backlog process guide
+│   ├── high-priority/            # P1 items (current development)
+│   ├── medium-priority/          # P2 items (next 2-3 versions) 
+│   └── future/                   # P3+ items (long-term ideas)
+│
+└── prds/                         # Product Requirements Documents
+    ├── README.md                 # PRD index and templates
+    ├── [Active PRDs]             # Features in development
+    └── archived/                 # Completed PRDs
+```
 
-### System Abbreviations
-- **AH**: Auto Heal System
-- **CB**: Combat System  
-- **LT**: Looting System
-- **INT**: Integration/Framework
-- **UI**: User Interface
-- **CFG**: Configuration
-- **PERF**: Performance
+## System-Specific Documentation
 
-## Usage Guidelines
+### Existing System PRDs (Completed Features - Archived)
+- **[Auto Heal System](prds/archived/PRD_Auto_Heal_System.md)** - Automated healing and buff management
+- **[Combat System](prds/archived/PRD_Combat_System.md)** - Enemy detection, targeting, and engagement
+- **[Looting System](prds/archived/PRD_Looting_System.md)** - Corpse processing and item management
+- **[Master Architecture](prds/archived/PRD_Master.md)** - Overall system architecture and integration
+
+### New Feature PRDs (In Development/Planning)
+- **[Inventory Management System](prds/FR-095_Inventory_Management_System.md)** - Smart inventory organization
+- **[Equipment Manager System](prds/FR-096_Equipment_Manager_System.md)** - Automated equipment management
+
+## Documentation Standards
+
+### Backlog vs PRDs
+- **Backlog Items**: Brief, prioritized tasks focusing on WHAT needs to be done and WHEN
+- **PRDs**: Detailed specifications focusing on HOW features should be built
+- **Relationship**: Backlog items reference PRDs when detailed specifications exist
+
+### Priority Levels
+- **P1 (High)**: Current sprint and critical issues
+- **P2 (Medium)**: Next 2-3 versions  
+- **P3+ (Future)**: Long-term considerations and ideas
+
+### Item Types
+- **FR-XXX**: Features (new functionality)
+- **BUG-XXX**: Bug fixes and defects
+- **ENH-XXX**: Enhancements to existing features
+- **TECH-XXX**: Technical debt and optimization
+- **RES-XXX**: Research and investigation items
+
+### PRD Structure Standards
+Each PRD follows this structure:
+1. **Feature Overview** - Name, description, user story, business value
+2. **Functional Requirements** - Detailed specs with acceptance criteria
+3. **Technical Requirements** - Architecture and implementation details
+4. **Configuration Schema** - API and config specifications
+5. **Implementation Plan** - Development phases and timeline
+6. **Success Criteria** - Measurable outcomes
+7. **Risk Assessment** - Technical risks and mitigation
+8. **Future Enhancements** - Potential extensions
+
+## Contributing to Documentation
+
+### Adding New Backlog Items
+1. Review existing backlog to avoid duplicates
+2. Add item to appropriate priority category
+3. Include clear description and effort estimate
+4. Link to PRD if detailed specification exists
+
+### Creating PRDs
+1. Use the standard PRD template from `/prds/README.md`
+2. Include all required sections with detailed information
+3. Get technical and business review before finalizing
+4. Update related backlog items and links
+
+### Maintaining Documentation
+- Keep backlog items current and prioritized
+- Update PRDs during development as needed
+- Archive completed PRDs appropriately
+- Maintain cross-references and links
+
+## Process and Workflows
+
+### Backlog Refinement
+- **Frequency**: Bi-weekly review sessions
+- **Activities**: Priority adjustment, effort estimation, PRD creation needs
+- **Participants**: Development team and stakeholders
+
+### Feature Development Lifecycle
+1. **Backlog Entry** - Item identified and prioritized
+2. **PRD Creation** - Detailed specification developed
+3. **Development Planning** - Resource allocation and scheduling
+4. **Implementation** - Feature development and testing
+5. **Completion** - PRD archival and documentation updates
+
+## Getting Started
+
+### For Developers
+1. Start with the [Product Backlog](backlog/PRODUCT_BACKLOG.md) to understand priorities
+2. Review relevant [PRDs](prds/README.md) for detailed specifications
+3. Check [Development Status](Development_Status.md) for current project state
+
+### For Stakeholders  
+1. Review [Product Backlog](backlog/PRODUCT_BACKLOG.md) for feature priorities
+2. Provide feedback through established channels
+3. Participate in backlog refinement sessions
+
+### For Contributors
+1. Read the [Backlog Process Guide](backlog/README.md)
+2. Follow documentation standards when creating or updating content
+3. Ensure proper cross-referencing and linking
+
+---
+
+**Last Updated**: June 30, 2025  
+**Documentation Version**: 2.0 (Restructured for industry best practices)
 
 ### For Developers
 1. Start with the master PRD to understand the overall architecture

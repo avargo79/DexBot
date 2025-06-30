@@ -27,7 +27,7 @@ The entire codebase, documentation, build system, and DevOps infrastructure were
 
 - [🤖 AI-Coded Proof of Concept](#-ai-coded-proof-of-concept)
 - [📋 Table of Contents](#-table-of-contents)
-- [Recent Updates (v2.2.0)](#recent-updates-v220)
+- [Recent Updates (v3.1.1)](#recent-updates-v311)
 - [Directory Structure](#directory-structure)
 - [Features](#features)
 - [Developer Workflow](#developer-workflow)
