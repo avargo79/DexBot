@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "last_updated": "2025-06-28",
+  "last_updated": "2025-06-29",
   "description": "DexBot Main Configuration - System toggles and global settings",
   "system_toggles": {
     "healing_system_enabled": true
@@ -38,5 +38,15 @@
     "file_logging": false,
     "log_level": "info",
     "debug_status_interval_cycles": 20
+  },
+  "performance_optimization": {
+    "looting_optimizations": {
+      "use_ignore_list": true,
+      "ignore_list_cleanup_interval_seconds": 180
+    },
+    "performance_thresholds": {
+      "main_loop_warning_ms": 200,
+      "system_execution_warning_ms": 100
+    }
   }
 }

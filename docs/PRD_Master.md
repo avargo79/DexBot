@@ -1,7 +1,7 @@
 # DexBot - Master Product Requirements Document (PRD)
 
 **Version**: 3.1.1
-**Last Updated**: June 2025
+**Last Updated**: June 30, 2025
 
 ## 1. Overview
 

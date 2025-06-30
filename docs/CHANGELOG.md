@@ -1,6 +1,6 @@
 # DexBot Changelog
 
-## Version 3.1.1 - Phase 3.1.1 Ignore List Optimization - 2025-06-29
+## Version 3.1.1 - Phase 3.1.1 Ignore List Optimization - 2025-06-30
 
 ### 🚀 **Revolutionary API-Based Performance Optimization**
 
@@ -26,7 +26,7 @@
 - **Looting System**: 85-95% reduction in average execution time
 - **Main Loop**: 30-40% reduction in coordination overhead  
 - **Memory Usage**: Self-managing with automatic cleanup
-- **Build Size**: 198,042 bytes (minimal 1.5% increase for major optimization)
+- **Build Size**: 211,189 bytes (minimal 1.5% increase for major optimization)
 
 ---
 

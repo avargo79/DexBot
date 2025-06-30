@@ -121,7 +121,7 @@ DexBot is a modular bot system for Ultima Online with RazorEnhanced, featuring a
 ```
 DexBot/
 ├── dist/
-│   └── DexBot.py                   # 🚀 Production build (198,042 bytes, v3.1.1)
+│   └── DexBot.py                   # 🚀 Production build (211,189 bytes, v3.1.1)
 ├── src/                            # 📁 Modular source code
 │   ├── core/                       # Core bot functionality
 │   │   ├── bot_config.py           # Configuration constants and settings
@@ -577,8 +577,8 @@ The CI/CD pipeline will automatically run tests and validation on your PR.
 ## Version
 
 **Current Version**: 3.1.1 - "Phase 3.1.1 - Ignore List Optimization"  
-**Build Size**: 198,042 bytes  
-**Build Date**: June 29, 2025  
+**Build Size**: 211,189 bytes  
+**Build Date**: June 30, 2025  
 **Author**: RugRat79 (DexBot Development Team)  
 **License**: MIT
 
