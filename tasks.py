@@ -316,17 +316,4 @@ def help(c):
     print("\nUsage: python -m invoke <task_name>")
     print("Example: python -m invoke build")
 
-@task
-def docs(c):
-    """Update API documentation by crawling RazorEnhanced docs"""
-    print("📚 Updating API documentation...")
-    
-    try:
-        # Run the API documentation updater
-        c.run("python scripts/update_api_docs.py")
-        print("✅ API documentation updated successfully")
-        print("📖 View at: docs/RazorEnhanced_API_Reference.md")
-        
-    except Exception as e:
-        print(f"❌ Error updating API documentation: {e}")
-        raise
+

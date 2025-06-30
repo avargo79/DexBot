@@ -146,8 +146,7 @@ DexBot/
 │   └── UO_ITEM_IDS_REFERENCE.md    # UO item ID reference
 ├── scripts/                        # 🔧 Build and development tools
 │   ├── build.ps1                   # PowerShell build script (working)
-│   ├── build.sh                    # Cross-platform shell script
-│   └── update_api_docs.py          # API documentation updater
+│   └── build.sh                    # Cross-platform shell script
 ├── tmp/                            # 📊 Phase 3+ development docs
 │   ├── .gitkeep                    # Git directory placeholder
 │   ├── development_workflow_reminder.md
