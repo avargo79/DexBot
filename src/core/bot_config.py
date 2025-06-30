@@ -15,6 +15,11 @@ class BotConfig:
     and ConfigManager for persistent storage.
     """
 
+    # Version Information
+    VERSION = "3.1.1"
+    VERSION_NAME = "Phase 3.1.1 - Ignore List Optimization"
+    BUILD_DATE = "2025-06-30"  # Static build date for consistent version tracking
+
     _instance: Optional["BotConfig"] = None
 
     def __new__(cls) -> "BotConfig":
@@ -31,6 +36,10 @@ class BotConfig:
         # Initialize config manager
         self.config_manager = ConfigManager()
         self._load_settings()
+
+    def get_version_info(self) -> str:
+        """Get formatted version information for display"""
+        return f"DexBot v{self.VERSION} ({self.VERSION_NAME}) - Build: {self.BUILD_DATE}"
 
     def _load_settings(self) -> None:
         """Load all settings from configuration files"""
@@ -295,3 +304,4 @@ class GumpState:
     MAIN_MINIMIZED = "main_minimized"
     BOT_SETTINGS = "bot_settings"
     COMBAT_SETTINGS = "combat_settings"
+    LOOTING_SETTINGS = "looting_settings"

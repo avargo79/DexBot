@@ -5,6 +5,7 @@ Automates engaging and defeating enemies with smart target selection and combat 
 
 import math
 import time
+from datetime import datetime
 from typing import List, Optional, Dict
 
 from ..config.config_manager import ConfigManager
@@ -57,6 +58,7 @@ class CombatSystem:
             # Get combat settings
             ignore_innocents = self.config_manager.get_combat_setting('target_selection.ignore_innocents')
             ignore_pets = self.config_manager.get_combat_setting('target_selection.ignore_pets')
+            allow_target_blues = self.config_manager.get_combat_setting('target_selection.allow_target_blues')
             max_range = self.config_manager.get_combat_setting('target_selection.max_range')
             
             # Basic checks
@@ -80,9 +82,35 @@ class CombatSystem:
                 return False
             
             # Check notoriety (color coding in UO)
-            # 1 = Innocent (blue), 2 = Friend (green), 3 = Gray, 4 = Criminal (gray), 5 = Orange, 6 = Red, 7 = Invulnerable
-            if ignore_innocents and mobile.Notoriety in [1, 2]:  # Skip innocents and friends
+            # 1 = Innocent (blue), 2 = Friend (green), 3 = Gray (can be attacked), 
+            # 4 = Criminal (gray), 5 = Orange (aggressive), 6 = Red (murderer), 7 = Invulnerable
+            
+            # Handle blue (innocent) targets based on configuration
+            if mobile.Notoriety == 1:  # Blue (innocent)
+                if not allow_target_blues:
+                    Logger.debug(f"Skipping blue mobile {mobile.Serial} - allow_target_blues is disabled")
+                    return False
+                else:
+                    Logger.debug(f"Allowing blue mobile {mobile.Serial} - allow_target_blues is enabled")
+            
+            # Always skip friends (green) - these are typically player allies
+            if mobile.Notoriety == 2:  # Green (friend)
+                Logger.debug(f"Skipping friend mobile {mobile.Serial} with notoriety {mobile.Notoriety}")
                 return False
+            
+            # Skip yellow (5) - these are often neutral NPCs that shouldn't be targeted
+            if mobile.Notoriety == 5:  # Yellow (orange/aggressive but often neutral)
+                Logger.debug(f"Skipping yellow mobile {mobile.Serial} with notoriety {mobile.Notoriety} (neutral NPC)")
+                return False
+                
+            # Skip invulnerable (7) - can't be attacked anyway
+            if mobile.Notoriety == 7:  # Invulnerable
+                Logger.debug(f"Skipping invulnerable mobile {mobile.Serial} with notoriety {mobile.Notoriety}")
+                return False
+            
+            # Allow gray (3), criminal (4), and red (6) - these are always valid targets
+            if mobile.Notoriety in [3, 4, 6]:
+                Logger.debug(f"Valid target mobile {mobile.Serial} with notoriety {mobile.Notoriety}")
             
             # Basic pet check - pets usually have certain naming patterns or are controlled
             if ignore_pets:
@@ -156,22 +184,62 @@ class CombatSystem:
         return targets
 
     def select_target(self, targets: List[Dict]) -> Optional[Dict]:
-        """Select a target based on priority (e.g., closest, lowest health)."""
+        """Select a target based on priority with smart engagement logic."""
         if not targets:
             return None
         
         try:
             priority_mode = self.config_manager.get_combat_setting('target_selection.priority_mode')
             
+            # ENHANCED TARGET SELECTION: Prioritize currently engaged target
+            # If we have a current target and it's still valid, keep fighting it unless there's a much better option
+            if self.current_target:
+                current_serial = self.current_target['serial']
+                # Check if current target is still in the available targets list
+                current_target_updated = None
+                for target in targets:
+                    if target['serial'] == current_serial:
+                        current_target_updated = target
+                        break
+                
+                if current_target_updated:
+                    # Current target is still valid and in range
+                    Logger.debug(f"Continuing engagement with current target: {current_target_updated['name']}")
+                    
+                    # Only switch if there's a SIGNIFICANTLY better target (much closer)
+                    # This prevents target bouncing and improves combat efficiency
+                    if len(targets) > 1:
+                        other_targets = [t for t in targets if t['serial'] != current_serial]
+                        if other_targets:
+                            closest_other = min(other_targets, key=lambda t: t['distance'])
+                            current_distance = current_target_updated['distance']
+                            closest_distance = closest_other['distance']
+                            
+                            # Only switch if the other target is MUCH closer (more than 3 tiles difference)
+                            switch_threshold = 3.0
+                            if current_distance - closest_distance > switch_threshold:
+                                Logger.info(f"Switching target: {closest_other['name']} is {current_distance - closest_distance:.1f} tiles closer")
+                                return closest_other
+                    
+                    return current_target_updated
+                else:
+                    Logger.debug("Current target no longer available, selecting new target")
+            
+            # No current target or current target lost - select best available target
             if priority_mode == 'closest':
                 # Sort by distance, closest first
                 targets.sort(key=lambda t: t['distance'])
-                return targets[0]
+                selected = targets[0]
+                Logger.debug(f"Selected closest target: {selected['name']} at {selected['distance']:.1f} tiles")
+                return selected
             
             elif priority_mode == 'lowest_health':
                 # Sort by health percentage, lowest first
                 targets.sort(key=lambda t: t['hits'] / max(t['hits_max'], 1))
-                return targets[0]
+                selected = targets[0]
+                health_pct = (selected['hits'] / max(selected['hits_max'], 1)) * 100
+                Logger.debug(f"Selected lowest health target: {selected['name']} at {health_pct:.1f}% health")
+                return selected
             
             elif priority_mode == 'highest_threat':
                 # Sort by combination of closeness and health (closer + more health = higher threat)
@@ -181,12 +249,16 @@ class CombatSystem:
                     return health_ratio * distance_factor
                 
                 targets.sort(key=threat_score, reverse=True)
-                return targets[0]
+                selected = targets[0]
+                Logger.debug(f"Selected highest threat target: {selected['name']}")
+                return selected
             
             else:
                 # Default to closest
                 targets.sort(key=lambda t: t['distance'])
-                return targets[0]
+                selected = targets[0]
+                Logger.debug(f"Selected target (default closest): {selected['name']} at {selected['distance']:.1f} tiles")
+                return selected
                 
         except Exception as e:
             Logger.error(f"Error selecting target: {e}")
@@ -327,16 +399,19 @@ class CombatSystem:
 
     def run(self):
         """Main entry point for the combat system (to be called in main loop)."""
+        system_start_time = time.time()
+        timestamp = datetime.now().strftime("%H:%M:%S.%f")[:-3]
+        
         try:
             # Check if combat system is enabled
             if not self.config_manager.get_combat_setting('system_toggles.combat_system_enabled'):
-                Logger.debug("Combat system disabled - skipping combat logic")
+                Logger.debug(f"COMBAT [{timestamp}]: System disabled - skipping combat logic")
                 return
             
             # Safety checks
             if Player.IsGhost or not Player.Visible:
                 if self.current_target:
-                    Logger.debug("Player is ghost or invisible - disengaging from combat")
+                    Logger.debug(f"COMBAT [{timestamp}]: Player is ghost or invisible - disengaging from combat")
                     self.disengage()
                 return
             
@@ -344,38 +419,47 @@ class CombatSystem:
             if not Player.WarMode:
                 # If player exits war mode while fighting, disengage current target
                 if self.current_target:
-                    Logger.info("Player exited war mode - disengaging from combat")
+                    Logger.info(f"COMBAT [{timestamp}]: Player exited war mode - disengaging from combat")
                     self.disengage()
                 else:
-                    Logger.debug("Player not in war mode - combat system inactive")
+                    Logger.debug(f"COMBAT [{timestamp}]: Player not in war mode - combat system inactive")
                 return
             
             # Check if we should retreat due to low health first
+            health_check_start = time.time()
             retreat_on_low_health = self.config_manager.get_combat_setting('combat_behavior.retreat_on_low_health')
             if retreat_on_low_health:
                 health_threshold = self.config_manager.get_combat_setting('combat_behavior.retreat_health_threshold')
                 health_percentage = (Player.Hits / Player.HitsMax) * 100
                 
-                Logger.debug(f"Health check: {health_percentage:.1f}% (retreat threshold: {health_threshold}%)")
+                Logger.debug(f"COMBAT [{timestamp}]: Health check: {health_percentage:.1f}% (retreat threshold: {health_threshold}%)")
                 
                 if health_percentage < health_threshold:
                     if self.current_target:
-                        Logger.warning(f"Health too low ({health_percentage:.1f}%), retreating from combat")
+                        Logger.warning(f"COMBAT [{timestamp}]: Health too low ({health_percentage:.1f}%), retreating from combat")
                         self.disengage()
                     return
+            health_check_duration = (time.time() - health_check_start) * 1000
             
             # Check Auto Target and Auto Attack settings
+            settings_check_start = time.time()
             auto_target_enabled = self.config_manager.get_combat_setting('system_toggles.auto_target_enabled')
             auto_attack_enabled = self.config_manager.get_combat_setting('system_toggles.auto_attack_enabled')
+            settings_check_duration = (time.time() - settings_check_start) * 1000
             
-            Logger.debug(f"Combat settings - Auto Target: {auto_target_enabled}, Auto Attack: {auto_attack_enabled}")
+            Logger.debug(f"COMBAT [{timestamp}]: Settings - Auto Target: {auto_target_enabled}, Auto Attack: {auto_attack_enabled}")
             
             # If we have a current target, continue monitoring
             if self.current_target:
-                Logger.debug(f"Monitoring current target: {self.current_target.get('name', 'Unknown')} ({self.current_target.get('serial', 'N/A')})")
+                monitor_start = time.time()
+                Logger.debug(f"COMBAT [{timestamp}]: Monitoring current target: {self.current_target.get('name', 'Unknown')} ({self.current_target.get('serial', 'N/A')})")
                 if not self.monitor_combat(self.current_target):
                     # Target lost, disengage already called in monitor_combat
+                    monitor_duration = (time.time() - monitor_start) * 1000
+                    Logger.debug(f"COMBAT [{timestamp}]: Target monitoring completed in {monitor_duration:.1f}ms (target lost)")
                     return
+                monitor_duration = (time.time() - monitor_start) * 1000
+                Logger.debug(f"COMBAT [{timestamp}]: Target monitoring completed in {monitor_duration:.1f}ms")
                 
                 # Only continue attacking if auto attack is enabled
                 if auto_attack_enabled:
@@ -406,8 +490,20 @@ class CombatSystem:
             else:
                 Logger.debug("Auto targeting disabled - not scanning for new targets")
             
+            # Log performance timing
+            system_duration = (time.time() - system_start_time) * 1000
+            end_timestamp = datetime.now().strftime("%H:%M:%S.%f")[:-3]
+            
+            if system_duration > 500:  # More than 500ms
+                Logger.warning(f"COMBAT [{end_timestamp}]: System took {system_duration:.1f}ms - performance issue!")
+            elif system_duration > 200:  # More than 200ms
+                Logger.debug(f"COMBAT [{end_timestamp}]: System took {system_duration:.1f}ms - monitor performance")
+            else:
+                Logger.debug(f"COMBAT [{end_timestamp}]: System completed in {system_duration:.1f}ms")
+            
         except Exception as e:
-            Logger.error(f"Error in combat system run: {e}")
+            system_duration = (time.time() - system_start_time) * 1000
+            Logger.error(f"COMBAT: Error in combat system run after {system_duration:.1f}ms: {e}")
             self.disengage()
 
     def _ensure_health_bar(self, mobile_serial: int) -> None:

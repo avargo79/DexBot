@@ -1,0 +1,116 @@
+{
+  "version": "1.0",
+  "enabled": true,
+  "timing": {
+    "corpse_scan_interval_ms": 1000,
+    "loot_action_delay_ms": 200,
+    "container_open_timeout_ms": 2000,
+    "skinning_action_delay_ms": 500
+  },
+  "behavior": {
+    "max_looting_range": 2,
+    "auto_skinning_enabled": true,
+    "inventory_weight_limit_percent": 90,
+    "inventory_item_limit": 120,
+    "process_corpses_in_combat": false,
+    "prioritize_skinning_over_looting": true
+  },
+  "loot_lists": {
+    "always_take": [
+      1712,
+      "Gold",
+      "Coins",
+      "Gem",
+      "Diamond",
+      "Ruby",
+      "Emerald",
+      "Sapphire",
+      "Citrine",
+      "Amethyst",
+      "Tourmaline",
+      "Star Sapphire",
+      "Rare",
+      "Magic"
+    ],
+    "take_if_space": [
+      "Weapon",
+      "Sword",
+      "Bow",
+      "Crossbow",
+      "Mace",
+      "Staff",
+      "Armor",
+      "Shield",
+      "Helmet",
+      "Ring",
+      "Bracelet",
+      "Necklace",
+      "Reagent",
+      "Potion",
+      "Arrow",
+      "Bolt",
+      "Ingot",
+      "Hide",
+      "Leather",
+      "Cloth"
+    ],
+    "never_take": [
+      "Bottle",
+      "Empty Bottle",
+      "Bone",
+      "Bones",
+      "Skull",
+      "Ribs",
+      "Candle",
+      "Torch",
+      "Lantern",
+      "Lockpick",
+      "Key",
+      "Hair Dye"
+    ]
+  },
+  "skinning": {
+    "enabled": true,
+    "require_skinning_knife": true,
+    "auto_buy_knives": false,
+    "skinnable_creatures": [
+      "Bear",
+      "Wolf",
+      "Deer",
+      "Rabbit",
+      "Cow",
+      "Bull",
+      "Horse",
+      "Sheep",
+      "Goat",
+      "Pig",
+      "Chicken",
+      "Bird",
+      "Eagle"
+    ]
+  },
+  "performance": {
+    "max_corpse_queue_size": 10,
+    "cache_cleanup_interval_seconds": 60,
+    "max_cache_size": 1000,
+    "batch_item_processing": true,
+    "parallel_skinning_looting": false
+  },
+  "safety": {
+    "pause_on_player_nearby": false,
+    "pause_on_combat": true,
+    "emergency_stop_conditions": [
+      "inventory_full",
+      "low_health",
+      "player_detected"
+    ],
+    "max_looting_time_per_corpse_seconds": 30
+  },
+  "ui": {
+    "show_loot_notifications": true,
+    "show_skinning_notifications": true,
+    "display_stats_in_gump": true,
+    "notification_color": 53,
+    "stats_update_interval_ms": 1000
+  }
+}

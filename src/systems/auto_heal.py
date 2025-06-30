@@ -109,9 +109,13 @@ def execute_auto_heal_system():
             return False
 
         # Prioritize heal potions for faster healing when health is very low
-        if health_percentage < config.CRITICAL_HEALTH_THRESHOLD and can_use_potions:
+        # Uses inclusive comparison (<=) so potions are used when health equals threshold
+        # This ensures immediate response at exactly the critical threshold (e.g., 50% health)
+        # Behavior confirmed: <= comparison provides more responsive healing for critical situations
+        if health_percentage <= config.CRITICAL_HEALTH_THRESHOLD and can_use_potions:
             # Use heal potion for critical health
             try:
+                Logger.debug(f"Using heal potion - Health: {health_percentage:.1f}% <= {config.CRITICAL_HEALTH_THRESHOLD}%")
                 Items.UseItemByID(config.HEAL_POTION_ID, -1)
                 Logger.info(messages.HEAL_POTION_USED)
                 status.increment_heal_potion_count()
@@ -121,6 +125,7 @@ def execute_auto_heal_system():
                 return True
             except Exception as e:
                 Logger.error(messages.HEAL_POTION_ERROR.format(str(e)))
+                # Fall through to bandage healing if potion fails
 
         # Use bandages for normal healing
         if can_use_bandages:

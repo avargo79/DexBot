@@ -6,27 +6,10 @@
     "healing_system_enabled": true
   },
   "global_settings": {
-    "debug_mode": true,
+    "debug_mode": false,
     "main_loop_delay_ms": 250,
     "error_recovery_delay_ms": 1000,
     "target_wait_timeout_ms": 1000
-  },
-  "performance_optimization": {
-    "enabled": true,
-    "description": "Phase 3.1.1 Performance Optimizations with Ignore List",
-    "looting_optimizations": {
-      "max_corpse_queue_size": 10,
-      "reduced_logging": true,
-      "optimized_gold_detection": true,
-      "cached_item_evaluation": true,
-      "use_ignore_list": true,
-      "ignore_list_cleanup_interval_seconds": 180
-    },
-    "main_loop_optimizations": {
-      "conditional_detailed_logging": true,
-      "reduced_timestamp_calls": true,
-      "performance_threshold_ms": 200
-    }
   },
   "gump_interface": {
     "enabled": true,

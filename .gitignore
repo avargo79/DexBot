@@ -69,6 +69,8 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.temp
+tmp/*
+!tmp/.gitkeep
 
 # Test automation results
 *test_results*.json

@@ -234,6 +234,8 @@ class GumpInterface:
                 GumpInterface.create_bot_settings_gump()
             elif current_state == GumpState.COMBAT_SETTINGS:
                 GumpInterface.create_combat_settings_gump()
+            elif current_state == GumpState.LOOTING_SETTINGS:
+                GumpInterface.create_looting_settings_gump()
             else:
                 # Default to main GUMP (MAIN_FULL or unknown state)
                 GumpInterface.create_main_gump_new()
@@ -371,9 +373,25 @@ class GumpInterface:
             settings_button_id=31,  # Open Combat Settings
         )
 
-        # Debug Button - positioned in bottom left corner
+        # Looting System Summary Line
+        looting_enabled = config_manager.get_looting_setting('enabled', False)
+        looting_status_text = "Active" if looting_enabled else "Disabled"
+        current_y = GumpSection.create_system_summary_line(
+            gd,
+            section_x,
+            current_y,
+            section_width,
+            system_name="LOOTING",
+            enabled=looting_enabled,
+            active=looting_enabled,  # Show as active when enabled
+            status_text=looting_status_text,
+            enable_button_id=60,  # Toggle Looting System
+            settings_button_id=61,  # Open Looting Settings
+        )
+
+        # Debug Button - positioned in upper left corner
         debug_button_x = 20
-        debug_button_y = config.GUMP_HEIGHT - 35
+        debug_button_y = 20
 
         if config.DEBUG_MODE:
             Gumps.AddButton(
@@ -578,10 +596,9 @@ class GumpInterface:
             gd, f"Toggle Bandage Healing ({'ON' if config.BANDAGE_HEALING_ENABLED else 'OFF'})"
         )
 
-        bandage_count = Items.FindByID(
-            config.BANDAGE_ID, -1, Player.Backpack.Serial, config.SEARCH_RANGE
-        )
-        bandage_amount = bandage_count.Amount if bandage_count else 0
+        # Use more efficient BackpackCount method
+        bandage_count = Items.BackpackCount(config.BANDAGE_ID, -1)
+        bandage_amount = bandage_count
         bandage_line = f'<basefont color="#FFFFFF" size="3"><b>Bandage Healing:</b></basefont> <basefont color="{bandage_color}" size="2"><b>{bandage_status}</b></basefont> <basefont color="#CCCCCC" size="2">| Available: </basefont><basefont color="#FFFFFF" size="2"><b>{bandage_amount}</b></basefont> <basefont color="#CCCCCC" size="2">| Used: </basefont><basefont color="#FFFFFF" size="2"><b>{status.bandage_count}</b></basefont>'
 
         Gumps.AddHtml(
@@ -610,10 +627,9 @@ class GumpInterface:
             gd, f"Toggle Potion Healing ({'ON' if config.POTION_HEALING_ENABLED else 'OFF'})"
         )
 
-        heal_potion_count = Items.FindByID(
-            config.HEAL_POTION_ID, -1, Player.Backpack.Serial, config.SEARCH_RANGE
-        )
-        heal_potion_amount = heal_potion_count.Amount if heal_potion_count else 0
+        # Use more efficient BackpackCount method
+        heal_potion_count = Items.BackpackCount(config.HEAL_POTION_ID, -1)
+        heal_potion_amount = heal_potion_count
         potion_line = f'<basefont color="#FFFFFF" size="3"><b>Potion Healing:</b></basefont> <basefont color="{potion_color}" size="2"><b>{potion_status}</b></basefont> <basefont color="#CCCCCC" size="2">| Available: </basefont><basefont color="#FFFFFF" size="2"><b>{heal_potion_amount}</b></basefont> <basefont color="#CCCCCC" size="2">| Used: </basefont><basefont color="#FFFFFF" size="2"><b>{status.heal_potion_count}</b></basefont>'
 
         Gumps.AddHtml(
@@ -759,7 +775,7 @@ class GumpInterface:
         combat_line = f'<basefont color="#FFFFFF" size="3"><b>Combat System:</b></basefont> <basefont color="{combat_color}" size="2"><b>{combat_status}</b></basefont> <basefont color="#CCCCCC" size="2">| Automatically engages hostile targets</basefont>'
 
         Gumps.AddHtml(
-            gd, section_x + 50, current_y + 4, section_width - 50, 15, combat_line, False, False
+            gd, section_x + 50, combat_toggle_y + 4, section_width - 50, 15, combat_line, False, False
         )
         current_y += 40  # Increased spacing from 35 to 40
 
@@ -819,7 +835,7 @@ class GumpInterface:
         auto_target_line = f'<basefont color="#FFFFFF" size="3"><b>Auto Targeting:</b></basefont> <basefont color="{auto_target_color}" size="2"><b>{auto_target_status}</b></basefont> <basefont color="#CCCCCC" size="2">| Automatically selects targets</basefont>'
 
         Gumps.AddHtml(
-            gd, section_x + 50, current_y + 4, section_width - 50, 15, auto_target_line, False, False
+            gd, section_x + 50, auto_target_toggle_y + 4, section_width - 50, 15, auto_target_line, False, False
         )
         current_y += 25
 
@@ -845,7 +861,7 @@ class GumpInterface:
         auto_attack_line = f'<basefont color="#FFFFFF" size="3"><b>Auto Attack:</b></basefont> <basefont color="{auto_attack_color}" size="2"><b>{auto_attack_status}</b></basefont> <basefont color="#CCCCCC" size="2">| Automatically attacks targets</basefont>'
 
         Gumps.AddHtml(
-            gd, section_x + 50, current_y + 4, section_width - 50, 15, auto_attack_line, False, False
+            gd, section_x + 50, auto_attack_toggle_y + 4, section_width - 50, 15, auto_attack_line, False, False
         )
         current_y += 25
 
@@ -872,7 +888,7 @@ class GumpInterface:
         target_name_line = f'<basefont color="#FFFFFF" size="3"><b>Target Name Display:</b></basefont> <basefont color="{target_name_color}" size="2"><b>{target_name_status}</b></basefont> <basefont color="#CCCCCC" size="2">| Shows target name overhead</basefont>'
 
         Gumps.AddHtml(
-            gd, section_x + 50, current_y + 4, section_width - 50, 15, target_name_line, False, False
+            gd, section_x + 50, target_name_toggle_y + 4, section_width - 50, 15, target_name_line, False, False
         )
         current_y += 35
 
@@ -911,6 +927,190 @@ class GumpInterface:
         )
 
         Logger.debug("Combat Settings GUMP created and displayed")
+
+    @staticmethod
+    def create_looting_settings_gump():
+        """Create the Looting Settings GUMP for configuring looting system options."""
+        config = BotConfig()
+        config_manager = ConfigManager()
+        
+        gd = Gumps.CreateGump(True)
+        Gumps.AddPage(gd, 0)
+
+        # Background (same style as other settings GUMPs)
+        settings_height = 450  # Taller for more looting options
+        settings_width = 500   # Wider for loot lists
+        Gumps.AddBackground(gd, 0, 0, settings_width, settings_height, 30546)
+        Gumps.AddAlphaRegion(gd, 0, 0, settings_width, settings_height)
+
+        # Title
+        Gumps.AddHtml(
+            gd,
+            50,
+            5,
+            settings_width - 20,
+            25,
+            f'<center><basefont color="#FFD700" size="5"><b>LOOTING SETTINGS</b></basefont></center>',
+            False,
+            False,
+        )
+
+        # Back button in upper left corner
+        back_button_x = 10
+        back_button_y = 5
+        Gumps.AddButton(
+            gd,
+            back_button_x,
+            back_button_y,
+            config.BUTTON_SETTINGS,
+            config.BUTTON_SETTINGS_PRESSED,
+            70,  # Back to Main
+            1,
+            0,
+        )
+        Gumps.AddTooltip(gd, "Back to Main GUMP")
+
+        # Close Button in upper right corner
+        close_button_x = settings_width - 30
+        close_button_y = 5
+        Gumps.AddButton(
+            gd,
+            close_button_x,
+            close_button_y,
+            config.BUTTON_CANCEL,
+            config.BUTTON_CANCEL_PRESSED,
+            4,  # Close GUMP
+            1,
+            0,
+        )
+        Gumps.AddTooltip(gd, "Close GUMP")
+
+        # Settings content area
+        section_width = settings_width - 40
+        section_x = 20
+        current_y = 40
+
+        # Looting System Toggle Section
+        GumpSection.create_section(
+            gd, "LOOTING SYSTEM", section_x, current_y, section_width, title_color="#87CEEB"
+        )
+        current_y += 25
+
+        # Looting System Toggle
+        looting_enabled = config_manager.get_looting_setting('enabled', False)
+        looting_toggle_x = section_x + 10
+        looting_toggle_y = current_y + 2
+        if looting_enabled:
+            looting_art = config.BUTTON_ENABLED
+            looting_pressed_art = config.BUTTON_ENABLED_PRESSED
+            looting_status = "ENABLED"
+            looting_color = "#00FF00"
+        else:
+            looting_art = config.BUTTON_DISABLE
+            looting_pressed_art = config.BUTTON_DISABLE_PRESSED
+            looting_status = "DISABLED"
+            looting_color = "#FF0000"
+
+        Gumps.AddButton(
+            gd, looting_toggle_x, looting_toggle_y, looting_art, looting_pressed_art, 71, 1, 0
+        )
+        Gumps.AddTooltip(gd, f"Toggle Looting System ({'ON' if looting_enabled else 'OFF'})")
+
+        looting_line = f'<basefont color="#FFFFFF" size="3"><b>Looting System:</b></basefont> <basefont color="{looting_color}" size="2"><b>{looting_status}</b></basefont> <basefont color="#CCCCCC" size="2">| Automatically loot corpses and skin creatures</basefont>'
+        Gumps.AddHtml(gd, looting_toggle_x + 30, current_y, section_width - 40, 20, looting_line, False, False)
+        current_y += 30
+
+        # Auto Skinning Toggle
+        skinning_enabled = config_manager.get_looting_setting('behavior.auto_skinning_enabled', True)
+        skinning_toggle_x = section_x + 10
+        skinning_toggle_y = current_y + 2
+        if skinning_enabled:
+            skinning_art = config.BUTTON_ENABLED
+            skinning_pressed_art = config.BUTTON_ENABLED_PRESSED
+            skinning_status = "ENABLED"
+            skinning_color = "#00FF00"
+        else:
+            skinning_art = config.BUTTON_DISABLE
+            skinning_pressed_art = config.BUTTON_DISABLE_PRESSED
+            skinning_status = "DISABLED"
+            skinning_color = "#FF0000"
+
+        Gumps.AddButton(
+            gd, skinning_toggle_x, skinning_toggle_y, skinning_art, skinning_pressed_art, 72, 1, 0
+        )
+        Gumps.AddTooltip(gd, f"Toggle Auto Skinning ({'ON' if skinning_enabled else 'OFF'})")
+
+        skinning_line = f'<basefont color="#FFFFFF" size="3"><b>Auto Skinning:</b></basefont> <basefont color="{skinning_color}" size="2"><b>{skinning_status}</b></basefont> <basefont color="#CCCCCC" size="2">| Automatically skin creature corpses</basefont>'
+        Gumps.AddHtml(gd, skinning_toggle_x + 30, current_y, section_width - 40, 20, skinning_line, False, False)
+        current_y += 40
+
+        # Behavior Settings Section
+        GumpSection.create_section(
+            gd, "BEHAVIOR SETTINGS", section_x, current_y, section_width, title_color="#87CEEB"
+        )
+        current_y += 25
+
+        # Looting range setting
+        looting_range = config_manager.get_looting_setting('behavior.max_looting_range', 2)
+        range_line = f'<basefont color="#FFFFFF" size="2"><b>Looting Range:</b></basefont> <basefont color="#FFFF00" size="2">{looting_range} tiles</basefont> <basefont color="#CCCCCC" size="2">| Maximum distance to loot corpses</basefont>'
+        Gumps.AddHtml(gd, section_x + 10, current_y, section_width - 20, 20, range_line, False, False)
+        current_y += 20
+
+        # Weight limit setting
+        weight_limit = config_manager.get_looting_setting('behavior.inventory_weight_limit_percent', 80)
+        weight_line = f'<basefont color="#FFFFFF" size="2"><b>Weight Limit:</b></basefont> <basefont color="#FFFF00" size="2">{weight_limit}%</basefont> <basefont color="#CCCCCC" size="2">| Stop looting when inventory reaches this weight</basefont>'
+        Gumps.AddHtml(gd, section_x + 10, current_y, section_width - 20, 20, weight_line, False, False)
+        current_y += 30
+
+        # Current Status Section
+        GumpSection.create_section(
+            gd, "CURRENT STATUS", section_x, current_y, section_width, title_color="#87CEEB"
+        )
+        current_y += 25
+
+        # Status information
+        status_lines = [
+            {"text": f"System Status: {'Active' if looting_enabled else 'Disabled'}", "color": "#FFFFFF"},
+            {"text": f"Weight: {Player.Weight}/{Player.MaxWeight} ({(Player.Weight/Player.MaxWeight)*100:.1f}%)", "color": "#FFFF00"},
+            {"text": f"Looting Range: {looting_range} tiles", "color": "#CCCCCC"},
+        ]
+
+        for line in status_lines:
+            status_html = f'<basefont color="{line["color"]}" size="2">{line["text"]}</basefont>'
+            Gumps.AddHtml(gd, section_x + 10, current_y, section_width - 20, 20, status_html, False, False)
+            current_y += 20
+
+        current_y += 20
+
+        # Loot Lists Information Section
+        GumpSection.create_section(
+            gd, "LOOT CONFIGURATION", section_x, current_y, section_width, title_color="#87CEEB"
+        )
+        current_y += 25
+
+        info_lines = [
+            {"text": "Loot lists are configured in looting_config.json", "color": "#FFFFFF"},
+            {"text": "• Always Take: Gold, gems, rare items", "color": "#00FF00"},
+            {"text": "• Take If Space: Weapons, armor, reagents", "color": "#FFFF00"},
+            {"text": "• Never Take: Junk items, tools, containers", "color": "#FF6666"},
+        ]
+
+        for line in info_lines:
+            info_html = f'<basefont color="{line["color"]}" size="2">{line["text"]}</basefont>'
+            Gumps.AddHtml(gd, section_x + 10, current_y, section_width - 20, 20, info_html, False, False)
+            current_y += 20
+
+        # Send the GUMP
+        Gumps.SendGump(
+            config.GUMP_ID,
+            Player.Serial,
+            config.GUMP_X,
+            config.GUMP_Y,
+            gd.gumpDefinition,
+            gd.gumpStrings,
+        )
+
+        Logger.debug("Looting Settings GUMP created and displayed")
 
     @staticmethod
     def handle_gump_response():
@@ -968,10 +1168,10 @@ class GumpInterface:
                     status.check_gump_data_changed()  # This will update the cached values
                     GumpInterface.create_status_gump()
 
-                elif button_pressed == 4:  # Close GUMP (only in full GUMP)
-                    status.gump_closed = True  # Mark GUMP as closed
+                elif button_pressed == 4:  # Close GUMP (stop script completely)
+                    status.request_shutdown()  # Request script shutdown
                     status.set_gump_state(GumpState.CLOSED)  # Update state
-                    Logger.info("[DexBot] Status GUMP closed")
+                    Logger.info("[DexBot] Close button pressed - stopping script")
                     return False  # Signal that GUMP was closed
 
                 elif button_pressed == 5:  # Maximize GUMP (only in minimized GUMP)
@@ -1090,6 +1290,45 @@ class GumpInterface:
                 elif button_pressed == 50:  # Back to Main GUMP (from Combat Settings)
                     status.set_gump_state(GumpState.MAIN_FULL)
                     GumpInterface.create_status_gump()
+
+                elif button_pressed == 60:  # Toggle Looting System (main GUMP)
+                    config_manager = ConfigManager()
+                    current_enabled = config_manager.get_looting_setting('enabled', False)
+                    config_manager.set_looting_setting('enabled', not current_enabled)
+                    config_manager.save_looting_config()
+                    status_msg = "enabled" if not current_enabled else "disabled"
+                    Logger.info(f"[DexBot] Looting system {status_msg} via GUMP")
+                    # Recreate the main GUMP to show updated state
+                    GumpInterface.create_status_gump()
+
+                elif button_pressed == 61:  # Open Looting Settings GUMP
+                    Logger.info("[DexBot] Opening Looting Settings")
+                    status.set_gump_state(GumpState.LOOTING_SETTINGS)
+                    GumpInterface.create_status_gump()
+
+                elif button_pressed == 70:  # Back to Main GUMP (from Looting Settings)
+                    status.set_gump_state(GumpState.MAIN_FULL)
+                    GumpInterface.create_status_gump()
+
+                elif button_pressed == 71:  # Toggle Looting System (in Looting Settings)
+                    config_manager = ConfigManager()
+                    current_enabled = config_manager.get_looting_setting('enabled', False)
+                    config_manager.set_looting_setting('enabled', not current_enabled)
+                    config_manager.save_looting_config()
+                    status_msg = "enabled" if not current_enabled else "disabled"
+                    Logger.info(f"[DexBot] Looting system {status_msg} via Looting Settings")
+                    # Recreate the Looting Settings GUMP to show updated state
+                    GumpInterface.create_looting_settings_gump()
+
+                elif button_pressed == 72:  # Toggle Auto Skinning (in Looting Settings)
+                    config_manager = ConfigManager()
+                    current_enabled = config_manager.get_looting_setting('behavior.auto_skinning_enabled', True)
+                    config_manager.set_looting_setting('behavior.auto_skinning_enabled', not current_enabled)
+                    config_manager.save_looting_config()
+                    status_msg = "enabled" if not current_enabled else "disabled"
+                    Logger.info(f"[DexBot] Auto skinning {status_msg} via Looting Settings")
+                    # Recreate the Looting Settings GUMP to show updated state
+                    GumpInterface.create_looting_settings_gump()
 
         except Exception as e:
             Logger.debug(f"GUMP response handling error: {str(e)}")

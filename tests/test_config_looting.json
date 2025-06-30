@@ -1,0 +1,33 @@
+{
+    "enabled": true,
+    "loot_range": 3,
+    "delay_between_corpses": 250,
+    "delay_between_items": 100,
+    "max_corpses_per_cycle": 5,
+    "ignore_list_enabled": true,
+    "ignore_list_cleanup_interval": 180,
+    "item_filters": {
+        "gold": {
+            "enabled": true,
+            "minimum_amount": 1
+        },
+        "gems": {
+            "enabled": true,
+            "types": ["Ruby", "Emerald", "Sapphire", "Diamond"]
+        },
+        "reagents": {
+            "enabled": true,
+            "types": ["Black Pearl", "Mandrake Root", "Spider Silk"]
+        },
+        "weapons": {
+            "enabled": false,
+            "minimum_value": 100
+        },
+        "armor": {
+            "enabled": false,
+            "minimum_value": 100
+        }
+    },
+    "last_updated": "2025-06-30",
+    "version": "3.1.1"
+}

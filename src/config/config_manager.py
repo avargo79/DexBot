@@ -15,6 +15,7 @@ IS_BUNDLED = hasattr(sys.modules.get('__main__'), 'DEFAULT_MAIN_CONFIG')
 if IS_BUNDLED:
     DEFAULT_MAIN_CONFIG = sys.modules['__main__'].DEFAULT_MAIN_CONFIG
     DEFAULT_AUTO_HEAL_CONFIG = sys.modules['__main__'].DEFAULT_AUTO_HEAL_CONFIG
+    DEFAULT_LOOTING_CONFIG = getattr(sys.modules['__main__'], 'DEFAULT_LOOTING_CONFIG', {})
 else:
     # Load from JSON files in development mode
     def load_json_config(path):
@@ -24,6 +25,7 @@ else:
     _config_dir = _os.path.dirname(_os.path.abspath(__file__))
     DEFAULT_MAIN_CONFIG = load_json_config(_os.path.join(_config_dir, 'default_main_config.json'))
     DEFAULT_AUTO_HEAL_CONFIG = load_json_config(_os.path.join(_config_dir, 'default_auto_heal_config.json'))
+    DEFAULT_LOOTING_CONFIG = load_json_config(_os.path.join(_config_dir, 'default_looting_config.json'))
 
 
 class ConfigManager:
@@ -61,6 +63,7 @@ class ConfigManager:
         self.main_config_path = os.path.join(self.config_dir, "main_config.json")
         self.auto_heal_config_path = os.path.join(self.config_dir, "auto_heal_config.json")
         self.combat_config_path = os.path.join(self.config_dir, "combat_config.json")
+        self.looting_config_path = os.path.join(self.config_dir, "looting_config.json")
 
         # Load configurations
         self.main_config = self._load_config(self.main_config_path, self._get_default_main_config())
@@ -69,6 +72,9 @@ class ConfigManager:
         )
         self.combat_config = self._load_config(
             self.combat_config_path, self._get_default_combat_config()
+        )
+        self.looting_config = self._load_config(
+            self.looting_config_path, self._get_default_looting_config()
         )
 
     def _load_config(self, config_path: str, default_config: Dict) -> Dict:
@@ -119,12 +125,19 @@ class ConfigManager:
         """Save combat configuration to file"""
         return self._save_config(self.combat_config_path, self.combat_config)
 
+    def save_looting_config(self, config: Dict = None) -> bool:
+        """Save looting configuration to file"""
+        if config is not None:
+            self.looting_config = config
+        return self._save_config(self.looting_config_path, self.looting_config)
+
     def save_all_configs(self) -> bool:
         """Save all configuration files"""
         main_saved = self.save_main_config()
         auto_heal_saved = self.save_auto_heal_config()
         combat_saved = self.save_combat_config()
-        return main_saved and auto_heal_saved and combat_saved
+        looting_saved = self.save_looting_config()
+        return main_saved and auto_heal_saved and combat_saved and looting_saved
 
     def reload_configs(self) -> None:
         """Reload all configurations from files"""
@@ -134,6 +147,9 @@ class ConfigManager:
         )
         self.combat_config = self._load_config(
             self.combat_config_path, self._get_default_combat_config()
+        )
+        self.looting_config = self._load_config(
+            self.looting_config_path, self._get_default_looting_config()
         )
 
     def get_main_setting(self, key_path: str, default=None):
@@ -159,6 +175,18 @@ class ConfigManager:
     def set_combat_setting(self, key_path: str, value) -> None:
         """Set setting in combat config using dot notation"""
         self._set_nested_value(self.combat_config, key_path, value)
+
+    def get_looting_setting(self, key_path: str, default=None):
+        """Get setting from looting config using dot notation"""
+        return self._get_nested_value(self.looting_config, key_path, default)
+
+    def set_looting_setting(self, key_path: str, value) -> None:
+        """Set setting in looting config using dot notation"""
+        self._set_nested_value(self.looting_config, key_path, value)
+
+    def get_looting_config(self) -> Dict:
+        """Get the entire looting configuration"""
+        return self.looting_config
 
     def _get_nested_value(self, config: Dict, key_path: str, default=None):
         """Get nested dictionary value using dot notation"""
@@ -228,6 +256,9 @@ class ConfigManager:
             "healing_toggles": {"bandage_healing_enabled": True, "potion_healing_enabled": True},
             "health_thresholds": {
                 "healing_threshold_percentage": 95,
+                # Critical health threshold: When health drops to or below this percentage,
+                # healing potions will be used immediately. Uses inclusive comparison (<=).
+                # Set to 50 to use potions when health is 50% or lower.
                 "critical_health_threshold": 50,
                 "bandage_threshold_hp": 1,
             },
@@ -268,7 +299,7 @@ class ConfigManager:
         """Get default combat configuration"""
         return {
             "description": "DexBot Combat System Configuration - Only activates when player is in War Mode",
-            "version": "1.3",
+            "version": "1.4",
             "last_updated": "2025-06-29",
             "system_toggles": {
                 "combat_system_enabled": False,
@@ -280,7 +311,8 @@ class ConfigManager:
                 "priority_mode": "closest",
                 "target_types": ["monsters", "hostiles"],
                 "ignore_innocents": True,
-                "ignore_pets": True
+                "ignore_pets": True,
+                "allow_target_blues": False
             },
             "combat_behavior": {
                 "attack_delay_ms": 250,
@@ -303,5 +335,73 @@ class ConfigManager:
                 "show_target_name_overhead": True,
                 "target_name_display_interval_ms": 3000,
                 "target_name_display_color": 53
+            }
+        }
+
+    def _get_default_looting_config(self) -> Dict:
+        """Get default looting configuration"""
+        return {
+            "version": "1.0",
+            "enabled": True,  # Enable by default for testing
+            "timing": {
+                "corpse_scan_interval_ms": 1000,
+                "loot_action_delay_ms": 200,
+                "container_open_timeout_ms": 2000,
+                "skinning_action_delay_ms": 500
+            },
+            "behavior": {
+                "max_looting_range": 2,  # Reduced from 3 to 2 for better performance
+                "auto_skinning_enabled": True,
+                "inventory_weight_limit_percent": 90,
+                "inventory_item_limit": 120,
+                "process_corpses_in_combat": False,
+                "prioritize_skinning_over_looting": True
+            },
+            "loot_lists": {
+                "always_take": [
+                    1712,  # Gold item ID for reliable detection
+                    "Gold", "Coins", "Gem", "Diamond", "Ruby", "Emerald", "Sapphire",
+                    "Citrine", "Amethyst", "Tourmaline", "Star Sapphire", "Rare", "Magic"
+                ],
+                "take_if_space": [
+                    "Weapon", "Sword", "Bow", "Crossbow", "Mace", "Staff", "Armor",
+                    "Shield", "Helmet", "Ring", "Bracelet", "Necklace", "Reagent",
+                    "Potion", "Arrow", "Bolt", "Ingot", "Hide", "Leather", "Cloth"
+                ],
+                "never_take": [
+                    "Bottle", "Empty Bottle", "Bone", "Bones", "Skull", "Ribs",
+                    "Candle", "Torch", "Lantern", "Lockpick", "Key", "Hair Dye"
+                ]
+            },
+            "skinning": {
+                "enabled": True,
+                "require_skinning_knife": True,
+                "auto_buy_knives": False,
+                "skinnable_creatures": [
+                    "Bear", "Wolf", "Deer", "Rabbit", "Cow", "Bull", "Horse",
+                    "Sheep", "Goat", "Pig", "Chicken", "Bird", "Eagle"
+                ]
+            },
+            "performance": {
+                "max_corpse_queue_size": 10,
+                "cache_cleanup_interval_seconds": 60,
+                "max_cache_size": 1000,
+                "batch_item_processing": True,
+                "parallel_skinning_looting": False
+            },
+            "safety": {
+                "pause_on_player_nearby": False,
+                "pause_on_combat": True,
+                "emergency_stop_conditions": [
+                    "inventory_full", "low_health", "player_detected"
+                ],
+                "max_looting_time_per_corpse_seconds": 30
+            },
+            "ui": {
+                "show_loot_notifications": True,
+                "show_skinning_notifications": True,
+                "display_stats_in_gump": True,
+                "notification_color": 53,
+                "stats_update_interval_ms": 1000
             }
         }
