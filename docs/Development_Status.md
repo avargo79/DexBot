@@ -196,7 +196,27 @@ This document tracks the development progress for the DexBot modular bot system.
 
 ---
 
+### 🎯 **Phase 3.2.2 - Server-Specific Settings System** (Medium-High Priority)
+**Target**: Q3 2025 | **Priority**: Medium-High | **Effort**: 1-2 weeks
 
+#### 🌐 **New System: Unchained UO Server Detection**
+- **FR-126**: Implement Server-Specific Settings System for Unchained UO optimizations
+- **FR-126-01**: Automatic server detection using RazorEnhanced Player.ShardName API
+- **FR-126-02**: Conditional system activation based on server name matching
+- **FR-126-03**: Server-specific configuration loading and management
+- **FR-126-04**: Unchained UO-specific item ID mappings and mechanics
+- **FR-126-05**: Integration hooks for all existing systems (Auto Heal, Combat, Looting)
+- **FR-126-06**: Server-specific optimization profiles and performance tuning
+
+#### 🎯 **Value Proposition**
+- **Universal Compatibility**: Remains hidden on non-Unchained servers
+- **Enhanced Optimization**: Server-specific item IDs, mechanics, and configurations
+- **Seamless Integration**: Automatic detection and activation without user intervention
+- **Future Scalability**: Framework supports additional server implementations
+
+*For detailed specifications, see [FR-126_Server_Specific_Settings_System.md](backlog/medium-priority/FR-126_Server_Specific_Settings_System.md)*
+
+---
 
 ### 🎯 **Phase 3.3.0 - Inventory Management System** (Critical Need)
 **Target**: Q4 2025 | **Priority**: High | **Effort**: 2-3 weeks
@@ -228,6 +248,8 @@ This document tracks the development progress for the DexBot modular bot system.
 ### **Phase 3.2 (Q3 2025) - Foundation Systems**
 - ✅ **v3.2.0**: Buff Management System (2-3 weeks)
 - 🔄 **v3.2.1**: Equipment Manager System (1-2 weeks)
+- 🔄 **v3.2.2**: Server-Specific Settings System (1-2 weeks)
+- 🔄 **v3.2.2**: Server-Specific Settings System (1-2 weeks)
 
 ### **Phase 3.3 (Q4 2025) - Advanced Automation**
 - 🔄 **v3.3.0**: Inventory Management System (2-3 weeks)
@@ -248,13 +270,14 @@ This document tracks the development progress for the DexBot modular bot system.
 3. **Inventory Management (FR-095)** - Critical for extended automation
 
 ### **Quick Wins (Medium Priority, Low Effort)**
-4. **Basic Travel System** - Simple pathfinding and recall automation
-5. **Communication & Alert System** - Remote monitoring (if needed in future)
+4. **Server-Specific Settings (FR-126)** - Unchained UO optimization and universal compatibility
+5. **Basic Travel System** - Simple pathfinding and recall automation
+6. **Communication & Alert System** - Remote monitoring (if needed in future)
 
 ### **Future Expansion (Lower Priority)**
-6. **Skill Training System** - Comprehensive character development
-7. **Multi-Character Coordination** - Advanced scalability features
-8. **Crafting Automation** - Specialized economic optimization
+7. **Skill Training System** - Comprehensive character development
+8. **Multi-Character Coordination** - Advanced scalability features
+9. **Crafting Automation** - Specialized economic optimization
 
 ---
 
