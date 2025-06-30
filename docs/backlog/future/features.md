@@ -51,7 +51,6 @@
   - Email notifications for critical events
   - Mobile app integration
   - Status reporting and statistics
-- **Note**: Previously developed as FR-101, moved to future backlog
 
 ---
 
