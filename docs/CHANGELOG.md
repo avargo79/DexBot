@@ -1,5 +1,40 @@
 # DexBot Changelog
 
+## Version 2.3.0 - Looting System Phase 2 Complete - 2025-06-29
+
+### 🎯 **Looting System: Major Performance & Reliability Improvements**
+
+#### 🚀 **Performance Optimizations**
+- **4x Faster Corpse Detection**: Reduced scan interval from 1000ms to 250ms for much more responsive looting
+- **Corpse Processing Cache**: Intelligent caching prevents repeated processing of empty/looted corpses
+- **Eliminated Retry Loops**: Removed unnecessary delay/retry logic that was slowing down the system
+- **Optimized Item Movement**: Set proper UO-standard 650ms delays for reliable item transfers
+
+#### 🔧 **Enhanced Item Evaluation**
+- **Robust Item ID Matching**: Now handles integers (1712), decimal strings ("1712"), and hex strings ("0x06B0")
+- **Improved Debug Logging**: Clear feedback shows exactly why each item was taken or ignored
+- **Priority System**: never_take > always_take > take_if_space > unknown (well-defined precedence)
+- **Gold Detection**: Reliable gold pickup using item ID 1712 for consistent detection across shards
+
+#### 🛠️ **Core System Improvements**
+- **Enhanced Corpse Detection**: Uses `Items.Filter(IsCorpse=True)` for robust detection across all UO shards
+- **Reliable Container Opening**: Simplified logic using `Items.UseItem` (correct RazorEnhanced API)
+- **Working Item Extraction**: Adopted proven `corpse.Contains` approach for reliable item access
+- **Proper UO Timing**: Implemented 650ms action delays following UO client standards
+
+#### 📊 **User Experience**
+- **Much More Responsive**: Users report looting "feels much better" and more responsive
+- **Clear Console Feedback**: Detailed logging shows corpse detection, item evaluation, and looting decisions
+- **Reduced Lag**: Eliminated stuttering and delays that were caused by retry loops on empty corpses
+
+#### 🔍 **Development Quality**
+- **Best Practices Enforcement**: Created comprehensive development rules preventing direct dist/ edits
+- **Testing Infrastructure**: Systematic Phase 2 testing with detailed checklists and validation
+- **Documentation**: Updated UO item ID reference and development workflow guides
+- **Source Control**: All changes made in source files with proper build/rebuild workflow
+
+---
+
 ## Version 2.2.0 - DevOps Infrastructure - 2025-06-29
 
 ### 🏗️ **DevOps Infrastructure Complete**

@@ -100,6 +100,7 @@ def run_dexbot():
                     Journal.Clear()
 
             # Player is connected and alive - run enabled bot systems
+            Logger.info("MAIN LOOP: Starting system updates")
 
             # Check for shutdown requests (e.g., from GUMP close button)
             if status.is_shutdown_requested():
@@ -116,9 +117,17 @@ def run_dexbot():
 
             # Combat system (if enabled)
             execute_combat_system(config_manager)
+            Logger.info("MAIN LOOP: Combat system completed")
 
             # Looting system (if enabled)
-            looting_system.update()
+            Logger.info("MAIN LOOP: About to call looting_system.update()")
+            try:
+                looting_system.update()
+                Logger.info("MAIN LOOP: looting_system.update() completed successfully")
+            except Exception as e:
+                Logger.error(f"MAIN LOOP: Error calling looting_system.update(): {e}")
+                import traceback
+                Logger.error(f"MAIN LOOP: Looting system traceback: {traceback.format_exc()}")
 
             # Increment runtime counter and main loop delay
             status.increment_runtime()

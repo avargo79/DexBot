@@ -338,7 +338,7 @@ class ConfigManager:
         """Get default looting configuration"""
         return {
             "version": "1.0",
-            "enabled": False,
+            "enabled": True,  # Enable by default for testing
             "timing": {
                 "corpse_scan_interval_ms": 1000,
                 "loot_action_delay_ms": 200,
@@ -346,15 +346,16 @@ class ConfigManager:
                 "skinning_action_delay_ms": 500
             },
             "behavior": {
-                "max_looting_range": 2,
+                "max_looting_range": 3,  # Increased for testing
                 "auto_skinning_enabled": True,
-                "inventory_weight_limit_percent": 80,
+                "inventory_weight_limit_percent": 90,  # Increased for testing
                 "inventory_item_limit": 120,
                 "process_corpses_in_combat": False,
                 "prioritize_skinning_over_looting": True
             },
             "loot_lists": {
                 "always_take": [
+                    1712,  # Gold item ID for reliable detection
                     "Gold", "Coins", "Gem", "Diamond", "Ruby", "Emerald", "Sapphire",
                     "Citrine", "Amethyst", "Tourmaline", "Star Sapphire", "Rare", "Magic"
                 ],

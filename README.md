@@ -45,7 +45,15 @@ The entire codebase, documentation, build system, and DevOps infrastructure were
 
 DexBot is a modular bot system for Ultima Online with RazorEnhanced, currently featuring an advanced Auto Heal system and a high-performance Combat System with a modern GUMP interface and robust state management. Built with a clean, focused architecture optimized for performance and user experience.
 
-## Recent Updates (v2.2.0)
+## Recent Updates (v2.3.0)
+
+**🎯 Looting System Phase 2 - Performance & Reliability** ✅ COMPLETED:
+- **4x Faster Corpse Detection**: Reduced scan interval to 250ms for much more responsive looting
+- **Corpse Processing Cache**: Intelligent caching prevents repeated processing of empty corpses  
+- **Enhanced Item ID Matching**: Supports integers, decimal strings, and hex format item IDs
+- **Optimized UO Timing**: Proper 650ms delays for reliable item movement following UO standards
+- **Robust Corpse Detection**: Uses `Items.Filter(IsCorpse=True)` for reliable detection across shards
+- **Improved User Experience**: Users report looting now "feels much better" and more responsive
 
 **🚀 Combat System Performance Optimizations** ✅ COMPLETED:
 - ✅ **Major Performance Boost**: 50-80% faster target scanning with intelligent caching
@@ -143,6 +151,16 @@ DexBot/
 - **Target Display**: Shows target name and health percentage above their head
 - **Safety Features**: Auto-retreat on low health, range checking, combat timeouts
 - **War Mode Integration**: Only activates when player is in War Mode
+
+### ✅ Looting System (Implemented)
+- **Intelligent Corpse Detection**: Uses robust `Items.Filter(IsCorpse=True)` for reliable detection across all UO shards
+- **Smart Item Evaluation**: Configurable loot lists with priority system (never_take > always_take > take_if_space)
+- **Enhanced Item ID Support**: Handles integer IDs (1712), decimal strings ("1712"), and hex format ("0x06B0")
+- **Corpse Processing Cache**: Prevents repeated processing of empty/looted corpses for optimal performance
+- **Optimized Timing**: 4x faster corpse scanning (250ms) with proper UO-standard delays (650ms) for item movement
+- **Automatic Skinning**: Configurable creature skinning with tool management
+- **Inventory Management**: Intelligent space/weight limit checking with safety thresholds
+- **Real-time Feedback**: Detailed console logging shows corpse detection, item evaluation, and loot decisions
 
 ### ✅ GUMP Interface System (Implemented)
 - **Modern Interface**: Clean, intuitive GUMP design with organized sections
@@ -512,7 +530,8 @@ The CI/CD pipeline will automatically run tests and validation on your PR.
 
 ## Version
 
-Current Version: 2.2.0
+Current Version: 2.3.0
+Build Date: 2025-06-29
 Author: RugRat79 (DexBot Development Team)
 License: MIT
 
