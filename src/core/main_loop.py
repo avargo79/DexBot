@@ -7,7 +7,7 @@ from ..config.config_manager import ConfigManager
 from ..core.bot_config import BotConfig, BotMessages, GumpState
 from ..core.logger import Logger, SystemStatus
 from ..systems.auto_heal import execute_auto_heal_system, process_healing_journal
-from ..systems.combat import execute_combat_system
+from ..systems.combat import CombatSystem
 from ..systems.looting import LootingSystem
 from ..ui.gump_interface import GumpInterface, update_gump_system
 from ..utils.imports import Misc, Player
@@ -22,8 +22,9 @@ def run_dexbot():
     status = SystemStatus()
     config_manager = ConfigManager()
     
-    # Initialize looting system
+    # Initialize systems
     looting_system = LootingSystem(config_manager)
+    combat_system = CombatSystem(config_manager)
 
     # Display version and build information prominently
     version_info = config.get_version_info()
@@ -48,9 +49,15 @@ def run_dexbot():
     else:
         Logger.info(messages.HEALING_DISABLED)
 
-    # Show combat system status
-    if config_manager.get_combat_setting('system_toggles.combat_system_enabled'):
+    # Show combat system status  
+    combat_enabled = config_manager.get_combat_setting('system_toggles.combat_system_enabled')
+    auto_target = config_manager.get_combat_setting('system_toggles.auto_target_enabled')
+    auto_attack = config_manager.get_combat_setting('system_toggles.auto_attack_enabled')
+    
+    if combat_enabled:
         Logger.info("[DexBot] Combat system: enabled")
+        Logger.info(f"[DexBot] - Auto target: {'enabled' if auto_target else 'disabled'}")
+        Logger.info(f"[DexBot] - Auto attack: {'enabled' if auto_attack else 'disabled'}")
     else:
         Logger.info("[DexBot] Combat system: disabled")
 
@@ -100,7 +107,7 @@ def run_dexbot():
                     Journal.Clear()
 
             # Player is connected and alive - run enabled bot systems
-            Logger.info("MAIN LOOP: Starting system updates")
+            Logger.info("MAIN LOOP: ===== Phase 3 Integration Test - System Updates =====")
 
             # Check for shutdown requests (e.g., from GUMP close button)
             if status.is_shutdown_requested():
@@ -110,16 +117,27 @@ def run_dexbot():
             # Update GUMP system (handle interactions and periodic updates)
             update_gump_system()
 
-            # Auto Heal system (if enabled)
+            # PHASE 3 INTEGRATION: Run systems in priority order
+            # Priority: Healing > Combat > Looting
+            
+            # 1. Auto Heal system (highest priority - survival)
             if config.HEALING_ENABLED:
+                Logger.info("MAIN LOOP: Processing healing system...")
                 process_healing_journal()
                 execute_auto_heal_system()
+                Logger.info("MAIN LOOP: Healing system completed")
 
-            # Combat system (if enabled)
-            execute_combat_system(config_manager)
-            Logger.info("MAIN LOOP: Combat system completed")
+            # 2. Combat system (medium priority - engagement)
+            Logger.info("MAIN LOOP: About to call combat_system.run()")
+            try:
+                combat_system.run()
+                Logger.info("MAIN LOOP: Combat system completed")
+            except Exception as e:
+                Logger.error(f"MAIN LOOP: Error calling combat_system.run(): {e}")
+                import traceback
+                Logger.error(f"MAIN LOOP: Combat system traceback: {traceback.format_exc()}")
 
-            # Looting system (if enabled)
+            # 3. Looting system (lowest priority - cleanup)
             Logger.info("MAIN LOOP: About to call looting_system.update()")
             try:
                 looting_system.update()
@@ -128,6 +146,8 @@ def run_dexbot():
                 Logger.error(f"MAIN LOOP: Error calling looting_system.update(): {e}")
                 import traceback
                 Logger.error(f"MAIN LOOP: Looting system traceback: {traceback.format_exc()}")
+
+            Logger.info("MAIN LOOP: ===== All systems completed =====")
 
             # Increment runtime counter and main loop delay
             status.increment_runtime()
