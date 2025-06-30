@@ -215,15 +215,18 @@ class LootingSystem:
     "version": "1.0",
     "enabled": true,
     "timing": {
-        "corpse_scan_interval_ms": 1000,
-        "loot_action_delay_ms": 200,
-        "container_open_timeout_ms": 2000
+        "corpse_scan_interval_ms": 250,
+        "loot_action_delay_ms": 650,
+        "container_open_timeout_ms": 1500,
+        "skinning_action_delay_ms": 650
     },
     "behavior": {
-        "max_looting_range": 2,
+        "max_looting_range": 3,
         "auto_skinning_enabled": true,
-        "inventory_weight_limit_percent": 80,
-        "inventory_item_limit": 120
+        "inventory_weight_limit_percent": 90,
+        "inventory_item_limit": 120,
+        "process_corpses_in_combat": false,
+        "prioritize_skinning_over_looting": true
     },
     "loot_lists": {
         "always_take": ["Gold", "Gems", "Rare Materials"],

@@ -269,30 +269,22 @@ When AI agents get confused or loop:
 4. **Verify each step** before proceeding to the next
 5. **Remember: Generated files should never be committed to git**
 
-## 📋 Quick Reference Checklist
+## 🖥️ Shell Command Rules
 
-### Before Making Changes:
-- [ ] Understand which system needs modification
-- [ ] Locate correct source file in `src/`
-- [ ] Review existing code patterns
-- [ ] Plan logging strategy for debugging
+### Rule 21: PowerShell Command Syntax (CRITICAL)
+When writing terminal commands for DexBot development:
+- **Use `;` to separate commands** in PowerShell (not `&&`)
+- **PowerShell example**: `move file1.py archive\; move file2.py archive\; git add archive\`
+- **NOT bash syntax**: `move file1.py archive\ && move file2.py archive\ && git add archive\`
+- **Remember**: DexBot development environment uses PowerShell on Windows
 
-### After Making Changes:
-- [ ] Run `python -m invoke build`
-- [ ] Check for build errors
-- [ ] Test `dist/DexBot.py` in-game
-- [ ] Review git changes with `git status --porcelain`
-- [ ] Stage only source files, never generated files
-- [ ] Write descriptive commit message
-
-### For Debugging Issues:
-- [ ] Start with `Logger.info()` for visibility
-- [ ] Check debug mode configuration
-- [ ] Test specific user-reported scenarios
-- [ ] Verify UO API return values
-- [ ] Don't mark state as processed until confirmed
+### Rule 22: Cross-Platform Awareness
+- Development rules assume **Windows PowerShell** environment
+- Git commands work the same across platforms
+- File paths use backslash `\` in PowerShell
+- Use `findstr` instead of `grep` in PowerShell commands
 
 ---
 
 *DexBot Development Rules - Always edit source files, never dist files*
-*Document Version: 2.1 - Added Git Management and Project Organization Rules*
+*Document Version: 2.2 - Added Shell Command Syntax Rules*

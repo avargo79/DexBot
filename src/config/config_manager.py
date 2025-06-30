@@ -256,7 +256,7 @@ class ConfigManager:
             "healing_toggles": {"bandage_healing_enabled": True, "potion_healing_enabled": True},
             "health_thresholds": {
                 "healing_threshold_percentage": 95,
-                "critical_health_threshold": 65,  # Increased from 50 to 65 for more responsive potion use
+                "critical_health_threshold": 50,  # Default value, matches actual config and code behavior
                 "bandage_threshold_hp": 1,
             },
             "item_ids": {

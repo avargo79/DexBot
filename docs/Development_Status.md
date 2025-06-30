@@ -5,7 +5,7 @@
 **Project Status**: ✅ **PRODUCTION READY** with Revolutionary Performance Optimizations
 
 ## Overview
-This document tracks the development progress for the DexBot modular bot system, based on the official [Product Requirements Document](DexBot_PRD.md). The project has reached production readiness with three fully functional systems and revolutionary performance optimizations.
+This document tracks the development progress for the DexBot modular bot system, based on the official [Product Requirements Document](PRD_Master.md). The project has reached production readiness with three fully functional systems and revolutionary performance optimizations.
 
 ---
 
