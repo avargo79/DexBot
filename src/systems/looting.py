@@ -141,7 +141,7 @@ class LootingSystem:
         system_start_time = time.time()
         
         # Quick enablement check (optimization)
-        if not self.enabled or not self.config_manager.get_looting_config().get('enabled', False):
+        if not self._is_system_ready():
             return
             
         Logger.debug(f"LOOTING: System is ENABLED - proceeding with update")
@@ -149,43 +149,78 @@ class LootingSystem:
         try:
             current_time = time.time()
             
-            # Periodic cache cleanup (less frequent for performance)
-            cache_start = time.time()
-            self._cleanup_cache_if_needed(current_time)
-            cache_duration = (time.time() - cache_start) * 1000
-            if cache_duration > 10:
-                Logger.debug(f"LOOTING: Cache cleanup completed in {cache_duration:.1f}ms")
+            # Perform periodic maintenance tasks
+            self._perform_periodic_maintenance(current_time)
             
-            # Scan for new corpses
-            scan_start = time.time()
-            self._scan_for_corpses_if_needed(current_time)
-            scan_duration = (time.time() - scan_start) * 1000
-            if len(self.corpse_queue) > 0:
-                Logger.info(f"LOOTING: Found {len(self.corpse_queue)} corpses to process (scan: {scan_duration:.1f}ms)")
-            
-            # Process corpse queue
-            process_start = time.time()
-            self._process_corpse_queue()
-            process_duration = (time.time() - process_start) * 1000
-            if process_duration > 50:
-                Logger.debug(f"LOOTING: Corpse queue processing completed in {process_duration:.1f}ms")
+            # Scan for new corpses and process queue
+            self._perform_corpse_operations(current_time)
             
             # Update status periodically
             self._update_status_if_needed(current_time)
             
-            # Log performance timing (only for slow operations)
-            system_duration = (time.time() - system_start_time) * 1000
-            
-            if system_duration > 1000:  # More than 1 second
-                Logger.warning(f"LOOTING: System took {system_duration:.1f}ms - performance issue!")
-            elif system_duration > 200:  # More than 200ms
-                Logger.info(f"LOOTING: System took {system_duration:.1f}ms - monitor performance")
-            else:
-                Logger.debug(f"LOOTING: System completed in {system_duration:.1f}ms")
+            # Log performance timing
+            self._log_performance_timing(system_start_time)
             
         except Exception as e:
             system_duration = (time.time() - system_start_time) * 1000
             Logger.error(f"LOOTING: Error in Looting System update after {system_duration:.1f}ms: {e}")
+
+    def _is_system_ready(self) -> bool:
+        """Check if the looting system is ready to run.
+        
+        Returns:
+            bool: True if system is enabled and ready
+        """
+        return self.enabled and self.config_manager.get_looting_config().get('enabled', False)
+
+    def _perform_periodic_maintenance(self, current_time: float) -> None:
+        """Perform periodic maintenance tasks.
+        
+        Args:
+            current_time: Current timestamp
+        """
+        # Periodic cache cleanup (less frequent for performance)
+        cache_start = time.time()
+        self._cleanup_cache_if_needed(current_time)
+        cache_duration = (time.time() - cache_start) * 1000
+        if cache_duration > 10:
+            Logger.debug(f"LOOTING: Cache cleanup completed in {cache_duration:.1f}ms")
+
+    def _perform_corpse_operations(self, current_time: float) -> None:
+        """Perform corpse scanning and processing operations.
+        
+        Args:
+            current_time: Current timestamp
+        """
+        # Scan for new corpses
+        scan_start = time.time()
+        self._scan_for_corpses_if_needed(current_time)
+        scan_duration = (time.time() - scan_start) * 1000
+        if len(self.corpse_queue) > 0:
+            Logger.info(f"LOOTING: Found {len(self.corpse_queue)} corpses to process (scan: {scan_duration:.1f}ms)")
+        
+        # Process corpse queue
+        process_start = time.time()
+        self._process_corpse_queue()
+        process_duration = (time.time() - process_start) * 1000
+        if process_duration > 50:
+            Logger.debug(f"LOOTING: Corpse queue processing completed in {process_duration:.1f}ms")
+
+    def _log_performance_timing(self, system_start_time: float) -> None:
+        """Log performance timing information.
+        
+        Args:
+            system_start_time: When the system update started
+        """
+        # Log performance timing (only for slow operations)
+        system_duration = (time.time() - system_start_time) * 1000
+        
+        if system_duration > 1000:  # More than 1 second
+            Logger.warning(f"LOOTING: System took {system_duration:.1f}ms - performance issue!")
+        elif system_duration > 200:  # More than 200ms
+            Logger.info(f"LOOTING: System took {system_duration:.1f}ms - monitor performance")
+        else:
+            Logger.debug(f"LOOTING: System completed in {system_duration:.1f}ms")
 
     def scan_for_corpses(self) -> List[CorpseInfo]:
         """Scan for nearby corpses within configured range.
@@ -199,52 +234,16 @@ class LootingSystem:
         try:
             config = self.config_manager.get_looting_config()
             max_range = config.get('behavior', {}).get('max_looting_range', 2)
-            
-            corpses = []
-            player_x, player_y = Player.Position.X, Player.Position.Y
             current_time = time.time()
             
             # Clean up old processed corpses cache
             self._cleanup_processed_corpses_cache(current_time)
             
-            # PHASE 3.1.1: Find all corpse items in range using optimized filter with ignore list
-            corpse_filter = Items.Filter()
-            corpse_filter.RangeMax = max_range
-            corpse_filter.IsCorpse = True  # This filter finds all corpse types
-            corpse_filter.CheckIgnoreObject = True  # OPTIMIZATION: Exclude ignored corpses from search
-            corpse_items = Items.ApplyFilter(corpse_filter)
+            # Find nearby corpses using optimized filter
+            corpse_items = self._find_nearby_corpses(max_range)
             
-            Logger.info(f"LOOTING: Found {len(corpse_items) if corpse_items else 0} corpses in range {max_range} (excluding ignored)")
-            
-            if corpse_items:
-                for corpse_item in corpse_items:
-                    if corpse_item and hasattr(corpse_item, 'Position'):
-                        # Skip already processed corpses
-                        if self._is_corpse_already_processed(corpse_item.Serial):
-                            Logger.info(f"LOOTING: Skipping already processed corpse {corpse_item.Serial}")
-                            continue
-                        
-                        # Calculate distance
-                        dx = player_x - corpse_item.Position.X
-                        dy = player_y - corpse_item.Position.Y
-                        distance = (dx * dx + dy * dy) ** 0.5
-                        
-                        Logger.info(f"LOOTING: Processing corpse {corpse_item.Serial} at distance {distance:.1f}")
-                        
-                        if distance <= max_range:
-                            # Determine if corpse is skinnable
-                            is_skinnable = self._is_corpse_skinnable(corpse_item)
-                            creature_type = self._identify_creature_type(corpse_item)
-                            
-                            corpse_info = CorpseInfo(
-                                serial=corpse_item.Serial,
-                                position=(corpse_item.Position.X, corpse_item.Position.Y),
-                                distance=distance,
-                                creature_type=creature_type,
-                                is_skinnable=is_skinnable
-                            )
-                            corpses.append(corpse_info)
-                            Logger.info(f"LOOTING: Added corpse {corpse_item.Serial} to queue")
+            # Process found corpses into CorpseInfo objects
+            corpses = self._process_found_corpses(corpse_items, max_range)
             
             Logger.debug(f"Found {len(corpses)} corpses in range")
             return corpses
@@ -252,6 +251,83 @@ class LootingSystem:
         except Exception as e:
             Logger.error(f"Error scanning for corpses: {e}")
             return []
+
+    def _find_nearby_corpses(self, max_range: int) -> List[Any]:
+        """Find all corpse items within range using optimized filter.
+        
+        Args:
+            max_range: Maximum range to search for corpses
+            
+        Returns:
+            List of corpse items found
+        """
+        # PHASE 3.1.1: Find all corpse items in range using optimized filter with ignore list
+        corpse_filter = Items.Filter()
+        corpse_filter.RangeMax = max_range
+        corpse_filter.IsCorpse = True  # This filter finds all corpse types
+        corpse_filter.CheckIgnoreObject = True  # OPTIMIZATION: Exclude ignored corpses from search
+        corpse_items = Items.ApplyFilter(corpse_filter)
+        
+        Logger.info(f"LOOTING: Found {len(corpse_items) if corpse_items else 0} corpses in range {max_range} (excluding ignored)")
+        
+        return corpse_items if corpse_items else []
+
+    def _process_found_corpses(self, corpse_items: List[Any], max_range: int) -> List[CorpseInfo]:
+        """Process found corpse items into CorpseInfo objects.
+        
+        Args:
+            corpse_items: List of corpse items to process
+            max_range: Maximum range for distance validation
+            
+        Returns:
+            List of processed CorpseInfo objects
+        """
+        corpses = []
+        player_x, player_y = Player.Position.X, Player.Position.Y
+        
+        for corpse_item in corpse_items:
+            if corpse_item and hasattr(corpse_item, 'Position'):
+                # Skip already processed corpses
+                if self._is_corpse_already_processed(corpse_item.Serial):
+                    Logger.info(f"LOOTING: Skipping already processed corpse {corpse_item.Serial}")
+                    continue
+                
+                # Calculate distance
+                dx = player_x - corpse_item.Position.X
+                dy = player_y - corpse_item.Position.Y
+                distance = (dx * dx + dy * dy) ** 0.5
+                
+                Logger.info(f"LOOTING: Processing corpse {corpse_item.Serial} at distance {distance:.1f}")
+                
+                if distance <= max_range:
+                    # Create corpse info
+                    corpse_info = self._create_corpse_info(corpse_item, distance)
+                    corpses.append(corpse_info)
+                    Logger.info(f"LOOTING: Added corpse {corpse_item.Serial} to queue")
+        
+        return corpses
+
+    def _create_corpse_info(self, corpse_item: Any, distance: float) -> CorpseInfo:
+        """Create a CorpseInfo object from a corpse item.
+        
+        Args:
+            corpse_item: The corpse item to process
+            distance: Distance to the corpse
+            
+        Returns:
+            CorpseInfo object with corpse details
+        """
+        # Determine if corpse is skinnable
+        is_skinnable = self._is_corpse_skinnable(corpse_item)
+        creature_type = self._identify_creature_type(corpse_item)
+        
+        return CorpseInfo(
+            serial=corpse_item.Serial,
+            position=(corpse_item.Position.X, corpse_item.Position.Y),
+            distance=distance,
+            creature_type=creature_type,
+            is_skinnable=is_skinnable
+        )
 
     def process_corpse_queue(self) -> None:
         """Process the queue of corpses to loot."""
@@ -313,20 +389,10 @@ class LootingSystem:
             return LootResult(False, 0, "Corpse already processed")
 
         try:
-            # Distance check before attempting to loot
-            corpse_item = Items.FindBySerial(corpse_serial)
-            if corpse_item and hasattr(corpse_item, 'Position'):
-                player_x, player_y = Player.Position.X, Player.Position.Y
-                dx = player_x - corpse_item.Position.X
-                dy = player_y - corpse_item.Position.Y
-                distance = (dx * dx + dy * dy) ** 0.5
-                
-                config = self.config_manager.get_looting_config()
-                max_range = config.get('behavior', {}).get('max_looting_range', 3)
-                
-                if distance > max_range:
-                    Logger.info(f"LOOTING: Corpse {corpse_serial} too far ({distance:.1f} > {max_range}) - will retry when closer")
-                    return LootResult(False, 0, f"Out of range ({distance:.1f} tiles)")
+            # Validate corpse distance and accessibility
+            distance_check = self._check_corpse_distance(corpse_serial)
+            if not distance_check[0]:
+                return LootResult(False, 0, distance_check[1])
             
             # Check inventory space first
             if not self._has_inventory_space():
@@ -337,85 +403,21 @@ class LootingSystem:
                 Logger.info(f"LOOTING: Failed to open corpse {corpse_serial} - may be out of range, will retry later")
                 return LootResult(False, 0, "Failed to open corpse")
 
-            items_taken = 0
-            config = self.config_manager.get_looting_config()
-            action_delay = config.get('timing', {}).get('loot_action_delay_ms', 200)
-
-            # Get all items from the opened corpse using corpse.Contains (working approach)
-            corpse_items = []
+            # Get items from corpse
+            corpse_items = self._get_corpse_items(corpse_serial)
+            if corpse_items is None:
+                return LootResult(False, 0, "Error accessing corpse contents")
             
-            try:
-                Logger.info(f"LOOTING: Attempting to access corpse {corpse_serial} contents")
-                
-                # Get the corpse item
-                corpse_item = Items.FindBySerial(corpse_serial)
-                if not corpse_item:
-                    Logger.warning(f"LOOTING: Corpse {corpse_serial} not found - may have decayed or moved out of range")
-                    return LootResult(False, 0, "Corpse not found")
-                
-                # Use corpse.Contains to access items directly (proven working method)
-                if hasattr(corpse_item, 'Contains') and corpse_item.Contains:
-                    Logger.info(f"LOOTING: Corpse has {len(corpse_item.Contains)} items")
-                    
-                    # Access items directly from corpse.Contains
-                    for item in corpse_item.Contains:
-                        corpse_items.append(item)
-                        item_name = getattr(item, 'Name', 'Unknown')
-                        item_id = getattr(item, 'ItemID', 'Unknown')
-                        Logger.info(f"LOOTING: Available item: {item_name} (ID: {item_id})")
-                    
-                    Logger.info(f"LOOTING: Successfully found {len(corpse_items)} items via corpse.Contains")
-                else:
-                    Logger.info(f"LOOTING: Corpse has no Contains property or is empty")
-                    
-                    # Fallback: Try to find specific items by ID as backup (no retry needed)
-                    Logger.info(f"LOOTING: Fallback - trying Items.FindByID for gold (1712)")
-                    gold_item = Items.FindByID(1712, -1, corpse_serial)
-                    if gold_item:
-                        corpse_items.append(gold_item)
-                        Logger.info(f"LOOTING: Found gold item via fallback: {gold_item.Name} (Amount: {gold_item.Amount})")
-                        
-            except Exception as e:
-                Logger.error(f"LOOTING: Error accessing corpse contents: {e}")
-                return LootResult(False, 0, f"Error accessing corpse: {str(e)}")
-            
-            # Process the items found (or mark as empty if none)
+            # Handle empty corpse
             if not corpse_items:
                 Logger.info(f"LOOTING: No items found in corpse {corpse_serial}, marking as processed")
                 self._mark_corpse_as_processed(corpse_serial)
                 return LootResult(True, 0, "Corpse empty")
             
-            Logger.info(f"LOOTING: Processing {len(corpse_items)} items from corpse {corpse_serial}")
+            # Process items from corpse
+            items_taken = self._process_corpse_items(corpse_items, corpse_serial)
             
-            # Loot the items
-            for item in corpse_items:
-                if not self._has_inventory_space():
-                    Logger.warning("Inventory full, stopping loot")
-                    break
-
-                if item and self._should_loot_item(item):
-                    Logger.info(f"LOOTING: Evaluating item: {item.Name} (ID: {item.ItemID})")
-                    if self._take_item(item):
-                        items_taken += 1
-                        Logger.info(f"LOOTING: Successfully took item: {item.Name}")
-                        
-                        # Track gold specifically (optimized check)
-                        item_id = getattr(item, 'ItemID', 0)
-                        if item_id == 0x06F4 or item_id == 0x06F5:  # Gold coins/piles 
-                            gold_amount = getattr(item, 'Amount', 1)
-                            self.stats['gold_collected'] += gold_amount
-                            Logger.info(f"LOOTING: Collected {gold_amount} gold")
-                    else:
-                        Logger.info(f"LOOTING: Failed to take item: {item.Name}")
-                    
-                    # Small delay between item actions
-                    if action_delay > 0:
-                        Misc.Pause(action_delay)
-                else:
-                    Logger.info(f"LOOTING: Skipping item: {item.Name if item else 'Unknown'}")
-
-            # Mark corpse as processed only if we successfully took items or corpse is confirmed empty
-            # If no items were taken due to failures, allow retry later
+            # Mark corpse as processed if successful or empty
             if items_taken > 0 or not corpse_items:
                 self._mark_corpse_as_processed(corpse_serial)
                 Logger.info(f"LOOTING: Finished processing corpse {corpse_serial}, collected {items_taken} items")
@@ -425,18 +427,149 @@ class LootingSystem:
             return LootResult(True, items_taken, f"Collected {items_taken} items")
 
         except Exception as e:
-            Logger.error(f"Error looting corpse {corpse_serial}: {e}")
-            # Only mark as processed if it's a critical error that won't resolve by retrying
-            # Distance/access errors should allow retry when player returns
-            error_str = str(e).lower()
-            if "distance" in error_str or "range" in error_str or "reach" in error_str:
-                Logger.info(f"LOOTING: Distance-related error for corpse {corpse_serial} - will retry when in range")
-                return LootResult(False, 0, f"Distance error (will retry): {str(e)}")
+            return self._handle_loot_error(corpse_serial, e)
+
+    def _check_corpse_distance(self, corpse_serial: int) -> Tuple[bool, str]:
+        """Check if corpse is within looting range.
+        
+        Args:
+            corpse_serial: Serial number of the corpse to check
+            
+        Returns:
+            Tuple of (is_valid, message)
+        """
+        corpse_item = Items.FindBySerial(corpse_serial)
+        if corpse_item and hasattr(corpse_item, 'Position'):
+            player_x, player_y = Player.Position.X, Player.Position.Y
+            dx = player_x - corpse_item.Position.X
+            dy = player_y - corpse_item.Position.Y
+            distance = (dx * dx + dy * dy) ** 0.5
+            
+            config = self.config_manager.get_looting_config()
+            max_range = config.get('behavior', {}).get('max_looting_range', 3)
+            
+            if distance > max_range:
+                Logger.info(f"LOOTING: Corpse {corpse_serial} too far ({distance:.1f} > {max_range}) - will retry when closer")
+                return (False, f"Out of range ({distance:.1f} tiles)")
+        
+        return (True, "Distance OK")
+
+    def _get_corpse_items(self, corpse_serial: int) -> Optional[List[Any]]:
+        """Get all items from a corpse.
+        
+        Args:
+            corpse_serial: Serial number of the corpse
+            
+        Returns:
+            List of items, empty list if corpse is empty, None if error
+        """
+        corpse_items = []
+        
+        try:
+            Logger.info(f"LOOTING: Attempting to access corpse {corpse_serial} contents")
+            
+            # Get the corpse item
+            corpse_item = Items.FindBySerial(corpse_serial)
+            if not corpse_item:
+                Logger.warning(f"LOOTING: Corpse {corpse_serial} not found - may have decayed or moved out of range")
+                return None
+            
+            # Use corpse.Contains to access items directly (proven working method)
+            if hasattr(corpse_item, 'Contains') and corpse_item.Contains:
+                Logger.info(f"LOOTING: Corpse has {len(corpse_item.Contains)} items")
+                
+                # Access items directly from corpse.Contains
+                for item in corpse_item.Contains:
+                    corpse_items.append(item)
+                    item_name = getattr(item, 'Name', 'Unknown')
+                    item_id = getattr(item, 'ItemID', 'Unknown')
+                    Logger.info(f"LOOTING: Available item: {item_name} (ID: {item_id})")
+                
+                Logger.info(f"LOOTING: Successfully found {len(corpse_items)} items via corpse.Contains")
             else:
-                # Critical errors should mark as processed to avoid infinite retry
-                Logger.info(f"LOOTING: Critical error for corpse {corpse_serial} - marking as processed")
-                self._mark_corpse_as_processed(corpse_serial)
-                return LootResult(False, 0, f"Critical error: {str(e)}")
+                Logger.info(f"LOOTING: Corpse has no Contains property or is empty")
+                
+                # Fallback: Try to find specific items by ID as backup (no retry needed)
+                Logger.info(f"LOOTING: Fallback - trying Items.FindByID for gold (1712)")
+                gold_item = Items.FindByID(1712, -1, corpse_serial)
+                if gold_item:
+                    corpse_items.append(gold_item)
+                    Logger.info(f"LOOTING: Found gold item via fallback: {gold_item.Name} (Amount: {gold_item.Amount})")
+                    
+        except Exception as e:
+            Logger.error(f"LOOTING: Error accessing corpse contents: {e}")
+            return None
+        
+        return corpse_items
+
+    def _process_corpse_items(self, corpse_items: List[Any], corpse_serial: int) -> int:
+        """Process and loot items from a corpse.
+        
+        Args:
+            corpse_items: List of items in the corpse
+            corpse_serial: Serial number of the corpse
+            
+        Returns:
+            Number of items successfully taken
+        """
+        items_taken = 0
+        config = self.config_manager.get_looting_config()
+        action_delay = config.get('timing', {}).get('loot_action_delay_ms', 200)
+        
+        Logger.info(f"LOOTING: Processing {len(corpse_items)} items from corpse {corpse_serial}")
+        
+        # Loot the items
+        for item in corpse_items:
+            if not self._has_inventory_space():
+                Logger.warning("Inventory full, stopping loot")
+                break
+
+            if item and self._should_loot_item(item):
+                Logger.info(f"LOOTING: Evaluating item: {item.Name} (ID: {item.ItemID})")
+                if self._take_item(item):
+                    items_taken += 1
+                    Logger.info(f"LOOTING: Successfully took item: {item.Name}")
+                    
+                    # Track gold specifically (optimized check)
+                    item_id = getattr(item, 'ItemID', 0)
+                    if item_id == 0x06F4 or item_id == 0x06F5:  # Gold coins/piles 
+                        gold_amount = getattr(item, 'Amount', 1)
+                        self.stats['gold_collected'] += gold_amount
+                        Logger.info(f"LOOTING: Collected {gold_amount} gold")
+                else:
+                    Logger.info(f"LOOTING: Failed to take item: {item.Name}")
+                
+                # Small delay between item actions
+                if action_delay > 0:
+                    Misc.Pause(action_delay)
+            else:
+                Logger.info(f"LOOTING: Skipping item: {item.Name if item else 'Unknown'}")
+        
+        return items_taken
+
+    def _handle_loot_error(self, corpse_serial: int, error: Exception) -> LootResult:
+        """Handle errors that occur during looting.
+        
+        Args:
+            corpse_serial: Serial number of the corpse being looted
+            error: The exception that occurred
+            
+        Returns:
+            LootResult indicating the error handling result
+        """
+        Logger.error(f"Error looting corpse {corpse_serial}: {error}")
+        
+        # Only mark as processed if it's a critical error that won't resolve by retrying
+        # Distance/access errors should allow retry when player returns
+        error_str = str(error).lower()
+        if "distance" in error_str or "range" in error_str or "reach" in error_str:
+            Logger.info(f"LOOTING: Distance-related error for corpse {corpse_serial} - will retry when in range")
+            return LootResult(False, 0, f"Distance error (will retry): {str(error)}")
+        else:
+            # Critical errors should mark as processed to avoid infinite retry
+            Logger.info(f"LOOTING: Critical error for corpse {corpse_serial} - marking as processed")
+            self._mark_corpse_as_processed(corpse_serial)
+            return LootResult(False, 0, f"Critical error: {str(error)}")
 
     def skin_creature(self, corpse_serial: int) -> SkinResult:
         """Skin a creature corpse.
@@ -663,30 +796,47 @@ class LootingSystem:
         config = self.config_manager.get_looting_config()
         timeout_ms = config.get('timing', {}).get('container_open_timeout_ms', 2000)
         max_attempts = 3
-        retry_delay_ms = 250
         
         for attempt in range(max_attempts):
-            try:
-                Logger.info(f"LOOTING: Opening corpse {corpse_serial}, attempt {attempt + 1}/{max_attempts}")
-                
-                # Use Items.UseItem to open the corpse container (correct RazorEnhanced API)
-                Items.UseItem(corpse_serial)
-                
-                # Give time for the corpse to open
-                Misc.Pause(300)  # Shorter pause for faster response
-                
-                # For corpses, assume opening was successful and proceed to loot
-                # Corpses don't always behave like regular containers in UO
-                Logger.info(f"LOOTING: Corpse {corpse_serial} opened successfully (bypassing container verification)")
+            if self._attempt_corpse_open(corpse_serial, attempt + 1, max_attempts):
                 return True
-                    
-            except Exception as e:
-                Logger.error(f"Exception opening corpse {corpse_serial} on attempt {attempt + 1}: {e}")
-                if attempt < max_attempts - 1:
-                    Misc.Pause(retry_delay_ms)
+            
+            # Wait before retry (except on last attempt)
+            if attempt < max_attempts - 1:
+                retry_delay_ms = 250
+                Misc.Pause(retry_delay_ms)
         
         Logger.warning(f"Failed to open corpse {corpse_serial} after {max_attempts} attempts")
         return False
+
+    def _attempt_corpse_open(self, corpse_serial: int, attempt: int, max_attempts: int) -> bool:
+        """Attempt to open a corpse container.
+        
+        Args:
+            corpse_serial: Serial number of the corpse to open
+            attempt: Current attempt number
+            max_attempts: Maximum number of attempts
+            
+        Returns:
+            bool: True if open attempt succeeded
+        """
+        try:
+            Logger.info(f"LOOTING: Opening corpse {corpse_serial}, attempt {attempt}/{max_attempts}")
+            
+            # Use Items.UseItem to open the corpse container (correct RazorEnhanced API)
+            Items.UseItem(corpse_serial)
+            
+            # Give time for the corpse to open
+            Misc.Pause(300)  # Shorter pause for faster response
+            
+            # For corpses, assume opening was successful and proceed to loot
+            # Corpses don't always behave like regular containers in UO
+            Logger.info(f"LOOTING: Corpse {corpse_serial} opened successfully (bypassing container verification)")
+            return True
+                
+        except Exception as e:
+            Logger.error(f"Exception opening corpse {corpse_serial} on attempt {attempt}: {e}")
+            return False
         
     def _verify_container_opened(self, corpse_serial: int) -> bool:
         """Verify that a container was successfully opened.
@@ -779,8 +929,7 @@ class LootingSystem:
         Returns:
             bool: True if item was successfully taken
         """
-        if not item or not hasattr(item, 'Serial'):
-            Logger.debug("Invalid item provided to _take_item")
+        if not self._validate_item_for_taking(item):
             return False
             
         try:
@@ -794,32 +943,72 @@ class LootingSystem:
                 Logger.debug(f"No inventory space for {item_name}")
                 return False
             
-            # Move the item to player's backpack
-            Items.Move(item.Serial, Player.Backpack.Serial, item_amount)
+            # Perform the item move operation
+            success = self._perform_item_move(item, item_name, item_amount)
             
-            # Wait for the move to process
-            config = self.config_manager.get_looting_config()
-            action_delay = config.get('timing', {}).get('loot_action_delay_ms', 200)
-            Misc.Pause(action_delay)
-            
-            # Verify the item was moved successfully
-            if self._verify_item_moved(item.Serial):
-                Logger.debug(f"Successfully took {item_name}")
-                self.stats['items_collected'] += 1
+            if success:
+                self._track_item_taken(item, item_amount)
                 
-                # Track gold specifically (optimized check)
-                item_id = getattr(item, 'ItemID', 0)
-                if item_id == 0x06F4 or item_id == 0x06F5:  # Gold coins/piles
-                    self.stats['gold_collected'] += item_amount
-                    
-                return True
-            else:
-                Logger.debug(f"Failed to verify {item_name} was moved")
-                return False
+            return success
                 
         except Exception as e:
             Logger.error(f"Exception taking item {getattr(item, 'Name', 'Unknown')}: {e}")
             return False
+
+    def _validate_item_for_taking(self, item: Any) -> bool:
+        """Validate that an item can be taken.
+        
+        Args:
+            item: The item to validate
+            
+        Returns:
+            bool: True if item is valid for taking
+        """
+        if not item or not hasattr(item, 'Serial'):
+            Logger.debug("Invalid item provided to _take_item")
+            return False
+        return True
+
+    def _perform_item_move(self, item: Any, item_name: str, item_amount: int) -> bool:
+        """Perform the actual item move operation.
+        
+        Args:
+            item: The item to move
+            item_name: Name of the item for logging
+            item_amount: Amount of the item
+            
+        Returns:
+            bool: True if move was successful
+        """
+        # Move the item to player's backpack
+        Items.Move(item.Serial, Player.Backpack.Serial, item_amount)
+        
+        # Wait for the move to process
+        config = self.config_manager.get_looting_config()
+        action_delay = config.get('timing', {}).get('loot_action_delay_ms', 200)
+        Misc.Pause(action_delay)
+        
+        # Verify the item was moved successfully
+        if self._verify_item_moved(item.Serial):
+            Logger.debug(f"Successfully took {item_name}")
+            return True
+        else:
+            Logger.debug(f"Failed to verify {item_name} was moved")
+            return False
+
+    def _track_item_taken(self, item: Any, item_amount: int) -> None:
+        """Track statistics for items that were successfully taken.
+        
+        Args:
+            item: The item that was taken
+            item_amount: Amount of the item taken
+        """
+        self.stats['items_collected'] += 1
+        
+        # Track gold specifically (optimized check)
+        item_id = getattr(item, 'ItemID', 0)
+        if item_id == 0x06F4 or item_id == 0x06F5:  # Gold coins/piles
+            self.stats['gold_collected'] += item_amount
             
     def _verify_item_moved(self, item_serial: int) -> bool:
         """Verify that an item was successfully moved to backpack.
