@@ -2,7 +2,27 @@
 mode: agent
 ---
 
-# DexBot Development Rules and Best Practices
+# DexBot AI Agent Development Rules
+
+**CRITICAL**: This is an AI agent prompt file. Follow these rules precisely when working on DexBot.
+
+**NEVER EDIT `dist/DexBot.py` DIRECTLY** - Always edit source files in `src/` and run `python -m invoke build`
+
+## 🚨 Quick Agent Checklist
+1. Edit files in `src/` directory ONLY
+2. Run `python -m invoke build` after changes
+3. Verify build succeeds
+4. Test `dist/DexBot.py` in-game
+
+## 🔍 Bug Diagnosis Workflow (Based on Looting System Fix)
+When investigating system bugs:
+1. **Identify the user-reported symptom** (e.g., "corpses not being looted after moving away")
+2. **Find the relevant system file** in `src/systems/` 
+3. **Trace the logic flow** - follow the code path for the reported scenario
+4. **Look for state management issues** - when/why items are marked as processed
+5. **Check API call assumptions** - are we assuming success without verification?
+6. **Add diagnostic logging** - use `Logger.info()` to trace execution
+7. **Test the specific scenario** - reproduce the exact user-reported situation
 
 This document contains all the critical rules and best practices for developing and maintaining DexBot to ensure consistency, avoid common mistakes, and maintain code quality.
 
@@ -11,7 +31,7 @@ This document contains all the critical rules and best practices for developing 
 ### Rule 1: Never Edit Distribution Files Directly (CRITICAL)
 - **NEVER** edit `dist/DexBot.py` directly
 - **ALWAYS** edit source files in `src/` directory
-- **ALWAYS** rebuild using `scripts/build.ps1` after changes
+- **ALWAYS** rebuild using `python -m invoke build` after changes
 - The `dist/DexBot.py` file is auto-generated and will be overwritten
 
 ### Rule 2: Source File Organization
@@ -57,12 +77,25 @@ src/
 - Switch back to `Logger.debug()` only after confirming the issue is resolved
 - Example: `Logger.info("LOOTING: System called - checking for corpses")` instead of `Logger.debug()`
 
+### Rule 6.1: State Tracking Patterns (CRITICAL FOR SYSTEM DEBUGGING)
+When debugging systems that maintain state or process items/objects:
+- **Always log state changes**: When marking items as processed, changing flags, etc.
+- **Log both success AND failure conditions**: Don't just log when things work
+- **Include distance/range checks**: Many UO systems fail due to range limitations
+- **Log the "why" not just the "what"**: `Logger.info(f"Marking corpse {corpse_id} as processed - reason: {reason}")`
+
 ### Rule 7: Testing Systematic Approach
 1. **Test 1**: System initialization and basic status
 2. **Test 2**: Core functionality (e.g., gold detection)
 3. **Test 3**: Advanced features (e.g., item evaluation)
 4. **Test 4**: Edge cases and error handling
 5. **Test 5**: Performance and optimization
+
+### Rule 7.1: UO-Specific Testing Considerations
+- **Range/Distance Testing**: Test functionality at different distances from targets
+- **Movement Testing**: Test what happens when player moves during operations
+- **State Persistence**: Verify systems handle temporary failures without permanent state corruption
+- **API Failure Simulation**: Test with failed `MoveItem`, `UseObject`, etc. calls
 
 ## 🏗️ Code Architecture Rules
 
@@ -97,38 +130,37 @@ except Exception as e:
     # Graceful degradation, not crash
 ```
 
+### Rule 10.1: UO API Error Handling Pattern (CRITICAL)
+UO API calls can fail for many reasons (range, lag, state changes). Always handle gracefully:
+```python
+try:
+    success = Items.MoveItem(item_id, container_id, amount)
+    if not success:
+        Logger.warning(f"Failed to move item {item_id} - may be out of range or state changed")
+        return False  # Don't mark as processed if action failed
+    Logger.info(f"Successfully moved item {item_id}")
+    return True
+except Exception as e:
+    Logger.error(f"Exception during item move: {e}")
+    return False  # Don't mark as processed on exception
+```
+
 ## 🔄 Build and Deployment Rules
 
 ### Rule 11: Build Process (CRITICAL)
 1. Make changes to source files in `src/`
-2. **ALWAYS** run build using one of these methods:
-   - From PowerShell: `powershell -ExecutionPolicy Bypass -File scripts\build.ps1`
-   - From project root: `.\scripts\build.ps1` (if execution policy allows)
-   - If execution issues: `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser` then `.\scripts\build.ps1`
+2. **ALWAYS** run build using: `python -m invoke build`
 3. Verify no build errors in console output
 4. Test the generated `dist/DexBot.py` in-game
 5. Commit source changes, not dist changes
 
-### Rule 12: PowerShell Command Syntax (CRITICAL)
-**NEVER use "&&" to combine PowerShell commands** - it's not supported in PowerShell!
-
-**Wrong**:
-```powershell
-cd "path" && .\scripts\build.ps1  # This will FAIL
-```
-
-**Right**:
-```powershell
-# Method 1: Use semicolon and Set-Location
-Set-Location "c:\Program Files (x86)\Ultima Online Unchained\Data\Plugins\RazorEnhanced\Scripts\DexBot"; .\scripts\build.ps1
-
-# Method 2: Navigate first, then run
-cd "c:\Program Files (x86)\Ultima Online Unchained\Data\Plugins\RazorEnhanced\Scripts\DexBot"
-.\scripts\build.ps1
-
-# Method 3: Use full path
-powershell -ExecutionPolicy Bypass -File "c:\Program Files (x86)\Ultima Online Unchained\Data\Plugins\RazorEnhanced\Scripts\DexBot\scripts\build.ps1"
-```
+### Rule 11.1: Build Verification Process
+After running `python -m invoke build`:
+1. **Check console output** for any build errors or warnings
+2. **Verify file size** - `dist/DexBot.py` should be substantial (>50KB typically)
+3. **Search for your changes** - Use Ctrl+F to find your specific code changes in `dist/DexBot.py`
+4. **Check timestamps** - Ensure `dist/DexBot.py` timestamp is newer than your source changes
+5. **Test in-game** - Load the script and verify your changes work as expected
 
 ## ⚠️ Common Mistakes to Avoid
 
@@ -144,17 +176,23 @@ powershell -ExecutionPolicy Bypass -File "c:\Program Files (x86)\Ultima Online U
 - **Wrong**: Setting config in one place only
 - **Right**: Ensure all config locations are synchronized
 
-### Mistake 4: PowerShell Command Syntax
-- **Wrong**: Using "&&" to combine PowerShell commands (`cd "path" && .\script.ps1`)
-- **Right**: Use semicolon (`;`) or separate commands (`Set-Location "path"; .\script.ps1`)
-
-### Mistake 5: Missing Error Handling
+### Mistake 4: Missing Error Handling
 - **Wrong**: Assuming API calls always work
 - **Right**: Wrap in try-catch with proper error logging
 
-### Mistake 6: Incomplete Testing
+### Mistake 5: Incomplete Testing
 - **Wrong**: Testing only happy path scenarios
 - **Right**: Test edge cases, errors, and boundary conditions
+
+### Mistake 6: Premature State Marking (CRITICAL - Learned from Looting Bug)
+- **Wrong**: Marking items/objects as "processed" before confirming action succeeded
+- **Right**: Only mark as processed after successful completion or confirmed empty/invalid state
+- **Example**: Don't mark corpse as looted until items are actually taken or corpse is confirmed empty
+
+### Mistake 7: Ignoring UO API Return Values
+- **Wrong**: Assuming `Items.MoveItem()`, `UseObject()`, etc. always succeed
+- **Right**: Check return values and handle failures appropriately
+- **Pattern**: `if not Items.MoveItem(...): handle_failure()`
 
 ## 📝 Documentation Rules
 

@@ -256,7 +256,7 @@ class ConfigManager:
             "healing_toggles": {"bandage_healing_enabled": True, "potion_healing_enabled": True},
             "health_thresholds": {
                 "healing_threshold_percentage": 95,
-                "critical_health_threshold": 50,
+                "critical_health_threshold": 65,  # Increased from 50 to 65 for more responsive potion use
                 "bandage_threshold_hp": 1,
             },
             "item_ids": {
@@ -296,7 +296,7 @@ class ConfigManager:
         """Get default combat configuration"""
         return {
             "description": "DexBot Combat System Configuration - Only activates when player is in War Mode",
-            "version": "1.3",
+            "version": "1.4",
             "last_updated": "2025-06-29",
             "system_toggles": {
                 "combat_system_enabled": False,
@@ -308,7 +308,8 @@ class ConfigManager:
                 "priority_mode": "closest",
                 "target_types": ["monsters", "hostiles"],
                 "ignore_innocents": True,
-                "ignore_pets": True
+                "ignore_pets": True,
+                "allow_target_blues": False
             },
             "combat_behavior": {
                 "attack_delay_ms": 250,
@@ -346,9 +347,9 @@ class ConfigManager:
                 "skinning_action_delay_ms": 500
             },
             "behavior": {
-                "max_looting_range": 3,  # Increased for testing
+                "max_looting_range": 2,  # Reduced from 3 to 2 for better performance
                 "auto_skinning_enabled": True,
-                "inventory_weight_limit_percent": 90,  # Increased for testing
+                "inventory_weight_limit_percent": 90,
                 "inventory_item_limit": 120,
                 "process_corpses_in_combat": False,
                 "prioritize_skinning_over_looting": True

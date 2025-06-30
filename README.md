@@ -109,6 +109,12 @@ DexBot is a modular bot system for Ultima Online with RazorEnhanced, featuring a
 - ✅ **Faster Access**: Toggle healing methods without opening additional windows
 - ✅ **Same Functionality**: All previous features maintained in more accessible design
 
+**✨ NEW: Allow Target Blues Configuration** ✅ ADDED:
+- **Configurable Blue Targeting**: Added `allow_target_blues` setting to make targeting blue (innocent) NPCs/players optional
+- **Safe by Default**: Blues are never targeted unless explicitly enabled in configuration
+- **Enhanced Target Logic**: Improved notoriety-based target selection with clear debug logging
+- **User Control**: Allows targeting blues only when specifically configured for PvP or special scenarios
+
 ## Directory Structure
 
 **Clean v3.1.1 Structure** (After Phase 3 Cleanup):

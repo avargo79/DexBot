@@ -1,0 +1,43 @@
+{
+  "description": "DexBot Combat System Configuration - Only activates when player is in War Mode",
+  "version": "1.4",
+  "last_updated": "2025-06-29",
+  "system_toggles": {
+    "combat_system_enabled": false,
+    "auto_target_enabled": true,
+    "auto_attack_enabled": true
+  },
+  "target_selection": {
+    "max_range": 10,
+    "priority_mode": "closest",
+    "target_types": [
+      "monsters",
+      "hostiles"
+    ],
+    "ignore_innocents": true,
+    "ignore_pets": true,
+    "allow_target_blues": false
+  },
+  "combat_behavior": {
+    "attack_delay_ms": 250,
+    "target_switch_delay_ms": 500,
+    "combat_timeout_ms": 30000,
+    "retreat_on_low_health": true,
+    "retreat_health_threshold": 30
+  },
+  "weapon_settings": {
+    "auto_equip_weapon": false,
+    "preferred_weapon_type": "any",
+    "weapon_durability_warning": 10
+  },
+  "timing_settings": {
+    "combat_check_interval": 250,
+    "target_scan_interval": 250,
+    "combat_loop_delay_ms": 250
+  },
+  "display_settings": {
+    "show_target_name_overhead": true,
+    "target_name_display_interval_ms": 3000,
+    "target_name_display_color": 53
+  }
+}

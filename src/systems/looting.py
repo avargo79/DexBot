@@ -313,14 +313,28 @@ class LootingSystem:
             return LootResult(False, 0, "Corpse already processed")
 
         try:
+            # Distance check before attempting to loot
+            corpse_item = Items.FindBySerial(corpse_serial)
+            if corpse_item and hasattr(corpse_item, 'Position'):
+                player_x, player_y = Player.Position.X, Player.Position.Y
+                dx = player_x - corpse_item.Position.X
+                dy = player_y - corpse_item.Position.Y
+                distance = (dx * dx + dy * dy) ** 0.5
+                
+                config = self.config_manager.get_looting_config()
+                max_range = config.get('behavior', {}).get('max_looting_range', 3)
+                
+                if distance > max_range:
+                    Logger.info(f"LOOTING: Corpse {corpse_serial} too far ({distance:.1f} > {max_range}) - will retry when closer")
+                    return LootResult(False, 0, f"Out of range ({distance:.1f} tiles)")
+            
             # Check inventory space first
             if not self._has_inventory_space():
                 return LootResult(False, 0, "Inventory full")
 
             # Open the corpse container
             if not self._open_corpse_container(corpse_serial):
-                Logger.info(f"LOOTING: Failed to open corpse {corpse_serial}, marking as processed")
-                self._mark_corpse_as_processed(corpse_serial)
+                Logger.info(f"LOOTING: Failed to open corpse {corpse_serial} - may be out of range, will retry later")
                 return LootResult(False, 0, "Failed to open corpse")
 
             items_taken = 0
@@ -336,8 +350,7 @@ class LootingSystem:
                 # Get the corpse item
                 corpse_item = Items.FindBySerial(corpse_serial)
                 if not corpse_item:
-                    Logger.warning(f"LOOTING: Corpse {corpse_serial} not found")
-                    self._mark_corpse_as_processed(corpse_serial)
+                    Logger.warning(f"LOOTING: Corpse {corpse_serial} not found - may have decayed or moved out of range")
                     return LootResult(False, 0, "Corpse not found")
                 
                 # Use corpse.Contains to access items directly (proven working method)
@@ -364,7 +377,6 @@ class LootingSystem:
                         
             except Exception as e:
                 Logger.error(f"LOOTING: Error accessing corpse contents: {e}")
-                self._mark_corpse_as_processed(corpse_serial)
                 return LootResult(False, 0, f"Error accessing corpse: {str(e)}")
             
             # Process the items found (or mark as empty if none)
@@ -402,16 +414,29 @@ class LootingSystem:
                 else:
                     Logger.info(f"LOOTING: Skipping item: {item.Name if item else 'Unknown'}")
 
-            # Mark corpse as processed after looting
-            self._mark_corpse_as_processed(corpse_serial)
-            Logger.info(f"LOOTING: Finished processing corpse {corpse_serial}, collected {items_taken} items")
+            # Mark corpse as processed only if we successfully took items or corpse is confirmed empty
+            # If no items were taken due to failures, allow retry later
+            if items_taken > 0 or not corpse_items:
+                self._mark_corpse_as_processed(corpse_serial)
+                Logger.info(f"LOOTING: Finished processing corpse {corpse_serial}, collected {items_taken} items")
+            else:
+                Logger.info(f"LOOTING: No items successfully taken from corpse {corpse_serial} - will retry later")
 
             return LootResult(True, items_taken, f"Collected {items_taken} items")
 
         except Exception as e:
             Logger.error(f"Error looting corpse {corpse_serial}: {e}")
-            self._mark_corpse_as_processed(corpse_serial)
-            return LootResult(False, 0, f"Error: {str(e)}")
+            # Only mark as processed if it's a critical error that won't resolve by retrying
+            # Distance/access errors should allow retry when player returns
+            error_str = str(e).lower()
+            if "distance" in error_str or "range" in error_str or "reach" in error_str:
+                Logger.info(f"LOOTING: Distance-related error for corpse {corpse_serial} - will retry when in range")
+                return LootResult(False, 0, f"Distance error (will retry): {str(e)}")
+            else:
+                # Critical errors should mark as processed to avoid infinite retry
+                Logger.info(f"LOOTING: Critical error for corpse {corpse_serial} - marking as processed")
+                self._mark_corpse_as_processed(corpse_serial)
+                return LootResult(False, 0, f"Critical error: {str(e)}")
 
     def skin_creature(self, corpse_serial: int) -> SkinResult:
         """Skin a creature corpse.

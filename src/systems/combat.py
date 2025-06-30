@@ -58,6 +58,7 @@ class CombatSystem:
             # Get combat settings
             ignore_innocents = self.config_manager.get_combat_setting('target_selection.ignore_innocents')
             ignore_pets = self.config_manager.get_combat_setting('target_selection.ignore_pets')
+            allow_target_blues = self.config_manager.get_combat_setting('target_selection.allow_target_blues')
             max_range = self.config_manager.get_combat_setting('target_selection.max_range')
             
             # Basic checks
@@ -81,9 +82,35 @@ class CombatSystem:
                 return False
             
             # Check notoriety (color coding in UO)
-            # 1 = Innocent (blue), 2 = Friend (green), 3 = Gray, 4 = Criminal (gray), 5 = Orange, 6 = Red, 7 = Invulnerable
-            if ignore_innocents and mobile.Notoriety in [1, 2]:  # Skip innocents and friends
+            # 1 = Innocent (blue), 2 = Friend (green), 3 = Gray (can be attacked), 
+            # 4 = Criminal (gray), 5 = Orange (aggressive), 6 = Red (murderer), 7 = Invulnerable
+            
+            # Handle blue (innocent) targets based on configuration
+            if mobile.Notoriety == 1:  # Blue (innocent)
+                if not allow_target_blues:
+                    Logger.debug(f"Skipping blue mobile {mobile.Serial} - allow_target_blues is disabled")
+                    return False
+                else:
+                    Logger.debug(f"Allowing blue mobile {mobile.Serial} - allow_target_blues is enabled")
+            
+            # Always skip friends (green) - these are typically player allies
+            if mobile.Notoriety == 2:  # Green (friend)
+                Logger.debug(f"Skipping friend mobile {mobile.Serial} with notoriety {mobile.Notoriety}")
                 return False
+            
+            # Skip yellow (5) - these are often neutral NPCs that shouldn't be targeted
+            if mobile.Notoriety == 5:  # Yellow (orange/aggressive but often neutral)
+                Logger.debug(f"Skipping yellow mobile {mobile.Serial} with notoriety {mobile.Notoriety} (neutral NPC)")
+                return False
+                
+            # Skip invulnerable (7) - can't be attacked anyway
+            if mobile.Notoriety == 7:  # Invulnerable
+                Logger.debug(f"Skipping invulnerable mobile {mobile.Serial} with notoriety {mobile.Notoriety}")
+                return False
+            
+            # Allow gray (3), criminal (4), and red (6) - these are always valid targets
+            if mobile.Notoriety in [3, 4, 6]:
+                Logger.debug(f"Valid target mobile {mobile.Serial} with notoriety {mobile.Notoriety}")
             
             # Basic pet check - pets usually have certain naming patterns or are controlled
             if ignore_pets:
@@ -157,22 +184,62 @@ class CombatSystem:
         return targets
 
     def select_target(self, targets: List[Dict]) -> Optional[Dict]:
-        """Select a target based on priority (e.g., closest, lowest health)."""
+        """Select a target based on priority with smart engagement logic."""
         if not targets:
             return None
         
         try:
             priority_mode = self.config_manager.get_combat_setting('target_selection.priority_mode')
             
+            # ENHANCED TARGET SELECTION: Prioritize currently engaged target
+            # If we have a current target and it's still valid, keep fighting it unless there's a much better option
+            if self.current_target:
+                current_serial = self.current_target['serial']
+                # Check if current target is still in the available targets list
+                current_target_updated = None
+                for target in targets:
+                    if target['serial'] == current_serial:
+                        current_target_updated = target
+                        break
+                
+                if current_target_updated:
+                    # Current target is still valid and in range
+                    Logger.debug(f"Continuing engagement with current target: {current_target_updated['name']}")
+                    
+                    # Only switch if there's a SIGNIFICANTLY better target (much closer)
+                    # This prevents target bouncing and improves combat efficiency
+                    if len(targets) > 1:
+                        other_targets = [t for t in targets if t['serial'] != current_serial]
+                        if other_targets:
+                            closest_other = min(other_targets, key=lambda t: t['distance'])
+                            current_distance = current_target_updated['distance']
+                            closest_distance = closest_other['distance']
+                            
+                            # Only switch if the other target is MUCH closer (more than 3 tiles difference)
+                            switch_threshold = 3.0
+                            if current_distance - closest_distance > switch_threshold:
+                                Logger.info(f"Switching target: {closest_other['name']} is {current_distance - closest_distance:.1f} tiles closer")
+                                return closest_other
+                    
+                    return current_target_updated
+                else:
+                    Logger.debug("Current target no longer available, selecting new target")
+            
+            # No current target or current target lost - select best available target
             if priority_mode == 'closest':
                 # Sort by distance, closest first
                 targets.sort(key=lambda t: t['distance'])
-                return targets[0]
+                selected = targets[0]
+                Logger.debug(f"Selected closest target: {selected['name']} at {selected['distance']:.1f} tiles")
+                return selected
             
             elif priority_mode == 'lowest_health':
                 # Sort by health percentage, lowest first
                 targets.sort(key=lambda t: t['hits'] / max(t['hits_max'], 1))
-                return targets[0]
+                selected = targets[0]
+                health_pct = (selected['hits'] / max(selected['hits_max'], 1)) * 100
+                Logger.debug(f"Selected lowest health target: {selected['name']} at {health_pct:.1f}% health")
+                return selected
             
             elif priority_mode == 'highest_threat':
                 # Sort by combination of closeness and health (closer + more health = higher threat)
@@ -182,12 +249,16 @@ class CombatSystem:
                     return health_ratio * distance_factor
                 
                 targets.sort(key=threat_score, reverse=True)
-                return targets[0]
+                selected = targets[0]
+                Logger.debug(f"Selected highest threat target: {selected['name']}")
+                return selected
             
             else:
                 # Default to closest
                 targets.sort(key=lambda t: t['distance'])
-                return targets[0]
+                selected = targets[0]
+                Logger.debug(f"Selected target (default closest): {selected['name']} at {selected['distance']:.1f} tiles")
+                return selected
                 
         except Exception as e:
             Logger.error(f"Error selecting target: {e}")
