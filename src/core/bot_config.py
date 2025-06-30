@@ -3,7 +3,6 @@ Core Bot Configuration System
 Manages all configuration constants using the Singleton pattern and ConfigManager
 """
 
-import datetime
 from typing import Optional
 
 from ..config.config_manager import ConfigManager
@@ -19,7 +18,7 @@ class BotConfig:
     # Version Information
     VERSION = "3.1.1"
     VERSION_NAME = "Phase 3.1.1 - Ignore List Optimization"
-    BUILD_DATE = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+    BUILD_DATE = "2025-06-30"  # Static build date for consistent version tracking
 
     _instance: Optional["BotConfig"] = None
 
