@@ -46,7 +46,7 @@ This document contains the prioritized product backlog for DexBot. Items are org
   - *Automated equipment management, repair, and optimization*
   - **Effort**: 2-3 weeks | **Target**: v3.3.2
 
-- **FR-126**: Server-Specific Settings System → [PRD](medium-priority/FR-126_Server_Specific_Settings_System.md)
+- **FR-126**: Server-Specific Settings System → [PRD](../prds/FR-126_Server_Specific_Settings_System.md)
   - *Unchained UO server detection with automatic server-specific optimizations*
   - **Effort**: 1-2 weeks | **Target**: v3.2.2
 

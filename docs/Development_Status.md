@@ -15,8 +15,8 @@ This document tracks the development progress for the DexBot modular bot system.
 
 ### **✅ Latest Completed Work (June 30, 2025)**
 - **📋 PRD Documentation Overhaul**: Complete reorganization and accuracy review of all PRD documentation
-- ****🎯 Master PRD Created**: Comprehensive [PRD_Master.md](PRD_Master.md) covering system architecture  
-- **📝 Individual System PRDs**: Dedicated PRDs for [Auto Heal](PRD_Auto_Heal_System.md), [Combat](PRD_Combat_System.md), and [Looting](PRD_Looting_System.md) systems
+- ****🎯 Master PRD Created**: Comprehensive [PRD_Master.md](prds/archived/PRD_Master.md) covering system architecture  
+- **📝 Individual System PRDs**: Dedicated PRDs for [Auto Heal](prds/archived/PRD_Auto_Heal_System.md), [Combat](prds/archived/PRD_Combat_System.md), and [Looting](prds/archived/PRD_Looting_System.md) systems
 - **🔧 Configuration Accuracy**: Fixed all PRD configuration schemas to match actual implementation
 - **📁 File Structure Cleanup**: Proper naming conventions and cross-reference fixes
 
@@ -38,8 +38,8 @@ This document tracks the development progress for the DexBot modular bot system.
 
 ### ✅ **Documentation & PRD Accuracy Review** (NEW - June 30, 2025)
 - **FR-073**: Complete PRD documentation reorganization with proper naming conventions
-- **FR-074**: Create comprehensive [PRD_Master.md](PRD_Master.md) covering system architecture and integration
-- **FR-075**: Create individual system PRDs: [Auto Heal](PRD_Auto_Heal_System.md), [Combat](PRD_Combat_System.md), [Looting](PRD_Looting_System.md)
+- **FR-074**: Create comprehensive [PRD_Master.md](prds/archived/PRD_Master.md) covering system architecture and integration
+- **FR-075**: Create individual system PRDs: [Auto Heal](prds/archived/PRD_Auto_Heal_System.md), [Combat](prds/archived/PRD_Combat_System.md), [Looting](prds/archived/PRD_Looting_System.md)
 - **FR-076**: Fix configuration schema accuracy across all PRDs to match actual implementation
 - **FR-077**: Update Auto Heal PRD: critical_health_threshold (65% → 50%), healing_threshold_percentage (95% → 90%)
 - **FR-078**: Update Looting PRD: timing values and behavior settings to match current implementation
@@ -167,7 +167,7 @@ This document tracks the development progress for the DexBot modular bot system.
 - **Resource Intelligence**: Prevents waste of expensive reagents and consumables
 - **Seamless Integration**: Follows established DexBot architectural patterns
 
-*For detailed specifications, see [FR-084_Buff_Management_System.md](FR-084_Buff_Management_System.md)*
+*For detailed specifications, see [FR-084_Buff_Management_System.md](prds/FR-084_Buff_Management_System.md)*
 
 ---
 
@@ -192,7 +192,7 @@ This document tracks the development progress for the DexBot modular bot system.
 - **Durability Management**: Prevents equipment breakage through proactive monitoring
 - **Activity Optimization**: Different equipment sets for different activities
 
-*For detailed specifications, see [FR-096_Equipment_Manager_System.md](FR-096_Equipment_Manager_System.md)*
+*For detailed specifications, see [FR-096_Equipment_Manager_System.md](prds/FR-096_Equipment_Manager_System.md)*
 
 ---
 
@@ -214,7 +214,7 @@ This document tracks the development progress for the DexBot modular bot system.
 - **Seamless Integration**: Automatic detection and activation without user intervention
 - **Future Scalability**: Framework supports additional server implementations
 
-*For detailed specifications, see [FR-126_Server_Specific_Settings_System.md](backlog/medium-priority/FR-126_Server_Specific_Settings_System.md)*
+*For detailed specifications, see [FR-126_Server_Specific_Settings_System.md](prds/FR-126_Server_Specific_Settings_System.md)*
 
 ---
 
@@ -239,7 +239,7 @@ This document tracks the development progress for the DexBot modular bot system.
 - **Space Optimization**: Maximizes carrying capacity and efficiency
 - **Automation Completion**: Removes the last manual farming intervention
 
-*For detailed specifications, see [FR-095_Inventory_Management_System.md](FR-095_Inventory_Management_System.md)*
+*For detailed specifications, see [FR-095_Inventory_Management_System.md](prds/FR-095_Inventory_Management_System.md)*
 
 ---
 
@@ -248,7 +248,6 @@ This document tracks the development progress for the DexBot modular bot system.
 ### **Phase 3.2 (Q3 2025) - Foundation Systems**
 - ✅ **v3.2.0**: Buff Management System (2-3 weeks)
 - 🔄 **v3.2.1**: Equipment Manager System (1-2 weeks)
-- 🔄 **v3.2.2**: Server-Specific Settings System (1-2 weeks)
 - 🔄 **v3.2.2**: Server-Specific Settings System (1-2 weeks)
 
 ### **Phase 3.3 (Q4 2025) - Advanced Automation**
@@ -285,4 +284,4 @@ This document tracks the development progress for the DexBot modular bot system.
 
 ---
 
-*For technical details and system specifications, see the [Master PRD](PRD_Master.md) and individual system documentation.*
+*For technical details and system specifications, see the [Master PRD](prds/archived/PRD_Master.md) and individual system documentation.*

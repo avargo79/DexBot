@@ -38,6 +38,12 @@ Each PRD follows a standardized format:
   - Effort: 2-3 weeks
   - *Automated equipment management, repair, and optimization*
 
+- **[FR-126: Server-Specific Settings System](./FR-126_Server_Specific_Settings_System.md)**
+  - Status: 📝 Proposed
+  - Target: v3.2.2
+  - Effort: 1-2 weeks  
+  - *Unchained UO server detection with automatic server-specific optimizations*
+
 ### Future Features (P3+)
 *No future PRDs currently - see [Future Backlog](../backlog/future/features.md) for long-term ideas*
 
