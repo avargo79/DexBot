@@ -17,7 +17,7 @@ MAIN_FILE = "DexBot.py"
 BUNDLED_FILE = f"{DIST_DIR}/{MAIN_FILE}"
 DEFAULT_MAIN_CONFIG_PATH = "src/config/default_main_config.json"
 DEFAULT_AUTO_HEAL_CONFIG_PATH = "src/config/default_auto_heal_config.json"
-DEFAULT_LOOTING_CONFIG_PATH = "src/config/looting_config.json"
+DEFAULT_LOOTING_CONFIG_PATH = "src/config/default_looting_config.json"
 
 @task
 def clean(c):

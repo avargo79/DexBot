@@ -25,7 +25,7 @@ else:
     _config_dir = _os.path.dirname(_os.path.abspath(__file__))
     DEFAULT_MAIN_CONFIG = load_json_config(_os.path.join(_config_dir, 'default_main_config.json'))
     DEFAULT_AUTO_HEAL_CONFIG = load_json_config(_os.path.join(_config_dir, 'default_auto_heal_config.json'))
-    DEFAULT_LOOTING_CONFIG = load_json_config(_os.path.join(_config_dir, 'looting_config.json'))
+    DEFAULT_LOOTING_CONFIG = load_json_config(_os.path.join(_config_dir, 'default_looting_config.json'))
 
 
 class ConfigManager:
