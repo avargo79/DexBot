@@ -162,6 +162,26 @@ After running `python -m invoke build`:
 4. **Check timestamps** - Ensure `dist/DexBot.py` timestamp is newer than your source changes
 5. **Test in-game** - Load the script and verify your changes work as expected
 
+## 📝 Documentation Rules
+
+### Rule 12: Code Documentation
+- All classes need docstrings
+- All public methods need docstrings
+- Complex logic needs inline comments
+- Configuration options need descriptions
+
+### Rule 13: Testing Documentation
+- Document test results in detail
+- Include console output for analysis
+- Note any deviations from expected behavior
+- Update test checklists based on findings
+
+### Rule 14: Change Documentation
+- Write descriptive commit messages
+- Document architectural decisions
+- Update README for new features
+- Maintain changelog for version tracking
+
 ## ⚠️ Common Mistakes to Avoid
 
 ### Mistake 1: Editing Distribution Files (CRITICAL)
@@ -194,21 +214,85 @@ After running `python -m invoke build`:
 - **Right**: Check return values and handle failures appropriately
 - **Pattern**: `if not Items.MoveItem(...): handle_failure()`
 
-## 📝 Documentation Rules
+## 📂 Project Organization and Git Management Rules
 
-### Rule 13: Code Documentation
-- All classes need docstrings
-- All public methods need docstrings
-- Complex logic needs inline comments
-- Configuration options need descriptions
+### Rule 15: Git Status Analysis Pattern (CRITICAL)
+When reviewing unstaged changes:
+1. **Use git commands directly**: `git status --porcelain` instead of file system exploration
+2. **Categorize changes systematically**:
+   - ✅ **Recommended**: Source code improvements, documentation updates, proper reorganization
+   - ❓ **Questionable**: File deletions, major structural changes  
+   - 🚨 **Critical Issues**: Generated files being committed, missing build steps
+3. **Always reference development rules** when evaluating changes
+4. **Check against project documentation** for consistency
 
-### Rule 14: Testing Documentation
-- Document test results in detail
-- Include console output for analysis
-- Note any deviations from expected behavior
-- Update test checklists based on findings
+### Rule 16: File Staging Strategy (CRITICAL)
+When staging git changes:
+1. **NEVER stage generated files**: `dist/DexBot.py` should never be committed
+2. **Preserve instead of delete**: Move questionable files to `/archive/` directory
+3. **Stage in logical groups**: Separate source changes from documentation changes
+4. **Use specific git add commands**: `git add src/` instead of `git add -A` when possible
+5. **Always verify staged files**: Check `git status` before committing
+
+### Rule 17: Project Directory Structure (NEW)
+```
+DexBot/
+├── src/              # Source code (EDIT THESE)
+├── dist/            # Generated files (NEVER COMMIT)
+├── config/          # External configuration files
+├── ref/             # API references and documentation
+├── archive/         # Legacy/unused files (preserved)
+├── docs/            # Active project documentation
+└── tests/           # Current test files
+```
+
+### Rule 18: Legacy File Management
+- **Don't delete potentially useful files** - move to `/archive/` instead
+- **Preserve test infrastructure** - testing files should be archived, not deleted
+- **Keep build scripts** - even if unused, archive for future reference
+- **Document why files were archived** in commit messages
+
+### Rule 19: Change Review Process
+Before committing changes, always:
+1. **Run `git status --porcelain`** to see all changes
+2. **Categorize each change** (recommended/questionable/critical)
+3. **Check against development rules** for compliance
+4. **Ensure build process is complete** (`python -m invoke build`)
+5. **Verify no generated files are staged**
+6. **Write descriptive commit messages** explaining the reorganization
+
+### Rule 20: Agent Confusion Prevention
+When AI agents get confused or loop:
+1. **Stop and clarify the specific task** being requested
+2. **Use direct commands** instead of complex operations
+3. **Check spelling carefully** (e.g., "archive" not "archieve")
+4. **Verify each step** before proceeding to the next
+5. **Remember: Generated files should never be committed to git**
+
+## 📋 Quick Reference Checklist
+
+### Before Making Changes:
+- [ ] Understand which system needs modification
+- [ ] Locate correct source file in `src/`
+- [ ] Review existing code patterns
+- [ ] Plan logging strategy for debugging
+
+### After Making Changes:
+- [ ] Run `python -m invoke build`
+- [ ] Check for build errors
+- [ ] Test `dist/DexBot.py` in-game
+- [ ] Review git changes with `git status --porcelain`
+- [ ] Stage only source files, never generated files
+- [ ] Write descriptive commit message
+
+### For Debugging Issues:
+- [ ] Start with `Logger.info()` for visibility
+- [ ] Check debug mode configuration
+- [ ] Test specific user-reported scenarios
+- [ ] Verify UO API return values
+- [ ] Don't mark state as processed until confirmed
 
 ---
 
 *DexBot Development Rules - Always edit source files, never dist files*
-*Document Version: 2.0*
+*Document Version: 2.1 - Added Git Management and Project Organization Rules*
