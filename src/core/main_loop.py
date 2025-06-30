@@ -111,7 +111,7 @@ def run_dexbot():
             # Player is connected and alive - run enabled bot systems
             loop_start_time = time.time()
             timestamp = datetime.now().strftime("%H:%M:%S.%f")[:-3]  # Include milliseconds
-            Logger.info(f"MAIN LOOP: ===== Phase 3.1 Optimized - System Updates [{timestamp}] =====")
+            Logger.debug(f"MAIN LOOP: ===== Phase 3.1 Optimized - System Updates [{timestamp}] =====")
 
             # Check for shutdown requests (e.g., from GUMP close button)
             if status.is_shutdown_requested():

@@ -202,7 +202,7 @@ class LootingSystem:
         self._scan_for_corpses_if_needed(current_time)
         scan_duration = (time.time() - scan_start) * 1000
         if len(self.corpse_queue) > 0:
-            Logger.info(f"LOOTING: Found {len(self.corpse_queue)} corpses to process (scan: {scan_duration:.1f}ms)")
+            Logger.debug(f"LOOTING: Found {len(self.corpse_queue)} corpses to process (scan: {scan_duration:.1f}ms)")
         
         # Process corpse queue
         process_start = time.time()
@@ -273,7 +273,7 @@ class LootingSystem:
         corpse_filter.CheckIgnoreObject = True  # OPTIMIZATION: Exclude ignored corpses from search
         corpse_items = Items.ApplyFilter(corpse_filter)
         
-        Logger.info(f"LOOTING: Found {len(corpse_items) if corpse_items else 0} corpses in range {max_range} (excluding ignored)")
+        Logger.debug(f"LOOTING: Found {len(corpse_items) if corpse_items else 0} corpses in range {max_range} (excluding ignored)")
         
         return corpse_items if corpse_items else []
 
@@ -302,13 +302,13 @@ class LootingSystem:
                 dy = player_y - corpse_item.Position.Y
                 distance = (dx * dx + dy * dy) ** 0.5
                 
-                Logger.info(f"LOOTING: Processing corpse {corpse_item.Serial} at distance {distance:.1f}")
+                Logger.debug(f"LOOTING: Processing corpse {corpse_item.Serial} at distance {distance:.1f}")
                 
                 if distance <= max_range:
                     # Create corpse info
                     corpse_info = self._create_corpse_info(corpse_item, distance)
                     corpses.append(corpse_info)
-                    Logger.info(f"LOOTING: Added corpse {corpse_item.Serial} to queue")
+                    Logger.debug(f"LOOTING: Added corpse {corpse_item.Serial} to queue")
         
         return corpses
 
@@ -471,7 +471,7 @@ class LootingSystem:
         corpse_items = []
         
         try:
-            Logger.info(f"LOOTING: Attempting to access corpse {corpse_serial} contents")
+            Logger.debug(f"LOOTING: Attempting to access corpse {corpse_serial} contents")
             
             # Get the corpse item
             corpse_item = Items.FindBySerial(corpse_serial)
@@ -481,25 +481,25 @@ class LootingSystem:
             
             # Use corpse.Contains to access items directly (proven working method)
             if hasattr(corpse_item, 'Contains') and corpse_item.Contains:
-                Logger.info(f"LOOTING: Corpse has {len(corpse_item.Contains)} items")
+                Logger.debug(f"LOOTING: Corpse has {len(corpse_item.Contains)} items")
                 
                 # Access items directly from corpse.Contains
                 for item in corpse_item.Contains:
                     corpse_items.append(item)
                     item_name = getattr(item, 'Name', 'Unknown')
                     item_id = getattr(item, 'ItemID', 'Unknown')
-                    Logger.info(f"LOOTING: Available item: {item_name} (ID: {item_id})")
+                    Logger.debug(f"LOOTING: Available item: {item_name} (ID: {item_id})")
                 
-                Logger.info(f"LOOTING: Successfully found {len(corpse_items)} items via corpse.Contains")
+                Logger.debug(f"LOOTING: Successfully found {len(corpse_items)} items via corpse.Contains")
             else:
-                Logger.info(f"LOOTING: Corpse has no Contains property or is empty")
+                Logger.debug(f"LOOTING: Corpse has no Contains property or is empty")
                 
                 # Fallback: Try to find specific items by ID as backup (no retry needed)
                 Logger.info(f"LOOTING: Fallback - trying Items.FindByID for gold (1712)")
                 gold_item = Items.FindByID(1712, -1, corpse_serial)
                 if gold_item:
                     corpse_items.append(gold_item)
-                    Logger.info(f"LOOTING: Found gold item via fallback: {gold_item.Name} (Amount: {gold_item.Amount})")
+                    Logger.debug(f"LOOTING: Found gold item via fallback: {gold_item.Name} (Amount: {gold_item.Amount})")
                     
         except Exception as e:
             Logger.error(f"LOOTING: Error accessing corpse contents: {e}")
@@ -521,7 +521,7 @@ class LootingSystem:
         config = self.config_manager.get_looting_config()
         action_delay = config.get('timing', {}).get('loot_action_delay_ms', 200)
         
-        Logger.info(f"LOOTING: Processing {len(corpse_items)} items from corpse {corpse_serial}")
+        Logger.debug(f"LOOTING: Processing {len(corpse_items)} items from corpse {corpse_serial}")
         
         # Loot the items
         for item in corpse_items:
@@ -530,7 +530,7 @@ class LootingSystem:
                 break
 
             if item and self._should_loot_item(item):
-                Logger.info(f"LOOTING: Evaluating item: {item.Name} (ID: {item.ItemID})")
+                Logger.debug(f"LOOTING: Evaluating item: {item.Name} (ID: {item.ItemID})")
                 if self._take_item(item):
                     items_taken += 1
                     Logger.info(f"LOOTING: Successfully took item: {item.Name}")
