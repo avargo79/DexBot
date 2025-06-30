@@ -101,6 +101,11 @@ The Auto Heal System is a core component of DexBot that provides intelligent, au
 }
 ```
 
+**Threshold Behavior:**
+- `healing_threshold_percentage`: Start healing when health drops below this percentage
+- `critical_health_threshold`: Use healing potions immediately when health is **at or below** this percentage (inclusive ≤ comparison)
+- `bandage_threshold_hp`: Minimum HP threshold for bandage healing
+
 ### 4.3 Item Identification
 ```json
 {

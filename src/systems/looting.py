@@ -12,6 +12,11 @@ from ..config.config_manager import ConfigManager
 from ..core.logger import Logger, SystemStatus
 from ..utils.imports import Items, Misc, Mobiles, Player, Target, Timer
 
+# Constants for system performance tuning
+CACHE_CLEANUP_INTERVAL_SECONDS = 60  # Clean cache every minute
+MAX_EVALUATION_CACHE_SIZE = 1000  # Maximum cache entries before cleanup
+MAX_EVALUATION_CACHE_GROWTH_LIMIT = 500  # Prevent unbounded cache growth during evaluation
+
 
 class LootDecision(Enum):
     """Enumeration for item looting decisions."""
@@ -632,7 +637,7 @@ class LootingSystem:
         decision = self._evaluate_item_by_rules(item)
         
         # Cache the decision (limit cache size for memory efficiency)
-        if len(self.item_evaluation_cache) < 500:  # Prevent unbounded growth
+        if len(self.item_evaluation_cache) < MAX_EVALUATION_CACHE_GROWTH_LIMIT:
             self.item_evaluation_cache[cache_key] = decision
         
         return decision
@@ -706,9 +711,9 @@ class LootingSystem:
 
     def _cleanup_cache_if_needed(self, current_time: float) -> None:
         """Clean up expired cache entries and manage ignore list."""
-        if current_time - self.last_cache_cleanup >= 60:  # Cleanup every minute
+        if current_time - self.last_cache_cleanup >= CACHE_CLEANUP_INTERVAL_SECONDS:
             # Simple cache cleanup - in a real implementation you'd track timestamps
-            if len(self.item_evaluation_cache) > 1000:
+            if len(self.item_evaluation_cache) > MAX_EVALUATION_CACHE_SIZE:
                 self.item_evaluation_cache.clear()
                 Logger.debug("Cleared item evaluation cache")
             self.last_cache_cleanup = current_time

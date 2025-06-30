@@ -256,7 +256,10 @@ class ConfigManager:
             "healing_toggles": {"bandage_healing_enabled": True, "potion_healing_enabled": True},
             "health_thresholds": {
                 "healing_threshold_percentage": 95,
-                "critical_health_threshold": 50,  # Default value, matches actual config and code behavior
+                # Critical health threshold: When health drops to or below this percentage,
+                # healing potions will be used immediately. Uses inclusive comparison (<=).
+                # Set to 50 to use potions when health is 50% or lower.
+                "critical_health_threshold": 50,
                 "bandage_threshold_hp": 1,
             },
             "item_ids": {
