@@ -150,16 +150,16 @@ This document tracks the development progress for the DexBot modular bot system.
 
 #### ✨ **New System: Buff Management**
 - **FR-084**: Implement comprehensive Buff Management System as fourth major DexBot system
-- **FR-085**: Automatic buff detection and monitoring using RazorEnhanced Player.Buffs API
-- **FR-086**: Configurable buff lists with priority-based management ("always maintain", "combat only", etc.)
-- **FR-087**: Intelligent buff timing with 30-60 second pre-cast optimization
-- **FR-088**: Stamina management system with refresh potions and rest coordination
-- **FR-089**: Mana management coordination with healing system to prevent conflicts
-- **FR-090**: Consumable item management (potions, food, ammunition, reagents)
-- **FR-091**: Combat buff optimization with pre-combat preparation
-- **FR-092**: Performance optimization following Phase 3.1.1 patterns (<100ms execution)
-- **FR-093**: GUMP interface integration with buff status display and configuration
-- **FR-094**: Complete system integration with existing Combat, Healing, and Looting systems
+- **FR-084-01**: Automatic buff detection and monitoring using RazorEnhanced Player.Buffs API
+- **FR-084-02**: Configurable buff lists with priority-based management ("always maintain", "combat only", etc.)
+- **FR-084-03**: Intelligent buff timing with 30-60 second pre-cast optimization
+- **FR-084-04**: Stamina management system with refresh potions and rest coordination
+- **FR-084-05**: Mana management coordination with healing system to prevent conflicts
+- **FR-084-06**: Consumable item management (potions, food, ammunition, reagents)
+- **FR-084-07**: Combat buff optimization with pre-combat preparation
+- **FR-084-08**: Performance optimization following Phase 3.1.1 patterns (<100ms execution)
+- **FR-084-09**: GUMP interface integration with buff status display and configuration
+- **FR-084-10**: Complete system integration with existing Combat, Healing, and Looting systems
 
 #### 🎯 **Value Proposition**
 - **Complete Automation Cycle**: Completes the full farming automation (Heal → Combat → Loot → Buffs)
@@ -176,15 +176,15 @@ This document tracks the development progress for the DexBot modular bot system.
 
 #### ⚔️ **New System: Equipment Management**
 - **FR-096**: Implement Equipment Manager System for weapon and armor automation
-- **FR-097**: Automatic equipment detection and monitoring with durability tracking
-- **FR-098**: Weapon management with automatic re-equipping after death/disarm
-- **FR-099**: Armor management with equipment set configurations
-- **FR-100**: Death recovery system with full equipment restoration
-- **FR-101**: Equipment set management for different activities (combat, travel, crafting)
-- **FR-102**: Ammunition management for ranged weapons
-- **FR-103**: Durability monitoring with early warning alerts
-- **FR-104**: Performance optimization with caching and batch operations (<50ms execution)
-- **FR-105**: GUMP interface integration with equipment status and controls
+- **FR-096-01**: Automatic equipment detection and monitoring with durability tracking
+- **FR-096-02**: Weapon management with automatic re-equipping after death/disarm
+- **FR-096-03**: Armor management with equipment set configurations
+- **FR-096-04**: Death recovery system with full equipment restoration
+- **FR-096-05**: Equipment set management for different activities (combat, travel, crafting)
+- **FR-096-06**: Ammunition management for ranged weapons
+- **FR-096-07**: Durability monitoring with early warning alerts
+- **FR-096-08**: Performance optimization with caching and batch operations (<50ms execution)
+- **FR-096-09**: GUMP interface integration with equipment status and controls
 
 #### 🎯 **Value Proposition**
 - **Combat Reliability**: Ensures optimal weapon/armor configuration at all times
@@ -222,16 +222,16 @@ This document tracks the development progress for the DexBot modular bot system.
 **Target**: Q4 2025 | **Priority**: High | **Effort**: 2-3 weeks
 
 #### 📦 **New System: Inventory Management**
-- **FR-116**: Implement Inventory Management System for intelligent space optimization
-- **FR-117**: Automatic item categorization and valuation with configurable priority tables
-- **FR-118**: Intelligent space management with predictive algorithms
-- **FR-119**: Smart item dropping system based on value and importance
-- **FR-120**: Item organization and sorting with configurable patterns
-- **FR-121**: Container management for secure containers, pack animals, and storage
-- **FR-122**: Weight optimization with value-to-weight ratio analysis
-- **FR-123**: Valuable item protection with custom protection rules
-- **FR-124**: Inventory analytics and reporting with trend analysis
-- **FR-125**: Performance optimization with caching and batch operations (<150ms execution)
+- **FR-095**: Implement Inventory Management System for intelligent space optimization
+- **FR-095-01**: Automatic item categorization and valuation with configurable priority tables
+- **FR-095-02**: Intelligent space management with predictive algorithms
+- **FR-095-03**: Smart item dropping system based on value and importance
+- **FR-095-04**: Item organization and sorting with configurable patterns
+- **FR-095-05**: Container management for secure containers, pack animals, and storage
+- **FR-095-06**: Weight optimization with value-to-weight ratio analysis
+- **FR-095-07**: Valuable item protection with custom protection rules
+- **FR-095-08**: Inventory analytics and reporting with trend analysis
+- **FR-095-09**: Performance optimization with caching and batch operations (<150ms execution)
 
 #### 🎯 **Value Proposition**
 - **Extended Farming**: Eliminates inventory management interruptions
