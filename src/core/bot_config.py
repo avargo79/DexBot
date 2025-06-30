@@ -17,8 +17,8 @@ class BotConfig:
     """
 
     # Version Information
-    VERSION = "2.3.0"
-    VERSION_NAME = "Phase 2 - Looting System Complete"
+    VERSION = "3.0.0"
+    VERSION_NAME = "Phase 3 - Integration Testing"
     BUILD_DATE = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 
     _instance: Optional["BotConfig"] = None

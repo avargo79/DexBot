@@ -228,6 +228,53 @@ Before each test:
 - `tmp/testing_configs.py` - Comprehensive testing configurations
 - `tmp/testing_config_guide.md` - Step-by-step application guide
 
+## 🧪 Phase 3 Specific Rules
+
+### Rule 24: Integration Testing Protocol
+All Phase 3 tests must follow the integration testing protocol:
+1. **Test Environment**: Clean UO environment with multiple monsters
+2. **System State**: All systems enabled (healing, combat, looting)
+3. **Configuration**: Use production-ready settings, not test configs
+4. **Monitoring**: Watch all systems simultaneously for conflicts
+5. **Documentation**: Record exact system behavior and interactions
+
+### Rule 25: Multi-System Validation Pattern
+```python
+# Phase 3 validation pattern
+def validate_integration():
+    # 1. Verify all systems are enabled
+    assert healing_system.is_enabled()
+    assert combat_system.is_enabled()
+    assert looting_system.is_enabled()
+    
+    # 2. Test system priorities
+    # Healing > Combat > Looting
+    
+    # 3. Validate cross-system communication
+    # Combat generates corpses → Looting processes them
+    # Health drops → Healing activates during combat
+```
+
+### Rule 26: Performance Requirements for Phase 3
+- **Multi-System Performance**: All systems running < 10% CPU impact
+- **Memory Usage**: Combined systems < 10MB memory overhead
+- **Response Times**: System interactions < 250ms delay
+- **Concurrent Operations**: No deadlocks or infinite loops
+
+### Rule 27: Integration Error Handling
+Every system interaction must have error handling:
+```python
+try:
+    # Cross-system operation
+    pass
+except SystemIntegrationError as e:
+    Logger.error(f"Integration error: {e}")
+    # Graceful degradation, continue with other systems
+except Exception as e:
+    Logger.error(f"Unexpected integration error: {e}")
+    # Log and continue
+```
+
 ## ⚠️ Common Mistakes to Avoid
 
 ### Mistake 1: Editing Distribution Files
@@ -272,26 +319,26 @@ Before each test:
 
 ## 🎯 Current Development Focus
 
-**Phase 2: Looting System Core Logic Validation**
+**Phase 3: Integration Testing and System Integration**
 
-**COMPLETED**:
-- ✅ Fixed config synchronization issue (looting always "disabled")
-- ✅ Added gold item ID (1712) to always_take loot list
-- ✅ Enhanced debug logging throughout looting system
-- ✅ Discovered and documented critical build process requirement
-- ✅ Successfully completed Test 1 (Basic System Check)
-- ✅ Added comprehensive execution path logging to main loop and looting system
+**COMPLETED PHASES**:
+- ✅ **Phase 1**: System initialization and basic config validation
+- ✅ **Phase 2**: Core looting functionality validation and optimization
 
-**CURRENT STATUS**: 
-- Ready for Test 2 (Gold Detection) with enhanced logging
-- All systems properly enabled and configured
-- Build process established and documented
+**CURRENT PHASE 3 STATUS**: 
+- 🔄 Integration testing of all systems working together
+- 🔄 Multi-system coordination (Healing + Combat + Looting)
+- 🔄 Performance validation under realistic load
+- 🔄 Edge case handling and error recovery testing
 
-**Next Steps**: 
-1. Rerun Test 2 (Gold Detection) in-game with new info-level logging
-2. Analyze logging output to verify looting system execution path
-3. Continue through remaining tests in phase 2 checklist
-4. Address any issues found and proceed to Phase 3
+**Phase 3 Objectives**: 
+1. Test all systems working together without conflicts
+2. Validate combat → looting → healing workflow
+3. Test resource management under load conditions
+4. Verify error recovery and system resilience
+5. Performance optimization and bottleneck elimination
+
+**Current Task**: Multi-System Integration Testing
 
 **Key Files**:
 - `src/systems/looting.py` - Core looting logic (DO NOT EDIT dist/DexBot.py)
