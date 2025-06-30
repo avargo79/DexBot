@@ -3,6 +3,8 @@ Main Bot Loop and Entry Point for DexBot
 Coordinates all bot systems and handles the main execution loop
 """
 
+import time
+from datetime import datetime
 from ..config.config_manager import ConfigManager
 from ..core.bot_config import BotConfig, BotMessages, GumpState
 from ..core.logger import Logger, SystemStatus
@@ -107,7 +109,9 @@ def run_dexbot():
                     Journal.Clear()
 
             # Player is connected and alive - run enabled bot systems
-            Logger.info("MAIN LOOP: ===== Phase 3 Integration Test - System Updates =====")
+            loop_start_time = time.time()
+            timestamp = datetime.now().strftime("%H:%M:%S.%f")[:-3]  # Include milliseconds
+            Logger.info(f"MAIN LOOP: ===== Phase 3.1 Optimized - System Updates [{timestamp}] =====")
 
             # Check for shutdown requests (e.g., from GUMP close button)
             if status.is_shutdown_requested():
@@ -115,40 +119,60 @@ def run_dexbot():
                 break
 
             # Update GUMP system (handle interactions and periodic updates)
+            gump_start_time = time.time()
             update_gump_system()
+            gump_duration = (time.time() - gump_start_time) * 1000  # Convert to milliseconds
+            Logger.debug(f"MAIN LOOP: GUMP update completed in {gump_duration:.1f}ms")
 
-            # PHASE 3 INTEGRATION: Run systems in priority order
+            # PHASE 3.1 OPTIMIZATION: Run systems in priority order with minimal overhead
             # Priority: Healing > Combat > Looting
             
             # 1. Auto Heal system (highest priority - survival)
             if config.HEALING_ENABLED:
-                Logger.info("MAIN LOOP: Processing healing system...")
+                heal_start_time = time.time()
+                Logger.debug(f"MAIN LOOP: Processing healing system...")
                 process_healing_journal()
                 execute_auto_heal_system()
-                Logger.info("MAIN LOOP: Healing system completed")
+                heal_duration = (time.time() - heal_start_time) * 1000
+                if heal_duration > 200:  # Only log if significant time spent
+                    Logger.info(f"MAIN LOOP: Healing system completed in {heal_duration:.1f}ms")
 
             # 2. Combat system (medium priority - engagement)
-            Logger.info("MAIN LOOP: About to call combat_system.run()")
+            combat_start_time = time.time()
+            Logger.debug(f"MAIN LOOP: Processing combat system...")
             try:
                 combat_system.run()
-                Logger.info("MAIN LOOP: Combat system completed")
+                combat_duration = (time.time() - combat_start_time) * 1000
+                if combat_duration > 200:  # Only log if significant time spent
+                    Logger.info(f"MAIN LOOP: Combat system completed in {combat_duration:.1f}ms")
             except Exception as e:
-                Logger.error(f"MAIN LOOP: Error calling combat_system.run(): {e}")
-                import traceback
-                Logger.error(f"MAIN LOOP: Combat system traceback: {traceback.format_exc()}")
+                combat_duration = (time.time() - combat_start_time) * 1000
+                Logger.error(f"MAIN LOOP: Error in combat system after {combat_duration:.1f}ms: {e}")
 
             # 3. Looting system (lowest priority - cleanup)
-            Logger.info("MAIN LOOP: About to call looting_system.update()")
+            loot_start_time = time.time()
+            Logger.debug(f"MAIN LOOP: Processing looting system...")
             try:
                 looting_system.update()
-                Logger.info("MAIN LOOP: looting_system.update() completed successfully")
+                loot_duration = (time.time() - loot_start_time) * 1000
+                if loot_duration > 200:  # Only log if significant time spent
+                    Logger.info(f"MAIN LOOP: Looting system completed in {loot_duration:.1f}ms")
             except Exception as e:
-                Logger.error(f"MAIN LOOP: Error calling looting_system.update(): {e}")
-                import traceback
-                Logger.error(f"MAIN LOOP: Looting system traceback: {traceback.format_exc()}")
+                loot_duration = (time.time() - loot_start_time) * 1000
+                Logger.error(f"MAIN LOOP: Error in looting system after {loot_duration:.1f}ms: {e}")
 
-            Logger.info("MAIN LOOP: ===== All systems completed =====")
-
+            # Calculate total loop time
+            loop_duration = (time.time() - loop_start_time) * 1000
+            end_timestamp = datetime.now().strftime("%H:%M:%S.%f")[:-3]
+            
+            # Optimized logging: only show detailed timing for slow loops
+            if loop_duration > 1000:  # More than 1 second
+                Logger.warning(f"PERFORMANCE: Main loop took {loop_duration:.1f}ms - potential issue! [{end_timestamp}]")
+            elif loop_duration > 500:  # More than 500ms  
+                Logger.info(f"MAIN LOOP: All systems completed in {loop_duration:.1f}ms [{end_timestamp}]")
+            else:
+                Logger.debug(f"MAIN LOOP: All systems completed in {loop_duration:.1f}ms [{end_timestamp}]")
+            
             # Increment runtime counter and main loop delay
             status.increment_runtime()
             Misc.Pause(config.DEFAULT_SCRIPT_DELAY)

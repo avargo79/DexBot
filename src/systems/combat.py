@@ -5,6 +5,7 @@ Automates engaging and defeating enemies with smart target selection and combat 
 
 import math
 import time
+from datetime import datetime
 from typing import List, Optional, Dict
 
 from ..config.config_manager import ConfigManager
@@ -327,16 +328,19 @@ class CombatSystem:
 
     def run(self):
         """Main entry point for the combat system (to be called in main loop)."""
+        system_start_time = time.time()
+        timestamp = datetime.now().strftime("%H:%M:%S.%f")[:-3]
+        
         try:
             # Check if combat system is enabled
             if not self.config_manager.get_combat_setting('system_toggles.combat_system_enabled'):
-                Logger.debug("Combat system disabled - skipping combat logic")
+                Logger.debug(f"COMBAT [{timestamp}]: System disabled - skipping combat logic")
                 return
             
             # Safety checks
             if Player.IsGhost or not Player.Visible:
                 if self.current_target:
-                    Logger.debug("Player is ghost or invisible - disengaging from combat")
+                    Logger.debug(f"COMBAT [{timestamp}]: Player is ghost or invisible - disengaging from combat")
                     self.disengage()
                 return
             
@@ -344,38 +348,47 @@ class CombatSystem:
             if not Player.WarMode:
                 # If player exits war mode while fighting, disengage current target
                 if self.current_target:
-                    Logger.info("Player exited war mode - disengaging from combat")
+                    Logger.info(f"COMBAT [{timestamp}]: Player exited war mode - disengaging from combat")
                     self.disengage()
                 else:
-                    Logger.debug("Player not in war mode - combat system inactive")
+                    Logger.debug(f"COMBAT [{timestamp}]: Player not in war mode - combat system inactive")
                 return
             
             # Check if we should retreat due to low health first
+            health_check_start = time.time()
             retreat_on_low_health = self.config_manager.get_combat_setting('combat_behavior.retreat_on_low_health')
             if retreat_on_low_health:
                 health_threshold = self.config_manager.get_combat_setting('combat_behavior.retreat_health_threshold')
                 health_percentage = (Player.Hits / Player.HitsMax) * 100
                 
-                Logger.debug(f"Health check: {health_percentage:.1f}% (retreat threshold: {health_threshold}%)")
+                Logger.debug(f"COMBAT [{timestamp}]: Health check: {health_percentage:.1f}% (retreat threshold: {health_threshold}%)")
                 
                 if health_percentage < health_threshold:
                     if self.current_target:
-                        Logger.warning(f"Health too low ({health_percentage:.1f}%), retreating from combat")
+                        Logger.warning(f"COMBAT [{timestamp}]: Health too low ({health_percentage:.1f}%), retreating from combat")
                         self.disengage()
                     return
+            health_check_duration = (time.time() - health_check_start) * 1000
             
             # Check Auto Target and Auto Attack settings
+            settings_check_start = time.time()
             auto_target_enabled = self.config_manager.get_combat_setting('system_toggles.auto_target_enabled')
             auto_attack_enabled = self.config_manager.get_combat_setting('system_toggles.auto_attack_enabled')
+            settings_check_duration = (time.time() - settings_check_start) * 1000
             
-            Logger.debug(f"Combat settings - Auto Target: {auto_target_enabled}, Auto Attack: {auto_attack_enabled}")
+            Logger.debug(f"COMBAT [{timestamp}]: Settings - Auto Target: {auto_target_enabled}, Auto Attack: {auto_attack_enabled}")
             
             # If we have a current target, continue monitoring
             if self.current_target:
-                Logger.debug(f"Monitoring current target: {self.current_target.get('name', 'Unknown')} ({self.current_target.get('serial', 'N/A')})")
+                monitor_start = time.time()
+                Logger.debug(f"COMBAT [{timestamp}]: Monitoring current target: {self.current_target.get('name', 'Unknown')} ({self.current_target.get('serial', 'N/A')})")
                 if not self.monitor_combat(self.current_target):
                     # Target lost, disengage already called in monitor_combat
+                    monitor_duration = (time.time() - monitor_start) * 1000
+                    Logger.debug(f"COMBAT [{timestamp}]: Target monitoring completed in {monitor_duration:.1f}ms (target lost)")
                     return
+                monitor_duration = (time.time() - monitor_start) * 1000
+                Logger.debug(f"COMBAT [{timestamp}]: Target monitoring completed in {monitor_duration:.1f}ms")
                 
                 # Only continue attacking if auto attack is enabled
                 if auto_attack_enabled:
@@ -406,8 +419,20 @@ class CombatSystem:
             else:
                 Logger.debug("Auto targeting disabled - not scanning for new targets")
             
+            # Log performance timing
+            system_duration = (time.time() - system_start_time) * 1000
+            end_timestamp = datetime.now().strftime("%H:%M:%S.%f")[:-3]
+            
+            if system_duration > 500:  # More than 500ms
+                Logger.warning(f"COMBAT [{end_timestamp}]: System took {system_duration:.1f}ms - performance issue!")
+            elif system_duration > 200:  # More than 200ms
+                Logger.debug(f"COMBAT [{end_timestamp}]: System took {system_duration:.1f}ms - monitor performance")
+            else:
+                Logger.debug(f"COMBAT [{end_timestamp}]: System completed in {system_duration:.1f}ms")
+            
         except Exception as e:
-            Logger.error(f"Error in combat system run: {e}")
+            system_duration = (time.time() - system_start_time) * 1000
+            Logger.error(f"COMBAT: Error in combat system run after {system_duration:.1f}ms: {e}")
             self.disengage()
 
     def _ensure_health_bar(self, mobile_serial: int) -> None:

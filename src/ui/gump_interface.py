@@ -596,10 +596,9 @@ class GumpInterface:
             gd, f"Toggle Bandage Healing ({'ON' if config.BANDAGE_HEALING_ENABLED else 'OFF'})"
         )
 
-        bandage_count = Items.FindByID(
-            config.BANDAGE_ID, -1, Player.Backpack.Serial, config.SEARCH_RANGE
-        )
-        bandage_amount = bandage_count.Amount if bandage_count else 0
+        # Use more efficient BackpackCount method
+        bandage_count = Items.BackpackCount(config.BANDAGE_ID, -1)
+        bandage_amount = bandage_count
         bandage_line = f'<basefont color="#FFFFFF" size="3"><b>Bandage Healing:</b></basefont> <basefont color="{bandage_color}" size="2"><b>{bandage_status}</b></basefont> <basefont color="#CCCCCC" size="2">| Available: </basefont><basefont color="#FFFFFF" size="2"><b>{bandage_amount}</b></basefont> <basefont color="#CCCCCC" size="2">| Used: </basefont><basefont color="#FFFFFF" size="2"><b>{status.bandage_count}</b></basefont>'
 
         Gumps.AddHtml(
@@ -628,10 +627,9 @@ class GumpInterface:
             gd, f"Toggle Potion Healing ({'ON' if config.POTION_HEALING_ENABLED else 'OFF'})"
         )
 
-        heal_potion_count = Items.FindByID(
-            config.HEAL_POTION_ID, -1, Player.Backpack.Serial, config.SEARCH_RANGE
-        )
-        heal_potion_amount = heal_potion_count.Amount if heal_potion_count else 0
+        # Use more efficient BackpackCount method
+        heal_potion_count = Items.BackpackCount(config.HEAL_POTION_ID, -1)
+        heal_potion_amount = heal_potion_count
         potion_line = f'<basefont color="#FFFFFF" size="3"><b>Potion Healing:</b></basefont> <basefont color="{potion_color}" size="2"><b>{potion_status}</b></basefont> <basefont color="#CCCCCC" size="2">| Available: </basefont><basefont color="#FFFFFF" size="2"><b>{heal_potion_amount}</b></basefont> <basefont color="#CCCCCC" size="2">| Used: </basefont><basefont color="#FFFFFF" size="2"><b>{status.heal_potion_count}</b></basefont>'
 
         Gumps.AddHtml(

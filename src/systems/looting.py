@@ -4,6 +4,7 @@ Automates looting corpses and skinning creatures with intelligent item filtering
 """
 
 import time
+from datetime import datetime
 from typing import List, Optional, Dict, Tuple, Any
 from enum import Enum
 
@@ -87,7 +88,31 @@ class LootingSystem:
         self.cache_expiry = 300  # 5 minutes
         self.last_cache_cleanup = time.time()
         
-        Logger.info("Looting System initialized")
+        # PHASE 3.1.1: Ignore list optimization for performance
+        self._load_ignore_list_settings()
+        
+        Logger.info(f"Looting System initialized with ignore list optimization: {self.use_ignore_list}")
+
+    def _load_ignore_list_settings(self) -> None:
+        """Load ignore list optimization settings from configuration."""
+        try:
+            # Get performance optimization settings from main config
+            main_config = self.config_manager.get_main_setting('performance_optimization', {})
+            looting_opts = main_config.get('looting_optimizations', {})
+            
+            self.use_ignore_list = looting_opts.get('use_ignore_list', True)
+            self.ignore_list_cleanup_interval = looting_opts.get('ignore_list_cleanup_interval_seconds', 180)
+            self.last_ignore_cleanup = time.time()
+            self.ignored_corpses_count = 0  # Track ignored corpses for stats
+            
+            Logger.debug(f"LOOTING: Ignore list optimization: {self.use_ignore_list}, cleanup interval: {self.ignore_list_cleanup_interval}s")
+        except Exception as e:
+            # Fallback to defaults if config loading fails
+            Logger.warning(f"LOOTING: Failed to load ignore list settings, using defaults: {e}")
+            self.use_ignore_list = True
+            self.ignore_list_cleanup_interval = 180
+            self.last_ignore_cleanup = time.time()
+            self.ignored_corpses_count = 0
 
     def is_enabled(self) -> bool:
         """Check if the looting system is enabled.
@@ -113,45 +138,54 @@ class LootingSystem:
         
         This method should be called regularly from the main bot loop.
         """
-        Logger.info("LOOTING: update() called")
+        system_start_time = time.time()
         
-        # Detailed enablement check
-        self_enabled = self.enabled
-        config_enabled = self.config_manager.get_looting_config().get('enabled', False)
-        is_enabled_result = self.is_enabled()
-        
-        Logger.info(f"LOOTING: self.enabled={self_enabled}, config_enabled={config_enabled}, is_enabled()={is_enabled_result}")
-        
-        if not self.is_enabled():
-            Logger.info("LOOTING: System is disabled - skipping update")
+        # Quick enablement check (optimization)
+        if not self.enabled or not self.config_manager.get_looting_config().get('enabled', False):
             return
             
-        Logger.info("LOOTING: System is ENABLED - proceeding with update")
+        Logger.debug(f"LOOTING: System is ENABLED - proceeding with update")
 
         try:
             current_time = time.time()
-            Logger.info(f"LOOTING: Starting update cycle at {current_time:.2f}")
             
-            # Periodic cache cleanup
+            # Periodic cache cleanup (less frequent for performance)
+            cache_start = time.time()
             self._cleanup_cache_if_needed(current_time)
-            Logger.info("LOOTING: Cache cleanup completed")
+            cache_duration = (time.time() - cache_start) * 1000
+            if cache_duration > 10:
+                Logger.debug(f"LOOTING: Cache cleanup completed in {cache_duration:.1f}ms")
             
             # Scan for new corpses
-            Logger.info("LOOTING: About to scan for corpses")
+            scan_start = time.time()
             self._scan_for_corpses_if_needed(current_time)
-            Logger.info(f"LOOTING: Corpse scan completed - queue size: {len(self.corpse_queue)}")
+            scan_duration = (time.time() - scan_start) * 1000
+            if len(self.corpse_queue) > 0:
+                Logger.info(f"LOOTING: Found {len(self.corpse_queue)} corpses to process (scan: {scan_duration:.1f}ms)")
             
             # Process corpse queue
-            Logger.info("LOOTING: About to process corpse queue")
+            process_start = time.time()
             self._process_corpse_queue()
-            Logger.info("LOOTING: Corpse queue processing completed")
+            process_duration = (time.time() - process_start) * 1000
+            if process_duration > 50:
+                Logger.debug(f"LOOTING: Corpse queue processing completed in {process_duration:.1f}ms")
             
             # Update status periodically
             self._update_status_if_needed(current_time)
-            Logger.info("LOOTING: Update cycle completed successfully")
+            
+            # Log performance timing (only for slow operations)
+            system_duration = (time.time() - system_start_time) * 1000
+            
+            if system_duration > 1000:  # More than 1 second
+                Logger.warning(f"LOOTING: System took {system_duration:.1f}ms - performance issue!")
+            elif system_duration > 200:  # More than 200ms
+                Logger.info(f"LOOTING: System took {system_duration:.1f}ms - monitor performance")
+            else:
+                Logger.debug(f"LOOTING: System completed in {system_duration:.1f}ms")
             
         except Exception as e:
-            Logger.error(f"Error in Looting System update: {e}")
+            system_duration = (time.time() - system_start_time) * 1000
+            Logger.error(f"LOOTING: Error in Looting System update after {system_duration:.1f}ms: {e}")
 
     def scan_for_corpses(self) -> List[CorpseInfo]:
         """Scan for nearby corpses within configured range.
@@ -173,13 +207,14 @@ class LootingSystem:
             # Clean up old processed corpses cache
             self._cleanup_processed_corpses_cache(current_time)
             
-            # Find all corpse items in range using Items.Filter (more reliable than hardcoded ID)
+            # PHASE 3.1.1: Find all corpse items in range using optimized filter with ignore list
             corpse_filter = Items.Filter()
             corpse_filter.RangeMax = max_range
             corpse_filter.IsCorpse = True  # This filter finds all corpse types
+            corpse_filter.CheckIgnoreObject = True  # OPTIMIZATION: Exclude ignored corpses from search
             corpse_items = Items.ApplyFilter(corpse_filter)
             
-            Logger.info(f"LOOTING: Found {len(corpse_items) if corpse_items else 0} corpses in range {max_range}")
+            Logger.info(f"LOOTING: Found {len(corpse_items) if corpse_items else 0} corpses in range {max_range} (excluding ignored)")
             
             if corpse_items:
                 for corpse_item in corpse_items:
@@ -352,8 +387,9 @@ class LootingSystem:
                         items_taken += 1
                         Logger.info(f"LOOTING: Successfully took item: {item.Name}")
                         
-                        # Track gold specifically
-                        if hasattr(item, 'ItemID') and item.ItemID == 1712:
+                        # Track gold specifically (optimized check)
+                        item_id = getattr(item, 'ItemID', 0)
+                        if item_id == 0x06F4 or item_id == 0x06F5:  # Gold coins/piles 
                             gold_amount = getattr(item, 'Amount', 1)
                             self.stats['gold_collected'] += gold_amount
                             Logger.info(f"LOOTING: Collected {gold_amount} gold")
@@ -426,16 +462,21 @@ class LootingSystem:
         if not item or not hasattr(item, 'Name'):
             return LootDecision.NEVER_TAKE
 
+        # Optimized cache key using ItemID only for performance (items with same ID have same rules)
+        item_id = getattr(item, 'ItemID', 0)
+        cache_key = f"id_{item_id}"
+        
         # Check cache first
-        item_key = f"{item.ItemID}_{item.Name}"
-        if item_key in self.item_evaluation_cache:
-            return self.item_evaluation_cache[item_key]
+        if cache_key in self.item_evaluation_cache:
+            return self.item_evaluation_cache[cache_key]
 
         # Evaluate the item
         decision = self._evaluate_item_by_rules(item)
         
-        # Cache the decision
-        self.item_evaluation_cache[item_key] = decision
+        # Cache the decision (limit cache size for memory efficiency)
+        if len(self.item_evaluation_cache) < 500:  # Prevent unbounded growth
+            self.item_evaluation_cache[cache_key] = decision
+        
         return decision
 
     def get_status(self) -> Dict[str, Any]:
@@ -472,11 +513,26 @@ class LootingSystem:
         scan_interval = config.get('timing', {}).get('corpse_scan_interval_ms', 1000) / 1000.0
         
         if current_time - self.last_corpse_scan >= scan_interval:
+            # Early exit if we already have too many corpses queued (optimization)
+            max_queue_size = config.get('behavior', {}).get('max_corpse_queue_size', 10)
+            if len(self.corpse_queue) >= max_queue_size:
+                Logger.debug(f"LOOTING: Corpse queue at max size ({max_queue_size}), skipping scan")
+                self.last_corpse_scan = current_time
+                return
+                
             new_corpses = self.scan_for_corpses()
             # Add new corpses to queue (avoid duplicates)
+            added_count = 0
             for corpse in new_corpses:
                 if not any(existing.serial == corpse.serial for existing in self.corpse_queue):
                     self.corpse_queue.append(corpse)
+                    added_count += 1
+                    # Stop adding if we hit the queue limit (optimization)
+                    if len(self.corpse_queue) >= max_queue_size:
+                        break
+            
+            if added_count > 0:
+                Logger.debug(f"LOOTING: Added {added_count} new corpses to queue")
             
             self.last_corpse_scan = current_time
 
@@ -491,13 +547,27 @@ class LootingSystem:
             self.last_status_update = current_time
 
     def _cleanup_cache_if_needed(self, current_time: float) -> None:
-        """Clean up expired cache entries."""
+        """Clean up expired cache entries and manage ignore list."""
         if current_time - self.last_cache_cleanup >= 60:  # Cleanup every minute
             # Simple cache cleanup - in a real implementation you'd track timestamps
             if len(self.item_evaluation_cache) > 1000:
                 self.item_evaluation_cache.clear()
                 Logger.debug("Cleared item evaluation cache")
             self.last_cache_cleanup = current_time
+        
+        # PHASE 3.1.1: Periodic ignore list cleanup to prevent it from growing too large
+        if self.use_ignore_list and (current_time - self.last_ignore_cleanup >= self.ignore_list_cleanup_interval):
+            try:
+                # Clear ignore list periodically to prevent memory issues
+                # This is safe because we also track processed corpses in our own cache
+                Misc.ClearIgnore()
+                Logger.info(f"LOOTING: Cleared ignore list ({self.ignored_corpses_count} corpses were ignored)")
+                self.ignored_corpses_count = 0
+                self.last_ignore_cleanup = current_time
+            except Exception as e:
+                Logger.error(f"LOOTING: Failed to clear ignore list: {e}")
+                # Disable ignore list optimization if it's causing issues
+                self.use_ignore_list = False
 
     def _get_next_corpse_to_process(self) -> Optional[CorpseInfo]:
         """Get the next corpse to process from the queue."""
@@ -712,8 +782,9 @@ class LootingSystem:
                 Logger.debug(f"Successfully took {item_name}")
                 self.stats['items_collected'] += 1
                 
-                # Track gold specifically
-                if 'gold' in item_name.lower() or item.ItemID in [0x0EED, 0x0EEF]:  # Gold pile IDs
+                # Track gold specifically (optimized check)
+                item_id = getattr(item, 'ItemID', 0)
+                if item_id == 0x06F4 or item_id == 0x06F5:  # Gold coins/piles
                     self.stats['gold_collected'] += item_amount
                     
                 return True
@@ -852,6 +923,16 @@ class LootingSystem:
             corpse_serial: The serial number of the corpse
         """
         self.processed_corpses[corpse_serial] = time.time()
+        
+        # PHASE 3.1.1: Add corpse to ignore list for future filter optimizations
+        if self.use_ignore_list:
+            try:
+                Misc.IgnoreObject(corpse_serial)
+                self.ignored_corpses_count += 1
+                Logger.debug(f"LOOTING: Added corpse {corpse_serial} to ignore list (total ignored: {self.ignored_corpses_count})")
+            except Exception as e:
+                Logger.debug(f"LOOTING: Failed to add corpse {corpse_serial} to ignore list: {e}")
+        
         Logger.info(f"LOOTING: Marked corpse {corpse_serial} as processed")
 
     def _cleanup_processed_corpses_cache(self, current_time: float) -> None:

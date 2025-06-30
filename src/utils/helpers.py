@@ -41,11 +41,12 @@ def check_bandage_supply(log_errors: bool = True) -> int:
     config = BotConfig()
     messages = BotMessages()
 
-    bandages = Items.FindByID(config.BANDAGE_ID, -1, Player.Backpack.Serial, config.SEARCH_RANGE)
-    if bandages:
-        if bandages.Amount <= config.LOW_BANDAGE_WARNING and log_errors:
-            Logger.warning(messages.LOW_BANDAGES.format(bandages.Amount))
-        return bandages.Amount
+    # Use more efficient BackpackCount instead of FindByID when we only need count
+    bandage_count = Items.BackpackCount(config.BANDAGE_ID, -1)
+    if bandage_count > 0:
+        if bandage_count <= config.LOW_BANDAGE_WARNING and log_errors:
+            Logger.warning(messages.LOW_BANDAGES.format(bandage_count))
+        return bandage_count
     else:
         if log_errors:
             Logger.error(messages.NO_BANDAGES)
@@ -59,10 +60,7 @@ def has_healing_resources() -> Tuple[bool, bool]:
         Tuple of (has_bandages, has_heal_potions)
     """
     config = BotConfig()
-    has_bandages = bool(
-        Items.FindByID(config.BANDAGE_ID, -1, Player.Backpack.Serial, config.SEARCH_RANGE)
-    )
-    has_heal_potions = bool(
-        Items.FindByID(config.HEAL_POTION_ID, -1, Player.Backpack.Serial, config.SEARCH_RANGE)
-    )
+    # Use more efficient BackpackCount for resource checking
+    has_bandages = Items.BackpackCount(config.BANDAGE_ID, -1) > 0
+    has_heal_potions = Items.BackpackCount(config.HEAL_POTION_ID, -1) > 0
     return has_bandages, has_heal_potions

@@ -138,10 +138,8 @@ class SystemStatus:
         # Get current values
         current_health = Player.Hits
         current_max_health = Player.HitsMax
-        bandage_count = Items.FindByID(
-            config.BANDAGE_ID, -1, Player.Backpack.Serial, config.SEARCH_RANGE
-        )
-        current_bandages = bandage_count.Amount if bandage_count else 0
+        # Use more efficient BackpackCount method
+        current_bandages = Items.BackpackCount(config.BANDAGE_ID, -1)
         current_runtime = self.get_runtime_minutes()
         current_healing_enabled = config.HEALING_ENABLED
         current_debug_enabled = config.DEBUG_MODE
