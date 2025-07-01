@@ -1,0 +1,81 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.DPSMeter",
+    "itemKind": "class",
+    "itemClass": "DPSMeter",
+    "itemName": "DPSMeter",
+    "itemDescription": "The DPSMeter class implements a Damage Per Second meter which can be useful to tune meta-builds.(???)",
+    "flagAutocomplete": false
+  },
+  "methods": [
+    {
+      "returnType": "Int32",
+      "returnDesc": "Total damage.",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial of the Mobile."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.DPSMeter.GetDamage(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "DPSMeter",
+      "itemName": "GetDamage",
+      "itemDescription": "Get total damage per Mobile.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.DPSMeter.Pause",
+      "itemKind": "method",
+      "itemClass": "DPSMeter",
+      "itemName": "Pause",
+      "itemDescription": "Pause DPSMeter data recording.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.DPSMeter.Start",
+      "itemKind": "method",
+      "itemClass": "DPSMeter",
+      "itemName": "Start",
+      "itemDescription": "Start DPSMeter engine.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: is running - False: otherwise",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.DPSMeter.Status",
+      "itemKind": "method",
+      "itemClass": "DPSMeter",
+      "itemName": "Status",
+      "itemDescription": "Check DPSMeter Agent status, returns a bool value.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.DPSMeter.Stop",
+      "itemKind": "method",
+      "itemClass": "DPSMeter",
+      "itemName": "Stop",
+      "itemDescription": "Stop DPSMeter engine.",
+      "flagAutocomplete": false
+    }
+  ],
+  "properties": []
+}

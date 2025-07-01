@@ -1,0 +1,88 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.Tile",
+    "itemKind": "class",
+    "itemClass": "Tile",
+    "itemName": "Tile",
+    "itemDescription": "Class representing an (X,Y) coordinate. Optimized for pathfinding tasks.",
+    "flagAutocomplete": false
+  },
+  "methods": [
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "obj",
+          "itemType": "Object",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.Tile.Equals(System.Object)",
+      "itemKind": "method",
+      "itemClass": "Tile",
+      "itemName": "Equals",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Int32",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.Tile.GetHashCode",
+      "itemKind": "method",
+      "itemClass": "Tile",
+      "itemName": "GetHashCode",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "String",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.Tile.ToString",
+      "itemKind": "method",
+      "itemClass": "Tile",
+      "itemName": "ToString",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    }
+  ],
+  "properties": [
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Tile.Conflict",
+      "itemKind": "property",
+      "itemClass": "Tile",
+      "itemName": "Conflict",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Tile.X",
+      "itemKind": "property",
+      "itemClass": "Tile",
+      "itemName": "X",
+      "itemDescription": "Coordinate X.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Tile.Y",
+      "itemKind": "property",
+      "itemClass": "Tile",
+      "itemName": "Y",
+      "itemDescription": "Coordinate Y.",
+      "flagAutocomplete": false
+    }
+  ]
+}

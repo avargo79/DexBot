@@ -1,0 +1,46 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.Property",
+    "itemKind": "class",
+    "itemClass": "Property",
+    "itemName": "Property",
+    "itemDescription": "",
+    "flagAutocomplete": false
+  },
+  "methods": [
+    {
+      "returnType": "String",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.Property.ToString",
+      "itemKind": "method",
+      "itemClass": "Property",
+      "itemName": "ToString",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    }
+  ],
+  "properties": [
+    {
+      "propertyType": "String",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Property.Args",
+      "itemKind": "property",
+      "itemClass": "Property",
+      "itemName": "Args",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Property.Number",
+      "itemKind": "property",
+      "itemClass": "Property",
+      "itemName": "Number",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    }
+  ]
+}

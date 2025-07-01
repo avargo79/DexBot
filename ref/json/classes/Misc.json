@@ -1,0 +1,2015 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.Misc",
+    "itemKind": "class",
+    "itemClass": "Misc",
+    "itemName": "Misc",
+    "itemDescription": "The Misc class contains general purpose functions of common use.",
+    "flagAutocomplete": false
+  },
+  "methods": [
+    {
+      "returnType": "List[String]",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.AllSharedValue",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "AllSharedValue",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "fileName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "lineOfData",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.AppendNotDupToFile(System.String,System.String)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "AppendNotDupToFile",
+      "itemDescription": "Allows creation and append of a file within RE ValidLocations.\nFor OSI/RE this is only the RE directory / sub-directories\nFor CUO/RE this is only CUO or RE directory / sub-directories\nThe filename MUST end in a limited file suffix list\nChecks to see if an identical line is already in the file, and does not add if it exists",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "fileName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "lineOfData",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.AppendToFile(System.String,System.String)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "AppendToFile",
+      "itemDescription": "Allows creation and append of a file within RE ValidLocations.\nFor OSI/RE this is only the RE directory / sub-directories\nFor CUO/RE this is only CUO or RE directory / sub-directories\nThe filename MUST end in a limited file suffix list",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.Beep",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "Beep",
+      "itemDescription": "Play Beep system sound.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.CancelPrompt",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "CancelPrompt",
+      "itemDescription": "Cancel a prompt request.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "String",
+      "returnDesc": "The path to the saved file.",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.CaptureNow",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "CaptureNow",
+      "itemDescription": "Creates a snapshot of the current UO window.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "profileName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Name of profile to load"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.ChangeProfile(System.String)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "ChangeProfile",
+      "itemDescription": "Allow the scripted loading of a profile",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: Object is ignored - False: otherwise.",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial to check."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.CheckIgnoreObject(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "CheckIgnoreObject",
+      "itemDescription": "Check object from ignore list, return true if present. Can check Serial, Items or Mobiles",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "entity",
+          "itemType": "UOEntity",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.CheckIgnoreObject(Assistant.UOEntity)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "CheckIgnoreObject",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: Shared value exists - False: otherwise.",
+      "paramList": [
+        {
+          "itemName": "name",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Name of the value."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.CheckSharedValue(System.String)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "CheckSharedValue",
+      "itemDescription": "Check if a shared value exixts.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.ClearDragQueue",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "ClearDragQueue",
+      "itemDescription": "Clear the Drag-n-Drop queue.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.ClearIgnore",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "ClearIgnore",
+      "itemDescription": "Clear ignore list from all object",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.CloseBackpack",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "CloseBackpack",
+      "itemDescription": "Close the backpack. \n(OSI client only, no ClassicUO)",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.CloseMenu",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "CloseMenu",
+      "itemDescription": "Close opened Old Menu.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "String",
+      "returnDesc": "Full path to the Scripts Directory.",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.ConfigDirectory",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "ConfigDirectory",
+      "itemDescription": "Get the full path to the Config Directory.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial of the Entity"
+        },
+        {
+          "itemName": "respone_num",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Poition of the option in the menu. Starts from 0."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.ContextReply(System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "ContextReply",
+      "itemDescription": "Respond to a context menu on mobile or item. Menu ID is base zero, or can use string of menu text.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "serial number of the item to get a context menu from"
+        },
+        {
+          "itemName": "menu_name",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Name of the Entry as wirtten in-game."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.ContextReply(System.Int32,System.String)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "ContextReply",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "entity",
+          "itemType": "UOEntity",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "menu_num",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.ContextReply(Assistant.UOEntity,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "ContextReply",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "entity",
+          "itemType": "UOEntity",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "menu_name",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.ContextReply(Assistant.UOEntity,System.String)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "ContextReply",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "String",
+      "returnDesc": "Full path to the Config Directory.",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.DataDirectory",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "DataDirectory",
+      "itemDescription": "Get the full path to the Config Directory.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "fileName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.DeleteFile(System.String)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "DeleteFile",
+      "itemDescription": "Allows deletion of a file within RE ValidLocations.\nFor OSI/RE this is only the RE directory / sub-directories\nFor CUO/RE this is only CUO or RE directory / sub-directories\nThe filename MUST end in a limited file suffix list",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.Disconnect",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "Disconnect",
+      "itemDescription": "Force client to disconnect.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Int32",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "X1",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "X co-ordinate of first place."
+        },
+        {
+          "itemName": "Y1",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Y co-ordinate of first place."
+        },
+        {
+          "itemName": "X2",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "X co-ordinate of second place."
+        },
+        {
+          "itemName": "Y2",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Y co-ordinate of second place."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.Distance(System.Int32,System.Int32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "Distance",
+      "itemDescription": "Returns the UO distance between the 2 sets of co-ordinates.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Double",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "point_a",
+          "itemType": "Point3D",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "First coordinates."
+        },
+        {
+          "itemName": "point_b",
+          "itemType": "Point3D",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Second coordinates."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.DistanceSqrt(RazorEnhanced.Point3D,RazorEnhanced.Point3D)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "DistanceSqrt",
+      "itemDescription": "Compute the distance between 2 Point3D using pythagorian.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "path",
+          "itemType": "String",
+          "itemHasDefault": true,
+          "itemDefaultValue": null,
+          "itemDescription": "Name of the output file. (default: Config/AutoComplete.json )"
+        },
+        {
+          "itemName": "pretty",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": "Print a readable JSON. (default: True )"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.ExportPythonAPI(System.String,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "ExportPythonAPI",
+      "itemDescription": "Return a string containing list RE Python API list in JSON format.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "enable",
+          "itemType": "Boolean",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "True: enable seasons filter"
+        },
+        {
+          "itemName": "seasonFlag",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "0: Spring (default fallback)\n1: Summer\n2: Fall\n3: Winter\n4: Desolation"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.FilterSeason(System.Boolean,System.UInt32)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "FilterSeason",
+      "itemDescription": "Enable or disable the Seasons filter forcing a specific season\nSeason filter state will be saved on logout but not the season flag that will be recovered.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.FocusUOWindow",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "FocusUOWindow",
+      "itemDescription": "Set UoClient window in focus or restore if minimized.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Point",
+      "returnDesc": "Return X,Y coordinates as a Point2D",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.GetContPosition",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "GetContPosition",
+      "itemDescription": "Get the position of the currently active Gump/Container.\n(OSI client only, no ClassicUO)",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Misc.MapInfo",
+      "returnDesc": "A MapInfo object.",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial of the object."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.GetMapInfo(System.UInt32)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "GetMapInfo",
+      "itemDescription": "Get MapInfo about a Mobile or Item using the serial",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "String",
+      "returnDesc": "Text of the title.",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.GetMenuTitle",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "GetMenuTitle",
+      "itemDescription": "Get the title of title for open Old Menu.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Rectangle",
+      "returnDesc": "Rectangle object. Properties: X, Y, Width, Height.",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.GetWindowSize",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "GetWindowSize",
+      "itemDescription": "Get a Rectangle representing the window size.\nSee also: https://docs.microsoft.com/dotnet/api/system.drawing.rectangle",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: is open - False: otherwise",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.HasMenu",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "HasMenu",
+      "itemDescription": "Check if an Old Menu is open.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: there is a prompt - False: otherwise",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.HasPrompt",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "HasPrompt",
+      "itemDescription": "Check if have a prompt request.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: Has quesy - False: otherwise.",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.HasQueryString",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "HasQueryString",
+      "itemDescription": "Check if a have a query string menu opened, return true or false.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial to ignore."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.IgnoreObject(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "IgnoreObject",
+      "itemDescription": "Add an entiry to the ignore list. Can ignore Serial, Items or Mobiles.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "entity",
+          "itemType": "UOEntity",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.IgnoreObject(Assistant.UOEntity)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "IgnoreObject",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.Inspect",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "Inspect",
+      "itemDescription": "Prompt the user with a Target. Open the inspector for the selected target.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "Return True - is an Item False - is not an item",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial number of object to test is Item"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.IsItem(System.UInt32)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "IsItem",
+      "itemDescription": "Determine if the serial is an item",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "Return True - is a mobile False - is not a mobile",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial number of object to test is Mobile"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.IsMobile(System.UInt32)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "IsMobile",
+      "itemDescription": "Determine if the serial is a mobile",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "HotKeyEvent",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.LastHotKey",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "LastHotKey",
+      "itemDescription": "Returns the latest HotKey recorded by razor as HotKeyEvent object.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "xpos",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "X click coordinate."
+        },
+        {
+          "itemName": "ypos",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Y click coordinate."
+        },
+        {
+          "itemName": "clientCoords",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": "True: Client coordinates.- False:Screen coordinates (default: True, client)."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.LeftMouseClick(System.Int32,System.Int32,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "LeftMouseClick",
+      "itemDescription": "Perform a phisical left click on the window using Windows API.\nIs possible to use abolute Screen Coordinates by setting clientCoords=False.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: Text found - False: otherwise.",
+      "paramList": [
+        {
+          "itemName": "text",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Text to search."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.MenuContain(System.String)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "MenuContain",
+      "itemDescription": "Search in open Old Menu if contains a specific text.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "text",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Name of subitem to respond."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.MenuResponse(System.String)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "MenuResponse",
+      "itemDescription": "Perform a menu response by subitem name. If item not exist close menu.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Point",
+      "returnDesc": "Return X,Y coords as Point object.",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.MouseLocation",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "MouseLocation",
+      "itemDescription": "Returns a point with the X and Y coordinates of the mouse relative to the UO Window",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "posX",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "X screen coordinate."
+        },
+        {
+          "itemName": "posY",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Y screen coordinate."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.MouseMove(System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "MouseMove",
+      "itemDescription": "Moves the mouse pointer to the position X,Y relative to the UO window",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "X coordinate."
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Y coordinate."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.NextContPosition(System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "NextContPosition",
+      "itemDescription": "Return the X,Y of the next container, relative to the game window.\n(OSI client only, no ClassicUO)",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.NoOperation",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "NoOperation",
+      "itemDescription": "Just do nothing and enjot the present moment.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: Open is active - False: otherwise.",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.NoRunStealthStatus",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "NoRunStealthStatus",
+      "itemDescription": "Get the status of \"No Run When Stealth\" via scripting.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "enable",
+          "itemType": "Boolean",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "True: enable the option."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.NoRunStealthToggle(System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "NoRunStealthToggle",
+      "itemDescription": "Set \"No Run When Stealth\" via scripting. Changes via scripting are not persistents.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.OpenPaperdoll",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "OpenPaperdoll",
+      "itemDescription": "Open the backpack. \n(OSI client only, no ClassicUO)",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "millisec",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Pause duration, in milliseconds."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.Pause(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "Pause",
+      "itemDescription": "Pause the script for a given amount of time.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial of the pet."
+        },
+        {
+          "itemName": "name",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "New name to set."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.PetRename(System.Int32,System.String)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "PetRename",
+      "itemDescription": "Rename a specific pet.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "mob",
+          "itemType": "Mobile",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Mobile object representing the pet."
+        },
+        {
+          "itemName": "name",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "name to assign to the pet"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.PetRename(RazorEnhanced.Mobile,System.String)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "PetRename",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "sound",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "The sound to play."
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "The x point to send sound to."
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "The y point to send sound to."
+        },
+        {
+          "itemName": "z",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "The z point to send sound to."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.PlaySound(System.Int32,System.Int32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "PlaySound",
+      "itemDescription": "Send a sound to the client.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "okcancel",
+          "itemType": "Boolean",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "OK Button"
+        },
+        {
+          "itemName": "response",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Cancel Button"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.QueryStringResponse(System.Boolean,System.String)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "QueryStringResponse",
+      "itemDescription": "Perform a query string response by ok or cancel button and specific response string.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "String",
+      "returnDesc": "Path as text",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.RazorDirectory",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "RazorDirectory",
+      "itemDescription": "Get the full path to the main Razor Enhanced folder.\nThis path maybe be different from the Python starting folder when RE is loaded as plugin (ex: ClassicUO)",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Object",
+      "returnDesc": "The stored object.",
+      "paramList": [
+        {
+          "itemName": "name",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Name of the value."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.ReadSharedValue(System.String)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "ReadSharedValue",
+      "itemDescription": "Get a Shared Value, if value not exist return null.\nShared values are accessible by every script.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "fileName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "lineOfData",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.RemoveLineInFile(System.String,System.String)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "RemoveLineInFile",
+      "itemDescription": "Allows removal of a line in a file within RE ValidLocations.\nFor OSI/RE this is only the RE directory / sub-directories\nFor CUO/RE this is only CUO or RE directory / sub-directories\nThe filename MUST end in a limited file suffix list\nChecks to see if an identical line is in the file, and if it exists, it is removed and file written",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "name",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Name of the value."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.RemoveSharedValue(System.String)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "RemoveSharedValue",
+      "itemDescription": "Remove a Shared Value.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.ResetPrompt",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "ResetPrompt",
+      "itemDescription": "Reset a prompt response.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "text",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Text of the response."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.ResponsePrompt(System.String)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "ResponsePrompt",
+      "itemDescription": "Response a prompt request. Often used to rename runes and similar.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.Resync",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "Resync",
+      "itemDescription": "Trigger a client ReSync.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "xpos",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "X click coordinate."
+        },
+        {
+          "itemName": "ypos",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Y click coordinate."
+        },
+        {
+          "itemName": "clientCoords",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": "True: Client coordinates - False: Screen coordinates (default: True, client)."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.RightMouseClick(System.Int32,System.Int32,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "RightMouseClick",
+      "itemDescription": "Perform a phisical Right click on the window.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "String",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "fullpath",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": "True:Returns the full path. False: Returns the filename. (Dafault: true)"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.ScriptCurrent(System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "ScriptCurrent",
+      "itemDescription": "Returns the path of the current script.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "String",
+      "returnDesc": "Full path to the Scripts Directory.",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.ScriptDirectory",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "ScriptDirectory",
+      "itemDescription": "Get the full path to the Scripts Directory.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: Script is suspended - False: otherwise.",
+      "paramList": [
+        {
+          "itemName": "scriptfile",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.ScriptIsSuspended(System.String)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "ScriptIsSuspended",
+      "itemDescription": "Get status of script if is suspended or not, Script must be present in script grid.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "scriptfile",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Name of the script."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.ScriptResume(System.String)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "ScriptResume",
+      "itemDescription": "Resume a script by file name, Script must be present in script grid.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "scriptfile",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Name of the script."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.ScriptRun(System.String)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "ScriptRun",
+      "itemDescription": "Run a script by file name, Script must be present in script grid.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: Script is running - False: otherwise.",
+      "paramList": [
+        {
+          "itemName": "scriptfile",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.ScriptStatus(System.String)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "ScriptStatus",
+      "itemDescription": "Get status of script if running or not, Script must be present in script grid.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "scriptfile",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Name of the script."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.ScriptStop(System.String)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "ScriptStop",
+      "itemDescription": "Stop a script by file name, Script must be present in script grid.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "skipCurrent",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "False",
+          "itemDescription": "True: Stop all scripts, but the current one - False: stop all scripts. (Dafault: false)"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.ScriptStopAll(System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "ScriptStopAll",
+      "itemDescription": "Stop all script running.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "scriptfile",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Name of the script."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.ScriptSuspend(System.String)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "ScriptSuspend",
+      "itemDescription": "Suspend a script by file name, Script must be present in script grid.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "msg",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "The object to print."
+        },
+        {
+          "itemName": "color",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Color of the message."
+        },
+        {
+          "itemName": "wait",
+          "itemType": "Boolean",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "True: Wait for confimation. - False: Returns instatnly."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.SendMessage(System.String,System.Int32,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "SendMessage",
+      "itemDescription": "Send a message to the client.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "obj",
+          "itemType": "Object",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "color",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.SendMessage(System.Object,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "SendMessage",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "num",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "color",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.SendMessage(System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "SendMessage",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "num",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "color",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.SendMessage(System.UInt32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "SendMessage",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "msg",
+          "itemType": "Boolean",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "color",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.SendMessage(System.Boolean,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "SendMessage",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "msg",
+          "itemType": "Double",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "color",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.SendMessage(System.Double,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "SendMessage",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "msg",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "wait",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.SendMessage(System.String,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "SendMessage",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "num",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.SendMessage(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "SendMessage",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "obj",
+          "itemType": "Object",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.SendMessage(System.Object)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "SendMessage",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "num",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.SendMessage(System.UInt32)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "SendMessage",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "msg",
+          "itemType": "Boolean",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.SendMessage(System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "SendMessage",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "msg",
+          "itemType": "Double",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.SendMessage(System.Double)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "SendMessage",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "num",
+          "itemType": "Single",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.SendMessage(System.Single)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "SendMessage",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "keys",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "List of keys."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.SendToClient(System.String)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "SendToClient",
+      "itemDescription": "Send to the client a list of keystrokes. Can contain control characters: \n- Send Control+Key: ctrl+u: ^u\n- Send ENTER: {Enter}\nNote: some keys don't work with ClassicUO (es: {Enter} )",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "name",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Name of the value."
+        },
+        {
+          "itemName": "value",
+          "itemType": "Object",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Value to set."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.SetSharedValue(System.String,System.Object)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "SetSharedValue",
+      "itemDescription": "Set a Shared Value by specific name, if value exist he repalce value.\nShared values are accessible by every script.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "String",
+      "returnDesc": "Name of the shard",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.ShardName",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "ShardName",
+      "itemDescription": "Get the name of the shard.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial to unignore."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.UnIgnoreObject(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "UnIgnoreObject",
+      "itemDescription": "Remove object from ignore list. Can remove serial, items or mobiles",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "entity",
+          "itemType": "UOEntity",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Item to unignore."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.UnIgnoreObject(Assistant.UOEntity)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "UnIgnoreObject",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: Optiona selected succesfully - False: otherwise.",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial of the Item or Mobile."
+        },
+        {
+          "itemName": "choice",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Option as Text or integer."
+        },
+        {
+          "itemName": "delay",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Maximum wait for the action to complete."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.UseContextMenu(System.Int32,System.String,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "UseContextMenu",
+      "itemDescription": "Open and click the option of Context menu, given the serial of Mobile or Item, via packets.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "List[Misc.Context]",
+      "returnDesc": "A List of Context objects.",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial of the entity."
+        },
+        {
+          "itemName": "delay",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Maximum wait."
+        },
+        {
+          "itemName": "showContext",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "False",
+          "itemDescription": "Show context menu in-game. (default: True)"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.WaitForContext(System.Int32,System.Int32,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "WaitForContext",
+      "itemDescription": "Return the List entry of a Context menu, of Mobile or Item objects.\nThe function will ask the server for the List and wait for a maximum amount of time.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "List[Misc.Context]",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "mob",
+          "itemType": "Mobile",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Entity as Item object."
+        },
+        {
+          "itemName": "delay",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "max time to wait for context"
+        },
+        {
+          "itemName": "showContext",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "False",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.WaitForContext(RazorEnhanced.Mobile,System.Int32,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "WaitForContext",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "List[Misc.Context]",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "itm",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Entity as Item object."
+        },
+        {
+          "itemName": "delay",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "max time to wait for context"
+        },
+        {
+          "itemName": "showContext",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "False",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.WaitForContext(RazorEnhanced.Item,System.Int32,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "WaitForContext",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: if the Old Menu is open - False: otherwise.",
+      "paramList": [
+        {
+          "itemName": "delay",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Maximum wait, in milliseconds."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.WaitForMenu(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "WaitForMenu",
+      "itemDescription": "Pause script until server send an Old Menu, for a maximum amount of time.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: Prompt is present - False: otherwise",
+      "paramList": [
+        {
+          "itemName": "delay",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Maximum wait time."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.WaitForPrompt(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "WaitForPrompt",
+      "itemDescription": "Wait for a prompt for a maximum amount of time.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: if player has a query - False: otherwise.",
+      "paramList": [
+        {
+          "itemName": "delay",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Maximum wait, in milliseconds."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Misc.WaitForQueryString(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Misc",
+      "itemName": "WaitForQueryString",
+      "itemDescription": "Pause script until server send query string request, for a maximum amount of time.",
+      "flagAutocomplete": false
+    }
+  ],
+  "properties": []
+}

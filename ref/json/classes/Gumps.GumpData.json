@@ -1,0 +1,173 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.Gumps.GumpData",
+    "itemKind": "class",
+    "itemClass": "Gumps.GumpData",
+    "itemName": "Gumps.GumpData",
+    "itemDescription": "",
+    "flagAutocomplete": false
+  },
+  "methods": [],
+  "properties": [
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Gumps.GumpData.buttonid",
+      "itemKind": "property",
+      "itemClass": "Gumps.GumpData",
+      "itemName": "buttonid",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "List[String]",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Gumps.GumpData.gumpData",
+      "itemKind": "property",
+      "itemClass": "Gumps.GumpData",
+      "itemName": "gumpData",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "String",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Gumps.GumpData.gumpDefinition",
+      "itemKind": "property",
+      "itemClass": "Gumps.GumpData",
+      "itemName": "gumpDefinition",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "UInt32",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Gumps.GumpData.gumpId",
+      "itemKind": "property",
+      "itemClass": "Gumps.GumpData",
+      "itemName": "gumpId",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "String",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Gumps.GumpData.gumpLayout",
+      "itemKind": "property",
+      "itemClass": "Gumps.GumpData",
+      "itemName": "gumpLayout",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "List[String]",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Gumps.GumpData.gumpStrings",
+      "itemKind": "property",
+      "itemClass": "Gumps.GumpData",
+      "itemName": "gumpStrings",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "List[String]",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Gumps.GumpData.gumpText",
+      "itemKind": "property",
+      "itemClass": "Gumps.GumpData",
+      "itemName": "gumpText",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Gumps.GumpData.hasResponse",
+      "itemKind": "property",
+      "itemClass": "Gumps.GumpData",
+      "itemName": "hasResponse",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "List[String]",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Gumps.GumpData.layoutPieces",
+      "itemKind": "property",
+      "itemClass": "Gumps.GumpData",
+      "itemName": "layoutPieces",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "UInt32",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Gumps.GumpData.serial",
+      "itemKind": "property",
+      "itemClass": "Gumps.GumpData",
+      "itemName": "serial",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "List[String]",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Gumps.GumpData.stringList",
+      "itemKind": "property",
+      "itemClass": "Gumps.GumpData",
+      "itemName": "stringList",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "List[Int32]",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Gumps.GumpData.switches",
+      "itemKind": "property",
+      "itemClass": "Gumps.GumpData",
+      "itemName": "switches",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "List[String]",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Gumps.GumpData.text",
+      "itemKind": "property",
+      "itemClass": "Gumps.GumpData",
+      "itemName": "text",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "List[Int32]",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Gumps.GumpData.textID",
+      "itemKind": "property",
+      "itemClass": "Gumps.GumpData",
+      "itemName": "textID",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "UInt32",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Gumps.GumpData.x",
+      "itemKind": "property",
+      "itemClass": "Gumps.GumpData",
+      "itemName": "x",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "UInt32",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Gumps.GumpData.y",
+      "itemKind": "property",
+      "itemClass": "Gumps.GumpData",
+      "itemName": "y",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    }
+  ]
+}

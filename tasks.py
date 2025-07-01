@@ -316,4 +316,227 @@ def help(c):
     print("\nUsage: python -m invoke <task_name>")
     print("Example: python -m invoke build")
 
+@task
+def generate_api_reference(c, format="all", input_path=None, output_path=None):
+    """
+    Generate API reference documentation in multiple formats (TECH-001)
+    
+    Args:
+        format: Output format(s) - "all", "html", "markdown", "json", or comma-separated list
+        input_path: Path to AutoComplete.json (default: ./config/AutoComplete.json)
+        output_path: Output directory (default: ./ref/)
+    """
+    print("🔧 Generating API reference documentation (TECH-001)...")
+    
+    # Parse format argument
+    if format == "all":
+        formats = ["html", "markdown", "json"]
+    else:
+        formats = [f.strip() for f in format.split(",")]
+    
+    # Set default paths
+    if input_path is None:
+        input_path = "./config/AutoComplete.json"
+    if output_path is None:
+        output_path = "./ref/"
+    
+    # Build command
+    cmd = [
+        "python", "src/utils/autodoc.py",
+        "--mode", "generate",
+        "--input", input_path,
+        "--output", output_path,
+        "--formats"
+    ] + formats
+    
+    print(f"  Input: {input_path}")
+    print(f"  Output: {output_path}")
+    print(f"  Formats: {', '.join(formats)}")
+    
+    result = c.run(" ".join(cmd), warn=True)
+    
+    if result.ok:
+        print("✅ API reference generation completed successfully")
+    else:
+        print("❌ API reference generation failed")
+        print(f"Error: {result.stderr}")
+
+@task
+def consolidate_api_references(c, output_path=None):
+    """
+    Consolidate existing API reference files (TECH-001)
+    
+    Args:
+        output_path: Output directory (default: ./ref/)
+    """
+    print("🔧 Consolidating existing API references (TECH-001)...")
+    
+    if output_path is None:
+        output_path = "./ref/"
+    
+    cmd = [
+        "python", "src/utils/autodoc.py",
+        "--mode", "consolidate",
+        "--output", output_path
+    ]
+    
+    print(f"  Output: {output_path}")
+    
+    result = c.run(" ".join(cmd), warn=True)
+    
+    if result.ok:
+        print("✅ API reference consolidation completed successfully")
+        print("📄 Check ./ref/consolidated/ for consolidation report")
+    else:
+        print("❌ API reference consolidation failed")
+        print(f"Error: {result.stderr}")
+
+@task
+def validate_api_reference(c, input_path=None):
+    """
+    Validate API reference system integrity (TECH-001)
+    
+    Args:
+        input_path: Path to AutoComplete.json (default: ./config/AutoComplete.json)
+    """
+    print("🔧 Validating API reference system (TECH-001)...")
+    
+    if input_path is None:
+        input_path = "./config/AutoComplete.json"
+    
+    cmd = [
+        "python", "src/utils/autodoc.py",
+        "--mode", "validate",
+        "--input", input_path
+    ]
+    
+    print(f"  Input: {input_path}")
+    
+    result = c.run(" ".join(cmd), warn=True)
+    
+    if result.ok:
+        print("✅ API reference validation completed successfully")
+    else:
+        print("❌ API reference validation failed")
+        print(f"Error: {result.stderr}")
+
+@task
+def api_reference_workflow(c):
+    """
+    Complete API reference optimization workflow (TECH-001)
+    
+    This task runs the full workflow:
+    1. Consolidate existing references
+    2. Generate new documentation
+    3. Validate the system
+    """
+    print("🚀 Starting complete API reference optimization workflow (TECH-001)...")
+    
+    # Step 1: Consolidate existing references
+    print("\n📋 Step 1: Consolidating existing API references...")
+    consolidate_api_references(c)
+    
+    # Step 2: Generate new documentation
+    print("\n📚 Step 2: Generating new API documentation...")
+    generate_api_reference(c)
+    
+    # Step 3: Validate the system
+    print("\n✅ Step 3: Validating API reference system...")
+    validate_api_reference(c)
+    
+    print("\n🎉 API reference optimization workflow completed!")
+    print("📁 Check ./ref/ directory for generated documentation")
+
+@task
+def fetch_razor_api_data(c, razor_path=None, output_path=None):
+    """
+    Fetch AutoComplete.json from RazorEnhanced installation (TECH-001)
+    
+    This is a helper task to copy the AutoComplete.json file from a RazorEnhanced
+    installation to the DexBot project for processing.
+    
+    Args:
+        razor_path: Path to RazorEnhanced installation (default: auto-detect)
+        output_path: Where to save AutoComplete.json (default: ./config/)
+    """
+    print("🔧 Fetching RazorEnhanced API data (TECH-001)...")
+    
+    import os
+    from pathlib import Path
+    
+    # Auto-detect RazorEnhanced path if not provided
+    if razor_path is None:
+        common_paths = [
+            "C:/Program Files (x86)/Ultima Online Unchained/Data/Plugins/RazorEnhanced/Config/",
+            "C:/Program Files/Ultima Online Unchained/Data/Plugins/RazorEnhanced/Config/",
+            "./Config/"  # Local development
+        ]
+        
+        for path in common_paths:
+            test_path = Path(path) / "AutoComplete.json"
+            if test_path.exists():
+                razor_path = path
+                print(f"  Found RazorEnhanced at: {razor_path}")
+                break
+        
+        if razor_path is None:
+            print("❌ Could not auto-detect RazorEnhanced installation")
+            print("   Please specify --razor-path manually")
+            return
+    
+    if output_path is None:
+        output_path = "./config/"
+    
+    # Ensure output directory exists
+    Path(output_path).mkdir(parents=True, exist_ok=True)
+    
+    # Copy the file
+    source_file = Path(razor_path) / "AutoComplete.json"
+    dest_file = Path(output_path) / "AutoComplete.json"
+    
+    if not source_file.exists():
+        print(f"❌ AutoComplete.json not found at: {source_file}")
+        return
+    
+    try:
+        import shutil
+        shutil.copy2(source_file, dest_file)
+        print(f"✅ Copied AutoComplete.json to: {dest_file}")
+        print(f"   File size: {dest_file.stat().st_size} bytes")
+    except Exception as e:
+        print(f"❌ Failed to copy file: {str(e)}")
+
+@task
+def extract_api_data(c, input_path=None, output_path=None, verbose=False):
+    """
+    Extract API data using the Python extraction script (TECH-001)
+    
+    Args:
+        input_path: Path to AutoComplete.json (default: auto-detect)
+        output_path: Output directory (default: ./tmp/api_extraction/)
+        verbose: Enable verbose output
+    """
+    print("🔧 Extracting API data using Python script (TECH-001)...")
+    
+    # Build command
+    cmd = ["python", "scripts/extract_razor_api_data.py"]
+    
+    if input_path:
+        cmd.extend(["--input", input_path])
+    if output_path:
+        cmd.extend(["--output", output_path])
+    if verbose:
+        cmd.append("--verbose")
+    
+    print(f"  Command: {' '.join(cmd)}")
+    
+    result = c.run(" ".join(cmd), warn=True)
+    
+    if result.ok:
+        print("✅ API data extraction completed successfully")
+        print("📄 Check the output directory for exported files")
+    else:
+        print("❌ API data extraction failed")
+        print(f"Error: {result.stderr}")
+
 

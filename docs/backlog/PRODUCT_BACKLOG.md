@@ -28,8 +28,8 @@ This document contains the prioritized product backlog for DexBot. Items are org
   - **Effort**: 1-2 weeks | **Target**: v3.2.1
 
 ### Technical Debt
-- **TECH-001**: API reference optimization and cleanup
-  - **Effort**: 1 week | **Target**: v3.2.1
+- **TECH-001**: API reference optimization and cleanup → [PRD](../prds/TECH-001_API_Reference_Optimization.md)
+  - **Effort**: 1 week | **Target**: v3.2.0
 - **TECH-002**: Configuration system performance improvements
   - **Effort**: 1 week | **Target**: v3.2.1
 

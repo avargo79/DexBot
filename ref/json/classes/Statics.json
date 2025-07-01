@@ -1,0 +1,310 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.Statics",
+    "itemKind": "class",
+    "itemClass": "Statics",
+    "itemName": "Statics",
+    "itemDescription": "The Statics class provides access to informations about the Map, down to the individual tile.\nWhen using this function it's important to remember the distinction between Land and Tile:\nLand\n----\nFor a given (X,Y,map) there can be only 1 (0 zero) Land item, and has 1 specific Z coordinate.\nTile\n----\nFor a given (X,Y,map) there can be any number of Tile items.",
+    "flagAutocomplete": false
+  },
+  "methods": [
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: The tile is occupied - False: otherwise",
+      "paramList": [
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "X coordinate."
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Y coordinate."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Statics.CheckDeedHouse(System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Statics",
+      "itemName": "CheckDeedHouse",
+      "itemDescription": "Check if the given Tile is occupied by a private house.\nNeed to be in-sight, on most servers the maximum distance is 18 tiles.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "ItemData",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "StaticID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Statics.GetItemData(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Statics",
+      "itemName": "GetItemData",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: if the Flag is active - False: otherwise",
+      "paramList": [
+        {
+          "itemName": "staticID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "StaticID of a Land item."
+        },
+        {
+          "itemName": "flagname",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "None\nTranslucent\nWall\nDamaging\nImpassable\nSurface\nBridge\nWindow\nNoShoot\nFoliage\nHoverOver\nRoof\nDoor\nWet"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Statics.GetLandFlag(System.Int32,System.String)",
+      "itemKind": "method",
+      "itemClass": "Statics",
+      "itemName": "GetLandFlag",
+      "itemDescription": "Land: Check Flag value of a given Land item.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Int32",
+      "returnDesc": "Return the StaticID of the Land tile",
+      "paramList": [
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "X coordinate."
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Y coordinate."
+        },
+        {
+          "itemName": "map",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "0 = Felucca\n1 = Trammel\n2 = Ilshenar\n3 = Malas\n4 = Tokuno\n5 = TerMur"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Statics.GetLandID(System.Int32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Statics",
+      "itemName": "GetLandID",
+      "itemDescription": "Land: Return the StaticID of the Land item, give the coordinates and map.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "String",
+      "returnDesc": "The name of the Land item.",
+      "paramList": [
+        {
+          "itemName": "StaticID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Land item StaticID."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Statics.GetLandName(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Statics",
+      "itemName": "GetLandName",
+      "itemDescription": "Land: Get the name of a Land item given the StaticID.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Int32",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "X coordinate."
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Y coordinate."
+        },
+        {
+          "itemName": "map",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "0 = Felucca\n1 = Trammel\n2 = Ilshenar\n3 = Malas\n4 = Tokuno\n5 = TerMur"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Statics.GetLandZ(System.Int32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Statics",
+      "itemName": "GetLandZ",
+      "itemDescription": "Land: Return the Z coordinate (height) of the Land item, give the coordinates and map.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Statics.TileInfo",
+      "returnDesc": "A single TileInfo related a Land item.",
+      "paramList": [
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "X coordinate."
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Y coordinate."
+        },
+        {
+          "itemName": "map",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "0 = Felucca\n1 = Trammel\n2 = Ilshenar\n3 = Malas\n4 = Tokuno\n5 = TerMur"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Statics.GetStaticsLandInfo(System.Int32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Statics",
+      "itemName": "GetStaticsLandInfo",
+      "itemDescription": "Land: Return a TileInfo representing the Land item for a given X,Y, map.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "List[Statics.TileInfo]",
+      "returnDesc": "A list of TileInfo related to Tile items.",
+      "paramList": [
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "X coordinate."
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Y coordinate."
+        },
+        {
+          "itemName": "map",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "0 = Felucca\n1 = Trammel\n2 = Ilshenar\n3 = Malas\n4 = Tokuno\n5 = TerMur"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Statics.GetStaticsTileInfo(System.Int32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Statics",
+      "itemName": "GetStaticsTileInfo",
+      "itemDescription": "Tile: Return a list of TileInfo representing the Tile items for a given X,Y, map.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: if the Flag is active - False: otherwise",
+      "paramList": [
+        {
+          "itemName": "StaticID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "StaticID of a Tile item."
+        },
+        {
+          "itemName": "flagname",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "None\nTranslucent\nWall\nDamaging\nImpassable\nSurface\nBridge\nWindow\nNoShoot\nFoliage\nHoverOver\nRoof\nDoor\nWet"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Statics.GetTileFlag(System.Int32,System.String)",
+      "itemKind": "method",
+      "itemClass": "Statics",
+      "itemName": "GetTileFlag",
+      "itemDescription": "Tile: Check Flag value of a given Tile item.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Int32",
+      "returnDesc": "Height of a Tile item.",
+      "paramList": [
+        {
+          "itemName": "StaticID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Tile item StaticID."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Statics.GetTileHeight(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Statics",
+      "itemName": "GetTileHeight",
+      "itemDescription": "Tile: Get hight of a Tile item, in Z coordinate reference.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "String",
+      "returnDesc": "The name of the Land item.",
+      "paramList": [
+        {
+          "itemName": "StaticID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Tile item StaticID."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Statics.GetTileName(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Statics",
+      "itemName": "GetTileName",
+      "itemDescription": "Tile: Get the name of a Tile item given the StaticID.",
+      "flagAutocomplete": false
+    }
+  ],
+  "properties": []
+}

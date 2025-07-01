@@ -1,0 +1,298 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.PathFinding",
+    "itemKind": "class",
+    "itemClass": "PathFinding",
+    "itemName": "PathFinding",
+    "itemDescription": "This class implements the PathFinding algorithm using A-Star.",
+    "flagAutocomplete": false
+  },
+  "methods": [
+    {
+      "returnType": "List[Tile]",
+      "returnDesc": "List of Tile objects, each holds a .X and .Y coordinates.",
+      "paramList": [
+        {
+          "itemName": "dst_x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Destination X."
+        },
+        {
+          "itemName": "dst_y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Destination Y."
+        },
+        {
+          "itemName": "ignoremob",
+          "itemType": "Boolean",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Ignores any mobiles with the path calculation."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.PathFinding.GetPath(System.Int32,System.Int32,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "PathFinding",
+      "itemName": "GetPath",
+      "itemDescription": "Compute the path for the given destination and returns a list of Tile (coordinates).",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: if a destination is reachable.",
+      "paramList": [
+        {
+          "itemName": "r",
+          "itemType": "PathFinding.Route",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "A customized Route object."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.PathFinding.Go(RazorEnhanced.PathFinding.Route)",
+      "itemKind": "method",
+      "itemClass": "PathFinding",
+      "itemName": "Go",
+      "itemDescription": "Check if a destination is reachable.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "X map coordinates or Point3D"
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Y map coordinates"
+        },
+        {
+          "itemName": "z",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "0",
+          "itemDescription": "Z map coordinates"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.PathFinding.PathFindTo(System.Int32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "PathFinding",
+      "itemName": "PathFindTo",
+      "itemDescription": "Go to the given coordinates using Razor pathfinding.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "destination",
+          "itemType": "Point3D",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.PathFinding.PathFindTo(RazorEnhanced.Point3D)",
+      "itemKind": "method",
+      "itemClass": "PathFinding",
+      "itemName": "PathFindTo",
+      "itemDescription": "Go to the given coordinates using Razor pathfinding.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "path",
+          "itemType": "List[Tile]",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "timeout",
+          "itemType": "Single",
+          "itemHasDefault": true,
+          "itemDefaultValue": "-1",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "debugMessage",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "False",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "useResync",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.PathFinding.RunPath(System.Collections.Generic.List`1[],System.Single,System.Boolean,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "PathFinding",
+      "itemName": "RunPath",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Tile",
+      "returnDesc": "Returns a Tile object",
+      "paramList": [
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "X coordinate"
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Y coordinate"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.PathFinding.Tile(System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "PathFinding",
+      "itemName": "Tile",
+      "itemDescription": "Create a Tile starting from X,Y coordinates (see PathFindig.RunPath)",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "path",
+          "itemType": "List[Tile]",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "timeout",
+          "itemType": "Single",
+          "itemHasDefault": true,
+          "itemDefaultValue": "-1",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "debugMessage",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "False",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "useResync",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.PathFinding.WalkPath(System.Collections.Generic.List`1[],System.Single,System.Boolean,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "PathFinding",
+      "itemName": "WalkPath",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: if it finish the path in time. False: otherwise",
+      "paramList": [
+        {
+          "itemName": "timeout",
+          "itemType": "Single",
+          "itemHasDefault": true,
+          "itemDefaultValue": "-1",
+          "itemDescription": "Maximum amount of time to run the path. (default: -1, no limit)"
+        },
+        {
+          "itemName": "debugMessage",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "False",
+          "itemDescription": "Outputs a debug message."
+        },
+        {
+          "itemName": "useResync",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": "ReSyncs the path calculation."
+        }
+      ],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.PathFinding.runPath(System.Single,System.Boolean,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "PathFinding",
+      "itemName": "runPath",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "timeout",
+          "itemType": "Single",
+          "itemHasDefault": true,
+          "itemDefaultValue": "-1",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "debugMessage",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "False",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "useResync",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.PathFinding.walkPath(System.Single,System.Boolean,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "PathFinding",
+      "itemName": "walkPath",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    }
+  ],
+  "properties": []
+}

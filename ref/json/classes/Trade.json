@@ -1,0 +1,179 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.Trade",
+    "itemKind": "class",
+    "itemClass": "Trade",
+    "itemName": "Trade",
+    "itemDescription": "",
+    "flagAutocomplete": false
+  },
+  "methods": [
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: Trade found, False: Trade not found",
+      "paramList": [
+        {
+          "itemName": "TradeID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "ID of the Trade (Default = -1: Pick a random active trade)"
+        },
+        {
+          "itemName": "accept",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": "Set the state ofthe checkbox"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Trade.Accept(System.Int32,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Trade",
+      "itemName": "Accept",
+      "itemDescription": "Set the accept state of the trade",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "accept",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Trade.Accept(System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Trade",
+      "itemName": "Accept",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: Trade found, False: Trade not found",
+      "paramList": [
+        {
+          "itemName": "TradeID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "ID of the Trade (Default = -1: Pick a random active trade)"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Trade.Cancel(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Trade",
+      "itemName": "Cancel",
+      "itemDescription": "Set the accept state of the trade",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Trade.Cancel",
+      "itemKind": "method",
+      "itemClass": "Trade",
+      "itemName": "Cancel",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: Trade found, False: Trade not found",
+      "paramList": [
+        {
+          "itemName": "TradeID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "ID of the Trade (Default = -1: Pick latest active trade)"
+        },
+        {
+          "itemName": "gold",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Amount of Gold to offer"
+        },
+        {
+          "itemName": "platinum",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Amount of Platinum to offer"
+        },
+        {
+          "itemName": "quiet",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "False",
+          "itemDescription": "Suppress output (Default: false - Show warning)"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Trade.Offer(System.Int32,System.Int32,System.Int32,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Trade",
+      "itemName": "Offer",
+      "itemDescription": "Update the amount of gold and platinum in the trade. ( client view dosen't update )",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gold",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "platinum",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "quiet",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "False",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Trade.Offer(System.Int32,System.Int32,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Trade",
+      "itemName": "Offer",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "List[Trade.TradeData]",
+      "returnDesc": "A list of Player.SecureTrade objects. Each containing the details of each trade window.",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Trade.TradeList",
+      "itemKind": "method",
+      "itemClass": "Trade",
+      "itemName": "TradeList",
+      "itemDescription": "Returns the list of currently active Secure Trading gumps, sorted by LastUpdate.",
+      "flagAutocomplete": false
+    }
+  ],
+  "properties": []
+}

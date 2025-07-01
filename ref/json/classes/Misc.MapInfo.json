@@ -1,0 +1,63 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.Misc.MapInfo",
+    "itemKind": "class",
+    "itemClass": "Misc.MapInfo",
+    "itemName": "Misc.MapInfo",
+    "itemDescription": "The MapInfo class is used to store information about the Map location.",
+    "flagAutocomplete": false
+  },
+  "methods": [],
+  "properties": [
+    {
+      "propertyType": "UInt16",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Misc.MapInfo.Facet",
+      "itemKind": "property",
+      "itemClass": "Misc.MapInfo",
+      "itemName": "Facet",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Point2D",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Misc.MapInfo.MapEnd",
+      "itemKind": "property",
+      "itemClass": "Misc.MapInfo",
+      "itemName": "MapEnd",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Point2D",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Misc.MapInfo.MapOrigin",
+      "itemKind": "property",
+      "itemClass": "Misc.MapInfo",
+      "itemName": "MapOrigin",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Point2D",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Misc.MapInfo.PinPosition",
+      "itemKind": "property",
+      "itemClass": "Misc.MapInfo",
+      "itemName": "PinPosition",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "UInt32",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Misc.MapInfo.Serial",
+      "itemKind": "property",
+      "itemClass": "Misc.MapInfo",
+      "itemName": "Serial",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    }
+  ]
+}

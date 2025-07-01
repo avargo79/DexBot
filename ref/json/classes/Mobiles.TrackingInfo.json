@@ -1,0 +1,53 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.Mobiles.TrackingInfo",
+    "itemKind": "class",
+    "itemClass": "Mobiles.TrackingInfo",
+    "itemName": "Mobiles.TrackingInfo",
+    "itemDescription": "The TrackingInfo class hold the latest information about.",
+    "flagAutocomplete": false
+  },
+  "methods": [],
+  "properties": [
+    {
+      "propertyType": "DateTime",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Mobiles.TrackingInfo.lastUpdate",
+      "itemKind": "property",
+      "itemClass": "Mobiles.TrackingInfo",
+      "itemName": "lastUpdate",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "UInt32",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Mobiles.TrackingInfo.serial",
+      "itemKind": "property",
+      "itemClass": "Mobiles.TrackingInfo",
+      "itemName": "serial",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "UInt16",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Mobiles.TrackingInfo.x",
+      "itemKind": "property",
+      "itemClass": "Mobiles.TrackingInfo",
+      "itemName": "x",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "UInt16",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Mobiles.TrackingInfo.y",
+      "itemKind": "property",
+      "itemClass": "Mobiles.TrackingInfo",
+      "itemName": "y",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    }
+  ]
+}

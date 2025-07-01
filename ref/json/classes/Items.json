@@ -1,0 +1,2212 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.Items",
+    "itemKind": "class",
+    "itemClass": "Items",
+    "itemName": "Items",
+    "itemDescription": "The Items class provides a wide range of functions to search and interact with Items.",
+    "flagAutocomplete": false
+  },
+  "methods": [
+    {
+      "returnType": "List[Item]",
+      "returnDesc": "the list of Items respectinf the filter criteria.",
+      "paramList": [
+        {
+          "itemName": "filter",
+          "itemType": "Items.Filter",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "A filter object."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.ApplyFilter(RazorEnhanced.Items.Filter)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "ApplyFilter",
+      "itemDescription": "Filter the global list of Items according to the options specified by the filter ( see: Items.Filter ).",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Int32",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "itemid",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "ItemID to search."
+        },
+        {
+          "itemName": "color",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "-1",
+          "itemDescription": "Color to search. (default -1: any color)"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.BackpackCount(System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "BackpackCount",
+      "itemDescription": "Count items in Player Backpack.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "dyes",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Dyes as Item object."
+        },
+        {
+          "itemName": "dyeingTub",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Dyeing Tub as Item object."
+        },
+        {
+          "itemName": "color",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Color to choose."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.ChangeDyeingTubColor(RazorEnhanced.Item,RazorEnhanced.Item,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "ChangeDyeingTubColor",
+      "itemDescription": "Use the Dyes on a Dyeing Tub and select the color via color picker, using dedicated packets. \nNeed to specify the dyes, the dye tube and the color to use.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial or Item to hide."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.Close(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "Close",
+      "itemDescription": "Close opened container window. \nOn OSI, to close opened corpse window, you need to close the corpse's root container \nCurrently corpse's root container can be found by using item filter.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "item",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.Close(RazorEnhanced.Item)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "Close",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Int32",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "container",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial or Item to search into."
+        },
+        {
+          "itemName": "itemid",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "ItemID of the item to search."
+        },
+        {
+          "itemName": "color",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "-1",
+          "itemDescription": "Color to match. (default: -1, any color)"
+        },
+        {
+          "itemName": "recursive",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "False",
+          "itemDescription": "Search also in already open subcontainers."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.ContainerCount(RazorEnhanced.Item,System.Int32,System.Int32,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "ContainerCount",
+      "itemDescription": "Count items inside a container, summing also the amount in stacks.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Int32",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "itemid",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "color",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "-1",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "recursive",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "False",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.ContainerCount(System.Int32,System.Int32,System.Int32,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "ContainerCount",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Int32",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial or Item to check."
+        },
+        {
+          "itemName": "name",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Name of the Context Manu entry"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.ContextExist(System.Int32,System.String)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "ContextExist",
+      "itemDescription": "Check if Context Menu entry exists for an Item.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Int32",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "i",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "name",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.ContextExist(RazorEnhanced.Item,System.String)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "ContextExist",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "item",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Item object to drop."
+        },
+        {
+          "itemName": "container",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Target container."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.DropFromHand(RazorEnhanced.Item,RazorEnhanced.Item)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "DropFromHand",
+      "itemDescription": "Drop into a bag an Item currently held in-hand. ( see: Items.Lift )",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "item",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Item object to drop."
+        },
+        {
+          "itemName": "amount",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "0",
+          "itemDescription": "Amount to move. (default: 0, the whole stack)"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.DropItemGroundSelf(RazorEnhanced.Item,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "DropItemGroundSelf",
+      "itemDescription": "Drop an Item on the ground, at the current Player position.\nNOTE: On some server is not allowed to drop Items on tiles occupied by Mobiles and the Player.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "serialitem",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "amount",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "0",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.DropItemGroundSelf(System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "DropItemGroundSelf",
+      "itemDescription": "This function seldom works because the servers dont allow drop where your standing",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "PythonList",
+      "returnDesc": "The Item matching the criteria.",
+      "paramList": [
+        {
+          "itemName": "itemids",
+          "itemType": "PythonList",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "color",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Color filter. (-1: any, 0: natural )"
+        },
+        {
+          "itemName": "container",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial of the container to search. (-1: any Item)"
+        },
+        {
+          "itemName": "range",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "considerIgnoreList",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": "True: Ignore Items are excluded - False: any Item."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.FindAllByID(IronPython.Runtime.PythonList,System.Int32,System.Int32,System.Int32,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "FindAllByID",
+      "itemDescription": "Find a List of Items matching specific list of ItemID, Color and Container. \nOptionally can search in all subcontaners or to a maximum depth in subcontainers.\nCan use -1 on color for no chose color, can use -1 on container for search in all item in memory.\nThe depth defaults to only the top but can search for # of sub containers.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "PythonList",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "itemid",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "color",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "container",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "range",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "considerIgnoreList",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.FindAllByID(System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "FindAllByID",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "List[Item]",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "itemids",
+          "itemType": "List[Int32]",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "color",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "container",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "range",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "considerIgnoreList",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.FindAllByID(System.Collections.Generic.List`1[],System.Int32,System.Int32,System.Int32,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "FindAllByID",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Item",
+      "returnDesc": "The Item matching the criteria.",
+      "paramList": [
+        {
+          "itemName": "itemid",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "ItemID filter."
+        },
+        {
+          "itemName": "color",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Color filter. (-1: any, 0: natural )"
+        },
+        {
+          "itemName": "container",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial of the container to search. (-1: any Item)"
+        },
+        {
+          "itemName": "recursive",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "False",
+          "itemDescription": "Search subcontainers. \n    True: all subcontainers\n    False: only main\n    1,2,n: Maximum subcontainer depth"
+        },
+        {
+          "itemName": "considerIgnoreList",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": "True: Ignore Items are excluded - False: any Item."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.FindByID(System.Int32,System.Int32,System.Int32,System.Boolean,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "FindByID",
+      "itemDescription": "Find a single Item matching specific ItemID, Color and Container. \nOptionally can search in all subcontaners or to a maximum depth in subcontainers.\nCan use -1 on color for no chose color, can use -1 on container for search in all item in memory. The depth defaults to only the top but can search for # of sub containers.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Item",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "itemid",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "color",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "container",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "range",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "considerIgnoreList",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.FindByID(System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "FindByID",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Item",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "itemids",
+          "itemType": "List[Int32]",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "color",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "-1",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "container",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "-1",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "range",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "10",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "considerIgnoreList",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.FindByID(System.Collections.Generic.List`1[],System.Int32,System.Int32,System.Int32,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "FindByID",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Item",
+      "returnDesc": "The Item matching the criteria.",
+      "paramList": [
+        {
+          "itemName": "itemName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Item Name filter."
+        },
+        {
+          "itemName": "color",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Color filter. (-1: any, 0: natural )"
+        },
+        {
+          "itemName": "container",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial of the container to search. (-1: any Item)"
+        },
+        {
+          "itemName": "range",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Search subcontainers. \n    1,2,n: Maximum subcontainer depth"
+        },
+        {
+          "itemName": "considerIgnoreList",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": "True: Ignore Items are excluded - False: any Item."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.FindByName(System.String,System.Int32,System.Int32,System.Int32,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "FindByName",
+      "itemDescription": "Find a single Item matching specific Name, Color and Container. \nOptionally can search in all subcontaners or to a maximum depth in subcontainers.\nCan use -1 on color for no chose color, can use -1 on container for search in all item in memory. The depth defaults to only the top but can search for # of sub containers.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Item",
+      "returnDesc": "Item object if found, or null if not found.",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial of the Item."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.FindBySerial(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "FindBySerial",
+      "itemDescription": "Search for a specific Item by using it Serial",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Bitmap",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "itemID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "ItemID to use."
+        },
+        {
+          "itemName": "hue",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "0",
+          "itemDescription": "Optional: Color to apply. (Default 0, natural)"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.GetImage(System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "GetImage",
+      "itemDescription": "Get the Image on an Item by specifing the ItemID. Optinally is possible to apply a color.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "String",
+      "returnDesc": "A property line as a string.",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial or Item to read."
+        },
+        {
+          "itemName": "index",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Number of the Property line."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.GetPropStringByIndex(System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "GetPropStringByIndex",
+      "itemDescription": "Get a Property line, by index. if not found returns and empty string.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "String",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "item",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "index",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.GetPropStringByIndex(RazorEnhanced.Item,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "GetPropStringByIndex",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "List[String]",
+      "returnDesc": "List of strings.",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial or Item to read."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.GetPropStringList(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "GetPropStringList",
+      "itemDescription": "Get string list of all Properties of an item, if item no props list is empty.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "List[String]",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "item",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.GetPropStringList(RazorEnhanced.Item)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "GetPropStringList",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Single",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial or Item to read."
+        },
+        {
+          "itemName": "name",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Name of the Propery."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.GetPropValue(System.Int32,System.String)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "GetPropValue",
+      "itemDescription": "Read the value of a Property.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Single",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "item",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "name",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.GetPropValue(RazorEnhanced.Item,System.String)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "GetPropValue",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "String",
+      "returnDesc": "A property value as a string.",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial or Item to read."
+        },
+        {
+          "itemName": "name",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Number of the Property line."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.GetPropValueString(System.Int32,System.String)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "GetPropValueString",
+      "itemDescription": "Get a Property line, by name. if not found returns and empty string.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "List[Property]",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "itemserial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial or Item read."
+        },
+        {
+          "itemName": "delay",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Maximum waiting time, in milliseconds."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.GetProperties(System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "GetProperties",
+      "itemDescription": "Request to get immediatly the Properties of an Item, and wait for a specified amount of time.\nThis only returns properties and does not attempt to update the object.\nUsed in this way, properties for object not yet seen can be retrieved",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "ValueTuple[String, String]",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "itemId",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.GetWeaponAbility(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "GetWeaponAbility",
+      "itemDescription": "NOTE: This is from an internal razor table and can be changed based on your server!\nReturns a pair of string values (Primary Ability, Secondary Ability) \nfor the supplied item ID. \n\"Invalid\", \"Invalid\" for items not in the internal table",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial or Item to hide."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.Hide(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "Hide",
+      "itemDescription": "Hied an Item, affects only the player.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "item",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.Hide(RazorEnhanced.Item)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "Hide",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "itemIdList",
+          "itemType": "PythonList",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.IgnoreTypes(IronPython.Runtime.PythonList)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "IgnoreTypes",
+      "itemDescription": "Used to ignore specific types. Be careful as you wont see things you ignore, \nand could result in a mobile being able to kill you without you seeing it",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "item",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Item object to Lift."
+        },
+        {
+          "itemName": "amount",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Amount to lift. (0: the whole stack)"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.Lift(RazorEnhanced.Item,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "Lift",
+      "itemDescription": "Lift an Item and hold it in-hand. ( see: Items.DropFromHand )",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "item",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial or Item to display text on."
+        },
+        {
+          "itemName": "hue",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Color of the message."
+        },
+        {
+          "itemName": "message",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Message as"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.Message(RazorEnhanced.Item,System.Int32,System.String)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "Message",
+      "itemDescription": "Display an in-game message on top of an Item, visibile only for the Player.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "hue",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "message",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.Message(System.Int32,System.Int32,System.String)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "Message",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "source",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial or Item of the Item to move."
+        },
+        {
+          "itemName": "destination",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial, Mobile or Item as destination."
+        },
+        {
+          "itemName": "amount",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Amount to move (-1: the whole stack)"
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Optional: X coordinate inside the container."
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Optional: Y coordinate inside the container."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.Move(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "Move",
+      "itemDescription": "Move an Item to a destination, which can be an Item or a Mobile.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "source",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "destination",
+          "itemType": "Mobile",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "amount",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.Move(RazorEnhanced.Item,RazorEnhanced.Mobile,System.Int32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "Move",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "source",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "destination",
+          "itemType": "Mobile",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "amount",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.Move(System.Int32,RazorEnhanced.Mobile,System.Int32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "Move",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "source",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "destination",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "amount",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.Move(RazorEnhanced.Item,System.Int32,System.Int32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "Move",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "source",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "destination",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "amount",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.Move(System.Int32,RazorEnhanced.Item,System.Int32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "Move",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "source",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "destination",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "amount",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.Move(RazorEnhanced.Item,RazorEnhanced.Item,System.Int32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "Move",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "source",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "destination",
+          "itemType": "Mobile",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "amount",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.Move(RazorEnhanced.Item,RazorEnhanced.Mobile,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "Move",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "source",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "destination",
+          "itemType": "Mobile",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "amount",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.Move(System.Int32,RazorEnhanced.Mobile,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "Move",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "source",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "destination",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "amount",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.Move(RazorEnhanced.Item,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "Move",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "source",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "destination",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "amount",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.Move(System.Int32,RazorEnhanced.Item,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "Move",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "source",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "destination",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "amount",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.Move(RazorEnhanced.Item,RazorEnhanced.Item,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "Move",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "source",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "destination",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "amount",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.Move(System.Int32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "Move",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "source",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial or Item to move."
+        },
+        {
+          "itemName": "amount",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Amount of Items to move (0: the whole stack )"
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "X world coordinates."
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Y world coordinates."
+        },
+        {
+          "itemName": "z",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Z world coordinates."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.MoveOnGround(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "MoveOnGround",
+      "itemDescription": "Move an Item on the ground to a specific location.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "source",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "amount",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "z",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.MoveOnGround(RazorEnhanced.Item,System.Int32,System.Int32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "MoveOnGround",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.OpenAt(System.Int32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "OpenAt",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "item",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.OpenAt(RazorEnhanced.Item,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "OpenAt",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "bag",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Container as Item object."
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "x location to open at"
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "y location to open at"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.OpenContainerAt(RazorEnhanced.Item,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "OpenContainerAt",
+      "itemDescription": "Open a container at a specific location on the screen",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Item",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "items",
+          "itemType": "List[Item]",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "selector",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.Select(System.Collections.Generic.List`1[],System.String)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "Select",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial of the Item."
+        },
+        {
+          "itemName": "color",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "-1",
+          "itemDescription": "Color as number. (default: -1, reset original color)"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.SetColor(System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "SetColor",
+      "itemDescription": "Change/override the Color of an Item, the change affects only Player client. The change is not persistent.\nIf the color is -1 or unspecified, the color of the item is restored.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "item",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial or Item to click"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.SingleClick(RazorEnhanced.Item)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "SingleClick",
+      "itemDescription": "Send a single click network event to the server.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "itemserial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.SingleClick(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "SingleClick",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "itemSerial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial or Item to use."
+        },
+        {
+          "itemName": "targetSerial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Optional: Serial of the Item or Mobile target."
+        },
+        {
+          "itemName": "wait",
+          "itemType": "Boolean",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Optional: Wait for confirmation by the server. (default: True)"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.UseItem(System.Int32,System.Int32,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "UseItem",
+      "itemDescription": "Use an Item, optionally is possible to specify a Item or Mobile target.\nNOTE: The optional target may not work on some free shards. Use Target.Execute instead.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "item",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "target",
+          "itemType": "UOEntity",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.UseItem(RazorEnhanced.Item,Assistant.UOEntity)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "UseItem",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "item",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "target",
+          "itemType": "UOEntity",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.UseItem(System.Int32,Assistant.UOEntity)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "UseItem",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "item",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "target",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.UseItem(RazorEnhanced.Item,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "UseItem",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "itemSerial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "targetSerial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.UseItem(System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "UseItem",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "itemserial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.UseItem(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "UseItem",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "item",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.UseItem(RazorEnhanced.Item)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "UseItem",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "itemid",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "ItemID to be used."
+        },
+        {
+          "itemName": "color",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "-1",
+          "itemDescription": "Color to be used. (default: -1, any)"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.UseItemByID(System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "UseItemByID",
+      "itemDescription": "Use any item of a specific type, matching Item.ItemID. Optionally also of a specific color, matching Item.Hue.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "bag",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Container as Item object."
+        },
+        {
+          "itemName": "delay",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Maximum wait, in milliseconds."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.WaitForContents(RazorEnhanced.Item,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "WaitForContents",
+      "itemDescription": "Open a container an wait for the Items to load, for a maximum amount of time.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "bag_serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Container as Item serial."
+        },
+        {
+          "itemName": "delay",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "max time to wait for contents"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.WaitForContents(System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "WaitForContents",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "itemserial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial or Item read."
+        },
+        {
+          "itemName": "delay",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Maximum waiting time, in milliseconds."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.WaitForProps(System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "WaitForProps",
+      "itemDescription": "If not updated, request to the Properties of an Item, and wait for a maximum amount of time.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "i",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "delay",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Items.WaitForProps(RazorEnhanced.Item,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Items",
+      "itemName": "WaitForProps",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    }
+  ],
+  "properties": []
+}

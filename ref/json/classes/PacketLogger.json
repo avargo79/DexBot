@@ -1,0 +1,392 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.PacketLogger",
+    "itemKind": "class",
+    "itemClass": "PacketLogger",
+    "itemName": "PacketLogger",
+    "itemDescription": "RazorEnhanced packet logger.",
+    "flagAutocomplete": false
+  },
+  "methods": [
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "packetID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "PacketID to blacklist"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.PacketLogger.AddBlacklist(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "PacketLogger",
+      "itemName": "AddBlacklist",
+      "itemDescription": "Add the packetID to the blacklist. Packets in the backlist will not be logged. (See PacketLogger.DiscardAll() )",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "packetTemplate",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Add a PacketTemplate, check ./Config/packets/ folder."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.PacketLogger.AddTemplate(System.String)",
+      "itemKind": "method",
+      "itemClass": "PacketLogger",
+      "itemName": "AddTemplate",
+      "itemDescription": "Add a custom template for RazorEnhanced packet logger.\nExample of \"Damage\" (0x0B) packet:\n{\n 'packetID': 0x0B,\n 'name': 'Damage 0x0B',\n 'showHexDump': true,\n 'fields':[\n   { 'name':'packetID', 'length':1, 'type':'packetID'},\n   { 'name':'Serial', 'length':4, 'type':'serial'},\n   { 'name':'Damage', 'length': 2, 'type':'int'},\n ]\n}",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "packetID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "PacketID to whitelist"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.PacketLogger.AddWhitelist(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "PacketLogger",
+      "itemName": "AddWhitelist",
+      "itemDescription": "Add the packetID to the whitelist. Packets in the whitelist are always. (See PacketLogger.DiscardAll() )",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "discardAll",
+          "itemType": "Boolean",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "True: Log only the packet in the whitelist - False: Log everything, but the packets in the blacklist"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.PacketLogger.DiscardAll(System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "PacketLogger",
+      "itemName": "DiscardAll",
+      "itemDescription": "Packet logger will discard all packets, except the one in the whitelist.  (See PacketLogger.AddWhitelist() )",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "showHeader",
+          "itemType": "Boolean",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "True: Always show headers - False: Hide everything."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.PacketLogger.DiscardShowHeader(System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "PacketLogger",
+      "itemName": "DiscardShowHeader",
+      "itemDescription": "Packet logger will show the headers of discarded packets.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "String[][]",
+      "returnDesc": "List of strings of currently active packet paths.",
+      "paramList": [
+        {
+          "itemName": "packetPath",
+          "itemType": "String",
+          "itemHasDefault": true,
+          "itemDefaultValue": "",
+          "itemDescription": "Possible values:\n   ClientToServer\n   ServerToClient\n   RazorToServer (TODO)\n   RazorToClient (TODO)\n   PacketVideo   (TODO)"
+        },
+        {
+          "itemName": "active",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.PacketLogger.ListenPacketPath(System.String,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "PacketLogger",
+      "itemName": "ListenPacketPath",
+      "itemDescription": "Packet logger will discard all packets, except the one in the whitelist.  (See PacketLogger.AddWhitelist() ) \nIf the packetPath is not set or not resognized, the function simply returns the current active paths.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "packetID",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "-1",
+          "itemDescription": "Remove a spacific packetID. (Default: -1 Remove All)"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.PacketLogger.RemoveTemplate(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "PacketLogger",
+      "itemName": "RemoveTemplate",
+      "itemDescription": "Remove a PacketTemplate for RazorEnhanced packet logger.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.PacketLogger.Reset",
+      "itemKind": "method",
+      "itemClass": "PacketLogger",
+      "itemName": "Reset",
+      "itemDescription": "Reset the packet logger to defaults.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "packetData",
+          "itemType": "Byte[][]",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.PacketLogger.SendToClient(System.Byte[])",
+      "itemKind": "method",
+      "itemClass": "PacketLogger",
+      "itemName": "SendToClient",
+      "itemDescription": "Send a packet to the client.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "packetData",
+          "itemType": "List[Byte]",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.PacketLogger.SendToClient(System.Collections.Generic.List`1[])",
+      "itemKind": "method",
+      "itemClass": "PacketLogger",
+      "itemName": "SendToClient",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "packetData",
+          "itemType": "PythonList",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.PacketLogger.SendToClient(IronPython.Runtime.PythonList)",
+      "itemKind": "method",
+      "itemClass": "PacketLogger",
+      "itemName": "SendToClient",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "packetData",
+          "itemType": "Byte[][]",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.PacketLogger.SendToServer(System.Byte[])",
+      "itemKind": "method",
+      "itemClass": "PacketLogger",
+      "itemName": "SendToServer",
+      "itemDescription": "Send a packet to the server.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "packetData",
+          "itemType": "List[Byte]",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.PacketLogger.SendToServer(System.Collections.Generic.List`1[])",
+      "itemKind": "method",
+      "itemClass": "PacketLogger",
+      "itemName": "SendToServer",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "packetData",
+          "itemType": "PythonList",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.PacketLogger.SendToServer(IronPython.Runtime.PythonList)",
+      "itemKind": "method",
+      "itemClass": "PacketLogger",
+      "itemName": "SendToServer",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "String",
+      "returnDesc": "The path to the saved file.",
+      "paramList": [
+        {
+          "itemName": "outputpath",
+          "itemType": "String",
+          "itemHasDefault": true,
+          "itemDefaultValue": null,
+          "itemDescription": "(Optional) Custom output path (Default: reset to ./Desktop/Razor_Packets.log)"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.PacketLogger.SetOutputPath(System.String)",
+      "itemKind": "method",
+      "itemClass": "PacketLogger",
+      "itemName": "SetOutputPath",
+      "itemDescription": "Set the RazorEnhanced packet logger. Calling it without a path it rester it to the default path.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "String",
+      "returnDesc": "The path to the saved file.",
+      "paramList": [
+        {
+          "itemName": "outputpath",
+          "itemType": "String",
+          "itemHasDefault": true,
+          "itemDefaultValue": null,
+          "itemDescription": "Custom output path (Default: ./Desktop/Razor_Packets.log)"
+        },
+        {
+          "itemName": "appendLogs",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "False",
+          "itemDescription": "True: Append - False: Overwrite (Default: False)"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.PacketLogger.Start(System.String,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "PacketLogger",
+      "itemName": "Start",
+      "itemDescription": "Start the RazorEnhanced packet logger.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "String",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "appendLogs",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "False",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.PacketLogger.Start(System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "PacketLogger",
+      "itemName": "Start",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "String",
+      "returnDesc": "The path to the saved file.",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.PacketLogger.Stop",
+      "itemKind": "method",
+      "itemClass": "PacketLogger",
+      "itemName": "Stop",
+      "itemDescription": "Stop the RazorEnhanced packet logger.",
+      "flagAutocomplete": false
+    }
+  ],
+  "properties": [
+    {
+      "propertyType": "Dictionary[PacketPath, String]",
+      "isStatic": true,
+      "xmlKey": "F:RazorEnhanced.PacketLogger.PathToString",
+      "itemKind": "property",
+      "itemClass": "PacketLogger",
+      "itemName": "PathToString",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Dictionary[String, PacketPath]",
+      "isStatic": true,
+      "xmlKey": "F:RazorEnhanced.PacketLogger.StringToPath",
+      "itemKind": "property",
+      "itemClass": "PacketLogger",
+      "itemName": "StringToPath",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    }
+  ]
+}

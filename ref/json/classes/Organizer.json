@@ -1,0 +1,110 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.Organizer",
+    "itemKind": "class",
+    "itemClass": "Organizer",
+    "itemName": "Organizer",
+    "itemDescription": "The Organizer class allow you to interect with the Scavenger Agent, via scripting.",
+    "flagAutocomplete": false
+  },
+  "methods": [
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "listName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Name of an existing organizer list."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Organizer.ChangeList(System.String)",
+      "itemKind": "method",
+      "itemClass": "Organizer",
+      "itemName": "ChangeList",
+      "itemDescription": "Change the Organizer's active list.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Organizer.FStart",
+      "itemKind": "method",
+      "itemClass": "Organizer",
+      "itemName": "FStart",
+      "itemDescription": "Start the Organizer Agent on the currently active list.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Organizer.FStop",
+      "itemKind": "method",
+      "itemClass": "Organizer",
+      "itemName": "FStop",
+      "itemDescription": "Stop the Organizer Agent.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "organizerName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "sourceBag",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "destBag",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "dragDelay",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Organizer.RunOnce(System.String,System.Int32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Organizer",
+      "itemName": "RunOnce",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: if the Organizer is running - False: otherwise",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Organizer.Status",
+      "itemKind": "method",
+      "itemClass": "Organizer",
+      "itemName": "Status",
+      "itemDescription": "Check Organizer Agent status",
+      "flagAutocomplete": false
+    }
+  ],
+  "properties": []
+}

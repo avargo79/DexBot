@@ -1,0 +1,69 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.BuyAgent",
+    "itemKind": "class",
+    "itemClass": "BuyAgent",
+    "itemName": "BuyAgent",
+    "itemDescription": "The BuyAgent class allow you to interect with the BuyAgent, via scripting.",
+    "flagAutocomplete": false
+  },
+  "methods": [
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "listName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Name of an existing buy list."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.BuyAgent.ChangeList(System.String)",
+      "itemKind": "method",
+      "itemClass": "BuyAgent",
+      "itemName": "ChangeList",
+      "itemDescription": "Change the BuyAgent's active list.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.BuyAgent.Disable",
+      "itemKind": "method",
+      "itemClass": "BuyAgent",
+      "itemName": "Disable",
+      "itemDescription": "Disable BuyAgent Agent.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.BuyAgent.Enable",
+      "itemKind": "method",
+      "itemClass": "BuyAgent",
+      "itemName": "Enable",
+      "itemDescription": "Enable BuyAgent on the currently active list.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: if the BuyAgent is active - False: otherwise",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.BuyAgent.Status",
+      "itemKind": "method",
+      "itemClass": "BuyAgent",
+      "itemName": "Status",
+      "itemDescription": "Check BuyAgent Agent status",
+      "flagAutocomplete": false
+    }
+  ],
+  "properties": []
+}

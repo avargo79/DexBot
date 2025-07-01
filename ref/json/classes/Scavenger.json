@@ -1,0 +1,127 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.Scavenger",
+    "itemKind": "class",
+    "itemClass": "Scavenger",
+    "itemName": "Scavenger",
+    "itemDescription": "The Scavenger class allow you to interect with the Scavenger Agent, via scripting.",
+    "flagAutocomplete": false
+  },
+  "methods": [
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "listName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Name of an existing organizer list."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Scavenger.ChangeList(System.String)",
+      "itemKind": "method",
+      "itemClass": "Scavenger",
+      "itemName": "ChangeList",
+      "itemDescription": "Change the Scavenger's active list.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "UInt32",
+      "returnDesc": "Serial of the container.",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Scavenger.GetScavengerBag",
+      "itemKind": "method",
+      "itemClass": "Scavenger",
+      "itemName": "GetScavengerBag",
+      "itemDescription": "Get current Scravenger destination container.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Scavenger.ResetIgnore",
+      "itemKind": "method",
+      "itemClass": "Scavenger",
+      "itemName": "ResetIgnore",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "scavengerList",
+          "itemType": "List[Scavenger.ScavengerItem]",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "millisec",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "filter",
+          "itemType": "Items.Filter",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Scavenger.RunOnce(System.Collections.Generic.List`1[],System.Int32,RazorEnhanced.Items.Filter)",
+      "itemKind": "method",
+      "itemClass": "Scavenger",
+      "itemName": "RunOnce",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Scavenger.Start",
+      "itemKind": "method",
+      "itemClass": "Scavenger",
+      "itemName": "Start",
+      "itemDescription": "Start the Scavenger Agent on the currently active list.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: if the Scavenger is running - False: otherwise",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Scavenger.Status",
+      "itemKind": "method",
+      "itemClass": "Scavenger",
+      "itemName": "Status",
+      "itemDescription": "Check Scavenger Agent status",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Scavenger.Stop",
+      "itemKind": "method",
+      "itemClass": "Scavenger",
+      "itemName": "Stop",
+      "itemDescription": "Stop the Scavenger Agent.",
+      "flagAutocomplete": false
+    }
+  ],
+  "properties": []
+}

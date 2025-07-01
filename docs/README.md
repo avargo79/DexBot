@@ -15,7 +15,6 @@ This directory contains all project documentation for DexBot, organized accordin
 ### 📄 Product Requirements Documents (PRDs)  
 - **[PRD Index](prds/README.md)** - Detailed specifications for approved features
 - **[Active PRDs](prds/)** - Features ready for or in development
-- **[Archived PRDs](prds/archived/)** - Completed or cancelled features
 
 ### 📊 Project Status
 - **[Development Status](Development_Status.md)** - Current project status and roadmap
@@ -44,13 +43,12 @@ docs/
 
 ## System-Specific Documentation
 
-### Existing System PRDs (Completed Features - Archived)
-- **[Auto Heal System](prds/archived/PRD_Auto_Heal_System.md)** - Automated healing and buff management
-- **[Combat System](prds/archived/PRD_Combat_System.md)** - Enemy detection, targeting, and engagement
-- **[Looting System](prds/archived/PRD_Looting_System.md)** - Corpse processing and item management
-- **[Master Architecture](prds/archived/PRD_Master.md)** - Overall system architecture and integration
+### Completed Systems (Production Ready)
+- **Auto Heal System** ✅ - Automated healing and buff management
+- **Combat System** ✅ - Enemy detection, targeting, and engagement  
+- **Looting System** ✅ - Corpse processing and item management with performance optimization
 
-### New Feature PRDs (In Development/Planning)
+### Active Development PRDs
 - **[Inventory Management System](prds/FR-095_Inventory_Management_System.md)** - Smart inventory organization
 - **[Equipment Manager System](prds/FR-096_Equipment_Manager_System.md)** - Automated equipment management
 

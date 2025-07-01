@@ -1,0 +1,184 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.PacketLogger.FieldType",
+    "itemKind": "class",
+    "itemClass": "PacketLogger.FieldType",
+    "itemName": "PacketLogger.FieldType",
+    "itemDescription": "Type of Fields available for FieldTemplate \nExample of \"Damage\" (0x0B) packet:\n{\n 'packetID': 0x0B,\n 'name': 'Damage 0x0B',\n 'showHexDump': true,\n 'fields':[\n   { 'name':'packetID', 'length':1, 'type':'packetID'},\n   { 'name':'Serial', 'length':4, 'type':'serial'},\n   { 'name':'Damage', 'length': 2, 'type':'int'},\n ]\n}",
+    "flagAutocomplete": false
+  },
+  "methods": [
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: is resognized. - False: not recognized.",
+      "paramList": [
+        {
+          "itemName": "typename",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Name of the types"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.PacketLogger.FieldType.IsValid(System.String)",
+      "itemKind": "method",
+      "itemClass": "PacketLogger.FieldType",
+      "itemName": "IsValid",
+      "itemDescription": "Check if the name of type is a valid Template filed type.",
+      "flagAutocomplete": false
+    }
+  ],
+  "properties": [
+    {
+      "propertyType": "String",
+      "isStatic": true,
+      "xmlKey": "F:RazorEnhanced.PacketLogger.FieldType.BOOL",
+      "itemKind": "property",
+      "itemClass": "PacketLogger.FieldType",
+      "itemName": "BOOL",
+      "itemDescription": "Boolean type, length is fixed to 1 byte.\n      \nExample:\n{'name':'Paralized', 'type':'bool'}",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "String",
+      "isStatic": true,
+      "xmlKey": "F:RazorEnhanced.PacketLogger.FieldType.DUMP",
+      "itemKind": "property",
+      "itemClass": "PacketLogger.FieldType",
+      "itemName": "DUMP",
+      "itemDescription": "Dump a certain amount of data as raw bytes-by-bytes HEX \nLength is mandatory.\n      \nExample:\n{'name':'unused', 'type':'dump', 'length': 40}",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "String",
+      "isStatic": true,
+      "xmlKey": "F:RazorEnhanced.PacketLogger.FieldType.FIELDS",
+      "itemKind": "property",
+      "itemClass": "PacketLogger.FieldType",
+      "itemName": "FIELDS",
+      "itemDescription": "A special field which has subfields, useful for displaying stucts. \n'length' is ignored, 'type' is optional, 'fields' is mandatory.\n\nExample:\n{'name':'Player Position', 'type':'fields',\n  'fields':[\n         {'name':'X', 'type':'uint', 'length': 2}\n         {'name':'Y', 'type':'uint', 'length': 2}\n         {'name':'Z', 'type':'uint', 'length': 1}\n   ]\n}",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "String",
+      "isStatic": true,
+      "xmlKey": "F:RazorEnhanced.PacketLogger.FieldType.FIELDSFOR",
+      "itemKind": "property",
+      "itemClass": "PacketLogger.FieldType",
+      "itemName": "FIELDSFOR",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "String",
+      "isStatic": true,
+      "xmlKey": "F:RazorEnhanced.PacketLogger.FieldType.HEX",
+      "itemKind": "property",
+      "itemClass": "PacketLogger.FieldType",
+      "itemName": "HEX",
+      "itemDescription": "Hex type is equivalent to unsigned integers but the contents is displayed as 0x hex.\nLength is mandatory and can range between 1 and 4 bytes.\n      \nExample:\n{'name':'Hue', 'type':'hex', 'length': 2}",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "String",
+      "isStatic": true,
+      "xmlKey": "F:RazorEnhanced.PacketLogger.FieldType.INT",
+      "itemKind": "property",
+      "itemClass": "PacketLogger.FieldType",
+      "itemName": "INT",
+      "itemDescription": "Integers type used for positive and negative integers.\nLength is mandatory and can range between 1 and 4 bytes.\n      \nExample:\n{'name':'Z Level', 'type':'int', 'length': 2}",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "String",
+      "isStatic": true,
+      "xmlKey": "F:RazorEnhanced.PacketLogger.FieldType.MODELID",
+      "itemKind": "property",
+      "itemClass": "PacketLogger.FieldType",
+      "itemName": "MODELID",
+      "itemDescription": "ModelID type like Item.ItemdID, Mobile.Body, etc.\nLength is fixed to 2 bytes and is displayed as 0x hex.\n      \nExample:\n{'name':'Item ID', 'type':'modelID'}\n{'name':'Mobile Body', 'type':'modelID'}\n{'name':'Static ID', 'type':'modelID'}",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "String",
+      "isStatic": true,
+      "xmlKey": "F:RazorEnhanced.PacketLogger.FieldType.PACKETID",
+      "itemKind": "property",
+      "itemClass": "PacketLogger.FieldType",
+      "itemName": "PACKETID",
+      "itemDescription": "Common type present in every packet, packetID, length is fixed to 1 byte.\n           \nExample:\n{'name':'packetID', 'type':'packetID'}",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "String",
+      "isStatic": true,
+      "xmlKey": "F:RazorEnhanced.PacketLogger.FieldType.SERIAL",
+      "itemKind": "property",
+      "itemClass": "PacketLogger.FieldType",
+      "itemName": "SERIAL",
+      "itemDescription": "Serial type, length is fixed to 4 bytes and is displayed as 0x hex.\n      \nExample:\n{'name':'Target Serial', 'type':'serial'}",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "String",
+      "isStatic": true,
+      "xmlKey": "F:RazorEnhanced.PacketLogger.FieldType.SKIP",
+      "itemKind": "property",
+      "itemClass": "PacketLogger.FieldType",
+      "itemName": "SKIP",
+      "itemDescription": "Skip a certain amount of data.\nLength is mandatory.\n      \nExample:\n{'name':'unused', 'type':'skip', 'length': 40}",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "String",
+      "isStatic": true,
+      "xmlKey": "F:RazorEnhanced.PacketLogger.FieldType.SUBPACKET",
+      "itemKind": "property",
+      "itemClass": "PacketLogger.FieldType",
+      "itemName": "SUBPACKET",
+      "itemDescription": "A special field which denotes the beginning of a subpacket. \n'length' is ignored, 'type' is optional, 'subpacket' is mandatory.\n\nExample:\n{'name':'action', 'type':'subpacket',\n  'subpacket':{\n    'name':'my subpacket'\n    'fields':[\n        ...\n    ]\n  }\n\n}",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "String",
+      "isStatic": true,
+      "xmlKey": "F:RazorEnhanced.PacketLogger.FieldType.TEXT",
+      "itemKind": "property",
+      "itemClass": "PacketLogger.FieldType",
+      "itemName": "TEXT",
+      "itemDescription": "Text reads bytes as text.\nLength is mandatory.\n      \nExample:\n{'name':'Name', 'type':'text', 'length': 20}",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "String",
+      "isStatic": true,
+      "xmlKey": "F:RazorEnhanced.PacketLogger.FieldType.UINT",
+      "itemKind": "property",
+      "itemClass": "PacketLogger.FieldType",
+      "itemName": "UINT",
+      "itemDescription": "Unsigned integers type used for positive integers.\nLength is mandatory and can range between 1 and 4 bytes.\n      \nExample:\n{'name':'Z Level', 'type':'uint', 'length': 2}",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "String",
+      "isStatic": true,
+      "xmlKey": "F:RazorEnhanced.PacketLogger.FieldType.UTF8",
+      "itemKind": "property",
+      "itemClass": "PacketLogger.FieldType",
+      "itemName": "UTF8",
+      "itemDescription": "Text reads bytes as UTF8 text.\nLength is mandatory.\n      \nExample:\n{'name':'Pet name', 'type':'utf8', 'length': 40}",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "String[][]",
+      "isStatic": true,
+      "xmlKey": "F:RazorEnhanced.PacketLogger.FieldType.VALID_TYPES",
+      "itemKind": "property",
+      "itemClass": "PacketLogger.FieldType",
+      "itemName": "VALID_TYPES",
+      "itemDescription": "List of valid types",
+      "flagAutocomplete": false
+    }
+  ]
+}

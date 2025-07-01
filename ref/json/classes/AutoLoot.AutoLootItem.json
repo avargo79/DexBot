@@ -1,0 +1,83 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.AutoLoot.AutoLootItem",
+    "itemKind": "class",
+    "itemClass": "AutoLoot.AutoLootItem",
+    "itemName": "AutoLoot.AutoLootItem",
+    "itemDescription": "",
+    "flagAutocomplete": false
+  },
+  "methods": [],
+  "properties": [
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.AutoLoot.AutoLootItem.Color",
+      "itemKind": "property",
+      "itemClass": "AutoLoot.AutoLootItem",
+      "itemName": "Color",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.AutoLoot.AutoLootItem.Graphics",
+      "itemKind": "property",
+      "itemClass": "AutoLoot.AutoLootItem",
+      "itemName": "Graphics",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "String",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.ListAbleItem.List",
+      "itemKind": "property",
+      "itemClass": "AutoLoot.AutoLootItem",
+      "itemName": "List",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.AutoLoot.AutoLootItem.LootBagOverride",
+      "itemKind": "property",
+      "itemClass": "AutoLoot.AutoLootItem",
+      "itemName": "LootBagOverride",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "String",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.AutoLoot.AutoLootItem.Name",
+      "itemKind": "property",
+      "itemClass": "AutoLoot.AutoLootItem",
+      "itemName": "Name",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "List[AutoLoot.AutoLootItem.Property]",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.AutoLoot.AutoLootItem.Properties",
+      "itemKind": "property",
+      "itemClass": "AutoLoot.AutoLootItem",
+      "itemName": "Properties",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.AutoLoot.AutoLootItem.Selected",
+      "itemKind": "property",
+      "itemClass": "AutoLoot.AutoLootItem",
+      "itemName": "Selected",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    }
+  ]
+}

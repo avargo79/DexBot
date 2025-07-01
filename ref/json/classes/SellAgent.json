@@ -1,0 +1,69 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.SellAgent",
+    "itemKind": "class",
+    "itemClass": "SellAgent",
+    "itemName": "SellAgent",
+    "itemDescription": "The SellAgent class allow you to interect with the SellAgent, via scripting.",
+    "flagAutocomplete": false
+  },
+  "methods": [
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "listName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.SellAgent.ChangeList(System.String)",
+      "itemKind": "method",
+      "itemClass": "SellAgent",
+      "itemName": "ChangeList",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.SellAgent.Disable",
+      "itemKind": "method",
+      "itemClass": "SellAgent",
+      "itemName": "Disable",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.SellAgent.Enable",
+      "itemKind": "method",
+      "itemClass": "SellAgent",
+      "itemName": "Enable",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.SellAgent.Status",
+      "itemKind": "method",
+      "itemClass": "SellAgent",
+      "itemName": "Status",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    }
+  ],
+  "properties": []
+}

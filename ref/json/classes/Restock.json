@@ -1,0 +1,110 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.Restock",
+    "itemKind": "class",
+    "itemClass": "Restock",
+    "itemName": "Restock",
+    "itemDescription": "The Restock class allow you to interact with the Restock Agent, via scripting.",
+    "flagAutocomplete": false
+  },
+  "methods": [
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "listName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Name of an existing restock list."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Restock.ChangeList(System.String)",
+      "itemKind": "method",
+      "itemClass": "Restock",
+      "itemName": "ChangeList",
+      "itemDescription": "Change the Restock's active list.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Restock.FStart",
+      "itemKind": "method",
+      "itemClass": "Restock",
+      "itemName": "FStart",
+      "itemDescription": "Start the Restock Agent on the currently active list.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Restock.FStop",
+      "itemKind": "method",
+      "itemClass": "Restock",
+      "itemName": "FStop",
+      "itemDescription": "Stop the Restock Agent.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "restockerName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "sourceBag",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "destBag",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "dragDelay",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Restock.RunOnce(System.String,System.Int32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Restock",
+      "itemName": "RunOnce",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: if the Restock is running - False: otherwise",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Restock.Status",
+      "itemKind": "method",
+      "itemClass": "Restock",
+      "itemName": "Status",
+      "itemDescription": "Check Restock Agent status",
+      "flagAutocomplete": false
+    }
+  ],
+  "properties": []
+}

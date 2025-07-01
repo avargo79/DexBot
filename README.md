@@ -8,7 +8,7 @@
 
 **New Users**: [Quick Start](#quick-start) • [Installation](#1-installation) • [Usage](#2-usage)  
 **Developers**: [Developer Workflow](#developer-workflow) • [Build Scripts](#-local-build-scripts) • [Contributing](#contributing)  
-**Documentation**: [Features](#features) • [Configuration](#configuration) • [API Reference](docs/RazorEnhanced_API_Reference.md)
+**Documentation**: [Features](#features) • [Configuration](#configuration) • [API Reference](ref/API_DOCUMENTATION_README.md)
 
 ## 🤖 AI-Coded Proof of Concept
 
@@ -141,9 +141,20 @@ DexBot/
 │   ├── CHANGELOG.md                # Version history (updated to v3.1.1)
 │   ├── DexBot_PRD.md               # Product Requirements Document
 │   ├── DexBot_Tasks.md             # Development progress tracking
-│   ├── api_reference.json          # RazorEnhanced API reference
-│   ├── RazorEnhanced_API_Reference.md # API documentation
-│   └── UO_ITEM_IDS_REFERENCE.md    # UO item ID reference
+│   ├── json/                       # JSON format API documentation
+│   │   ├── api_reference.json      # Comprehensive API reference  
+│   │   ├── classes/                # Individual class documentation
+│   │   └── search_index.json       # Search index for API reference
+│   ├── html/                       # HTML format API documentation
+│   │   ├── index.html              # Main API reference page
+│   │   └── ...                     # Individual class HTML files
+│   ├── markdown/                   # Markdown format API documentation
+│   │   ├── API_Reference.md        # Main API reference document
+│   │   └── classes/                # Individual class documentation
+│   └── API_DOCUMENTATION_README.md # API documentation guide
+├── ref/                            # 📖 Reference documentation and databases
+│   ├── uo_item_database.json       # Comprehensive UO item database (JSON)
+│   └── html/                       # Multi-format API documentation
 ├── scripts/                        # 🔧 Build and development tools
 │   ├── build.ps1                   # PowerShell build script (working)
 │   └── build.sh                    # Cross-platform shell script
@@ -258,7 +269,7 @@ python -m invoke build
 
 "Based on the PRD requirements, help me design a [new system/feature] that integrates with the existing modular architecture."
 
-"What RazorEnhanced API methods would I need for implementing [feature description]? Reference the local API documentation in docs/RazorEnhanced_API_Reference.md."
+"What RazorEnhanced API methods would I need for implementing [feature description]? Reference the comprehensive API documentation in ref/html/index.html or ref/markdown/README.md."
 
 "Generate a feature implementation plan that follows the existing code structure in src/systems/ and includes proper error handling, logging, and configuration management."
 
@@ -553,6 +564,58 @@ python -m invoke help
 - **Development tasks only work outside RazorEnhanced** - use a regular Python environment
 - **Always run `invoke bundle` after making changes** to update the distributable version
 
+## 🔧 Development & API Reference
+
+### API Reference System (TECH-001)
+
+DexBot includes a comprehensive API Reference Optimization System that provides:
+
+- **Multi-format Documentation**: Generate HTML, Markdown, and JSON documentation
+- **Automated Consolidation**: Consolidate existing API references automatically  
+- **Enhanced Extraction**: Extract API data directly from RazorEnhanced
+- **Developer Integration**: Full integration with invoke task system
+
+#### Quick API Reference Setup
+
+```bash
+# Extract API data from RazorEnhanced (run the manual script in Razor first)
+invoke fetch-razor-api-data
+
+# Generate complete API documentation
+invoke api-reference-workflow
+
+# Generate specific format
+invoke generate-api-reference --format html
+```
+
+See [API Reference Documentation](src/utils/README.md) for complete details.
+
+### UO Item Reference System
+
+DexBot provides dual-format item reference systems optimized for different use cases:
+
+#### For Scripts and Programming:
+- **`ref/uo_item_database.json`** - JSON database optimized for programmatic access
+- **`src/utils/uo_items.py`** - Python utility module with search and lookup functions
+- **`examples/uo_items_usage_example.py`** - Working examples showing integration
+
+```python
+from utils.uo_items import get_item_database
+db = get_item_database()
+
+# Get all gem IDs for looting configuration
+gem_ids = db.get_item_ids_by_name('gem')
+# Result: [3862, 3863, 3864, 3865, 3866, 3867, 3868, 3869]
+```
+
+#### For Developer Reference:
+- **`ref/uo_item_database.json`** - Comprehensive JSON database with all UO items
+- Perfect for both script integration and developer reference
+- Includes descriptions, hex/decimal formats, categories, and programmatic access
+- Works with the `src/utils/uo_items.py` utility for easy lookups
+
+**Recommendation**: Use the JSON database system for all script integration and developer reference needs.
+
 ## Contributing
 
 ### Development Setup
@@ -633,7 +696,7 @@ This project showcases how AI can handle end-to-end software development, from i
 
 - **[Product Requirements Document](docs/DexBot_PRD.md)** - Detailed feature specifications
 - **[Development Tasks](docs/DexBot_Tasks.md)** - Project roadmap and progress tracking 
-- **[API Reference](docs/RazorEnhanced_API_Reference.md)** - Complete RazorEnhanced API documentation
+- **[API Reference](ref/API_DOCUMENTATION_README.md)** - Complete RazorEnhanced API documentation system
 - **[Changelog](docs/CHANGELOG.md)** - Version history and release notes
 - **[GitHub Actions](https://github.com/avargo79/DexBot/actions)** - Live build and deployment status
 

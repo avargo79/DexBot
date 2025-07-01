@@ -1,0 +1,136 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.Vendor",
+    "itemKind": "class",
+    "itemClass": "Vendor",
+    "itemName": "Vendor",
+    "itemDescription": "@experimental\nThe Vendor class allow you to read the list items purchased last.",
+    "flagAutocomplete": false
+  },
+  "methods": [
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "vendorSerial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "The Vendor to buy from"
+        },
+        {
+          "itemName": "itemName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "the name of the item to buy (can be partial)"
+        },
+        {
+          "itemName": "amount",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "amount to attempt to buy"
+        },
+        {
+          "itemName": "maxPrice",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "-1",
+          "itemDescription": "Don't buy them if the cost exceeds this price.\n            default value = -1 means don't check price"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Vendor.Buy(System.Int32,System.String,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Vendor",
+      "itemName": "Buy",
+      "itemDescription": "Attempts to buy the item from the vendor specified.\n<param name=\"vendorSerial\">The Vendor to buy from</param>\n<param name=\"itemName\">the name of the item to buy (can be partial)</param>\n<param name=\"amount\">amount to attempt to buy</param>\n<param name=\"maxPrice\">Don't buy them if the cost exceeds this price.\ndefault value = -1 means don't check price</param>\nReturns True if a purchase is made, False otherwise",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "vendorSerial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "The Vendor to buy from"
+        },
+        {
+          "itemName": "itemID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "the itemID of the type of item to buy"
+        },
+        {
+          "itemName": "amount",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "amount to attempt to buy"
+        },
+        {
+          "itemName": "maxPrice",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "-1",
+          "itemDescription": "Don't buy them if the cost exceeds this price.\n            default value = -1 means don't check price"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Vendor.Buy(System.Int32,System.Int32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Vendor",
+      "itemName": "Buy",
+      "itemDescription": "Attempts to buy the item from the vendor specified.\n<param name=\"vendorSerial\">The Vendor to buy from</param>\n<param name=\"itemID\">the itemID of the type of item to buy</param>\n<param name=\"amount\">amount to attempt to buy</param>\n<param name=\"maxPrice\">Don't buy them if the cost exceeds this price.\ndefault value = -1 means don't check price</param>\nReturns True if a purchase is made, False otherwise",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "List[Vendor.BuyItem]",
+      "returnDesc": "A list of BuyItem",
+      "paramList": [
+        {
+          "itemName": "vendorSerial",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "-1",
+          "itemDescription": "Serial of the Vendor (default: -1 - most recent trade)"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Vendor.BuyList(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Vendor",
+      "itemName": "BuyList",
+      "itemDescription": "Get the list of items purchased in the last trade, with a specific Vendor.",
+      "flagAutocomplete": false
+    }
+  ],
+  "properties": [
+    {
+      "propertyType": "List[Item]",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Vendor.LastBuyList",
+      "itemKind": "property",
+      "itemClass": "Vendor",
+      "itemName": "LastBuyList",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "List[Item]",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Vendor.LastResellList",
+      "itemKind": "property",
+      "itemClass": "Vendor",
+      "itemName": "LastResellList",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    }
+  ]
+}
