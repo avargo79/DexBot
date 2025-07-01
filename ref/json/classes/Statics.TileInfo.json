@@ -1,0 +1,73 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.Statics.TileInfo",
+    "itemKind": "class",
+    "itemClass": "Statics.TileInfo",
+    "itemName": "Statics.TileInfo",
+    "itemDescription": "The TileInfo class hold the values represeting Tile or Land items for a given X,Y coordinate.",
+    "flagAutocomplete": false
+  },
+  "methods": [],
+  "properties": [
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Statics.TileInfo.Hue",
+      "itemKind": "property",
+      "itemClass": "Statics.TileInfo",
+      "itemName": "Hue",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "UInt16",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Statics.TileInfo.ID",
+      "itemKind": "property",
+      "itemClass": "Statics.TileInfo",
+      "itemName": "ID",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Statics.TileInfo.StaticHue",
+      "itemKind": "property",
+      "itemClass": "Statics.TileInfo",
+      "itemName": "StaticHue",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Statics.TileInfo.StaticID",
+      "itemKind": "property",
+      "itemClass": "Statics.TileInfo",
+      "itemName": "StaticID",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Statics.TileInfo.StaticZ",
+      "itemKind": "property",
+      "itemClass": "Statics.TileInfo",
+      "itemName": "StaticZ",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Statics.TileInfo.Z",
+      "itemKind": "property",
+      "itemClass": "Statics.TileInfo",
+      "itemName": "Z",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    }
+  ]
+}

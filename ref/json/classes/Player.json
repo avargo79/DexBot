@@ -1,0 +1,2836 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.Player",
+    "itemKind": "class",
+    "itemClass": "Player",
+    "itemName": "Player",
+    "itemDescription": "The Player class represent the currently logged in character.",
+    "flagAutocomplete": false
+  },
+  "methods": [
+    {
+      "returnType": "String",
+      "returnDesc": "Name of the area. Unknown if not recognized.",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.Area",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "Area",
+      "itemDescription": "Get the name of the area in which the Player is currently in. (Ex: Britain, Destard, Vesper, Moongate, etc)\nRegions are defined inside by Config/regions.json.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial or Mobile to attack."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.Attack(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "Attack",
+      "itemDescription": "Attack a Mobile.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "mobile",
+          "itemType": "Mobile",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.Attack(RazorEnhanced.Mobile)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "Attack",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.AttackLast",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "AttackLast",
+      "itemDescription": "Attack last target.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "graphic",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "rangemax",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "selector",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "color",
+          "itemType": "List[Int32]",
+          "itemHasDefault": true,
+          "itemDefaultValue": null,
+          "itemDescription": ""
+        },
+        {
+          "itemName": "notoriety",
+          "itemType": "List[Byte]",
+          "itemHasDefault": true,
+          "itemDefaultValue": null,
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.AttackType(System.Int32,System.Int32,System.String,System.Collections.Generic.List`1[],System.Collections.Generic.List`1[])",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "AttackType",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "graphics",
+          "itemType": "List[Int32]",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "rangemax",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "selector",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "color",
+          "itemType": "List[Int32]",
+          "itemHasDefault": true,
+          "itemDefaultValue": null,
+          "itemDescription": ""
+        },
+        {
+          "itemName": "notoriety",
+          "itemType": "List[Byte]",
+          "itemHasDefault": true,
+          "itemDefaultValue": null,
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.AttackType(System.Collections.Generic.List`1[],System.Int32,System.String,System.Collections.Generic.List`1[],System.Collections.Generic.List`1[])",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "AttackType",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Int32",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "buffname",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.BuffTime(System.String)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "BuffTime",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: if the buff is active - False: otherwise.",
+      "paramList": [
+        {
+          "itemName": "buffname",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Meditation\nAgility\nAnimal Form\nArcane Enpowerment\nArcane Enpowerment (new)\nArch Protection\nArmor Pierce\nAttunement\nAura of Nausea\nBleed\nBless\nBlock\nBload Oath (caster)\nBload Oath (curse)\nBloodWorm Anemia\nCity Trade Deal\nClumsy\nConfidence\nCorpse Skin\nCounter Attack\nCriminal\nCunning\nCurse\nCurse Weapon\nDeath Strike\nDefense Mastery\nDespair\nDespair (target)\nDisarm (new)\nDisguised\nDismount Prevention\nDivine Fury\nDragon Slasher Fear\nEnchant\nEnemy Of One\nEnemy Of One (new)\nEssence Of Wind\nEthereal Voyage\nEvasion\nEvil Omen\nFaction Loss\nFan Dancer Fan Fire\nFeeble Mind\nFeint\nForce Arrow\nBerserk\nFly\nGaze Despair\nGift Of Life\nGift Of Renewal\nHealing\nHeat Of Battle\nHiding\nHiryu Physical Malus\nHit Dual Wield\nHit Lower Attack\nHit Lower Defense\nHonorable Execution\nHonored\nHorrific Beast\nHawl Of Cacophony\nImmolating Weapon\nIncognito\nInspire\nInvigorate\nInvisibility\nLich Form\nLighting Strike\nMagic Fish\nMagic Reflection\nMana Phase\nMass Curse\nMedusa Stone\nMind Rot\nMomentum Strike\nMortal Strike\nNight Sight\nNoRearm\nOrange Petals\nPain Spike\nParalyze\nPerfection\nPerseverance\nPoison\nPoison Resistance\nPolymorph\nProtection\nPsychic Attack\nConsecrate Weapon\nRage\nRage Focusing\nRage Focusing (target)\nReactive Armor\nReaper Form\nResilience\nRose Of Trinsic\nRotworm Blood Disease\nRune Beetle Corruption\nSkill Use Delay\nSleep\nSpell Focusing\nSpell Focusing (target)\nSpell Plague\nSplintering Effect\nStone Form\nStrangle\nStrength\nSurge\nSwing Speed\nTalon Strike\nVampiric Embrace\nWeaken\nWraith Form"
+        },
+        {
+          "itemName": "okayToGuess",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.BuffsExist(System.String,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "BuffsExist",
+      "itemDescription": "Check if a buff is active, by buff name.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "msg",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Message to send."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.ChatAlliance(System.String)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "ChatAlliance",
+      "itemDescription": "Send message to the alliace chat.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "msg",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.ChatAlliance(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "ChatAlliance",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "msg",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Message to send."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.ChatChannel(System.String)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "ChatChannel",
+      "itemDescription": "Send an chat channel message.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "msg",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.ChatChannel(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "ChatChannel",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "color",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "msg",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.ChatEmote(System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "ChatEmote",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "color",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Color of the text"
+        },
+        {
+          "itemName": "msg",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Message to send."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.ChatEmote(System.Int32,System.String)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "ChatEmote",
+      "itemDescription": "Send an emote in game.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "msg",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Message to send."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.ChatGuild(System.String)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "ChatGuild",
+      "itemDescription": "Send message to the guild chat.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "msg",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.ChatGuild(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "ChatGuild",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "msg",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Text to send."
+        },
+        {
+          "itemName": "recepient_serial",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "0",
+          "itemDescription": "Optional: Target of private message."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.ChatParty(System.String,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "ChatParty",
+      "itemDescription": "Send message in arty chat. If a recepient_serial is specified, the message is private.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "color",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Color of the text"
+        },
+        {
+          "itemName": "msg",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Message to send."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.ChatSay(System.Int32,System.String)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "ChatSay",
+      "itemDescription": "Send message in game.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "color",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "msg",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.ChatSay(System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "ChatSay",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "msg",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Message to send."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.ChatSay(System.String)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "ChatSay",
+      "itemDescription": "Send message in game using 1153 for color.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "color",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Color of the text"
+        },
+        {
+          "itemName": "msg",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Message to send."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.ChatWhisper(System.Int32,System.String)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "ChatWhisper",
+      "itemDescription": "Send an wishper message.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "color",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "msg",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.ChatWhisper(System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "ChatWhisper",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "color",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Color of the text"
+        },
+        {
+          "itemName": "msg",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Message to send."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.ChatYell(System.Int32,System.String)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "ChatYell",
+      "itemDescription": "Send an yell message.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "color",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "msg",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.ChatYell(System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "ChatYell",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: the Layer is occupied by an Item - False: otherwise.",
+      "paramList": [
+        {
+          "itemName": "layer",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Layers:\n   RightHand\n   LeftHand\n   Shoes\n   Pants\n   Shirt\n   Head\n   Gloves\n   Ring\n   Neck\n   Hair\n   Waist\n   InnerTorso\n   Bracelet\n   FacialHair\n   MiddleTorso\n   Earrings\n   Arms\n   Cloak\n   OuterTorso\n   OuterLegs\n   InnerLegs\n   Talisman"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.CheckLayer(System.String)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "CheckLayer",
+      "itemDescription": "Check if a Layer is equipped by the Item.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.ClearCorpseList",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "ClearCorpseList",
+      "itemDescription": "Clear the Player corpse item list",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Int32",
+      "returnDesc": "Distance in number of tiles.",
+      "paramList": [
+        {
+          "itemName": "target",
+          "itemType": "UOEntity",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "The other Mobile or Item"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.DistanceTo(Assistant.UOEntity)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "DistanceTo",
+      "itemDescription": "Returns the distance between the Player and a Mobile or an Item.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Int32",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "target",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.DistanceTo(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "DistanceTo",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "action",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.EmoteAction(System.String)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "EmoteAction",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial or Item to equip."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.EquipItem(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "EquipItem",
+      "itemDescription": "Equip an Item",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "item",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.EquipItem(RazorEnhanced.Item)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "EquipItem",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.EquipLastWeapon",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "EquipLastWeapon",
+      "itemDescription": "Equip the last used weapon",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "serials",
+          "itemType": "List[Int32]",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.EquipUO3D(System.Collections.Generic.List`1[])",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "EquipUO3D",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "_serials",
+          "itemType": "PythonList",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.EquipUO3D(IronPython.Runtime.PythonList)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "EquipUO3D",
+      "itemDescription": "Equip a python list of item by using UO3D packet.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "status",
+          "itemType": "Boolean",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "True: Gargoyle Fly ON - False: Gargoyle fly OFF"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.Fly(System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "Fly",
+      "itemDescription": "Enable or disable Gargoyle Flying.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "BuffInfo",
+      "returnDesc": "Buff information",
+      "paramList": [
+        {
+          "itemName": "buffName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "buff name"
+        },
+        {
+          "itemName": "okayToGuess",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.GetBuffInfo(System.String,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "GetBuffInfo",
+      "itemDescription": "Check if buff information is active by buff name and returns it.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Item",
+      "returnDesc": "Item for the layer. Return null if not found or Layer invalid.",
+      "paramList": [
+        {
+          "itemName": "layer",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Layers:\n   RightHand\n   LeftHand\n   Shoes\n   Pants\n   Shirt\n   Head\n   Gloves\n   Ring\n   Neck\n   Hair\n   Waist\n   InnerTorso\n   Bracelet\n   FacialHair\n   MiddleTorso\n   Earrings\n   Arms\n   Cloak\n   OuterTorso\n   OuterLegs\n   InnerLegs\n   Talisman"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.GetItemOnLayer(System.String)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "GetItemOnLayer",
+      "itemDescription": "Returns the Item associated with a Mobile Layer.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "String",
+      "returnDesc": "Single line of text.",
+      "paramList": [
+        {
+          "itemName": "index",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Line number, start from 0."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.GetPropStringByIndex(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "GetPropStringByIndex",
+      "itemDescription": "Get a single line of Properties of the Player, from the tooltip, as text.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "List[String]",
+      "returnDesc": "List of text lines.",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.GetPropStringList",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "GetPropStringList",
+      "itemDescription": "Get the list of Properties of the Player, as list of lines of the tooltip.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Int32",
+      "returnDesc": "n: value of the propery \n0: property not found.\n1: property found, but not numeric.",
+      "paramList": [
+        {
+          "itemName": "name",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Name of the property."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.GetPropValue(System.String)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "GetPropValue",
+      "itemDescription": "Get the numeric value of a specific Player property, from the tooltip.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Double",
+      "returnDesc": "Value of the skill.",
+      "paramList": [
+        {
+          "itemName": "skillname",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Alchemy\nAnatomy\nAnimal Lore\nItem ID\nArms Lore\nParry\nBegging\nBlacksmith\nFletching\nPeacemaking\nCamping\nCarpentry\nCartography\nCooking\nDetect Hidden\nDiscordance\nEvalInt\nHealing\nFishing\nForensics\nHerding\nHiding\nProvocation\nInscribe\nLockpicking\nMagery\nMagic Resist\nMysticism\nTactics\nSnooping\nMusicianship\nPoisoning\nArchery\nSpirit Speak\nStealing\nTailoring\nAnimal Taming\nTaste ID\nTinkering\nTracking\nVeterinary\nSwords\nMacing\nFencing\nWrestling\nLumberjacking\nMining\nMeditation\nStealth\nRemove Trap\nNecromancy\nFocus\nChivalry\nBushido\nNinjitsu\nSpell Weaving\nImbuing"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.GetRealSkillValue(System.String)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "GetRealSkillValue",
+      "itemDescription": "Get the base/real value of the skill for the given the skill name.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Double",
+      "returnDesc": "Value of the skill cap.",
+      "paramList": [
+        {
+          "itemName": "skillname",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Alchemy\nAnatomy\nAnimal Lore\nItem ID\nArms Lore\nParry\nBegging\nBlacksmith\nFletching\nPeacemaking\nCamping\nCarpentry\nCartography\nCooking\nDetect Hidden\nDiscordance\nEvalInt\nHealing\nFishing\nForensics\nHerding\nHiding\nProvocation\nInscribe\nLockpicking\nMagery\nMagic Resist\nMysticism\nTactics\nSnooping\nMusicianship\nPoisoning\nArchery\nSpirit Speak\nStealing\nTailoring\nAnimal Taming\nTaste ID\nTinkering\nTracking\nVeterinary\nSwords\nMacing\nFencing\nWrestling\nLumberjacking\nMining\nMeditation\nStealth\nRemove Trap\nNecromancy\nFocus\nChivalry\nBushido\nNinjitsu\nSpell Weaving\nImbuing"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.GetSkillCap(System.String)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "GetSkillCap",
+      "itemDescription": "Get the skill cap for the given the skill name.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Int32",
+      "returnDesc": "Lock status:\n     0: Up     \n     1: Down \n     2: Locked \n    -1: Error",
+      "paramList": [
+        {
+          "itemName": "skillname",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Alchemy\nAnatomy\nAnimal Lore\nItem ID\nArms Lore\nParry\nBegging\nBlacksmith\nFletching\nPeacemaking\nCamping\nCarpentry\nCartography\nCooking\nDetect Hidden\nDiscordance\nEvalInt\nHealing\nFishing\nForensics\nHerding\nHiding\nProvocation\nInscribe\nLockpicking\nMagery\nMagic Resist\nMysticism\nTactics\nSnooping\nMusicianship\nPoisoning\nArchery\nSpirit Speak\nStealing\nTailoring\nAnimal Taming\nTaste ID\nTinkering\nTracking\nVeterinary\nSwords\nMacing\nFencing\nWrestling\nLumberjacking\nMining\nMeditation\nStealth\nRemove Trap\nNecromancy\nFocus\nChivalry\nBushido\nNinjitsu\nSpell Weaving\nImbuing"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.GetSkillStatus(System.String)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "GetSkillStatus",
+      "itemDescription": "Get lock status for a specific skill.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Double",
+      "returnDesc": "Value of the skill.",
+      "paramList": [
+        {
+          "itemName": "skillname",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Alchemy\nAnatomy\nAnimal Lore\nItem ID\nArms Lore\nParry\nBegging\nBlacksmith\nFletching\nPeacemaking\nCamping\nCarpentry\nCartography\nCooking\nDetect Hidden\nDiscordance\nEvalInt\nHealing\nFishing\nForensics\nHerding\nHiding\nProvocation\nInscribe\nLockpicking\nMagery\nMagic Resist\nMysticism\nTactics\nSnooping\nMusicianship\nPoisoning\nArchery\nSpirit Speak\nStealing\nTailoring\nAnimal Taming\nTaste ID\nTinkering\nTracking\nVeterinary\nSwords\nMacing\nFencing\nWrestling\nLumberjacking\nMining\nMeditation\nStealth\nRemove Trap\nNecromancy\nFocus\nChivalry\nBushido\nNinjitsu\nSpell Weaving\nImbuing"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.GetSkillValue(System.String)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "GetSkillValue",
+      "itemDescription": "Get the value of the skill, with modifiers, for the given the skill name.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Int32",
+      "returnDesc": "Lock status:\n     0: Up     \n     1: Down \n     2: Locked",
+      "paramList": [
+        {
+          "itemName": "statname",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Strength\nDexterity\nIntelligence"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.GetStatStatus(System.String)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "GetStatStatus",
+      "itemDescription": "Get lock status for a specific stats.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.GuildButton",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "GuildButton",
+      "itemDescription": "Press the Guild menu button in the paperdoll.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "color",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Color of the Text."
+        },
+        {
+          "itemName": "msg",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Text of the message."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.HeadMessage(System.Int32,System.String)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "HeadMessage",
+      "itemDescription": "Display a message above the Player. Visible only by the Player.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "color",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "msg",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.HeadMessage(System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "HeadMessage",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: Item is in range - False: otherwise.",
+      "paramList": [
+        {
+          "itemName": "entity",
+          "itemType": "UOEntity",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "range",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Maximum distance in tiles."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.InRange(Assistant.UOEntity,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "InRange",
+      "itemDescription": "Check if the mobile or item is within a certain range (&lt;=).",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: serial is in range - False: otherwise.",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "range",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Maximum distance in tiles."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.InRange(System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "InRange",
+      "itemDescription": "Check if the serial is within a certain range (&lt;=).",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: Item is in range - False: otherwise.",
+      "paramList": [
+        {
+          "itemName": "item",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial or Item object."
+        },
+        {
+          "itemName": "range",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Maximum distance in tiles."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.InRangeItem(System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "InRangeItem",
+      "itemDescription": "Check if the Item is within a certain range (&lt;=).",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "item",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "range",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.InRangeItem(RazorEnhanced.Item,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "InRangeItem",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: Mobile is in range - False: otherwise.",
+      "paramList": [
+        {
+          "itemName": "mobile",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial or Mobile object."
+        },
+        {
+          "itemName": "range",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Maximum distance in tiles."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.InRangeMobile(System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "InRangeMobile",
+      "itemDescription": "Check if the Mobile is within a certain range (&lt;=).",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: Item is in range - False: otherwise.",
+      "paramList": [
+        {
+          "itemName": "mobile",
+          "itemType": "Mobile",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "range",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Maximum distance in tiles."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.InRangeMobile(RazorEnhanced.Mobile,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "InRangeMobile",
+      "itemDescription": "Check if the mobile is within a certain range (&lt;=).",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "virtue",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Honor\nSacrifice\nValor\nCompassion\nHonesty\nHumility\nJustice\nSpirituality"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.InvokeVirtue(System.String)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "InvokeVirtue",
+      "itemDescription": "Invoke a virtue by name.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "virtue",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Honor\nSacrifice\nValor\nCompassion\nHonesty\nHumility\nJustice\nSpirituality"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.InvokeVirtue(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "InvokeVirtue",
+      "itemDescription": "Invoke a virtue by name.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial of the Mobile to remove."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.KickMember(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "KickMember",
+      "itemDescription": "Kick a member from party by serial. Only for party leader",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "force",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "False",
+          "itemDescription": "True: Leave the party invite even you notin any party."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.LeaveParty(System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "LeaveParty",
+      "itemDescription": "Leaves a party.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "msg",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Message to send"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.MapSay(System.String)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "MapSay",
+      "itemDescription": "Send message in the Map chat.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "msg",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.MapSay(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "MapSay",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.OpenPaperDoll",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "OpenPaperDoll",
+      "itemDescription": "Open Player's Paperdoll",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: if you are now in a party - False: otherwise.",
+      "paramList": [
+        {
+          "itemName": "from_serial",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "0",
+          "itemDescription": "Optional: Serial to accept party from.( in case of multiple offers )"
+        },
+        {
+          "itemName": "force",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "False",
+          "itemDescription": "True: Accept the party invite even you are already in a party."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.PartyAccept(System.Int32,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "PartyAccept",
+      "itemDescription": "Accept an incoming party offer. In case of multiple party oebnding invitation, from_serial is specified,",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "CanLoot",
+          "itemType": "Boolean",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.PartyCanLoot(System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "PartyCanLoot",
+      "itemDescription": "Set the Party loot permissions.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.PartyInvite",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "PartyInvite",
+      "itemDescription": "Invite a person to a party. Prompt for a in-game Target.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "X map coordinates or Point3D"
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Y map coordinates"
+        },
+        {
+          "itemName": "z",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Z map coordinates"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.PathFindTo(System.Int32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "PathFindTo",
+      "itemDescription": "Go to the given coordinates using Client-provided pathfinding.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "Location",
+          "itemType": "Point3D",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.PathFindTo(RazorEnhanced.Point3D)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "PathFindTo",
+      "itemDescription": "Go to the position supplied using Client-provided pathfinding.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "Location",
+          "itemType": "Point3D",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.PathFindTo(Assistant.Point3D)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "PathFindTo",
+      "itemDescription": "Go to the position supplied using Client-provided pathfinding.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.QuestButton",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "QuestButton",
+      "itemDescription": "Press the Quest menu button in the paperdoll.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: Destination reached - False: Coudn't reach the destination.",
+      "paramList": [
+        {
+          "itemName": "direction",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "North\nSouth\nEast\nWest\nUp\nDown\nLeft\nRight"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.Run(System.String)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "Run",
+      "itemDescription": "Run one step in the specified direction and wait for the confirmation of the new position by the server.\nIf the character is not facing the direction, the first step only \"turn\" the Player in the required direction.\n\nInfo:\nWalking:  5 tiles/sec (~200ms between each step)\nRunning: 10 tiles/sec (~100ms between each step)",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "skillname",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Alchemy\nAnatomy\nAnimal Lore\nItem ID\nArms Lore\nParry\nBegging\nBlacksmith\nFletching\nPeacemaking\nCamping\nCarpentry\nCartography\nCooking\nDetect Hidden\nDiscordance\nEvalInt\nHealing\nFishing\nForensics\nHerding\nHiding\nProvocation\nInscribe\nLockpicking\nMagery\nMagic Resist\nMysticism\nTactics\nSnooping\nMusicianship\nPoisoning\nArchery\nSpirit Speak\nStealing\nTailoring\nAnimal Taming\nTaste ID\nTinkering\nTracking\nVeterinary\nSwords\nMacing\nFencing\nWrestling\nLumberjacking\nMining\nMeditation\nStealth\nRemove Trap\nNecromancy\nFocus\nChivalry\nBushido\nNinjitsu\nSpell Weaving\nImbuing"
+        },
+        {
+          "itemName": "status",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Lock status:\n     0: Up     \n     1: Down \n     2: Locked"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.SetSkillStatus(System.String,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "SetSkillStatus",
+      "itemDescription": "Set lock status for a specific skill.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "statname",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Strength\nDexterity\nIntelligence"
+        },
+        {
+          "itemName": "status",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Lock status:\n     0: Up     \n     1: Down \n     2: Locked"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.SetStatStatus(System.String,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "SetStatStatus",
+      "itemDescription": "Set lock status for a specific skill.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.SetStaticMount(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "SetStaticMount",
+      "itemDescription": "Sets serial of mount set in Filter/Mount GUI.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "warflag",
+          "itemType": "Boolean",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "True: War - False: Peace"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.SetWarMode(System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "SetWarMode",
+      "itemDescription": "Set war Mode on on/off.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: the spell is enabled - False: otherwise,.",
+      "paramList": [
+        {
+          "itemName": "spellname",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Name of the spell."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.SpellIsEnabled(System.String)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "SpellIsEnabled",
+      "itemDescription": "Check if spell is active using the spell name (for spells that have this function).",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Single",
+      "returnDesc": "The total value as number.",
+      "paramList": [
+        {
+          "itemName": "attributename",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Name of the property."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.SumAttribute(System.String)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "SumAttribute",
+      "itemDescription": "Scan all the equipped Item, returns the total value of a specific property. (ex: Lower Reagent Cost )\nNOTE: This function is slow.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.ToggleAlwaysRun",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "ToggleAlwaysRun",
+      "itemDescription": "Toggle on/off the awlays run flag. \nNOTE: Works only on OSI client.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "x",
+          "itemType": "UInt16",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "X coordinate."
+        },
+        {
+          "itemName": "y",
+          "itemType": "UInt16",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Y coordinate."
+        },
+        {
+          "itemName": "display",
+          "itemType": "Boolean",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "True = On, False = off"
+        },
+        {
+          "itemName": "target",
+          "itemType": "UInt32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "0",
+          "itemDescription": "object serial targeted"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.TrackingArrow(System.UInt16,System.UInt16,System.Boolean,System.UInt32)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "TrackingArrow",
+      "itemDescription": "Display a fake tracking arrow",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "layer",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Layers:\n   RightHand\n   LeftHand\n   Shoes\n   Pants\n   Shirt\n   Head\n   Gloves\n   Ring\n   Neck\n   Hair\n   Waist\n   InnerTorso\n   Bracelet\n   FacialHair\n   MiddleTorso\n   Earrings\n   Arms\n   Cloak\n   OuterTorso\n   OuterLegs\n   InnerLegs\n   Talisman"
+        },
+        {
+          "itemName": "wait",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": "Wait for confirmation from the server."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.UnEquipItemByLayer(System.String,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "UnEquipItemByLayer",
+      "itemDescription": "Unequip the Item associated with a specific Layer.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "_layers",
+          "itemType": "List[String]",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.UnEquipUO3D(System.Collections.Generic.List`1[])",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "UnEquipUO3D",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "_layers",
+          "itemType": "PythonList",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.UnEquipUO3D(IronPython.Runtime.PythonList)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "UnEquipUO3D",
+      "itemDescription": "UnEquip a python list of layer names by using UO3D packet.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True if successful, False if not server packet received",
+      "paramList": [],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.Player.UpdateKarma",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "UpdateKarma",
+      "itemDescription": "Costly! \nUpdates the Fame and Karma of the Mobile, but it can take as long as 1 second to complete.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "skillname",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Alchemy\nAnatomy\nAnimal Lore\nItem ID\nArms Lore\nParry\nBegging\nBlacksmith\nFletching\nPeacemaking\nCamping\nCarpentry\nCartography\nCooking\nDetect Hidden\nDiscordance\nEvalInt\nHealing\nFishing\nForensics\nHerding\nHiding\nProvocation\nInscribe\nLockpicking\nMagery\nMagic Resist\nMysticism\nTactics\nSnooping\nMusicianship\nPoisoning\nArchery\nSpirit Speak\nStealing\nTailoring\nAnimal Taming\nTaste ID\nTinkering\nTracking\nVeterinary\nSwords\nMacing\nFencing\nWrestling\nLumberjacking\nMining\nMeditation\nStealth\nRemove Trap\nNecromancy\nFocus\nChivalry\nBushido\nNinjitsu\nSpell Weaving\nImbuing"
+        },
+        {
+          "itemName": "target",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Optional: Serial, Mobile or Item to target. (default: null)"
+        },
+        {
+          "itemName": "wait",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": "Optional: True: wait for confirmation from the server (default: False)"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.UseSkill(System.String,System.Int32,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "UseSkill",
+      "itemDescription": "Use a specific skill, and optionally apply that skill to the target specified.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "skillname",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "target",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "wait",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.UseSkill(System.String,RazorEnhanced.Item,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "UseSkill",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "skillname",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "target",
+          "itemType": "Mobile",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "wait",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.UseSkill(System.String,RazorEnhanced.Mobile,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "UseSkill",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "skillname",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "wait",
+          "itemType": "Boolean",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.UseSkill(System.String,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "UseSkill",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "skillname",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.UseSkill(System.String)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "UseSkill",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "skillname",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "wait",
+          "itemType": "Boolean",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.UseSkillOnly(System.String,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "UseSkillOnly",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "direction",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.Walk(System.String)",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "Walk",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.WeaponClearSA",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "WeaponClearSA",
+      "itemDescription": "Disable any active Special Ability of the weapon.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.WeaponDisarmSA",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "WeaponDisarmSA",
+      "itemDescription": "Toggle Disarm Ability.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.WeaponPrimarySA",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "WeaponPrimarySA",
+      "itemDescription": "Toggle on/off the primary Special Ability of the weapon.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.WeaponSecondarySA",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "WeaponSecondarySA",
+      "itemDescription": "Toggle on/off the secondary Special Ability of the weapon.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.WeaponStunSA",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "WeaponStunSA",
+      "itemDescription": "Toggle Stun Ability.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "String",
+      "returnDesc": "Towns\nDungeons\nGuarded\nForest\nUnknown",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Player.Zone",
+      "itemKind": "method",
+      "itemClass": "Player",
+      "itemName": "Zone",
+      "itemDescription": "Get the type of zone in which the Player is currently in.\nRegions are defined inside by Config/regions.json.",
+      "flagAutocomplete": false
+    }
+  ],
+  "properties": [
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.AR",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "AR",
+      "itemDescription": "Resistance to Phisical damage.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Item",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.Backpack",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "Backpack",
+      "itemDescription": "Player backpack, as Item object.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Item",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.Bank",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "Bank",
+      "itemDescription": "Player bank chest, as Item object.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.Body",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "Body",
+      "itemDescription": "Player Body or MobileID (see: Mobile.Body)",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "List[String]",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.Buffs",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "Buffs",
+      "itemDescription": "List of Player active buffs:\n   Meditation\n   Agility\n   Animal Form\n   Arcane Enpowerment\n   Arcane Enpowerment (new)\n   Arch Protection\n   Armor Pierce\n   Attunement\n   Aura of Nausea\n   Bleed\n   Bless\n   Block\n   Bload Oath (caster)\n   Bload Oath (curse)\n   BloodWorm Anemia\n   City Trade Deal\n   Clumsy\n   Confidence\n   Corpse Skin\n   Counter Attack\n   Criminal\n   Cunning\n   Curse\n   Curse Weapon\n   Death Strike\n   Defense Mastery\n   Despair\n   Despair (target)\n   Disarm (new)\n   Disguised\n   Dismount Prevention\n   Divine Fury\n   Dragon Slasher Fear\n   Enchant\n   Enemy Of One\n   Enemy Of One (new)\n   Essence Of Wind\n   Ethereal Voyage\n   Evasion\n   Evil Omen\n   Faction Loss\n   Fan Dancer Fan Fire\n   Feeble Mind\n   Feint\n   Force Arrow\n   Berserk\n   Fly\n   Gaze Despair\n   Gift Of Life\n   Gift Of Renewal\n   Healing\n   Heat Of Battle\n   Hiding\n   Hiryu Physical Malus\n   Hit Dual Wield\n   Hit Lower Attack\n   Hit Lower Defense\n   Honorable Execution\n   Honored\n   Horrific Beast\n   Hawl Of Cacophony\n   Immolating Weapon\n   Incognito\n   Inspire\n   Invigorate\n   Invisibility\n   Lich Form\n   Lighting Strike\n   Magic Fish\n   Magic Reflection\n   Mana Phase\n   Mass Curse\n   Medusa Stone\n   Mind Rot\n   Momentum Strike\n   Mortal Strike\n   Night Sight\n   NoRearm\n   Orange Petals\n   Pain Spike\n   Paralyze\n   Perfection\n   Perseverance\n   Poison\n   Poison Resistance\n   Polymorph\n   Protection\n   Psychic Attack\n   Consecrate Weapon\n   Rage\n   Rage Focusing\n   Rage Focusing (target)\n   Reactive Armor\n   Reaper Form\n   Resilience\n   Rose Of Trinsic\n   Rotworm Blood Disease\n   Rune Beetle Corruption\n   Skill Use Delay\n   Sleep\n   Spell Focusing\n   Spell Focusing (target)\n   Spell Plague\n   Splintering Effect\n   Stone Form\n   Strangle\n   Strength\n   Surge\n   Swing Speed\n   Talon Strike\n   Vampiric Embrace\n   Weaken\n   Wraith Form",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "List[BuffInfo]",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.BuffsInfo",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "BuffsInfo",
+      "itemDescription": "Returns a list with every detailed active buff",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.ColdResistance",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "ColdResistance",
+      "itemDescription": "Resistance to Cold damage.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.Connected",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "Connected",
+      "itemDescription": "Retrieves Connected State",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "HashSet[Item]",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.Corpses",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "Corpses",
+      "itemDescription": "Each Death Player corpse item is added here",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.DamageChanceIncrease",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "DamageChanceIncrease",
+      "itemDescription": "Get total Damage Chance Increase.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.DefenseChanceIncrease",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "DefenseChanceIncrease",
+      "itemDescription": "Get total Defense Chance Increase.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.Dex",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "Dex",
+      "itemDescription": "Stats value for Dexterity.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.DexterityIncrease",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "DexterityIncrease",
+      "itemDescription": "Get total Dexterity Increase.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "String",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.Direction",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "Direction",
+      "itemDescription": "Player current direction, as text.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.EnergyResistance",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "EnergyResistance",
+      "itemDescription": "Resistance to Energy damage.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.EnhancePotions",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "EnhancePotions",
+      "itemDescription": "Get total Enhance Potions.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Player.Fame",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "Fame",
+      "itemDescription": "Fame has to be reverse engineered from the title so it is just ranges:\n0: neutaral - 3 is highest fame",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.FasterCastRecovery",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "FasterCastRecovery",
+      "itemDescription": "Get total Faster Cast Recovery.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.FasterCasting",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "FasterCasting",
+      "itemDescription": "Get total Faster Casting.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.Female",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "Female",
+      "itemDescription": "Player is a female.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.FireResistance",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "FireResistance",
+      "itemDescription": "Resistance to Fire damage.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.Followers",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "Followers",
+      "itemDescription": "Player current amount of pet/followers.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.FollowersMax",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "FollowersMax",
+      "itemDescription": "Player maximum amount of pet/followers.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.Gold",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "Gold",
+      "itemDescription": "Player total gold, in the backpack.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.HasPrimarySpecial",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "HasPrimarySpecial",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.HasSecondarySpecial",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "HasSecondarySpecial",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.HasSpecial",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "HasSpecial",
+      "itemDescription": "Player have a special abilities active.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.HitChanceIncrease",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "HitChanceIncrease",
+      "itemDescription": "Get total Hit Chance Increase.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.HitPointsIncrease",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "HitPointsIncrease",
+      "itemDescription": "Get total Hit Points Increase.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.HitPointsRegeneration",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "HitPointsRegeneration",
+      "itemDescription": "Get total Hit Points Regeneration.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.Hits",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "Hits",
+      "itemDescription": "Current hit points.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.HitsMax",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "HitsMax",
+      "itemDescription": "Maximum hit points.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Player.InParty",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "InParty",
+      "itemDescription": "Player is in praty.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.Int",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "Int",
+      "itemDescription": "Stats value for Intelligence.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.IntelligenceIncrease",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "IntelligenceIncrease",
+      "itemDescription": "Get total Intelligence Increase.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.IsGhost",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "IsGhost",
+      "itemDescription": "Player is a Ghost",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Player.Karma",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "Karma",
+      "itemDescription": "Karma has to be reverse engineered from the title so it is just ranges:\n-5: most evil, 0: neutaral, 5 most good",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "String",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Player.KarmaTitle",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "KarmaTitle",
+      "itemDescription": "This is the title string returned from the server",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.LowerManaCost",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "LowerManaCost",
+      "itemDescription": "Get total Lower Mana Cost.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.LowerReagentCost",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "LowerReagentCost",
+      "itemDescription": "Get total Lower Reagent Cost.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.Luck",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "Luck",
+      "itemDescription": "Player total luck.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.Mana",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "Mana",
+      "itemDescription": "Current mana.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.ManaIncrease",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "ManaIncrease",
+      "itemDescription": "Get total Mana Increase.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.ManaMax",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "ManaMax",
+      "itemDescription": "Maximum mana.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.ManaRegeneration",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "ManaRegeneration",
+      "itemDescription": "Get total Mana Regeneration.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.Map",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "Map",
+      "itemDescription": "Player current map, or facet.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.MaxWeight",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "MaxWeight",
+      "itemDescription": "Player maximum weight.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.MaximumHitPointsIncrease",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "MaximumHitPointsIncrease",
+      "itemDescription": "Get total Maximum Hit Points Increase.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.MaximumStaminaIncrease",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "MaximumStaminaIncrease",
+      "itemDescription": "Get total Maximum Stamina Increase.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.MobileID",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "MobileID",
+      "itemDescription": "Player MobileID or Body (see: Mobile.MobileID)",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Item",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.Mount",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "Mount",
+      "itemDescription": "Player current Mount, as Item object.\nNOTE: On some server the Serial return by this function doesn't match the mount serial.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "String",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.Name",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "Name",
+      "itemDescription": "Player name.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Byte",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.Notoriety",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "Notoriety",
+      "itemDescription": "Player notoriety\n    1: blue, innocent\n    2: green, friend\n    3: gray, neutral\n    4: gray, criminal\n    5: orange, enemy\n    6: red, hostile \n    6: yellow, invulnerable",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.Paralized",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "Paralized",
+      "itemDescription": "Player is Paralized. True also while frozen because of casting of spells.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "List[Mobile]",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.Pets",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "Pets",
+      "itemDescription": "Finds all neutral pets in the area that can be renamed.\nThis isn't the server information on your pets, but its good enough for most cases",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.PoisonResistance",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "PoisonResistance",
+      "itemDescription": "Resistance to Poison damage.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.Poisoned",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "Poisoned",
+      "itemDescription": "Player is Poisoned",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Point3D",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.Position",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "Position",
+      "itemDescription": "Current Player position as Point3D object.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "UInt32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.PrimarySpecial",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "PrimarySpecial",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Item",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.Quiver",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "Quiver",
+      "itemDescription": "Player quiver, as Item object.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.ReflectPhysicalDamage",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "ReflectPhysicalDamage",
+      "itemDescription": "Get total Reflect Physical Damage.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "UInt32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.SecondarySpecial",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "SecondarySpecial",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.Serial",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "Serial",
+      "itemDescription": "Player unique Serial.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.SpellDamageIncrease",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "SpellDamageIncrease",
+      "itemDescription": "Get total Spell Damage Increase.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.Stam",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "Stam",
+      "itemDescription": "Current stamina.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.StamMax",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "StamMax",
+      "itemDescription": "Maximum stamina.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.StaminaIncrease",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "StaminaIncrease",
+      "itemDescription": "Get total Stamina Increase.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.StaminaRegeneration",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "StaminaRegeneration",
+      "itemDescription": "Get total Stamina Regeneration.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.StatCap",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "StatCap",
+      "itemDescription": "Get the stats cap.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.StaticMount",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "StaticMount",
+      "itemDescription": "Retrieves serial of mount set in Filter/Mount GUI.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.Str",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "Str",
+      "itemDescription": "Stats value for Strenght.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.StrengthIncrease",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "StrengthIncrease",
+      "itemDescription": "Get total Strength Increase.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.SwingSpeedIncrease",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "SwingSpeedIncrease",
+      "itemDescription": "Get total Swing Speed Increase.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.Visible",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "Visible",
+      "itemDescription": "Player is visible, false if hidden.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.WarMode",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "WarMode",
+      "itemDescription": "Player has war mode active.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.Weight",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "Weight",
+      "itemDescription": "Player current weight.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": true,
+      "xmlKey": "P:RazorEnhanced.Player.YellowHits",
+      "itemKind": "property",
+      "itemClass": "Player",
+      "itemName": "YellowHits",
+      "itemDescription": "Player HP bar is not blue, but yellow.",
+      "flagAutocomplete": false
+    }
+  ]
+}

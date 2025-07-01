@@ -1,0 +1,183 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.Items.Filter",
+    "itemKind": "class",
+    "itemClass": "Items.Filter",
+    "itemName": "Items.Filter",
+    "itemDescription": "The Items.Filter class is used to store options to filter the global Item list.\nOften used in combination with Items.ApplyFilter.",
+    "flagAutocomplete": false
+  },
+  "methods": [],
+  "properties": [
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Items.Filter.CheckIgnoreObject",
+      "itemKind": "property",
+      "itemClass": "Items.Filter",
+      "itemName": "CheckIgnoreObject",
+      "itemDescription": "Exclude from the search Items which are currently on the global Ignore List. ( default: False, any Item )",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Items.Filter.Enabled",
+      "itemKind": "property",
+      "itemClass": "Items.Filter",
+      "itemName": "Enabled",
+      "itemDescription": "True: The filter is used - False: Return all Item. ( default: True, active )",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "List[Int32]",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Items.Filter.Graphics",
+      "itemKind": "property",
+      "itemClass": "Items.Filter",
+      "itemName": "Graphics",
+      "itemDescription": "Limit the search to a list of Grapichs ID (see: Item.ItemID ) \nSupports .Add() and .AddRange()",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "List[Int32]",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Items.Filter.Hues",
+      "itemKind": "property",
+      "itemClass": "Items.Filter",
+      "itemName": "Hues",
+      "itemDescription": "Limit the search to a list of Colors.\nSupports .Add() and .AddRange()",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Items.Filter.IsContainer",
+      "itemKind": "property",
+      "itemClass": "Items.Filter",
+      "itemName": "IsContainer",
+      "itemDescription": "Limit the search to the Items which are also containers. (default: -1: any Item)",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Items.Filter.IsCorpse",
+      "itemKind": "property",
+      "itemClass": "Items.Filter",
+      "itemName": "IsCorpse",
+      "itemDescription": "Limit the search to the corpses on the ground. (default: -1, any Item)",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Items.Filter.IsDoor",
+      "itemKind": "property",
+      "itemClass": "Items.Filter",
+      "itemName": "IsDoor",
+      "itemDescription": "Limit the search to the doors. (default: -1: any Item)",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "List[String]",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Items.Filter.Layers",
+      "itemKind": "property",
+      "itemClass": "Items.Filter",
+      "itemName": "Layers",
+      "itemDescription": "Limit the search to the wearable Items by Layer.\nSupports .Add() and .AddRange()\n\nLayers:\n    RightHand\n    LeftHand\n    Shoes\n    Pants\n    Shirt\n    Head\n    Gloves\n    Ring\n    Neck\n    Waist\n    InnerTorso\n    Bracelet\n    MiddleTorso\n    Earrings\n    Arms\n    Cloak\n    OuterTorso\n    OuterLegs\n    InnerLegs\n    Talisman",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Items.Filter.Movable",
+      "itemKind": "property",
+      "itemClass": "Items.Filter",
+      "itemName": "Movable",
+      "itemDescription": "Limit the search to only Movable Items. ( default: -1, any Item )",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Items.Filter.Multi",
+      "itemKind": "property",
+      "itemClass": "Items.Filter",
+      "itemName": "Multi",
+      "itemDescription": "Limit the search to only Multi Items. ( default: -1, any Item )",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "String",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Items.Filter.Name",
+      "itemKind": "property",
+      "itemClass": "Items.Filter",
+      "itemName": "Name",
+      "itemDescription": "Limit the search by name of the Item.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Items.Filter.OnGround",
+      "itemKind": "property",
+      "itemClass": "Items.Filter",
+      "itemName": "OnGround",
+      "itemDescription": "Limit the search to the Items on the ground. (default: -1, any Item)",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Double",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Items.Filter.RangeMax",
+      "itemKind": "property",
+      "itemClass": "Items.Filter",
+      "itemName": "RangeMax",
+      "itemDescription": "Limit the search by distance, to Items which are at most RangeMax tiles away from the Player. ( default: -1, any Item )",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Double",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Items.Filter.RangeMin",
+      "itemKind": "property",
+      "itemClass": "Items.Filter",
+      "itemName": "RangeMin",
+      "itemDescription": "Limit the search by distance, to Items which are at least RangeMin tiles away from the Player. ( default: -1, any Item )",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "List[Int32]",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Items.Filter.Serials",
+      "itemKind": "property",
+      "itemClass": "Items.Filter",
+      "itemName": "Serials",
+      "itemDescription": "Limit the search to a list of Serials of Item to find. (ex: 0x0406EFCA )\nSupports .Add() and .AddRange()",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Double",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Items.Filter.ZRangeMax",
+      "itemKind": "property",
+      "itemClass": "Items.Filter",
+      "itemName": "ZRangeMax",
+      "itemDescription": "Limit the search by height, to Items which are at most ZRangeMax coordinates away from the Player. ( default: -1, any Item )",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Double",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Items.Filter.ZRangeMin",
+      "itemKind": "property",
+      "itemClass": "Items.Filter",
+      "itemName": "ZRangeMin",
+      "itemDescription": "Limit the search by height, to Items which are at least ZRangeMin coordinates away from the Player. ( default: -1, any Item )",
+      "flagAutocomplete": false
+    }
+  ]
+}

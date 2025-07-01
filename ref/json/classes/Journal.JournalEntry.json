@@ -1,0 +1,86 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.Journal.JournalEntry",
+    "itemKind": "class",
+    "itemClass": "Journal.JournalEntry",
+    "itemName": "Journal.JournalEntry",
+    "itemDescription": "The JournalEntry class rapresents a line in the Journal.",
+    "flagAutocomplete": false
+  },
+  "methods": [
+    {
+      "returnType": "Journal.JournalEntry",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.Journal.JournalEntry.Copy",
+      "itemKind": "method",
+      "itemClass": "Journal.JournalEntry",
+      "itemName": "Copy",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    }
+  ],
+  "properties": [
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Journal.JournalEntry.Color",
+      "itemKind": "property",
+      "itemClass": "Journal.JournalEntry",
+      "itemName": "Color",
+      "itemDescription": "Color of the text.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "String",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Journal.JournalEntry.Name",
+      "itemKind": "property",
+      "itemClass": "Journal.JournalEntry",
+      "itemName": "Name",
+      "itemDescription": "Name of the source, can be a Mobile or an Item.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Journal.JournalEntry.Serial",
+      "itemKind": "property",
+      "itemClass": "Journal.JournalEntry",
+      "itemName": "Serial",
+      "itemDescription": "Name of the source, can be a Mobile or an Item.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "String",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Journal.JournalEntry.Text",
+      "itemKind": "property",
+      "itemClass": "Journal.JournalEntry",
+      "itemName": "Text",
+      "itemDescription": "Actual content of the Journal Line.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Double",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Journal.JournalEntry.Timestamp",
+      "itemKind": "property",
+      "itemClass": "Journal.JournalEntry",
+      "itemName": "Timestamp",
+      "itemDescription": "Timestamp as UnixTime, the number of seconds elapsed since 01-Jan-1970.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "String",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Journal.JournalEntry.Type",
+      "itemKind": "property",
+      "itemClass": "Journal.JournalEntry",
+      "itemName": "Type",
+      "itemDescription": "Regular\nSystem\nEmote\nLabel\nFocus\nWhisper\nYell\nSpell\nGuild\nAlliance\nParty\nEncoded\nSpecial",
+      "flagAutocomplete": false
+    }
+  ]
+}

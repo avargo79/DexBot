@@ -1,0 +1,114 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.Timer",
+    "itemKind": "class",
+    "itemClass": "Timer",
+    "itemName": "Timer",
+    "itemDescription": "Timer are normally used to display messages after a certain period of time. \nThey are also often used to keep track of the maximum amount of time for an action to complete.",
+    "flagAutocomplete": false
+  },
+  "methods": [
+    {
+      "returnType": "Boolean",
+      "returnDesc": "true if not expired, false if expired",
+      "paramList": [
+        {
+          "itemName": "name",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Timer.Check(System.String)",
+      "itemKind": "method",
+      "itemClass": "Timer",
+      "itemName": "Check",
+      "itemDescription": "Check if a timer object is expired or not.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "name",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Timer name."
+        },
+        {
+          "itemName": "delay",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Delay in milliseconds."
+        },
+        {
+          "itemName": "message",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Message displayed at timeouit."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Timer.Create(System.String,System.Int32,System.String)",
+      "itemKind": "method",
+      "itemClass": "Timer",
+      "itemName": "Create",
+      "itemDescription": "Create a timer with the provided name that will expire in ms_timer time (in milliseconds)",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "name",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "delay",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Timer.Create(System.String,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Timer",
+      "itemName": "Create",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Int32",
+      "returnDesc": "Returns the milliseconds remaining for a timer.",
+      "paramList": [
+        {
+          "itemName": "name",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Timer name"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Timer.Remaining(System.String)",
+      "itemKind": "method",
+      "itemClass": "Timer",
+      "itemName": "Remaining",
+      "itemDescription": "Get remaining time for a named timer",
+      "flagAutocomplete": false
+    }
+  ],
+  "properties": []
+}

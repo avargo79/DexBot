@@ -1,0 +1,153 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.Trade.TradeData",
+    "itemKind": "class",
+    "itemClass": "Trade.TradeData",
+    "itemName": "Trade.TradeData",
+    "itemDescription": "SecureTrades holds the information about a single tradeing window.",
+    "flagAutocomplete": false
+  },
+  "methods": [],
+  "properties": [
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Trade.TradeData.AcceptMe",
+      "itemKind": "property",
+      "itemClass": "Trade.TradeData",
+      "itemName": "AcceptMe",
+      "itemDescription": "Trade has been accepted by the Player (me).",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Trade.TradeData.AcceptTrader",
+      "itemKind": "property",
+      "itemClass": "Trade.TradeData",
+      "itemName": "AcceptTrader",
+      "itemDescription": "Trade has been accepted by the Trader (other).",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Trade.TradeData.ContainerMe",
+      "itemKind": "property",
+      "itemClass": "Trade.TradeData",
+      "itemName": "ContainerMe",
+      "itemDescription": "Serial of the container holding the items offerd by the Player (me).",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Trade.TradeData.ContainerTrader",
+      "itemKind": "property",
+      "itemClass": "Trade.TradeData",
+      "itemName": "ContainerTrader",
+      "itemDescription": "Serial of the container holding the items offerd by the Trader (other).",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Trade.TradeData.GoldMax",
+      "itemKind": "property",
+      "itemClass": "Trade.TradeData",
+      "itemName": "GoldMax",
+      "itemDescription": "Maximum amount of Gold available for the Player (me).",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Trade.TradeData.GoldMe",
+      "itemKind": "property",
+      "itemClass": "Trade.TradeData",
+      "itemName": "GoldMe",
+      "itemDescription": "Amount of Gold offerd by the Player (me).",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Trade.TradeData.GoldTrader",
+      "itemKind": "property",
+      "itemClass": "Trade.TradeData",
+      "itemName": "GoldTrader",
+      "itemDescription": "Amount of Gold offerd by the Trader (other).",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Single",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Trade.TradeData.LastUpdate",
+      "itemKind": "property",
+      "itemClass": "Trade.TradeData",
+      "itemName": "LastUpdate",
+      "itemDescription": "Last update of the Trade as UnixTime ( format: \"Seconds,Milliseconds\" from 1-1-1970 )",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "String",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Trade.TradeData.NameTrader",
+      "itemKind": "property",
+      "itemClass": "Trade.TradeData",
+      "itemName": "NameTrader",
+      "itemDescription": "Name of the Trader (other).",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Trade.TradeData.PlatinumMax",
+      "itemKind": "property",
+      "itemClass": "Trade.TradeData",
+      "itemName": "PlatinumMax",
+      "itemDescription": "Maximum amount of Platinum available for the Player (me).",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Trade.TradeData.PlatinumMe",
+      "itemKind": "property",
+      "itemClass": "Trade.TradeData",
+      "itemName": "PlatinumMe",
+      "itemDescription": "Amount of Platinum offerd by the Player (me).",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Trade.TradeData.PlatinumTrader",
+      "itemKind": "property",
+      "itemClass": "Trade.TradeData",
+      "itemName": "PlatinumTrader",
+      "itemDescription": "Amount of Platinum offerd by the Trader (other).",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Trade.TradeData.SerialTrader",
+      "itemKind": "property",
+      "itemClass": "Trade.TradeData",
+      "itemName": "SerialTrader",
+      "itemDescription": "Serial of the Trader (other) .",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Trade.TradeData.TradeID",
+      "itemKind": "property",
+      "itemClass": "Trade.TradeData",
+      "itemName": "TradeID",
+      "itemDescription": "ID of the Trade.",
+      "flagAutocomplete": false
+    }
+  ]
+}

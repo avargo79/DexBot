@@ -1,0 +1,63 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.PacketLogger.FieldTemplate",
+    "itemKind": "class",
+    "itemClass": "PacketLogger.FieldTemplate",
+    "itemName": "PacketLogger.FieldTemplate",
+    "itemDescription": "Class representing the fields inside a packet template.\nExample of \"Damage\" (0x0B) packet:\n{\n 'packetID': 0x0B,\n 'name': 'Damage 0x0B',\n 'showHexDump': true,\n 'fields':[\n   { 'name':'packetID', 'length':1, 'type':'packetID'},\n   { 'name':'Serial', 'length':4, 'type':'serial'},\n   { 'name':'Damage', 'length': 2, 'type':'int'},\n ]\n}",
+    "flagAutocomplete": false
+  },
+  "methods": [],
+  "properties": [
+    {
+      "propertyType": "List[PacketLogger.FieldTemplate]",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.PacketLogger.FieldTemplate.fields",
+      "itemKind": "property",
+      "itemClass": "PacketLogger.FieldTemplate",
+      "itemName": "fields",
+      "itemDescription": "List of subfields present in this Field.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.PacketLogger.FieldTemplate.length",
+      "itemKind": "property",
+      "itemClass": "PacketLogger.FieldTemplate",
+      "itemName": "length",
+      "itemDescription": "Length in bytes. length &gt; 0 maybe a mandatory for some FieldType.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "String",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.PacketLogger.FieldTemplate.name",
+      "itemKind": "property",
+      "itemClass": "PacketLogger.FieldTemplate",
+      "itemName": "name",
+      "itemDescription": "Dysplay Name of the field.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "PacketLogger.PacketTemplate",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.PacketLogger.FieldTemplate.subpacket",
+      "itemKind": "property",
+      "itemClass": "PacketLogger.FieldTemplate",
+      "itemName": "subpacket",
+      "itemDescription": "A subpacket Field.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "String",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.PacketLogger.FieldTemplate.type",
+      "itemKind": "property",
+      "itemClass": "PacketLogger.FieldTemplate",
+      "itemName": "type",
+      "itemDescription": "Type of field. See FieldType for details on each type.",
+      "flagAutocomplete": false
+    }
+  ]
+}

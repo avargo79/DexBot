@@ -1,0 +1,73 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.PacketLogger.PacketTemplate",
+    "itemKind": "class",
+    "itemClass": "PacketLogger.PacketTemplate",
+    "itemName": "PacketLogger.PacketTemplate",
+    "itemDescription": "Rapresents a general purpose template system for packets. \nThe templates allow to format packets in the logger, making them readable.\nExample of \"Damage\" (0x0B) packet:\n{\n 'packetID': 0x0B,\n 'name': 'Damage 0x0B',\n 'showHexDump': true,\n 'fields':[\n   { 'name':'packetID', 'length':1, 'type':'packetID'},\n   { 'name':'Serial', 'length':4, 'type':'serial'},\n   { 'name':'Damage', 'length': 2, 'type':'int'},\n ]\n}",
+    "flagAutocomplete": false
+  },
+  "methods": [],
+  "properties": [
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.PacketLogger.PacketTemplate.dynamicLength",
+      "itemKind": "property",
+      "itemClass": "PacketLogger.PacketTemplate",
+      "itemName": "dynamicLength",
+      "itemDescription": "Advanced settings for PacketReader. Ask Crezdba about DLLImport.Razor.IsDynLength(buff[0])",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "List[PacketLogger.FieldTemplate]",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.PacketLogger.PacketTemplate.fields",
+      "itemKind": "property",
+      "itemClass": "PacketLogger.PacketTemplate",
+      "itemName": "fields",
+      "itemDescription": "List of fields present in this Packet.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "String",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.PacketLogger.PacketTemplate.name",
+      "itemKind": "property",
+      "itemClass": "PacketLogger.PacketTemplate",
+      "itemName": "name",
+      "itemDescription": "A readable name for the packet, optional but useful.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.PacketLogger.PacketTemplate.packetID",
+      "itemKind": "property",
+      "itemClass": "PacketLogger.PacketTemplate",
+      "itemName": "packetID",
+      "itemDescription": "packetID, mandatory.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.PacketLogger.PacketTemplate.showHexDump",
+      "itemKind": "property",
+      "itemClass": "PacketLogger.PacketTemplate",
+      "itemName": "showHexDump",
+      "itemDescription": "If showHexDump is true the packet logger will show also the hex dump.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.PacketLogger.PacketTemplate.version",
+      "itemKind": "property",
+      "itemClass": "PacketLogger.PacketTemplate",
+      "itemName": "version",
+      "itemDescription": "Template version,optional",
+      "flagAutocomplete": false
+    }
+  ]
+}

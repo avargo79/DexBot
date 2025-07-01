@@ -1,0 +1,105 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.Dress",
+    "itemKind": "class",
+    "itemClass": "Dress",
+    "itemName": "Dress",
+    "itemDescription": "",
+    "flagAutocomplete": false
+  },
+  "methods": [
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "dresslist",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Name of the list of friend."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Dress.ChangeList(System.String)",
+      "itemKind": "method",
+      "itemClass": "Dress",
+      "itemName": "ChangeList",
+      "itemDescription": "Change dress list, List must be exist in dress/undress Agent tab.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Dress.DressFStart",
+      "itemKind": "method",
+      "itemClass": "Dress",
+      "itemName": "DressFStart",
+      "itemDescription": "Start Dress engine.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Dress.DressFStop",
+      "itemKind": "method",
+      "itemClass": "Dress",
+      "itemName": "DressFStop",
+      "itemDescription": "Stop Dress engine.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: is running - False: otherwise",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Dress.DressStatus",
+      "itemKind": "method",
+      "itemClass": "Dress",
+      "itemName": "DressStatus",
+      "itemDescription": "Check Dress Agent status, returns a bool value.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Dress.UnDressFStart",
+      "itemKind": "method",
+      "itemClass": "Dress",
+      "itemName": "UnDressFStart",
+      "itemDescription": "Start UnDress engine.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Dress.UnDressFStop",
+      "itemKind": "method",
+      "itemClass": "Dress",
+      "itemName": "UnDressFStop",
+      "itemDescription": "Stop UnDress engine.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: is running - False: otherwise",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Dress.UnDressStatus",
+      "itemKind": "method",
+      "itemClass": "Dress",
+      "itemName": "UnDressStatus",
+      "itemDescription": "Check UnDress Agent status, returns a bool value.",
+      "flagAutocomplete": false
+    }
+  ],
+  "properties": []
+}

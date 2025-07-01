@@ -1,0 +1,737 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.Target",
+    "itemKind": "class",
+    "itemClass": "Target",
+    "itemName": "Target",
+    "itemDescription": "The Target class provides various methods for targeting Land, Items and Mobiles in game.",
+    "flagAutocomplete": false
+  },
+  "methods": [
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "target_name",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Target.AttackTargetFromList(System.String)",
+      "itemKind": "method",
+      "itemClass": "Target",
+      "itemName": "AttackTargetFromList",
+      "itemDescription": "Attack Target from gui filter selector, in Targetting tab.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Target.Cancel",
+      "itemKind": "method",
+      "itemClass": "Target",
+      "itemName": "Cancel",
+      "itemDescription": "Cancel the current target.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Target.ClearLast",
+      "itemKind": "method",
+      "itemClass": "Target",
+      "itemName": "ClearLast",
+      "itemDescription": "Clear the last target.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Target.ClearLastAttack",
+      "itemKind": "method",
+      "itemClass": "Target",
+      "itemName": "ClearLastAttack",
+      "itemDescription": "Clear the last attacked target",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Target.ClearLastandQueue",
+      "itemKind": "method",
+      "itemClass": "Target",
+      "itemName": "ClearLastandQueue",
+      "itemDescription": "Clear last target and target queue.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Target.ClearQueue",
+      "itemKind": "method",
+      "itemClass": "Target",
+      "itemName": "ClearQueue",
+      "itemDescription": "Clear Queue Target.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Int32",
+      "returnDesc": "Serial as number.",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Target.GetLast",
+      "itemKind": "method",
+      "itemClass": "Target",
+      "itemName": "GetLast",
+      "itemDescription": "Get serial number of last target",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Int32",
+      "returnDesc": "Serial as number.",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Target.GetLastAttack",
+      "itemKind": "method",
+      "itemClass": "Target",
+      "itemName": "GetLastAttack",
+      "itemDescription": "Get serial number of last attack target",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Mobile",
+      "returnDesc": "Mobile object matching. None: not found",
+      "paramList": [
+        {
+          "itemName": "target_name",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Name of the target filter."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Target.GetTargetFromList(System.String)",
+      "itemKind": "method",
+      "itemClass": "Target",
+      "itemName": "GetTargetFromList",
+      "itemDescription": "Get Mobile object from GUI filter selector, in Targetting tab.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True if the client has a target cursor and the optional flag matches; otherwise, false.",
+      "paramList": [
+        {
+          "itemName": "targetFlag",
+          "itemType": "String",
+          "itemHasDefault": true,
+          "itemDefaultValue": "Any",
+          "itemDescription": "The target flag to check for can be \"Any\", \"Beneficial\", \"Harmful\", or \"Neutral\"."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Target.HasTarget(System.String)",
+      "itemKind": "method",
+      "itemClass": "Target",
+      "itemName": "HasTarget",
+      "itemDescription": "Get the status of the in-game target cursor\nOptionally specify the target flag and check if the cursor is \"Beneficial\", \"Harmful\", or \"Neutral\".",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Target.Last",
+      "itemKind": "method",
+      "itemClass": "Target",
+      "itemName": "Last",
+      "itemDescription": "Execute the target on the last Item or Mobile targeted.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Target.LastQueued",
+      "itemKind": "method",
+      "itemClass": "Target",
+      "itemName": "LastQueued",
+      "itemDescription": "Enqueue the next target on the last Item or Mobile targeted.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Int32",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Target.LastUsedObject",
+      "itemKind": "method",
+      "itemClass": "Target",
+      "itemName": "LastUsedObject",
+      "itemDescription": "Returns the serial of last object used by the player.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "target_name",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Name of the target filter."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Target.PerformTargetFromList(System.String)",
+      "itemKind": "method",
+      "itemClass": "Target",
+      "itemName": "PerformTargetFromList",
+      "itemDescription": "Execute Target from GUI filter selector, in Targetting tab.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Point3D",
+      "returnDesc": "A Point3D object, containing the X,Y,Z coordinate",
+      "paramList": [
+        {
+          "itemName": "message",
+          "itemType": "String",
+          "itemHasDefault": true,
+          "itemDefaultValue": "Select Ground Position",
+          "itemDescription": "Hint on what to select."
+        },
+        {
+          "itemName": "color",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "945",
+          "itemDescription": "Color of the message. (default: 945, gray)"
+        }
+      ],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.Target.PromptGroundTarget(System.String,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Target",
+      "itemName": "PromptGroundTarget",
+      "itemDescription": "Prompt a target in-game, wait for the Player to select the ground. Can also specific a text message for prompt.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Int32",
+      "returnDesc": "Serial of the selected object.",
+      "paramList": [
+        {
+          "itemName": "message",
+          "itemType": "String",
+          "itemHasDefault": true,
+          "itemDefaultValue": "Select Item or Mobile",
+          "itemDescription": "Hint on what to select."
+        },
+        {
+          "itemName": "color",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "945",
+          "itemDescription": "Color of the message. (default: 945, gray)"
+        }
+      ],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.Target.PromptTarget(System.String,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Target",
+      "itemName": "PromptTarget",
+      "itemDescription": "Prompt a target in-game, wait for the Player to select an Item or a Mobile. Can also specific a text message for prompt.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Target.Self",
+      "itemKind": "method",
+      "itemClass": "Target",
+      "itemName": "Self",
+      "itemDescription": "Execute the target on the Player.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Target.SelfQueued",
+      "itemKind": "method",
+      "itemClass": "Target",
+      "itemName": "SelfQueued",
+      "itemDescription": "Enqueue the next target on the Player.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial of the Mobile."
+        },
+        {
+          "itemName": "wait",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": "Wait confirmation from the server."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Target.SetLast(System.Int32,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Target",
+      "itemName": "SetLast",
+      "itemDescription": "Set the last target to specific mobile, using the serial.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "mob",
+          "itemType": "Mobile",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Target.SetLast(RazorEnhanced.Mobile)",
+      "itemKind": "method",
+      "itemClass": "Target",
+      "itemName": "SetLast",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "target_name",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Name of the target filter."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Target.SetLastTargetFromList(System.String)",
+      "itemKind": "method",
+      "itemClass": "Target",
+      "itemName": "SetLastTargetFromList",
+      "itemDescription": "Set Last Target from GUI filter selector, in Targetting tab.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "X coordinate."
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Y coordinate."
+        },
+        {
+          "itemName": "z",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Z coordinate."
+        },
+        {
+          "itemName": "StaticID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "ID of Land/Tile"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Target.TargetExecute(System.Int32,System.Int32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Target",
+      "itemName": "TargetExecute",
+      "itemDescription": "Execute target on specific serial, item, mobile, X Y Z point.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "z",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Target.TargetExecute(System.Int32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Target",
+      "itemName": "TargetExecute",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial of the Target"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Target.TargetExecute(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Target",
+      "itemName": "TargetExecute",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "entity",
+          "itemType": "UOEntity",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "object can be a Mobil or an Item."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Target.TargetExecute(Assistant.UOEntity)",
+      "itemKind": "method",
+      "itemClass": "Target",
+      "itemName": "TargetExecute",
+      "itemDescription": "Targets the Mobil or Item specified",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "mobile",
+          "itemType": "Mobile",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Mobile object to target."
+        },
+        {
+          "itemName": "offset",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Distance from the target."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Target.TargetExecuteRelative(RazorEnhanced.Mobile,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Target",
+      "itemName": "TargetExecuteRelative",
+      "itemDescription": "Execute target on specific land point with offset distance from Mobile. Distance is calculated by target Mobile.Direction.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial of the mobile"
+        },
+        {
+          "itemName": "offset",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "+- distance to offset from the mobile identified with serial"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Target.TargetExecuteRelative(System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Target",
+      "itemName": "TargetExecuteRelative",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "item_serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Item object to use."
+        },
+        {
+          "itemName": "resource_number",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Resource as standard name or custom number\n               0: ore\n               1: sand\n               2: wood\n               3: graves\n               4: red_mushrooms\n               n: custom"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Target.TargetResource(System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Target",
+      "itemName": "TargetResource",
+      "itemDescription": "Find and target a resource using the specified item.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "item_serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "resource_name",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Target.TargetResource(System.Int32,System.String)",
+      "itemKind": "method",
+      "itemClass": "Target",
+      "itemName": "TargetResource",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "item",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Item object to use."
+        },
+        {
+          "itemName": "resouce_name",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "name of the resource to be targeted. ore, sand, wood, graves, red mushroom"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Target.TargetResource(RazorEnhanced.Item,System.String)",
+      "itemKind": "method",
+      "itemClass": "Target",
+      "itemName": "TargetResource",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "item",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "resoruce_number",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Target.TargetResource(RazorEnhanced.Item,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Target",
+      "itemName": "TargetResource",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "graphic",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "color",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "-1",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "range",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "20",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "selector",
+          "itemType": "String",
+          "itemHasDefault": true,
+          "itemDefaultValue": "Nearest",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "notoriety",
+          "itemType": "List[Byte]",
+          "itemHasDefault": true,
+          "itemDefaultValue": null,
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Target.TargetType(System.Int32,System.Int32,System.Int32,System.String,System.Collections.Generic.List`1[])",
+      "itemKind": "method",
+      "itemClass": "Target",
+      "itemName": "TargetType",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "delay",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Maximum amount to wait, in milliseconds"
+        },
+        {
+          "itemName": "noshow",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "False",
+          "itemDescription": "Pevent the cursor to display the target."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Target.WaitForTarget(System.Int32,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Target",
+      "itemName": "WaitForTarget",
+      "itemDescription": "Wait for the cursor to show the target, pause the script for a maximum amount of time. and optional flag True or False. True Not show cursor, false show it",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "delay",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "5000",
+          "itemDescription": "Maximum amount to wait, in milliseconds"
+        },
+        {
+          "itemName": "noshow",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "False",
+          "itemDescription": "Prevent the cursor to display the target."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Target.WaitForTargetOrFizzle(System.Int32,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Target",
+      "itemName": "WaitForTargetOrFizzle",
+      "itemDescription": "Wait for the cursor to show the target, or the sound for fizzle (0x5c) or pause the script for a maximum amount of time. \nand an optional flag True or False. True Not show cursor, false show it",
+      "flagAutocomplete": false
+    }
+  ],
+  "properties": []
+}

@@ -1,0 +1,694 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.Mobiles",
+    "itemKind": "class",
+    "itemClass": "Mobiles",
+    "itemName": "Mobiles",
+    "itemDescription": "The Mobiles class provides a wide range of functions to search and interact with Mobile.",
+    "flagAutocomplete": false
+  },
+  "methods": [
+    {
+      "returnType": "List[Mobile]",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "filter",
+          "itemType": "Mobiles.Filter",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Mobiles.ApplyFilter(RazorEnhanced.Mobiles.Filter)",
+      "itemKind": "method",
+      "itemClass": "Mobiles",
+      "itemName": "ApplyFilter",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Int32",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "mob",
+          "itemType": "Mobile",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "name",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "showContext",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "False",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Mobiles.ContextExist(RazorEnhanced.Mobile,System.String,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Mobiles",
+      "itemName": "ContextExist",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Int32",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "name",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "showContext",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "False",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Mobiles.ContextExist(System.Int32,System.String,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Mobiles",
+      "itemName": "ContextExist",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Mobile",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial of the Mobile."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Mobiles.FindBySerial(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Mobiles",
+      "itemName": "FindBySerial",
+      "itemDescription": "Find the Mobile with a specific Serial.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Mobile",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "graphic",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "notoriety",
+          "itemType": "List[Byte]",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "rangemax",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "selector",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "highlight",
+          "itemType": "Boolean",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Mobiles.FindMobile(System.Int32,System.Collections.Generic.List`1[],System.Int32,System.String,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Mobiles",
+      "itemName": "FindMobile",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Mobile",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "graphics",
+          "itemType": "List[Int32]",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "notoriety",
+          "itemType": "List[Byte]",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "rangemax",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "selector",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "highlight",
+          "itemType": "Boolean",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Mobiles.FindMobile(System.Collections.Generic.List`1[],System.Collections.Generic.List`1[],System.Int32,System.String,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Mobiles",
+      "itemName": "FindMobile",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "String",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "index",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Mobiles.GetPropStringByIndex(System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Mobiles",
+      "itemName": "GetPropStringByIndex",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "String",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "mob",
+          "itemType": "Mobile",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "index",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Mobiles.GetPropStringByIndex(RazorEnhanced.Mobile,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Mobiles",
+      "itemName": "GetPropStringByIndex",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "List[String]",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Mobiles.GetPropStringList(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Mobiles",
+      "itemName": "GetPropStringList",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "List[String]",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "mob",
+          "itemType": "Mobile",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Mobiles.GetPropStringList(RazorEnhanced.Mobile)",
+      "itemKind": "method",
+      "itemClass": "Mobiles",
+      "itemName": "GetPropStringList",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Single",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "name",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Mobiles.GetPropValue(System.Int32,System.String)",
+      "itemKind": "method",
+      "itemClass": "Mobiles",
+      "itemName": "GetPropValue",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Single",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "mob",
+          "itemType": "Mobile",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "name",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Mobiles.GetPropValue(RazorEnhanced.Mobile,System.String)",
+      "itemKind": "method",
+      "itemClass": "Mobiles",
+      "itemName": "GetPropValue",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Mobiles.Filter",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "target_name",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Mobiles.GetTargetingFilter(System.String)",
+      "itemKind": "method",
+      "itemClass": "Mobiles",
+      "itemName": "GetTargetingFilter",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Mobiles.TrackingInfo",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Mobiles.GetTrackingInfo",
+      "itemKind": "method",
+      "itemClass": "Mobiles",
+      "itemName": "GetTrackingInfo",
+      "itemDescription": "Get the most updated information about tracking.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "mobile",
+          "itemType": "Mobile",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "hue",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "message",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "wait",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Mobiles.Message(RazorEnhanced.Mobile,System.Int32,System.String,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Mobiles",
+      "itemName": "Message",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "hue",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "message",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "wait",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Mobiles.Message(System.Int32,System.Int32,System.String,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Mobiles",
+      "itemName": "Message",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Mobile",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "mobiles",
+          "itemType": "List[Mobile]",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "selector",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Mobiles.Select(System.Collections.Generic.List`1[],System.String)",
+      "itemKind": "method",
+      "itemClass": "Mobiles",
+      "itemName": "Select",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "mobile",
+          "itemType": "Mobile",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Mobiles.SingleClick(RazorEnhanced.Mobile)",
+      "itemKind": "method",
+      "itemClass": "Mobiles",
+      "itemName": "SingleClick",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Mobiles.SingleClick(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Mobiles",
+      "itemName": "SingleClick",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "mobile",
+          "itemType": "Mobile",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Mobiles.UseMobile(RazorEnhanced.Mobile)",
+      "itemKind": "method",
+      "itemClass": "Mobiles",
+      "itemName": "UseMobile",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "mobileserial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Mobiles.UseMobile(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Mobiles",
+      "itemName": "UseMobile",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "m",
+          "itemType": "Mobile",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "delay",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Mobiles.WaitForProps(RazorEnhanced.Mobile,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Mobiles",
+      "itemName": "WaitForProps",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "mobileserial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "delay",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Mobiles.WaitForProps(System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Mobiles",
+      "itemName": "WaitForProps",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "m",
+          "itemType": "Mobile",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "delay",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Mobiles.WaitForStats(RazorEnhanced.Mobile,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Mobiles",
+      "itemName": "WaitForStats",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "mobileserial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "delay",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Mobiles.WaitForStats(System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Mobiles",
+      "itemName": "WaitForStats",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    }
+  ],
+  "properties": []
+}

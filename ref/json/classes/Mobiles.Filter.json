@@ -1,0 +1,233 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.Mobiles.Filter",
+    "itemKind": "class",
+    "itemClass": "Mobiles.Filter",
+    "itemName": "Mobiles.Filter",
+    "itemDescription": "The Mobiles.Filter class is used to store options to filter the global Mobile list.\nOften used in combination with Mobiles.ApplyFilter.",
+    "flagAutocomplete": false
+  },
+  "methods": [],
+  "properties": [
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Mobiles.Filter.Blessed",
+      "itemKind": "property",
+      "itemClass": "Mobiles.Filter",
+      "itemName": "Blessed",
+      "itemDescription": "Limit the search to only Blessed Mobiles.  (default: -1, any Mobile)",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "List[Int32]",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Mobiles.Filter.Bodies",
+      "itemKind": "property",
+      "itemClass": "Mobiles.Filter",
+      "itemName": "Bodies",
+      "itemDescription": "Limit the search to a list of MobileID (see: Mobile.ItemID or Mobile.Body ) \nSupports .Add() and .AddRange()",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Mobiles.Filter.CheckIgnoreObject",
+      "itemKind": "property",
+      "itemClass": "Mobiles.Filter",
+      "itemName": "CheckIgnoreObject",
+      "itemDescription": "Exclude from the search Mobiles which are currently on the global Ignore List. ( default: False, any Item )",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Mobiles.Filter.CheckLineOfSight",
+      "itemKind": "property",
+      "itemClass": "Mobiles.Filter",
+      "itemName": "CheckLineOfSight",
+      "itemDescription": "Limit the search only to the Mobiles which are in line of sight. (default: false, any Mobile)",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Mobiles.Filter.Enabled",
+      "itemKind": "property",
+      "itemClass": "Mobiles.Filter",
+      "itemName": "Enabled",
+      "itemDescription": "True: The filter is used - False: Return all Mobile. ( default: True, active )",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Mobiles.Filter.Female",
+      "itemKind": "property",
+      "itemClass": "Mobiles.Filter",
+      "itemName": "Female",
+      "itemDescription": "Limit the search to female Mobile.  (default: -1, any)",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Mobiles.Filter.Friend",
+      "itemKind": "property",
+      "itemClass": "Mobiles.Filter",
+      "itemName": "Friend",
+      "itemDescription": "Limit the search to friend Mobile. (default: -1, any)",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "List[Int32]",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Mobiles.Filter.Graphics",
+      "itemKind": "property",
+      "itemClass": "Mobiles.Filter",
+      "itemName": "Graphics",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "List[Int32]",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Mobiles.Filter.Hues",
+      "itemKind": "property",
+      "itemClass": "Mobiles.Filter",
+      "itemName": "Hues",
+      "itemDescription": "Limit the search to a list of Colors.\nSupports .Add() and .AddRange()",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Mobiles.Filter.IgnorePets",
+      "itemKind": "property",
+      "itemClass": "Mobiles.Filter",
+      "itemName": "IgnorePets",
+      "itemDescription": "Include the Mobiles which are currently on the Pet List. ( default: True, include Pets )",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Mobiles.Filter.IsGhost",
+      "itemKind": "property",
+      "itemClass": "Mobiles.Filter",
+      "itemName": "IsGhost",
+      "itemDescription": "Limit the search to Ghost only. (default: -1, any Mobile )\nMatch any MobileID in the list:\n    402, 403, 607, 608, 694, 695, 970",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Mobiles.Filter.IsHuman",
+      "itemKind": "property",
+      "itemClass": "Mobiles.Filter",
+      "itemName": "IsHuman",
+      "itemDescription": "Limit the search to Humans only. (default: -1, any Mobile )\nMatch any MobileID in the list:\n    183, 184, 185, 186, 400, \n    401, 402, 403, 605, 606,\n    607, 608, 666, 667, 694, \n    744, 745, 747, 748, 750,  \n    751, 970, 695",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "String",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Mobiles.Filter.Name",
+      "itemKind": "property",
+      "itemClass": "Mobiles.Filter",
+      "itemName": "Name",
+      "itemDescription": "Limit the search by name of the Mobile.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "List[Byte]",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Mobiles.Filter.Notorieties",
+      "itemKind": "property",
+      "itemClass": "Mobiles.Filter",
+      "itemName": "Notorieties",
+      "itemDescription": "Limit the search to the Mobile by notoriety.\nSupports .Add() and .AddRange()\n\nNotorieties:\n    1: blue, innocent\n    2: green, friend\n    3: gray, neutral\n    4: gray, criminal\n    5: orange, enemy\n    6: red, hostile \n    6: yellow, invulnerable",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Mobiles.Filter.Paralized",
+      "itemKind": "property",
+      "itemClass": "Mobiles.Filter",
+      "itemName": "Paralized",
+      "itemDescription": "Limit the search to paralized Mobile. (default: -1, any)",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Mobiles.Filter.Poisoned",
+      "itemKind": "property",
+      "itemClass": "Mobiles.Filter",
+      "itemName": "Poisoned",
+      "itemDescription": "Limit the search to only Poisoned Mobiles.  (default: -1, any Mobile)",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Double",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Mobiles.Filter.RangeMax",
+      "itemKind": "property",
+      "itemClass": "Mobiles.Filter",
+      "itemName": "RangeMax",
+      "itemDescription": "Limit the search by distance, to Mobiles which are at most RangeMax tiles away from the Player. ( default: -1, any Mobile )",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Double",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Mobiles.Filter.RangeMin",
+      "itemKind": "property",
+      "itemClass": "Mobiles.Filter",
+      "itemName": "RangeMin",
+      "itemDescription": "Limit the search by distance, to Mobiles which are at least RangeMin tiles away from the Player. ( default: -1, any Mobile )",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "List[Int32]",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Mobiles.Filter.Serials",
+      "itemKind": "property",
+      "itemClass": "Mobiles.Filter",
+      "itemName": "Serials",
+      "itemDescription": "Limit the search to a list of Serials of Mobile to find. (ex: 0x0406EFCA )\nSupports .Add() and .AddRange()",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Mobiles.Filter.Warmode",
+      "itemKind": "property",
+      "itemClass": "Mobiles.Filter",
+      "itemName": "Warmode",
+      "itemDescription": "Limit the search to Mobile War mode. (default: -1, any Mobile)\n    -1: any\n     0: peace\n     1: war",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Double",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Mobiles.Filter.ZLevelMax",
+      "itemKind": "property",
+      "itemClass": "Mobiles.Filter",
+      "itemName": "ZLevelMax",
+      "itemDescription": "Limit the search by z-level, to Mobiles which are at most z-level specified. ( default: 4096, all z-levels )",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Double",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.Mobiles.Filter.ZLevelMin",
+      "itemKind": "property",
+      "itemClass": "Mobiles.Filter",
+      "itemName": "ZLevelMin",
+      "itemDescription": "Limit the search by z-level, to Mobiles which are at least z-level specified. ( default: -4096, all z-levels )",
+      "flagAutocomplete": false
+    }
+  ]
+}

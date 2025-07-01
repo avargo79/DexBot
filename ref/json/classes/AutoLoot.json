@@ -1,0 +1,174 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.AutoLoot",
+    "itemKind": "class",
+    "itemClass": "AutoLoot",
+    "itemName": "AutoLoot",
+    "itemDescription": "The Autoloot class allow to interact with the Autoloot Agent, via scripting.",
+    "flagAutocomplete": false
+  },
+  "methods": [
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "listName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Name of an existing organizer list."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.AutoLoot.ChangeList(System.String)",
+      "itemKind": "method",
+      "itemClass": "AutoLoot",
+      "itemName": "ChangeList",
+      "itemDescription": "Change the Autoloot's active list.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "List[AutoLoot.AutoLootItem]",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "lootListName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Name of the AutoLoot list."
+        },
+        {
+          "itemName": "wantMinusOnes",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "False",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.AutoLoot.GetList(System.String,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "AutoLoot",
+      "itemName": "GetList",
+      "itemDescription": "Given an AutoLoot list name, return a list of AutoLootItem associated.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "UInt32",
+      "returnDesc": "Serial of the container.",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.AutoLoot.GetLootBag",
+      "itemKind": "method",
+      "itemClass": "AutoLoot",
+      "itemName": "GetLootBag",
+      "itemDescription": "Get current Autoloot destination container.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.AutoLoot.ResetIgnore",
+      "itemKind": "method",
+      "itemClass": "AutoLoot",
+      "itemName": "ResetIgnore",
+      "itemDescription": "Reset the Autoloot ignore list.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "lootListName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Name of the Autoloot listfilter for search on ground."
+        },
+        {
+          "itemName": "millisec",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Delay in milliseconds. (unused)"
+        },
+        {
+          "itemName": "filter",
+          "itemType": "Items.Filter",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Item filter"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.AutoLoot.RunOnce(System.String,System.Int32,RazorEnhanced.Items.Filter)",
+      "itemKind": "method",
+      "itemClass": "AutoLoot",
+      "itemName": "RunOnce",
+      "itemDescription": "Start Autoloot with custom parameters.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "Previous value of \"No Open Corpse\"",
+      "paramList": [
+        {
+          "itemName": "noOpen",
+          "itemType": "Boolean",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "True: \"No Open Corpse\" is active - False: otherwise"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.AutoLoot.SetNoOpenCorpse(System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "AutoLoot",
+      "itemName": "SetNoOpenCorpse",
+      "itemDescription": "Toggle \"No Open Corpse\" on/off. The change doesn't persist if you reopen razor.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.AutoLoot.Start",
+      "itemKind": "method",
+      "itemClass": "AutoLoot",
+      "itemName": "Start",
+      "itemDescription": "Start the Autoloot Agent on the currently active list.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: if the Autoloot is running - False: otherwise",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.AutoLoot.Status",
+      "itemKind": "method",
+      "itemClass": "AutoLoot",
+      "itemName": "Status",
+      "itemDescription": "Check Autoloot Agent status",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.AutoLoot.Stop",
+      "itemKind": "method",
+      "itemClass": "AutoLoot",
+      "itemName": "Stop",
+      "itemDescription": "Stop the Autoloot Agent.",
+      "flagAutocomplete": false
+    }
+  ],
+  "properties": []
+}

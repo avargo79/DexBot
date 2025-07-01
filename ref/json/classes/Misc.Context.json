@@ -1,0 +1,33 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.Misc.Context",
+    "itemKind": "class",
+    "itemClass": "Misc.Context",
+    "itemName": "Misc.Context",
+    "itemDescription": "The Context class holds information about a single entry in the Context Menu.",
+    "flagAutocomplete": false
+  },
+  "methods": [],
+  "properties": [
+    {
+      "propertyType": "String",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Misc.Context.Entry",
+      "itemKind": "property",
+      "itemClass": "Misc.Context",
+      "itemName": "Entry",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Misc.Context.Response",
+      "itemKind": "property",
+      "itemClass": "Misc.Context",
+      "itemName": "Response",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    }
+  ]
+}

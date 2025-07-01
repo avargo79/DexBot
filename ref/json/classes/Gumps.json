@@ -1,0 +1,2460 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.Gumps",
+    "itemKind": "class",
+    "itemClass": "Gumps",
+    "itemName": "Gumps",
+    "itemDescription": "The Gumps class is used to read and interact with in-game gumps, via scripting.\nNOTE\n----\nDuring development of scripts that involves interecting with Gumps, is often needed to know gumpids and buttonids.\nFor this purpose, can be particularly usefull to use *Inspect Gumps* and *Record*, top right, in the internal RE script editor.",
+    "flagAutocomplete": false
+  },
+  "methods": [
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gd",
+          "itemType": "Gumps.GumpData&@",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "width",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "height",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.AddAlphaRegion(RazorEnhanced.Gumps.GumpData&,System.Int32,System.Int32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "AddAlphaRegion",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gd",
+          "itemType": "Gumps.GumpData&@",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "width",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "height",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "gumpId",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.AddBackground(RazorEnhanced.Gumps.GumpData&,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "AddBackground",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gd",
+          "itemType": "Gumps.GumpData&@",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "normalID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "pressedID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "buttonID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "type",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "param",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.AddButton(RazorEnhanced.Gumps.GumpData&,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "AddButton",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gd",
+          "itemType": "Gumps.GumpData&@",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "inactiveID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "activeID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "initialState",
+          "itemType": "Boolean",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "switchID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.AddCheck(RazorEnhanced.Gumps.GumpData&,System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "AddCheck",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gd",
+          "itemType": "Gumps.GumpData&@",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "group",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.AddGroup(RazorEnhanced.Gumps.GumpData&,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "AddGroup",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gd",
+          "itemType": "Gumps.GumpData&@",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "width",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "height",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "text",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "background",
+          "itemType": "Boolean",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "scrollbar",
+          "itemType": "Boolean",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.AddHtml(RazorEnhanced.Gumps.GumpData&,System.Int32,System.Int32,System.Int32,System.Int32,System.String,System.Boolean,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "AddHtml",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gd",
+          "itemType": "Gumps.GumpData&@",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "width",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "height",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "textID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "background",
+          "itemType": "Boolean",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "scrollbar",
+          "itemType": "Boolean",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.AddHtml(RazorEnhanced.Gumps.GumpData&,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "AddHtml",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gd",
+          "itemType": "Gumps.GumpData&@",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "width",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "height",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "number",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "args",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "color",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "background",
+          "itemType": "Boolean",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "scrollbar",
+          "itemType": "Boolean",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.AddHtmlLocalized(RazorEnhanced.Gumps.GumpData&,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.String,System.Int32,System.Boolean,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "AddHtmlLocalized",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gd",
+          "itemType": "Gumps.GumpData&@",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "width",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "height",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "number",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "color",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "background",
+          "itemType": "Boolean",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "scrollbar",
+          "itemType": "Boolean",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.AddHtmlLocalized(RazorEnhanced.Gumps.GumpData&,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "AddHtmlLocalized",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gd",
+          "itemType": "Gumps.GumpData&@",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "width",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "height",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "number",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "background",
+          "itemType": "Boolean",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "scrollbar",
+          "itemType": "Boolean",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.AddHtmlLocalized(RazorEnhanced.Gumps.GumpData&,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "AddHtmlLocalized",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gd",
+          "itemType": "Gumps.GumpData&@",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "gumpId",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "hue",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.AddImage(RazorEnhanced.Gumps.GumpData&,System.Int32,System.Int32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "AddImage",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gd",
+          "itemType": "Gumps.GumpData&@",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "gumpId",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.AddImage(RazorEnhanced.Gumps.GumpData&,System.Int32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "AddImage",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gd",
+          "itemType": "Gumps.GumpData&@",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "width",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "height",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "gumpId",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.AddImageTiled(RazorEnhanced.Gumps.GumpData&,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "AddImageTiled",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gd",
+          "itemType": "Gumps.GumpData&@",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "normalID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "pressedID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "buttonID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "type",
+          "itemType": "Gumps.GumpButtonType",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "param",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "itemID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "hue",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "width",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "height",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "localizedTooltip",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.AddImageTiledButton(RazorEnhanced.Gumps.GumpData&,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,RazorEnhanced.Gumps.GumpButtonType,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "AddImageTiledButton",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gd",
+          "itemType": "Gumps.GumpData&@",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "normalID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "pressedID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "buttonID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "type",
+          "itemType": "Gumps.GumpButtonType",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "param",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "itemID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "hue",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "width",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "height",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.AddImageTiledButton(RazorEnhanced.Gumps.GumpData&,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,RazorEnhanced.Gumps.GumpButtonType,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "AddImageTiledButton",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gd",
+          "itemType": "Gumps.GumpData&@",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "itemID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "hue",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.AddItem(RazorEnhanced.Gumps.GumpData&,System.Int32,System.Int32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "AddItem",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gd",
+          "itemType": "Gumps.GumpData&@",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "itemID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.AddItem(RazorEnhanced.Gumps.GumpData&,System.Int32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "AddItem",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gd",
+          "itemType": "Gumps.GumpData&@",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "hue",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "text",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.AddLabel(RazorEnhanced.Gumps.GumpData&,System.Int32,System.Int32,System.Int32,System.String)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "AddLabel",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gd",
+          "itemType": "Gumps.GumpData&@",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "hue",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "textID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.AddLabel(RazorEnhanced.Gumps.GumpData&,System.Int32,System.Int32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "AddLabel",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gd",
+          "itemType": "Gumps.GumpData&@",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "width",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "height",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "hue",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "text",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.AddLabelCropped(RazorEnhanced.Gumps.GumpData&,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.String)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "AddLabelCropped",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gd",
+          "itemType": "Gumps.GumpData&@",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "width",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "height",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "hue",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "textID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.AddLabelCropped(RazorEnhanced.Gumps.GumpData&,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "AddLabelCropped",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gd",
+          "itemType": "Gumps.GumpData&@",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "page",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.AddPage(RazorEnhanced.Gumps.GumpData&,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "AddPage",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gd",
+          "itemType": "Gumps.GumpData&@",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "inactiveID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "activeID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "initialState",
+          "itemType": "Boolean",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "switchID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.AddRadio(RazorEnhanced.Gumps.GumpData&,System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "AddRadio",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gd",
+          "itemType": "Gumps.GumpData&@",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "gumpId",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "spriteX",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "spriteY",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "spriteW",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "spriteH",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.AddSpriteImage(RazorEnhanced.Gumps.GumpData&,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "AddSpriteImage",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gd",
+          "itemType": "Gumps.GumpData&@",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "width",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "height",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "hue",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "entryID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "initialText",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.AddTextEntry(RazorEnhanced.Gumps.GumpData&,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.String)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "AddTextEntry",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gd",
+          "itemType": "Gumps.GumpData&@",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "width",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "height",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "hue",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "entryID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "initialTextID",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.AddTextEntry(RazorEnhanced.Gumps.GumpData&,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "AddTextEntry",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gd",
+          "itemType": "Gumps.GumpData&@",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "cliloc",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "text",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.AddTooltip(RazorEnhanced.Gumps.GumpData&,System.Int32,System.String)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "AddTooltip",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gd",
+          "itemType": "Gumps.GumpData&@",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "number",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.AddTooltip(RazorEnhanced.Gumps.GumpData&,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "AddTooltip",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gd",
+          "itemType": "Gumps.GumpData&@",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "text",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.AddTooltip(RazorEnhanced.Gumps.GumpData&,System.String)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "AddTooltip",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "List[UInt32]",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.AllGumpIDs",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "AllGumpIDs",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gumpid",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "ID of the gump"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.CloseGump(System.UInt32)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "CloseGump",
+      "itemDescription": "Close a specific Gump.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Gumps.GumpData",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "movable",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": "allow the gump to be moved"
+        },
+        {
+          "itemName": "closable",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": "allow the gump to be right clicked to close"
+        },
+        {
+          "itemName": "disposable",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": "allow the gump to be disposed (beats me what it does)"
+        },
+        {
+          "itemName": "resizeable",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": "allow the gump to be resized"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.CreateGump(System.Boolean,System.Boolean,System.Boolean,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "CreateGump",
+      "itemDescription": "Creates an initialized GumpData structure",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "UInt32",
+      "returnDesc": "ID of gump.",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.CurrentGump",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "CurrentGump",
+      "itemDescription": "Return the ID of most recent, still open Gump.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Gumps.GumpData",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gumpid",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.GetGumpData(System.UInt32)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "GetGumpData",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "String",
+      "returnDesc": "layout (definition) of the gump.",
+      "paramList": [
+        {
+          "itemName": "gumpid",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.GetGumpRawLayout(System.UInt32)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "GetGumpRawLayout",
+      "itemDescription": "Get the Raw layout (definition) of a specific gumpid",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "List[String]",
+      "returnDesc": "List of Text in the gump",
+      "paramList": [
+        {
+          "itemName": "gumpid",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.GetGumpText(System.UInt32)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "GetGumpText",
+      "itemDescription": "Get the Text of a specific Gump.\nIt is the cliloc translation of the #s in the gump",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "String",
+      "returnDesc": "Text content of the line. (empty: line not found)",
+      "paramList": [
+        {
+          "itemName": "gumpId",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "gump id to get data from"
+        },
+        {
+          "itemName": "line_num",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Number of the line."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.GetLine(System.UInt32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "GetLine",
+      "itemDescription": "Get a specific DATA line from the gumpId if it exists. Filter by line number.\nThe textual strings are not considered",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "List[String]",
+      "returnDesc": "Text of the gump.",
+      "paramList": [
+        {
+          "itemName": "gumpId",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "gump id to get data from"
+        },
+        {
+          "itemName": "dataOnly",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "False",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.GetLineList(System.UInt32,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "GetLineList",
+      "itemDescription": "Get all text from the specified Gump if still open",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "String",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gd",
+          "itemType": "Gumps.GumpData",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "id",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.GetTextByID(RazorEnhanced.Gumps.GumpData,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "GetTextByID",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gumpId",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.HasGump(System.UInt32)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "HasGump",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: There is a Gump open - False: otherwise.",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.HasGump",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "HasGump",
+      "itemDescription": "Get status if have a gump open or not.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gumpId",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "The id of the gump to check for in the gumps.mul file"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.IsValid(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "IsValid",
+      "itemDescription": "Validates if the gumpid provided exists in the gump file",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "String",
+      "returnDesc": "Text content of the line. (empty: line not found)",
+      "paramList": [
+        {
+          "itemName": "line_num",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Number of the line."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.LastGumpGetLine(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "LastGumpGetLine",
+      "itemDescription": "Get a specific line from the most recent and still open Gump. Filter by line number.\nThe text constants on the gump ARE included in indexing",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "List[String]",
+      "returnDesc": "Text of the gump.",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.LastGumpGetLineList",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "LastGumpGetLineList",
+      "itemDescription": "Get all text from the most recent and still open Gump.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "String",
+      "returnDesc": "layout (definition) of the gump.",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.LastGumpRawLayout",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "LastGumpRawLayout",
+      "itemDescription": "Get the raw layout (definition) of the most recent and still open Gump.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: Text found in active Gump - False: otherwise",
+      "paramList": [
+        {
+          "itemName": "text",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Text to search."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.LastGumpTextExist(System.String)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "LastGumpTextExist",
+      "itemDescription": "Search for text inside the most recent and still open Gump.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "line_num",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Number of the line."
+        },
+        {
+          "itemName": "text",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Text to search."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.LastGumpTextExistByLine(System.Int32,System.String)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "LastGumpTextExistByLine",
+      "itemDescription": "Search for text, in a spacific line of the most recent and still open Gump.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "List[Int32]",
+      "returnDesc": "List of Gump Tile.",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.LastGumpTile",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "LastGumpTile",
+      "itemDescription": "Get the list of Gump Tile (! this documentation is a stub !)",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.ResetGump",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "ResetGump",
+      "itemDescription": "Clean current status of Gumps.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gumpid",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "ID of the gump."
+        },
+        {
+          "itemName": "buttonid",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "ID of the Button to press."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.SendAction(System.UInt32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "SendAction",
+      "itemDescription": "Send a Gump response by gumpid and buttonid.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gumpid",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "buttonid",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "inSwitches",
+          "itemType": "List[Int32]",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "textlist_id",
+          "itemType": "List[Int32]",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "textlist_str",
+          "itemType": "List[String]",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.SendAdvancedAction(System.UInt32,System.Int32,System.Collections.Generic.List`1[],System.Collections.Generic.List`1[],System.Collections.Generic.List`1[])",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "SendAdvancedAction",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gumpid",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "ID of the gump."
+        },
+        {
+          "itemName": "buttonid",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "ID of the Button."
+        },
+        {
+          "itemName": "switchlist_id",
+          "itemType": "PythonList",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "List of ID of ON/Active switches. (empty: all Switches OFF)"
+        },
+        {
+          "itemName": "textlist_id",
+          "itemType": "PythonList",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "List of ID of Text fileds. (empty: all text fileds empty )"
+        },
+        {
+          "itemName": "textlist_str",
+          "itemType": "PythonList",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "List of the contents of the Text fields, provided in the same order as textlist_id."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.SendAdvancedAction(System.UInt32,System.Int32,IronPython.Runtime.PythonList,IronPython.Runtime.PythonList,IronPython.Runtime.PythonList)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "SendAdvancedAction",
+      "itemDescription": "Send a Gump response, with gumpid and buttonid and advanced switch in gumps. \nThis function is intended for more complex Gumps, with not only Buttons, but also Switches, CheckBoxes and Text fileds.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gumpid",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "buttonid",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "textlist_id",
+          "itemType": "List[Int32]",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "textlist_str",
+          "itemType": "List[String]",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.SendAdvancedAction(System.UInt32,System.Int32,System.Collections.Generic.List`1[],System.Collections.Generic.List`1[])",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "SendAdvancedAction",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gumpid",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "buttonid",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "textlist_id",
+          "itemType": "PythonList",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "textlist_str",
+          "itemType": "PythonList",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.SendAdvancedAction(System.UInt32,System.Int32,IronPython.Runtime.PythonList,IronPython.Runtime.PythonList)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "SendAdvancedAction",
+      "itemDescription": "This method can also be used only Text fileds, without Switches.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gumpid",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "buttonid",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "inSwitches",
+          "itemType": "List[Int32]",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.SendAdvancedAction(System.UInt32,System.Int32,System.Collections.Generic.List`1[])",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "SendAdvancedAction",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gumpid",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "buttonid",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "switchs",
+          "itemType": "PythonList",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.SendAdvancedAction(System.UInt32,System.Int32,IronPython.Runtime.PythonList)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "SendAdvancedAction",
+      "itemDescription": "This method can also be used only Switches, without Text fileds.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gumpid",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "serial",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "gumpDefinition",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "gumpStrings",
+          "itemType": "List[String]",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.SendGump(System.UInt32,System.UInt32,System.UInt32,System.UInt32,System.String,System.Collections.Generic.List`1[])",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "SendGump",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gd",
+          "itemType": "Gumps.GumpData",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.SendGump(RazorEnhanced.Gumps.GumpData,System.UInt32,System.UInt32)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "SendGump",
+      "itemDescription": "Sends a gump using an existing GumpData structure",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: wait found the gump - False: otherwise.",
+      "paramList": [
+        {
+          "itemName": "gumpid",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "ID of the gump. (0: any)"
+        },
+        {
+          "itemName": "delay",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Maximum wait, in milliseconds."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Gumps.WaitForGump(System.UInt32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Gumps",
+      "itemName": "WaitForGump",
+      "itemDescription": "Waits for a specific Gump to appear, for a maximum amount of time. If gumpid is 0 it will match any Gump.",
+      "flagAutocomplete": false
+    }
+  ],
+  "properties": []
+}

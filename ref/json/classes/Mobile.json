@@ -1,0 +1,498 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.Mobile",
+    "itemKind": "class",
+    "itemClass": "Mobile",
+    "itemName": "Mobile",
+    "itemDescription": "The Mobile class represents an single alive entity. \nWhile the Mobile.Serial is unique for each Mobile, Mobile.MobileID is the unique for the Mobile apparence, or image. Sometimes is also called Body or Body ID.\nMobiles which dies and leave a corpse behind, they stop existing as Mobiles and instead leave a corpse as a Item object appears.",
+    "flagAutocomplete": false
+  },
+  "methods": [
+    {
+      "returnType": "Int32",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "other_mobile",
+          "itemType": "Mobile",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "The other mobile."
+        }
+      ],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.Mobile.DistanceTo(RazorEnhanced.Mobile)",
+      "itemKind": "method",
+      "itemClass": "Mobile",
+      "itemName": "DistanceTo",
+      "itemDescription": "Returns the UO distance between the current Mobile and another one.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "obj",
+          "itemType": "Object",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": false,
+      "xmlKey": "M:Assistant.UOEntity.Equals(System.Object)",
+      "itemKind": "method",
+      "itemClass": "Mobile",
+      "itemName": "Equals",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "entity",
+          "itemType": "UOEntity",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": false,
+      "xmlKey": "M:Assistant.UOEntity.Equals(Assistant.UOEntity)",
+      "itemKind": "method",
+      "itemClass": "Mobile",
+      "itemName": "Equals",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Int32",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": false,
+      "xmlKey": "M:Assistant.UOEntity.GetHashCode",
+      "itemKind": "method",
+      "itemClass": "Mobile",
+      "itemName": "GetHashCode",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Item",
+      "returnDesc": "Item for the layer. Return null if not found or Layer invalid.",
+      "paramList": [
+        {
+          "itemName": "layer",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Layers:\n   Layername\n   RightHand\n   LeftHand\n   Shoes\n   Pants\n   Shirt\n   Head\n   Gloves\n   Ring\n   Neck\n   Waist\n   InnerTorso\n   Bracelet\n   MiddleTorso\n   Earrings\n   Arms\n   Cloak\n   OuterTorso\n   OuterLegs\n   InnerLegs"
+        }
+      ],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.Mobile.GetItemOnLayer(System.String)",
+      "itemKind": "method",
+      "itemClass": "Mobile",
+      "itemName": "GetItemOnLayer",
+      "itemDescription": "Returns the Item associated with a Mobile Layer.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True if successful, False if not server packet received",
+      "paramList": [],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.Mobile.UpdateKarma",
+      "itemKind": "method",
+      "itemClass": "Mobile",
+      "itemName": "UpdateKarma",
+      "itemDescription": "Costly! \nUpdates the Fame and Karma of the Mobile, but it can take as long as 1 second to complete.",
+      "flagAutocomplete": false
+    }
+  ],
+  "properties": [
+    {
+      "propertyType": "Item",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Mobile.Backpack",
+      "itemKind": "property",
+      "itemClass": "Mobile",
+      "itemName": "Backpack",
+      "itemDescription": "Get the Item representing the backpack of a Mobile. Return null if it doesn't have one.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Mobile.CanRename",
+      "itemKind": "property",
+      "itemClass": "Mobile",
+      "itemName": "CanRename",
+      "itemDescription": "Determine if a mobile can be renamed. (Ex: pets, summons, etc )",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "UInt16",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Mobile.Color",
+      "itemKind": "property",
+      "itemClass": "Mobile",
+      "itemName": "Color",
+      "itemDescription": "Color of the mobile.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "List[Item]",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Mobile.Contains",
+      "itemKind": "property",
+      "itemClass": "Mobile",
+      "itemName": "Contains",
+      "itemDescription": "Returns the list of items present in the Paperdoll (or equivalent) of the Mobile.\nMight not match the items found using via Layer.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "P:Assistant.UOEntity.Deleted",
+      "itemKind": "property",
+      "itemClass": "Mobile",
+      "itemName": "Deleted",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "String",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Mobile.Direction",
+      "itemKind": "property",
+      "itemClass": "Mobile",
+      "itemName": "Direction",
+      "itemDescription": "Returns the direction of the Mobile.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Mobile.Fame",
+      "itemKind": "property",
+      "itemClass": "Mobile",
+      "itemName": "Fame",
+      "itemDescription": "Fame has to be reverse engineered from the title so it is just ranges:\n0: neutaral - 3 is highest fame",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Mobile.Female",
+      "itemKind": "property",
+      "itemClass": "Mobile",
+      "itemName": "Female",
+      "itemDescription": "The Mobile is a female.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Mobile.Flying",
+      "itemKind": "property",
+      "itemClass": "Mobile",
+      "itemName": "Flying",
+      "itemDescription": "The mobile is Flying ( Gragoyle )",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "UInt16",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Mobile.Graphics",
+      "itemKind": "property",
+      "itemClass": "Mobile",
+      "itemName": "Graphics",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Mobile.Hits",
+      "itemKind": "property",
+      "itemClass": "Mobile",
+      "itemName": "Hits",
+      "itemDescription": "The current hit point of a Mobile. To be read as propotion over Mobile.HitsMax.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Mobile.HitsMax",
+      "itemKind": "property",
+      "itemClass": "Mobile",
+      "itemName": "HitsMax",
+      "itemDescription": "Maximum hitpoint of a Mobile.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "UInt16",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Mobile.Hue",
+      "itemKind": "property",
+      "itemClass": "Mobile",
+      "itemName": "Hue",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Mobile.InParty",
+      "itemKind": "property",
+      "itemClass": "Mobile",
+      "itemName": "InParty",
+      "itemDescription": "True: if the Mobile is in your party. - False: otherwise.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Mobile.IsGhost",
+      "itemKind": "property",
+      "itemClass": "Mobile",
+      "itemName": "IsGhost",
+      "itemDescription": "If is a Ghost\nMatch any MobileID  in the list:\n    402, 403, 607, 608, 694, 695, 970",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Mobile.IsHuman",
+      "itemKind": "property",
+      "itemClass": "Mobile",
+      "itemName": "IsHuman",
+      "itemDescription": "Check is the Mobile has a human body.\nMatch any MobileID in the list:\n    183, 184, 185, 186, 400, \n    401, 402, 403, 605, 606,\n    607, 608, 666, 667, 694, \n    744, 745, 747, 748, 750,  \n    751, 970, 695",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Mobile.ItemID",
+      "itemKind": "property",
+      "itemClass": "Mobile",
+      "itemName": "ItemID",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Mobile.Karma",
+      "itemKind": "property",
+      "itemClass": "Mobile",
+      "itemName": "Karma",
+      "itemDescription": "Karma has to be reverse engineered from the title so it is just ranges:\n-5: most evil, 0: neutaral, 5 most good",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "String",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Mobile.KarmaTitle",
+      "itemKind": "property",
+      "itemClass": "Mobile",
+      "itemName": "KarmaTitle",
+      "itemDescription": "This is the title string returned from the server",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Mobile.Mana",
+      "itemKind": "property",
+      "itemClass": "Mobile",
+      "itemName": "Mana",
+      "itemDescription": "The current mana of a Mobile. To be read as propotion over Mobile.ManaMax.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Mobile.ManaMax",
+      "itemKind": "property",
+      "itemClass": "Mobile",
+      "itemName": "ManaMax",
+      "itemDescription": "Maximum mana of a Mobile.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Mobile.Map",
+      "itemKind": "property",
+      "itemClass": "Mobile",
+      "itemName": "Map",
+      "itemDescription": "Current map or facet.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Mobile.MobileID",
+      "itemKind": "property",
+      "itemClass": "Mobile",
+      "itemName": "MobileID",
+      "itemDescription": "Represents the type of Mobile, usually unique for the Mobile image. ( Alias: Mobile.Body )",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Item",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Mobile.Mount",
+      "itemKind": "property",
+      "itemClass": "Mobile",
+      "itemName": "Mount",
+      "itemDescription": "Returns the Item assigned to the \"Mount\" Layer.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "String",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Mobile.Name",
+      "itemKind": "property",
+      "itemClass": "Mobile",
+      "itemName": "Name",
+      "itemDescription": "Name of the Mobile.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Mobile.Notoriety",
+      "itemKind": "property",
+      "itemClass": "Mobile",
+      "itemName": "Notoriety",
+      "itemDescription": "Get the notoriety of the Mobile.\n\nNotorieties:\n    1: blue, innocent\n    2: green, friend\n    3: gray, neutral\n    4: gray, criminal\n    5: orange, enemy\n    6: red, hostile \n    6: yellow, invulnerable",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Mobile.Paralized",
+      "itemKind": "property",
+      "itemClass": "Mobile",
+      "itemName": "Paralized",
+      "itemDescription": "The mobile is Paralized.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Mobile.Poisoned",
+      "itemKind": "property",
+      "itemClass": "Mobile",
+      "itemName": "Poisoned",
+      "itemDescription": "The mobile is Poisoned.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Point3D",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Mobile.Position",
+      "itemKind": "property",
+      "itemClass": "Mobile",
+      "itemName": "Position",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "List[Property]",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Mobile.Properties",
+      "itemKind": "property",
+      "itemClass": "Mobile",
+      "itemName": "Properties",
+      "itemDescription": "Get all properties of a Mobile as list of lines of the tooltip.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Mobile.PropsUpdated",
+      "itemKind": "property",
+      "itemClass": "Mobile",
+      "itemName": "PropsUpdated",
+      "itemDescription": "True: Mobile.Propertires are updated - False: otherwise.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Item",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Mobile.Quiver",
+      "itemKind": "property",
+      "itemClass": "Mobile",
+      "itemName": "Quiver",
+      "itemDescription": "Get the Item representing the quiver of a Mobile. Return null if it doesn't have one.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Mobile.Serial",
+      "itemKind": "property",
+      "itemClass": "Mobile",
+      "itemName": "Serial",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Mobile.Stam",
+      "itemKind": "property",
+      "itemClass": "Mobile",
+      "itemName": "Stam",
+      "itemDescription": "The current stamina of a Mobile. To be read as propotion over Mobile.StamMax.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Mobile.StamMax",
+      "itemKind": "property",
+      "itemClass": "Mobile",
+      "itemName": "StamMax",
+      "itemDescription": "Maximum stamina of a Mobile.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Mobile.Visible",
+      "itemKind": "property",
+      "itemClass": "Mobile",
+      "itemName": "Visible",
+      "itemDescription": "True: The Mobile is visible - Flase: The mobile is hidden.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Mobile.WarMode",
+      "itemKind": "property",
+      "itemClass": "Mobile",
+      "itemName": "WarMode",
+      "itemDescription": "Mobile is in War mode.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Mobile.YellowHits",
+      "itemKind": "property",
+      "itemClass": "Mobile",
+      "itemName": "YellowHits",
+      "itemDescription": "The mobile healthbar is not blue, but yellow.",
+      "flagAutocomplete": false
+    }
+  ]
+}

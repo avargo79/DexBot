@@ -1,0 +1,56 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.Point3D",
+    "itemKind": "class",
+    "itemClass": "Point3D",
+    "itemName": "Point3D",
+    "itemDescription": "",
+    "flagAutocomplete": false
+  },
+  "methods": [
+    {
+      "returnType": "String",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.Point3D.ToString",
+      "itemKind": "method",
+      "itemClass": "Point3D",
+      "itemName": "ToString",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    }
+  ],
+  "properties": [
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Point3D.X",
+      "itemKind": "property",
+      "itemClass": "Point3D",
+      "itemName": "X",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Point3D.Y",
+      "itemKind": "property",
+      "itemClass": "Point3D",
+      "itemName": "Y",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Point3D.Z",
+      "itemKind": "property",
+      "itemClass": "Point3D",
+      "itemName": "Z",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    }
+  ]
+}

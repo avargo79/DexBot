@@ -1,0 +1,146 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.Friend",
+    "itemKind": "class",
+    "itemClass": "Friend",
+    "itemName": "Friend",
+    "itemDescription": "",
+    "flagAutocomplete": false
+  },
+  "methods": [
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Friend.AddFriendTarget",
+      "itemKind": "method",
+      "itemClass": "Friend",
+      "itemName": "AddFriendTarget",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "friendlist",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Name of the the Friend List. (See Agent tab)"
+        },
+        {
+          "itemName": "name",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Name of the Friend want to add."
+        },
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial of the Friend you want to add."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Friend.AddPlayer(System.String,System.String,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Friend",
+      "itemName": "AddPlayer",
+      "itemDescription": "Add the player specified to the Friend list named in FriendListName parameter",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "friendlist",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Name of the list of friend."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Friend.ChangeList(System.String)",
+      "itemKind": "method",
+      "itemClass": "Friend",
+      "itemName": "ChangeList",
+      "itemDescription": "Change friend list, List must be exist in friend list GUI configuration",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "List[Int32]",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "friendlist",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Name of the list of friend."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Friend.GetList(System.String)",
+      "itemKind": "method",
+      "itemClass": "Friend",
+      "itemName": "GetList",
+      "itemDescription": "Retrive list of serial in list, List must be exist in friend Agent tab.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: if is a friend - False: otherwise",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial you want to check"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Friend.IsFriend(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Friend",
+      "itemName": "IsFriend",
+      "itemDescription": "Check if Player is in FriendList, returns a bool value.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "friendlist",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Name of the the Friend List. (See Agent tab)"
+        },
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial of the Friend you want to remove."
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Friend.RemoveFriend(System.String,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Friend",
+      "itemName": "RemoveFriend",
+      "itemDescription": "Remove the player specified from the Friend list named in FriendListName parameter",
+      "flagAutocomplete": false
+    }
+  ],
+  "properties": []
+}

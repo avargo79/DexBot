@@ -1,0 +1,1186 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.Spells",
+    "itemKind": "class",
+    "itemClass": "Spells",
+    "itemName": "Spells",
+    "itemDescription": "The Spells class allow you to cast any spell and use abilities, via scripting.",
+    "flagAutocomplete": false
+  },
+  "methods": [
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "SpellName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Name of the spell to cast."
+        },
+        {
+          "itemName": "target",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Optional: Serial or Mobile to target (default: null)"
+        },
+        {
+          "itemName": "wait",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": "Optional: Wait server to confirm. (default: True)"
+        },
+        {
+          "itemName": "waitAfter",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "0",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Spells.Cast(System.String,System.UInt32,System.Boolean,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Spells",
+      "itemName": "Cast",
+      "itemDescription": "Cast spell using the spell name. See the skill-specific functions to get the full list of spell names.\nOptionally is possible to specify the Mobile or a Serial as target of the spell. Upon successful casting, the target will be executed automatiaclly by the server.\nNOTE: The \"automatic\" target is not supported by all shards, but you can restort to the Target class to handle it manually.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "SpellName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "mobile",
+          "itemType": "Mobile",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "wait",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "waitAfter",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "0",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Spells.Cast(System.String,RazorEnhanced.Mobile,System.Boolean,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Spells",
+      "itemName": "Cast",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "SpellName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "waitAfter",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "0",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Spells.Cast(System.String,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Spells",
+      "itemName": "Cast",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "SpellName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Honorable Execution\nConfidence\nCounter Attack\nLightning Strike\nEvasion\nMomentum Strike"
+        },
+        {
+          "itemName": "wait",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": "Optional: Wait server to confirm. (default: True)"
+        },
+        {
+          "itemName": "waitAfter",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "0",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Spells.CastBushido(System.String,System.Boolean,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Spells",
+      "itemName": "CastBushido",
+      "itemDescription": "Cast a Bushido spell using the spell name.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "SpellName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Cleanse By Fire\nClose Wounds\nConsecrate Weapon\nDispel Evil\nDivine Fury\nEnemy Of One\nHoly Light\nNoble Sacrifice\nRemove Curse\nSacred Journey"
+        },
+        {
+          "itemName": "target",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Optional: Serial or Mobile to target (default: null)"
+        },
+        {
+          "itemName": "wait",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": "Optional: Wait server to confirm. (default: True)"
+        },
+        {
+          "itemName": "waitAfter",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "0",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Spells.CastChivalry(System.String,System.UInt32,System.Boolean,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Spells",
+      "itemName": "CastChivalry",
+      "itemDescription": "Cast a Chivalry spell using the spell name.\nOptionally is possible to specify the Mobile or a Serial as target of the spell. Upon successful casting, the target will be executed automatiaclly by the server.\nNOTE: The \"automatic\" target is not supported by all shards, but you can restort to the Target class to handle it manually.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "SpellName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "mobile",
+          "itemType": "Mobile",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "wait",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Spells.CastChivalry(System.String,RazorEnhanced.Mobile,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Spells",
+      "itemName": "CastChivalry",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "SpellName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "waitAfter",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "0",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Spells.CastChivalry(System.String,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Spells",
+      "itemName": "CastChivalry",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "SpellName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Bark Skin : Turns the druid's skin to bark, increasing physical, poison and energy resistence while reducing fire resistence.\nCircle Of Thorns : Creates a ring of thorns preventing an enemy from moving.\nDeadly Spores : The enemy is afflicted by poisonous spores.\nEnchanted Grove : Causes a grove of magical trees to grow, hiding the player for a short time.\nFirefly : Summons a tiny firefly to light the Druid's path. The Firefly is a weak creature with little or no combat skills.\nForest Kin : Summons from a list of woodland spirits that will fight for the druid and assist him in different ways.\nGrasping Roots : Summons roots from the ground to entangle a single target.\nHibernate : Causes the target to go to sleep.\nHollow Reed : Increases both the strength and the intelligence of the Druid.\nHurricane : Calls forth a violent hurricane that damages any enemies within range.\nLure Stone : Creates a magical stone that calls all nearby animals to it.\nMana Spring : Creates a magical spring that restores mana to the druid and any party members within range.\nMushroom Gateway : A magical circle of mushrooms opens, allowing the Druid to step through it to another location.\nPack Of Beasts : Summons a pack of beasts to fight for the Druid. Spell length increases with skill.\nRestorative Soil : Saturates a patch of land with power, causing healing mud to seep through . The mud can restore the dead to life.\nShield Of Earth : A quick-growing wall of foliage springs up at the bidding of the Druid.\nSpring Of Life : Creates a magical spring that heals the Druid and their party.\nSwarm Of Insects : Summons a swarm of insects that bite and sting the Druid's enemies.\nTreefellow : Summons a powerful woodland spirit to fight for the Druid.\nVolcanic Eruption : A blast of molten lava bursts from the ground, hitting every enemy nearby."
+        },
+        {
+          "itemName": "target",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Optional: Serial or Mobile to target (default: null)"
+        },
+        {
+          "itemName": "wait",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": "Optional: Wait server to confirm. (default: True)"
+        },
+        {
+          "itemName": "waitAfter",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "0",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Spells.CastCleric(System.String,System.UInt32,System.Boolean,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Spells",
+      "itemName": "CastCleric",
+      "itemDescription": "Cast a Cleric spell using the spell name.\nOptionally is possible to specify the Mobile or a Serial as target of the spell. Upon successful casting, the target will be executed automatiaclly by the server.\nNOTE: The \"automatic\" target is not supported by all shards, but you can restort to the Target class to handle it manually.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "SpellName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "mobile",
+          "itemType": "Mobile",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "wait",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "waitAfter",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "0",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Spells.CastCleric(System.String,RazorEnhanced.Mobile,System.Boolean,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Spells",
+      "itemName": "CastCleric",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "SpellName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "waitAfter",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "0",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Spells.CastCleric(System.String,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Spells",
+      "itemName": "CastCleric",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "SpellName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Angelic Faith : Turns you into an angel, boosting your stats. At 100 Spirit Speak you get +20 Str/Dex/Int. Every 5 points of SS = +1 point to each stat, at a max of +24. Will also boost your Anatomy, Mace Fighting and Healing, following the same formula.\nBanish Evil : Banishes Undead targets. Auto kills rotting corpses, lich lords, etc. Works well at Doom Champ. Does not produce a corpse however\nDampen Spirit : Drains the stamina of your target, according to the description\nDivine Focus : Heal for more, but may be broken.\nHammer of Faith : Summons a War Hammer with Undead Slayer on it for you\nPurge : Cleanses Poison. Better than Cure\nRestoration : Resurrection. Brings the target back with 100% HP/Mana\nSacred Boon : A HoT, heal over time spell, that heals 10-15 every few seconds\nSacrifice : Heals your party members when you take damage. Sort of like thorns, but it heals instead of hurts\nSmite : Causes energy damage\nTouch of Life : Heals even if Mortal Strike or poison are active on the target\nTrial by Fire : Attackers receive damage when they strike you, sort of like a temporary RPD buff"
+        },
+        {
+          "itemName": "target",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "target to use the druid spell on"
+        },
+        {
+          "itemName": "wait",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "waitAfter",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "0",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Spells.CastDruid(System.String,System.UInt32,System.Boolean,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Spells",
+      "itemName": "CastDruid",
+      "itemDescription": "Cast a Druid spell using the spell name.\nOptionally is possible to specify the Mobile or a Serial as target of the spell. Upon successful casting, the target will be executed automatiaclly by the server.\nNOTE: The \"automatic\" target is not supported by all shards, but you can restort to the Target class to handle it manually.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "SpellName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "mobile",
+          "itemType": "Mobile",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "wait",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Spells.CastDruid(System.String,RazorEnhanced.Mobile,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Spells",
+      "itemName": "CastDruid",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "SpellName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "waitAfter",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "0",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Spells.CastDruid(System.String,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Spells",
+      "itemName": "CastDruid",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "target",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Optional: Serial or Mobile to target (default: null)"
+        },
+        {
+          "itemName": "wait",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": "Optional: Wait server to confirm. (default: True)"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Spells.CastLastSpell(System.UInt32,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Spells",
+      "itemName": "CastLastSpell",
+      "itemDescription": "Cast again the last casted spell, on last target.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "m",
+          "itemType": "Mobile",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "wait",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Spells.CastLastSpell(RazorEnhanced.Mobile,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Spells",
+      "itemName": "CastLastSpell",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "wait",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Spells.CastLastSpell(System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Spells",
+      "itemName": "CastLastSpell",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Spells.CastLastSpellLastTarget",
+      "itemKind": "method",
+      "itemClass": "Spells",
+      "itemName": "CastLastSpellLastTarget",
+      "itemDescription": "Cast again the last casted spell, on last target.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "SpellName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Clumsy\nCreate Food\nFeeblemind\nHeal\nMagic Arrow\nNight Sight\nReactive Armor\nWeaken\nAgility\nCunning\nCure\nHarm\nMagic Trap\nMagic Untrap\nProtection\nStrength\nBless\nFireball\nMagic Lock\nPoison\nTelekinesis\nTeleport\nUnlock\nWall of Stone\nArch Cure\nArch Protection\nCurse\nFire Field\nGreater Heal\nLightning\nMana Drain\nRecall\nBlade Spirits\nDispel Field\nIncognito\nMagic Reflection\nMind Blast\nParalyze\nPoison Field\nSummon Creature\nDispel\nEnergy Bolt\nExplosion\nInvisibility\nMark\nMass Curse\nParalyze Field\nReveal\nChain Lightning\nEnergy Field\nFlamestrike\nGate Travel\nMana Vampire\nMass Dispel\nMeteor Swarm\nPolymorph\nEarthquake\nEnergy Vortex\nResurrection\nSummon Air Elemental\nSummon Daemon\nSummon Earth Elemental\nSummon Fire Elemental\nSummon Water Elemental"
+        },
+        {
+          "itemName": "target",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Optional: Serial or Mobile to target (default: null)"
+        },
+        {
+          "itemName": "wait",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": "Optional: Wait server to confirm. (default: True)"
+        },
+        {
+          "itemName": "waitAfter",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "0",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Spells.CastMagery(System.String,System.UInt32,System.Boolean,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Spells",
+      "itemName": "CastMagery",
+      "itemDescription": "Cast a Magery spell using the spell name.\nOptionally is possible to specify the Mobile or a Serial as target of the spell. Upon successful casting, the target will be executed automatiaclly by the server.\nNOTE: The \"automatic\" target is not supported by all shards, but you can restort to the Target class to handle it manually.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "SpellName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "mobile",
+          "itemType": "Mobile",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "wait",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Spells.CastMagery(System.String,RazorEnhanced.Mobile,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Spells",
+      "itemName": "CastMagery",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "SpellName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "waitAfter",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "0",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Spells.CastMagery(System.String,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Spells",
+      "itemName": "CastMagery",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "SpellName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Inspire\nInvigorate\nResilience\nPerseverance\nTribulation\nDespair\nDeath Ray\nEthereal Blast\nNether Blast\nMystic Weapon\nCommand Undead\nConduit\nMana Shield\nSummon Reaper\nEnchanted Summoning\nAnticipate Hit\nWarcry\nIntuition\nRejuvenate\nHoly Fist\nShadow\nWhite Tiger Form\nFlaming Shot\nPlaying The Odds\nThrust\nPierce\nStagger\nToughness\nOnslaught\nFocused Eye\nElemental Fury\nCalled Shot\nSaving Throw\nShield Bash\nBodyguard\nHeighten Senses\nTolerance\nInjected Strike\nPotency\nRampage\nFists Of Fury\nKnockout\nWhispering\nCombat Training\nBoarding"
+        },
+        {
+          "itemName": "target",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Optional: Serial or Mobile to target (default: null)"
+        },
+        {
+          "itemName": "wait",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": "Optional: Wait server to confirm. (default: True)"
+        },
+        {
+          "itemName": "waitAfter",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "0",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Spells.CastMastery(System.String,System.UInt32,System.Boolean,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Spells",
+      "itemName": "CastMastery",
+      "itemDescription": "Cast a Mastery spell using the spell name.\nOptionally is possible to specify the Mobile or a Serial as target of the spell. Upon successful casting, the target will be executed automatiaclly by the server.\nNOTE: The \"automatic\" target is not supported by all shards, but you can restort to the Target class to handle it manually.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "SpellName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "mobile",
+          "itemType": "Mobile",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "wait",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Spells.CastMastery(System.String,RazorEnhanced.Mobile,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Spells",
+      "itemName": "CastMastery",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "SpellName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "waitAfter",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "0",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Spells.CastMastery(System.String,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Spells",
+      "itemName": "CastMastery",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "SpellName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Animated Weapon\nHealing Stone\nPurge\nEnchant\nSleep\nEagle Strike\nStone Form\nSpellTrigger\nMass Sleep\nCleansing Winds\nBombard\nSpell Plague\nHail Storm\nNether Cyclone\nRising Colossus"
+        },
+        {
+          "itemName": "target",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Optional: Serial or Mobile to target (default: null)"
+        },
+        {
+          "itemName": "wait",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": "Optional: Wait server to confirm. (default: True)"
+        },
+        {
+          "itemName": "waitAfter",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "0",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Spells.CastMysticism(System.String,System.UInt32,System.Boolean,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Spells",
+      "itemName": "CastMysticism",
+      "itemDescription": "Cast a Mysticism spell using the spell name.\nOptionally is possible to specify the Mobile or a Serial as target of the spell. Upon successful casting, the target will be executed automatiaclly by the server.\nNOTE: The \"automatic\" target is not supported by all shards, but you can restort to the Target class to handle it manually.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "SpellName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "mobile",
+          "itemType": "Mobile",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "wait",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Spells.CastMysticism(System.String,RazorEnhanced.Mobile,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Spells",
+      "itemName": "CastMysticism",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "SpellName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "waitAfter",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "0",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Spells.CastMysticism(System.String,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Spells",
+      "itemName": "CastMysticism",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "SpellName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Curse Weapon\nPain Spike\nCorpse Skin\nEvil Omen\nBlood Oath\nWraith Form\nMind Rot\nSummon Familiar\nHorrific Beast\nAnimate Dead\nPoison Strike\nWither\nStrangle\nLich Form\nExorcism\nVengeful Spirit\nVampiric Embrace"
+        },
+        {
+          "itemName": "target",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Optional: Serial or Mobile to target (default: null)"
+        },
+        {
+          "itemName": "wait",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": "Optional: Wait server to confirm. (default: True)"
+        },
+        {
+          "itemName": "waitAfter",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "0",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Spells.CastNecro(System.String,System.UInt32,System.Boolean,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Spells",
+      "itemName": "CastNecro",
+      "itemDescription": "Cast a Necromany spell using the spell name.\nOptionally is possible to specify the Mobile or a Serial as target of the spell. Upon successful casting, the target will be executed automatiaclly by the server.\nNOTE: The \"automatic\" target is not supported by all shards, but you can restort to the Target class to handle it manually.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "SpellName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "mobile",
+          "itemType": "Mobile",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "wait",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Spells.CastNecro(System.String,RazorEnhanced.Mobile,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Spells",
+      "itemName": "CastNecro",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "SpellName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "waitAfter",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "0",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Spells.CastNecro(System.String,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Spells",
+      "itemName": "CastNecro",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "SpellName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Animal Form\nBackstab\nSurprise Attack\nMirror Image\nShadow jump\nFocus Attack\nKi Attack"
+        },
+        {
+          "itemName": "target",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Optional: Serial or Mobile to target (default: null)"
+        },
+        {
+          "itemName": "wait",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": "Optional: Wait server to confirm. (default: True)"
+        },
+        {
+          "itemName": "waitAfter",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "0",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Spells.CastNinjitsu(System.String,System.UInt32,System.Boolean,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Spells",
+      "itemName": "CastNinjitsu",
+      "itemDescription": "Cast a Ninjitsu spell using the spell name.\nOptionally is possible to specify the Mobile or a Serial as target of the spell. Upon successful casting, the target will be executed automatiaclly by the server.\nNOTE: The \"automatic\" target is not supported by all shards, but you can restort to the Target class to handle it manually.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "SpellName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "mobile",
+          "itemType": "Mobile",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "wait",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "waitAfter",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "0",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Spells.CastNinjitsu(System.String,RazorEnhanced.Mobile,System.Boolean,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Spells",
+      "itemName": "CastNinjitsu",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "SpellName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "waitAfter",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "0",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Spells.CastNinjitsu(System.String,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Spells",
+      "itemName": "CastNinjitsu",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "SpellName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Arcane Circle\nGift Of Renewal\nImmolating Weapon\nAttune Weapon\nThunderstorm\nNatures Fury\nSummon Fey\nSummoniend\nReaper Form\nWildfire\nEssence Of Wind\nDryad Allure\nEthereal Voyage\nWord Of Death\nGift Of Life\nArcane Empowerment"
+        },
+        {
+          "itemName": "target",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Optional: Serial or Mobile to target (default: null)"
+        },
+        {
+          "itemName": "wait",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": "Optional: Wait server to confirm. (default: True)"
+        },
+        {
+          "itemName": "waitAfter",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "0",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Spells.CastSpellweaving(System.String,System.UInt32,System.Boolean,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Spells",
+      "itemName": "CastSpellweaving",
+      "itemDescription": "Cast a Spellweaving spell using the spell name.\nOptionally is possible to specify the Mobile or a Serial as target of the spell. Upon successful casting, the target will be executed automatiaclly by the server.\nNOTE: The \"automatic\" target is not supported by all shards, but you can restort to the Target class to handle it manually.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "SpellName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "mobile",
+          "itemType": "Mobile",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "wait",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "True",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Spells.CastSpellweaving(System.String,RazorEnhanced.Mobile,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Spells",
+      "itemName": "CastSpellweaving",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "SpellName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "waitAfter",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "0",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Spells.CastSpellweaving(System.String,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Spells",
+      "itemName": "CastSpellweaving",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Spells.Interrupt",
+      "itemKind": "method",
+      "itemClass": "Spells",
+      "itemName": "Interrupt",
+      "itemDescription": "Interrupt the casting of a spell by performing an equip/unequip.",
+      "flagAutocomplete": false
+    }
+  ],
+  "properties": []
+}

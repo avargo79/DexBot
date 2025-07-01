@@ -1,0 +1,566 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.CUO",
+    "itemKind": "class",
+    "itemClass": "CUO",
+    "itemName": "CUO",
+    "itemDescription": "The CUO_Functions class contains invocation of CUO code using reflection\nDANGER !!",
+    "flagAutocomplete": false
+  },
+  "methods": [
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.CUO.CloseGump(System.UInt32)",
+      "itemKind": "method",
+      "itemClass": "CUO",
+      "itemName": "CloseGump",
+      "itemDescription": "Invokes the Method close a gump",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "mobileserial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.CUO.CloseMobileHealthBar(System.Int32)",
+      "itemKind": "method",
+      "itemClass": "CUO",
+      "itemName": "CloseMobileHealthBar",
+      "itemDescription": "Closes a Mobile Status Gump of an Entity",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "mobileserial",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.CUO.CloseMobileHealthBar(System.UInt32)",
+      "itemKind": "method",
+      "itemClass": "CUO",
+      "itemName": "CloseMobileHealthBar",
+      "itemDescription": "Closes a Mobile Status Gump of an Entity",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.CUO.CloseMyStatusBar",
+      "itemKind": "method",
+      "itemClass": "CUO",
+      "itemName": "CloseMyStatusBar",
+      "itemDescription": "Invokes the Method to close your status bar gump inside the CUO code",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.CUO.CloseTMap",
+      "itemKind": "method",
+      "itemClass": "CUO",
+      "itemName": "CloseTMap",
+      "itemDescription": "Invokes the CloseWithRightClick function inside the CUO code\nFirst T-Map is retrieved, and then only closed if it is a map\nReturns True if a map was closed, else False",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "mobileserial",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.CUO.FollowMobile(System.UInt32)",
+      "itemKind": "method",
+      "itemClass": "CUO",
+      "itemName": "FollowMobile",
+      "itemDescription": "Make the ClassicUO client follow the specific mobile.\n            \nThis is the same behavior as alt + left-clicking, which normally\nshows the overhead message \"Now following.\"",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.CUO.FollowOff",
+      "itemKind": "method",
+      "itemClass": "CUO",
+      "itemName": "FollowOff",
+      "itemDescription": "Stop the ClassicUO client from following, if it was following a\nmobile.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "ValueTuple[Boolean, UInt32]",
+      "returnDesc": "bool followingMode, uint followingTarget",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.CUO.Following",
+      "itemKind": "method",
+      "itemClass": "CUO",
+      "itemName": "Following",
+      "itemDescription": "Returns the status and target of the ClassicUO client's follow\nbehavior.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "free",
+          "itemType": "Boolean",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.CUO.FreeView(System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "CUO",
+      "itemName": "FreeView",
+      "itemDescription": "Invokes the FreeView function inside the CUO code\nFirst value is retrieved, and then only set if its not correct",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "String",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "settingName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.CUO.GetSetting(System.String)",
+      "itemKind": "method",
+      "itemClass": "CUO",
+      "itemName": "GetSetting",
+      "itemDescription": "Retrieve Current CUO Setting",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.CUO.GoToMarker(System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "CUO",
+      "itemName": "GoToMarker",
+      "itemDescription": "Invokes the GoToMarker function inside the CUO code\nMap must be open for this to work",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.CUO.LoadMarkers",
+      "itemKind": "method",
+      "itemClass": "CUO",
+      "itemName": "LoadMarkers",
+      "itemDescription": "Invokes the LoadMarkers function inside the CUO code\nMap must be open for this to work",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.CUO.MoveGump(System.UInt32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "CUO",
+      "itemName": "MoveGump",
+      "itemDescription": "Invokes the Method move a gump or container if open.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "bag",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.CUO.OpenContainerAt(RazorEnhanced.Item,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "CUO",
+      "itemName": "OpenContainerAt",
+      "itemDescription": "Set a location that CUO will open the container at",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "bag",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.CUO.OpenContainerAt(System.UInt32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "CUO",
+      "itemName": "OpenContainerAt",
+      "itemDescription": "Set a location that CUO will open the container at",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "mobileserial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "custom",
+          "itemType": "Boolean",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.CUO.OpenMobileHealthBar(System.Int32,System.Int32,System.Int32,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "CUO",
+      "itemName": "OpenMobileHealthBar",
+      "itemDescription": "Open a mobiles health bar at a specified location on the screen",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "mobileserial",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "custom",
+          "itemType": "Boolean",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.CUO.OpenMobileHealthBar(System.UInt32,System.Int32,System.Int32,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "CUO",
+      "itemName": "OpenMobileHealthBar",
+      "itemDescription": "Invokes the Method to open your status bar gump inside the CUO code",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.CUO.OpenMyStatusBar(System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "CUO",
+      "itemName": "OpenMyStatusBar",
+      "itemDescription": "Invokes the Method to open your status bar gump inside the CUO code",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "macroName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.CUO.PlayMacro(System.String)",
+      "itemKind": "method",
+      "itemClass": "CUO",
+      "itemName": "PlayMacro",
+      "itemDescription": "Play a CUO macro by name\nWarning, limited testing !!",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "propertyName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "enable",
+          "itemType": "Boolean",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.CUO.ProfilePropertySet(System.String,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "CUO",
+      "itemName": "ProfilePropertySet",
+      "itemDescription": "Set a bool Config property in CUO by name",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "propertyName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "value",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.CUO.ProfilePropertySet(System.String,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "CUO",
+      "itemName": "ProfilePropertySet",
+      "itemDescription": "Set a int Config property in CUO by name",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "propertyName",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "value",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.CUO.ProfilePropertySet(System.String,System.String)",
+      "itemKind": "method",
+      "itemClass": "CUO",
+      "itemName": "ProfilePropertySet",
+      "itemDescription": "Set a string Config property in CUO by name",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "gumpserial",
+          "itemType": "UInt32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "x",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "y",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.CUO.SetGumpOpenLocation(System.UInt32,System.Int32,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "CUO",
+      "itemName": "SetGumpOpenLocation",
+      "itemDescription": "Set a location that CUO will open the next gump or container at",
+      "flagAutocomplete": false
+    }
+  ],
+  "properties": []
+}

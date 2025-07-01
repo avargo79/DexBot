@@ -1,0 +1,63 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.Vendor.BuyItem",
+    "itemKind": "class",
+    "itemClass": "Vendor.BuyItem",
+    "itemName": "Vendor.BuyItem",
+    "itemDescription": "The BuyItem class store informations about a recently purchased item.",
+    "flagAutocomplete": false
+  },
+  "methods": [],
+  "properties": [
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Vendor.BuyItem.Amount",
+      "itemKind": "property",
+      "itemClass": "Vendor.BuyItem",
+      "itemName": "Amount",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Vendor.BuyItem.ItemID",
+      "itemKind": "property",
+      "itemClass": "Vendor.BuyItem",
+      "itemName": "ItemID",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "String",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Vendor.BuyItem.Name",
+      "itemKind": "property",
+      "itemClass": "Vendor.BuyItem",
+      "itemName": "Name",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Vendor.BuyItem.Price",
+      "itemKind": "property",
+      "itemClass": "Vendor.BuyItem",
+      "itemName": "Price",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Vendor.BuyItem.Serial",
+      "itemKind": "property",
+      "itemClass": "Vendor.BuyItem",
+      "itemName": "Serial",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    }
+  ]
+}

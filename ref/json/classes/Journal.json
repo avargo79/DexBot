@@ -1,0 +1,454 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.Journal",
+    "itemKind": "class",
+    "itemClass": "Journal",
+    "itemName": "Journal",
+    "itemDescription": "The Journal class provides access to the message Journal.",
+    "flagAutocomplete": false
+  },
+  "methods": [
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "toBeRemoved",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.Journal.Clear(System.String)",
+      "itemKind": "method",
+      "itemClass": "Journal",
+      "itemName": "Clear",
+      "itemDescription": "Removes all matching entry from the Jorunal.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.Journal.Clear",
+      "itemKind": "method",
+      "itemClass": "Journal",
+      "itemName": "Clear",
+      "itemDescription": "Removes all entry from the Jorunal.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "void",
+      "paramList": [
+        {
+          "itemName": "text",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Text to block. case insensitive, and will match if the incoming message contains the text"
+        }
+      ],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.Journal.FilterText(System.String)",
+      "itemKind": "method",
+      "itemClass": "Journal",
+      "itemName": "FilterText",
+      "itemDescription": "Store a string that if matched, will block journal message ( case insensitive )",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "List[Journal.JournalEntry]",
+      "returnDesc": "List of JournalEntry",
+      "paramList": [
+        {
+          "itemName": "afterTimestap",
+          "itemType": "Double",
+          "itemHasDefault": true,
+          "itemDefaultValue": "-1",
+          "itemDescription": "Timestap as UnixTime, the number of seconds elapsed since 01-Jan-1970. (default: -1, no filter)"
+        }
+      ],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.Journal.GetJournalEntry(System.Double)",
+      "itemKind": "method",
+      "itemClass": "Journal",
+      "itemName": "GetJournalEntry",
+      "itemDescription": "Get a copy of all Journal lines as JournalEntry. The list can be filtered to include *only* most recent events.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "List[Journal.JournalEntry]",
+      "returnDesc": "List of JournalEntry",
+      "paramList": [
+        {
+          "itemName": "afterJournalEntry",
+          "itemType": "Journal.JournalEntry",
+          "itemHasDefault": true,
+          "itemDefaultValue": null,
+          "itemDescription": "A JournalEntry object (default: null, no filter)"
+        }
+      ],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.Journal.GetJournalEntry(RazorEnhanced.Journal.JournalEntry)",
+      "itemKind": "method",
+      "itemClass": "Journal",
+      "itemName": "GetJournalEntry",
+      "itemDescription": "Get a copy of all Journal lines as JournalEntry. The list can be filtered to include *only* most recent events.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "String",
+      "returnDesc": "Return the full line - Empty string if not found.",
+      "paramList": [
+        {
+          "itemName": "text",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Text to search."
+        },
+        {
+          "itemName": "addname",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "False",
+          "itemDescription": "Prepend source name. (default: False)"
+        }
+      ],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.Journal.GetLineText(System.String,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Journal",
+      "itemName": "GetLineText",
+      "itemDescription": "Search and return the most recent line Journal containing the given text. (case sensitive)",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "List[String]",
+      "returnDesc": "List of speakers as text.",
+      "paramList": [],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.Journal.GetSpeechName",
+      "itemKind": "method",
+      "itemClass": "Journal",
+      "itemName": "GetSpeechName",
+      "itemDescription": "Get list of speakers.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "List[String]",
+      "returnDesc": "A list of Journal as lines of text.",
+      "paramList": [
+        {
+          "itemName": "color",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Color of the source."
+        },
+        {
+          "itemName": "addname",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "False",
+          "itemDescription": "Prepend source name. (default: False)"
+        }
+      ],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.Journal.GetTextByColor(System.Int32,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Journal",
+      "itemName": "GetTextByColor",
+      "itemDescription": "Returns all the lines present in the Journal for a given color.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "List[String]",
+      "returnDesc": "A list of Journal as lines of text.",
+      "paramList": [
+        {
+          "itemName": "name",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Name of the source."
+        },
+        {
+          "itemName": "addname",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "False",
+          "itemDescription": "Prepend source name. (default: False)"
+        }
+      ],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.Journal.GetTextByName(System.String,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Journal",
+      "itemName": "GetTextByName",
+      "itemDescription": "Returns all the lines present in the Journal for a given source name. (case sensitive)",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "List[String]",
+      "returnDesc": "A list of Journal as lines of text.",
+      "paramList": [
+        {
+          "itemName": "serial",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Serial of the source."
+        },
+        {
+          "itemName": "addname",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "False",
+          "itemDescription": "Prepend source name. (default: False)"
+        }
+      ],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.Journal.GetTextBySerial(System.Int32,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Journal",
+      "itemName": "GetTextBySerial",
+      "itemDescription": "Returns all the lines present in the Journal for a given serial.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "List[String]",
+      "returnDesc": "A list of Journal as lines of text.",
+      "paramList": [
+        {
+          "itemName": "type",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Regular\nSystem\nEmote\nLabel\nFocus\nWhisper\nYell\nSpell\nGuild\nAlliance\nParty\nEncoded\nSpecial"
+        },
+        {
+          "itemName": "addname",
+          "itemType": "Boolean",
+          "itemHasDefault": true,
+          "itemDefaultValue": "False",
+          "itemDescription": "Prepend source name. (default: False)"
+        }
+      ],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.Journal.GetTextByType(System.String,System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Journal",
+      "itemName": "GetTextByType",
+      "itemDescription": "Returns all the lines present in the Journal for a given type. (case sensitive)",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "void",
+      "paramList": [
+        {
+          "itemName": "text",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Text to no longer block. case insensitive"
+        }
+      ],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.Journal.RemoveFilterText(System.String)",
+      "itemKind": "method",
+      "itemClass": "Journal",
+      "itemName": "RemoveFilterText",
+      "itemDescription": "Remove a stored a string that if matched, would block journal message ( case insensitive )",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: Text is found - False: otherwise",
+      "paramList": [
+        {
+          "itemName": "text",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Text to search."
+        }
+      ],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.Journal.Search(System.String)",
+      "itemKind": "method",
+      "itemClass": "Journal",
+      "itemName": "Search",
+      "itemDescription": "Search in the Journal for the occurrence of text. (case sensitive)",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: Text is found - False: otherwise",
+      "paramList": [
+        {
+          "itemName": "text",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Text to search."
+        },
+        {
+          "itemName": "color",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Color of the message."
+        }
+      ],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.Journal.SearchByColor(System.String,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Journal",
+      "itemName": "SearchByColor",
+      "itemDescription": "Search in the Journal for the occurrence of text, for a given color. (case sensitive)",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: Text is found - False: otherwise",
+      "paramList": [
+        {
+          "itemName": "text",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Text to search."
+        },
+        {
+          "itemName": "name",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Name of the source."
+        }
+      ],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.Journal.SearchByName(System.String,System.String)",
+      "itemKind": "method",
+      "itemClass": "Journal",
+      "itemName": "SearchByName",
+      "itemDescription": "Search in the Journal for the occurrence of text, for a given source. (case sensitive)",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: Text is found - False: otherwise",
+      "paramList": [
+        {
+          "itemName": "text",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Text to search."
+        },
+        {
+          "itemName": "type",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Regular\nSystem\nEmote\nLabel\nFocus\nWhisper\nYell\nSpell\nGuild\nAlliance\nParty\nEncoded\nSpecial"
+        }
+      ],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.Journal.SearchByType(System.String,System.String)",
+      "itemKind": "method",
+      "itemClass": "Journal",
+      "itemName": "SearchByType",
+      "itemDescription": "Search in the Journal for the occurrence of text, for a given type. (case sensitive)",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "name",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Name of the source."
+        },
+        {
+          "itemName": "delay",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Maximum pause in milliseconds."
+        }
+      ],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.Journal.WaitByName(System.String,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Journal",
+      "itemName": "WaitByName",
+      "itemDescription": "Pause script and wait for maximum amount of time, for a specific source to appear in Jorunal. (case sensitive)",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: Text is found - False: otherwise",
+      "paramList": [
+        {
+          "itemName": "text",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Text to search."
+        },
+        {
+          "itemName": "delay",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Maximum pause in milliseconds."
+        }
+      ],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.Journal.WaitJournal(System.String,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Journal",
+      "itemName": "WaitJournal",
+      "itemDescription": "Pause script and wait for maximum amount of time, for a specific text to appear in Journal. (case sensitive)",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "String",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "msgs",
+          "itemType": "List[String]",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "delay",
+          "itemType": "Int32",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.Journal.WaitJournal(System.Collections.Generic.List`1[],System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Journal",
+      "itemName": "WaitJournal",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    }
+  ],
+  "properties": []
+}

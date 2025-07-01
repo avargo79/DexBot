@@ -1,0 +1,49 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.BandageHeal",
+    "itemKind": "class",
+    "itemClass": "BandageHeal",
+    "itemName": "BandageHeal",
+    "itemDescription": "",
+    "flagAutocomplete": false
+  },
+  "methods": [
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.BandageHeal.Start",
+      "itemKind": "method",
+      "itemClass": "BandageHeal",
+      "itemName": "Start",
+      "itemDescription": "Start BandageHeal Agent.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: is running - False: otherwise",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.BandageHeal.Status",
+      "itemKind": "method",
+      "itemClass": "BandageHeal",
+      "itemName": "Status",
+      "itemDescription": "Check BandageHeal Agent status, returns a bool value.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.BandageHeal.Stop",
+      "itemKind": "method",
+      "itemClass": "BandageHeal",
+      "itemName": "Stop",
+      "itemDescription": "Stop BandageHeal Agent.",
+      "flagAutocomplete": false
+    }
+  ],
+  "properties": []
+}

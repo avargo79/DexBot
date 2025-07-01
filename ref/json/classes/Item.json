@@ -1,0 +1,574 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.Item",
+    "itemKind": "class",
+    "itemClass": "Item",
+    "itemName": "Item",
+    "itemDescription": "The Item class represent a single in-game Item object. Examples of Item are: Swords, bags, bandages, reagents, clothing.\nWhile the Item.Serial is unique for each Item, Item.ItemID is the unique for the Item apparence, or image. Sometimes is also called ID or Graphics ID.\nItem can also be house foriture as well as decorative items on the ground, like lamp post and banches.\nHowever, for Item on the ground that cannot be picked up, they might be part of the world map, see Statics class.",
+    "flagAutocomplete": false
+  },
+  "methods": [
+    {
+      "returnType": "Int32",
+      "returnDesc": "Distance in number of tiles.",
+      "paramList": [
+        {
+          "itemName": "mob",
+          "itemType": "Mobile",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Target as Mobile"
+        }
+      ],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.Item.DistanceTo(RazorEnhanced.Mobile)",
+      "itemKind": "method",
+      "itemClass": "Item",
+      "itemName": "DistanceTo",
+      "itemDescription": "Return the distance in number of tiles, from Item to Mobile.",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Int32",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "itm",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Target as Item"
+        }
+      ],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.Item.DistanceTo(RazorEnhanced.Item)",
+      "itemKind": "method",
+      "itemClass": "Item",
+      "itemName": "DistanceTo",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "obj",
+          "itemType": "Object",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": false,
+      "xmlKey": "M:Assistant.UOEntity.Equals(System.Object)",
+      "itemKind": "method",
+      "itemClass": "Item",
+      "itemName": "Equals",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "entity",
+          "itemType": "UOEntity",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": false,
+      "xmlKey": "M:Assistant.UOEntity.Equals(Assistant.UOEntity)",
+      "itemKind": "method",
+      "itemClass": "Item",
+      "itemName": "Equals",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Int32",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": false,
+      "xmlKey": "M:Assistant.UOEntity.GetHashCode",
+      "itemKind": "method",
+      "itemClass": "Item",
+      "itemName": "GetHashCode",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Point3D",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.Item.GetWorldPosition",
+      "itemKind": "method",
+      "itemClass": "Item",
+      "itemName": "GetWorldPosition",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "True: if is contained - False: otherwise.",
+      "paramList": [
+        {
+          "itemName": "container",
+          "itemType": "Item",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Item as container."
+        },
+        {
+          "itemName": "maxDepth",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "100",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.Item.IsChildOf(RazorEnhanced.Item,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Item",
+      "itemName": "IsChildOf",
+      "itemDescription": "Check if an Item is contained in a container. Can be a Item or a Mobile (wear by).",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "container",
+          "itemType": "Mobile",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "Mobile as container."
+        },
+        {
+          "itemName": "maxDepth",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "100",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.Item.IsChildOf(RazorEnhanced.Mobile,System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Item",
+      "itemName": "IsChildOf",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "String",
+      "returnDesc": "",
+      "paramList": [],
+      "isStatic": false,
+      "xmlKey": "M:RazorEnhanced.Item.ToString",
+      "itemKind": "method",
+      "itemClass": "Item",
+      "itemName": "ToString",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    }
+  ],
+  "properties": [
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Item.Amount",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "Amount",
+      "itemDescription": "Read amount from item type object.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "UInt16",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Item.Color",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "Color",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Item.Container",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "Container",
+      "itemDescription": "Serial of the container which contains the object.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Item.ContainerOpened",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "ContainerOpened",
+      "itemDescription": "True when the container was opened",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "List[Item]",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Item.Contains",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "Contains",
+      "itemDescription": "Contains the list of Item inside a container.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Item.CorpseNumberItems",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "CorpseNumberItems",
+      "itemDescription": "-1 until corpse is checked, then # items in corpse. Used by looter to ignore empty corpses",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "P:Assistant.UOEntity.Deleted",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "Deleted",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "String",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Item.Direction",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "Direction",
+      "itemDescription": "Item direction.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Item.Durability",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "Durability",
+      "itemDescription": "Get the current durability of an Item. (0: no durability)",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "UInt16",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Item.Graphics",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "Graphics",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Byte",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Item.GridNum",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "GridNum",
+      "itemDescription": "Returns the GridNum of the item. (need better documentation)",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "UInt16",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Item.Hue",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "Hue",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Bitmap",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Item.Image",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "Image",
+      "itemDescription": "Get the in-game image on an Item as Bitmap object.\nSee MSDN: https://docs.microsoft.com/dotnet/api/system.drawing.bitmap",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Item.IsBagOfSending",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "IsBagOfSending",
+      "itemDescription": "True: if the item is a bag of sending - False: otherwise.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Item.IsContainer",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "IsContainer",
+      "itemDescription": "True: if the item is a container - False: otherwise.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Item.IsCorpse",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "IsCorpse",
+      "itemDescription": "True: if the item is a corpse - False: otherwise.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Item.IsDoor",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "IsDoor",
+      "itemDescription": "True: if the item is a door - False: otherwise.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Item.IsInBank",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "IsInBank",
+      "itemDescription": "True: if the item is in the Player's bank - False: otherwise.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Item.IsLootable",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "IsLootable",
+      "itemDescription": "True: For regualar items - False: for hair, beards, etc.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Item.IsPotion",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "IsPotion",
+      "itemDescription": "True: if the item is a potion - False: otherwise.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Item.IsResource",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "IsResource",
+      "itemDescription": "True: if the item is a resource (ore, sand, wood, stone, fish) - False: otherwise",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Item.IsSearchable",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "IsSearchable",
+      "itemDescription": "True: if the item is a pouch - False: otherwise.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Item.IsTwoHanded",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "IsTwoHanded",
+      "itemDescription": "True: if the item is a 2-handed weapon - False: otherwise.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Item.IsVirtueShield",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "IsVirtueShield",
+      "itemDescription": "True: if the item is a virtue shield - False: otherwise.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Item.ItemID",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "ItemID",
+      "itemDescription": "Represents the type of Item, usually unique for the Item image.  Sometime called ID or Graphics ID.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "String",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Item.Layer",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "Layer",
+      "itemDescription": "Gets the Layer, for werable items only. (need better documentation)",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Byte",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Item.Light",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "Light",
+      "itemDescription": "Item light's direction (e.g. will affect corpse's facing direction)",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Item.MaxDurability",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "MaxDurability",
+      "itemDescription": "Get the maximum durability of an Item. (0: no durability)",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Item.Movable",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "Movable",
+      "itemDescription": "Item is movable",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "String",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Item.Name",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "Name",
+      "itemDescription": "Item name",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Item.OnGround",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "OnGround",
+      "itemDescription": "True: if the item is on the ground - False: otherwise.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Point3D",
+      "isStatic": false,
+      "xmlKey": "P:Assistant.UOEntity.Position",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "Position",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "List[Property]",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Item.Properties",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "Properties",
+      "itemDescription": "Get the list of Properties of an Item.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Item.PropsUpdated",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "PropsUpdated",
+      "itemDescription": "True: if Properties are updated - False: otherwise.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Item.RootContainer",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "RootContainer",
+      "itemDescription": "Get serial of root container of item.",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Item.Serial",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "Serial",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Item.Updated",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "Updated",
+      "itemDescription": "Check if the Item already have been updated with all the properties. (need better documentation)",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Item.Visible",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "Visible",
+      "itemDescription": "Item is Visible",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "P:RazorEnhanced.Item.Weight",
+      "itemKind": "property",
+      "itemClass": "Item",
+      "itemName": "Weight",
+      "itemDescription": "Get the weight of a item. (0: no weight)",
+      "flagAutocomplete": false
+    }
+  ]
+}

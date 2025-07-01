@@ -1,0 +1,134 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.Sound",
+    "itemKind": "class",
+    "itemClass": "Sound",
+    "itemName": "Sound",
+    "itemDescription": "The Sound class provides an api to manipulate Sounds. \nFor now it just turns logging for sounds on / off or waits for a list of sounds\nAll the WeakRef stuff seems like overkill and a pia. \nThe problem was if you started the wait and then killed the python script, the entry in the waiters list just stayed forever\nThe only way around this is to have a weakref stored in the list, then if the local var ManualResetEvent went out of scope, \nthe WeakRef will go to null.  At end of loop we clean up all null entries so the list stays clean.",
+    "flagAutocomplete": false
+  },
+  "methods": [
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "name",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "sounds",
+          "itemType": "List[Int32]",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Sound.AddFilter(System.String,System.Collections.Generic.List`1[])",
+      "itemKind": "method",
+      "itemClass": "Sound",
+      "itemName": "AddFilter",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "activateLogging",
+          "itemType": "Boolean",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "True= activate sound logging/ False Deactivate sound logging"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Sound.Log(System.Boolean)",
+      "itemKind": "method",
+      "itemClass": "Sound",
+      "itemName": "Log",
+      "itemDescription": "Enables/Disables logging of incoming sound requests",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "p",
+          "itemType": "PacketReader",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "args",
+          "itemType": "PacketHandlerEventArgs",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Sound.OnFilter(Assistant.PacketReader,Assistant.PacketHandlerEventArgs)",
+      "itemKind": "method",
+      "itemClass": "Sound",
+      "itemName": "OnFilter",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Void",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "name",
+          "itemType": "String",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": "The name of the filter to be removed"
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Sound.RemoveFilter(System.String)",
+      "itemKind": "method",
+      "itemClass": "Sound",
+      "itemName": "RemoveFilter",
+      "itemDescription": "Removes a filter of incoming sound requests",
+      "flagAutocomplete": false
+    },
+    {
+      "returnType": "Boolean",
+      "returnDesc": "",
+      "paramList": [
+        {
+          "itemName": "sounds",
+          "itemType": "List[Int32]",
+          "itemHasDefault": false,
+          "itemDefaultValue": "",
+          "itemDescription": ""
+        },
+        {
+          "itemName": "timeout",
+          "itemType": "Int32",
+          "itemHasDefault": true,
+          "itemDefaultValue": "-1",
+          "itemDescription": ""
+        }
+      ],
+      "isStatic": true,
+      "xmlKey": "M:RazorEnhanced.Sound.WaitForSound(System.Collections.Generic.List`1[],System.Int32)",
+      "itemKind": "method",
+      "itemClass": "Sound",
+      "itemName": "WaitForSound",
+      "itemDescription": "",
+      "flagAutocomplete": false
+    }
+  ],
+  "properties": []
+}

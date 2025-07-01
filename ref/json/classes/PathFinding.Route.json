@@ -1,0 +1,103 @@
+{
+  "class": {
+    "xmlKey": "T:RazorEnhanced.PathFinding.Route",
+    "itemKind": "class",
+    "itemClass": "PathFinding.Route",
+    "itemName": "PathFinding.Route",
+    "itemDescription": "The Route class is used to configure the PathFinding.",
+    "flagAutocomplete": false
+  },
+  "methods": [],
+  "properties": [
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.PathFinding.Route.DebugMessage",
+      "itemKind": "property",
+      "itemClass": "PathFinding.Route",
+      "itemName": "DebugMessage",
+      "itemDescription": "Outputs a debug message. (default: False)",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.PathFinding.Route.IgnoreMobile",
+      "itemKind": "property",
+      "itemClass": "PathFinding.Route",
+      "itemName": "IgnoreMobile",
+      "itemDescription": "Ignores any mobiles with the path calculation. (default: 0)",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.PathFinding.Route.MaxRetry",
+      "itemKind": "property",
+      "itemClass": "PathFinding.Route",
+      "itemName": "MaxRetry",
+      "itemDescription": "Number of attempts untill the path calculation is halted. (default: -1, no limit)",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.PathFinding.Route.Run",
+      "itemKind": "property",
+      "itemClass": "PathFinding.Route",
+      "itemName": "Run",
+      "itemDescription": "Maximum amount of time to run the path. (default: -1, no limit)",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.PathFinding.Route.StopIfStuck",
+      "itemKind": "property",
+      "itemClass": "PathFinding.Route",
+      "itemName": "StopIfStuck",
+      "itemDescription": "Halts the pathfinding fail to walk the path. (default: 0)",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Single",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.PathFinding.Route.Timeout",
+      "itemKind": "property",
+      "itemClass": "PathFinding.Route",
+      "itemName": "Timeout",
+      "itemDescription": "Maximum amount of time to run the path. (default: -1, no limit)",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Boolean",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.PathFinding.Route.UseResync",
+      "itemKind": "property",
+      "itemClass": "PathFinding.Route",
+      "itemName": "UseResync",
+      "itemDescription": "ReSyncs the path calculation. (default: False)",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.PathFinding.Route.X",
+      "itemKind": "property",
+      "itemClass": "PathFinding.Route",
+      "itemName": "X",
+      "itemDescription": "Sets the destination position X. (default: 0)",
+      "flagAutocomplete": false
+    },
+    {
+      "propertyType": "Int32",
+      "isStatic": false,
+      "xmlKey": "F:RazorEnhanced.PathFinding.Route.Y",
+      "itemKind": "property",
+      "itemClass": "PathFinding.Route",
+      "itemName": "Y",
+      "itemDescription": "Sets the destination position Y. (default: 0)",
+      "flagAutocomplete": false
+    }
+  ]
+}
