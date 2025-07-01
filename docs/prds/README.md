@@ -25,6 +25,14 @@ Each PRD follows a standardized format:
   - Effort: 2-3 weeks
   - *Automated buff maintenance with smart reagent management*
 
+### Technical Debt (P1)
+- **[TECH-001: API Reference Optimization](./TECH-001_API_Reference_Optimization.md)**
+  - Status: 📝 Ready for Development
+  - Target: v3.2.0
+  - Effort: 1 week
+  - *Comprehensive API reference system optimization and automation*
+  - **Implementation Guide**: [Detailed Tasks](./TECH-001_Implementation_Tasks.md)
+
 ### Medium Priority Features (P2)
 - **[FR-095: Inventory Management System](./FR-095_Inventory_Management_System.md)**
   - Status: ✅ Complete  

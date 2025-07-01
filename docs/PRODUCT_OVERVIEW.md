@@ -142,7 +142,7 @@ DexBot is a production-ready, modular automation system for Ultima Online that p
 
 ## Related Documentation
 
-- **[Technical Architecture](prds/archived/PRD_Master.md)** - Detailed system architecture
+- **[Active Development](prds/README.md)** - Current feature development and specifications
 - **[Feature Specifications](prds/README.md)** - Individual system PRDs
 - **[Development Status](Development_Status.md)** - Current progress and roadmap
 - **[User Guide](../README.md)** - Installation and usage instructions
