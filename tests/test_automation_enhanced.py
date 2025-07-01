@@ -90,10 +90,10 @@ class EnhancedTestRunner:
         # Check Python version
         python_version = sys.version_info
         if python_version.major >= 3 and python_version.minor >= 7:
-            print(f"✓ Python version: {sys.version.split()[0]}")
+            print(f"[PASS] Python version: {sys.version.split()[0]}")
             self._add_test("Python version check", "PASS", phase_result)
         else:
-            print(f"✗ Python version too old: {sys.version.split()[0]}")
+            print(f"[FAIL] Python version too old: {sys.version.split()[0]}")
             self._add_test("Python version check", "FAIL", phase_result, "Python 3.7+ required")
             all_passed = False
         
@@ -102,10 +102,10 @@ class EnhancedTestRunner:
         missing_files = [f for f in expected_files if not os.path.exists(f)]
         
         if not missing_files:
-            print(f"✓ Working directory structure valid")
+            print(f"PASS Working directory structure valid")
             self._add_test("Directory structure", "PASS", phase_result)
         else:
-            print(f"✗ Missing directories: {missing_files}")
+            print(f"FAIL Missing directories: {missing_files}")
             self._add_test("Directory structure", "FAIL", phase_result, f"Missing: {missing_files}")
             all_passed = False
         
@@ -119,10 +119,10 @@ class EnhancedTestRunner:
         
         for file_path in critical_files:
             if os.path.exists(file_path):
-                print(f"✓ {file_path}")
+                print(f"PASS {file_path}")
                 self._add_test(f"Critical file {file_path}", "PASS", phase_result)
             else:
-                print(f"✗ Missing: {file_path}")
+                print(f"FAIL Missing: {file_path}")
                 self._add_test(f"Critical file {file_path}", "FAIL", phase_result, "File not found")
                 all_passed = False
         
@@ -165,10 +165,10 @@ class EnhancedTestRunner:
         for module_name in critical_imports:
             try:
                 __import__(module_name)
-                print(f"✓ {module_name}")
+                print(f"PASS {module_name}")
                 self._add_test(f"Import {module_name}", "PASS", phase_result)
             except Exception as e:
-                print(f"✗ {module_name}: {e}")
+                print(f"FAIL {module_name}: {e}")
                 self._add_test(f"Import {module_name}", "FAIL", phase_result, str(e))
                 all_critical_passed = False
         
@@ -176,10 +176,10 @@ class EnhancedTestRunner:
         for module_name in optional_imports:
             try:
                 __import__(module_name)
-                print(f"✓ {module_name} (optional)")
+                print(f"PASS {module_name} (optional)")
                 self._add_test(f"Import {module_name} (optional)", "PASS", phase_result)
             except Exception as e:
-                print(f"⚠ {module_name}: {e} (optional - OK)")
+                print(f"WARN {module_name}: {e} (optional - OK)")
                 self._add_test(f"Import {module_name} (optional)", "SKIP", phase_result, "Optional module")
         
         phase_result["status"] = "PASS" if all_critical_passed else "FAIL"
@@ -209,16 +209,16 @@ class EnhancedTestRunner:
             
             # Basic config access
             main_config = config_manager.main_config
-            print(f"✓ ConfigManager: {len(main_config)} main settings")
+            print(f"PASS ConfigManager: {len(main_config)} main settings")
             self._add_test("ConfigManager instantiation", "PASS", phase_result)
             
             # Test looting config
             looting_config = config_manager.get_looting_config()
-            print(f"✓ Looting config: {len(looting_config)} settings")
+            print(f"PASS Looting config: {len(looting_config)} settings")
             self._add_test("Looting config access", "PASS", phase_result)
             
         except Exception as e:
-            print(f"✗ ConfigManager failed: {e}")
+            print(f"FAIL ConfigManager failed: {e}")
             self._add_test("ConfigManager", "FAIL", phase_result, str(e))
             all_passed = False
         
@@ -228,7 +228,7 @@ class EnhancedTestRunner:
             db = UOItemDatabase()
             
             stats = db.get_database_stats()
-            print(f"✓ UO Items DB: {stats['total_items']} items, {stats['total_categories']} categories")
+            print(f"PASS UO Items DB: {stats['total_items']} items, {stats['total_categories']} categories")
             self._add_test("UO Items Database", "PASS", phase_result)
             
             # Test basic operations
@@ -236,22 +236,22 @@ class EnhancedTestRunner:
             if categories:
                 test_category = categories[0]
                 items = db.get_items_by_category(test_category)
-                print(f"✓ Category query: '{test_category}' has {len(items)} items")
+                print(f"PASS Category query: '{test_category}' has {len(items)} items")
                 self._add_test("Database query functionality", "PASS", phase_result)
             
         except Exception as e:
-            print(f"✗ UO Items Database failed: {e}")
+            print(f"FAIL UO Items Database failed: {e}")
             self._add_test("UO Items Database", "FAIL", phase_result, str(e))
             all_passed = False
         
         # Test LootingSystem integration
         try:
             from src.systems.looting import LootingSystem
-            print("✓ LootingSystem can be imported")
+            print("PASS LootingSystem can be imported")
             self._add_test("LootingSystem import", "PASS", phase_result)
             
         except Exception as e:
-            print(f"✗ LootingSystem import failed: {e}")
+            print(f"FAIL LootingSystem import failed: {e}")
             self._add_test("LootingSystem import", "FAIL", phase_result, str(e))
             all_passed = False
         
@@ -279,7 +279,7 @@ class EnhancedTestRunner:
         build_path = Path("dist/DexBot.py")
         if build_path.exists():
             file_size = build_path.stat().st_size
-            print(f"✓ Build output exists: {file_size:,} bytes ({file_size/1024:.1f} KB)")
+            print(f"PASS Build output exists: {file_size:,} bytes ({file_size/1024:.1f} KB)")
             self._add_test("Build output exists", "PASS", phase_result)
             
             # Read and validate build content
@@ -297,10 +297,10 @@ class EnhancedTestRunner:
                 
                 for component_name, search_text in required_components:
                     if search_text in content:
-                        print(f"✓ {component_name} present in build")
+                        print(f"PASS {component_name} present in build")
                         self._add_test(f"Build contains {component_name}", "PASS", phase_result)
                     else:
-                        print(f"✗ {component_name} missing from build")
+                        print(f"FAIL {component_name} missing from build")
                         self._add_test(f"Build contains {component_name}", "FAIL", phase_result)
                         all_passed = False
                 
@@ -312,20 +312,20 @@ class EnhancedTestRunner:
                 
                 for pattern_name, search_text in problematic_patterns:
                     if search_text in content:
-                        print(f"⚠ {pattern_name} found in build (may cause issues)")
+                        print(f"WARN {pattern_name} found in build (may cause issues)")
                         self._add_test(f"Build free of {pattern_name}", "FAIL", phase_result, f"Found: {search_text}")
                         # Don't fail the whole test for this
                     else:
-                        print(f"✓ No {pattern_name} in build")
+                        print(f"PASS No {pattern_name} in build")
                         self._add_test(f"Build free of {pattern_name}", "PASS", phase_result)
                 
             except Exception as e:
-                print(f"✗ Error reading build file: {e}")
+                print(f"FAIL Error reading build file: {e}")
                 self._add_test("Build file readable", "FAIL", phase_result, str(e))
                 all_passed = False
                 
         else:
-            print("✗ Build output not found")
+            print("FAIL Build output not found")
             self._add_test("Build output exists", "FAIL", phase_result, "dist/DexBot.py not found")
             all_passed = False
         
@@ -372,10 +372,17 @@ class EnhancedTestRunner:
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         filename = f"test_results_enhanced_{timestamp}.json"
         
-        with open(filename, 'w') as f:
+        # Ensure tmp directory exists
+        tmp_dir = "tmp"
+        if not os.path.exists(tmp_dir):
+            os.makedirs(tmp_dir)
+        
+        # Save to tmp directory
+        filepath = os.path.join(tmp_dir, filename)
+        with open(filepath, 'w') as f:
             json.dump(self.results, f, indent=2)
         
-        return filename
+        return filepath
     
     def print_summary(self):
         """Print enhanced test summary."""
@@ -393,12 +400,12 @@ class EnhancedTestRunner:
         # Show failed phases
         failed_phases = [p for p in self.results["phases"] if p["status"] == "FAIL"]
         if failed_phases:
-            print(f"\n⚠️  Failed Phases:")
+            print(f"\nWARN  Failed Phases:")
             for phase in failed_phases:
                 failed_tests = [t for t in phase["tests"] if t["status"] == "FAIL"]
                 print(f"  - {phase['name']}: {len(failed_tests)} failed tests")
                 for test in failed_tests[:3]:  # Show first 3 failures
-                    print(f"    • {test['name']}: {test.get('error', 'Unknown error')}")
+                    print(f"    * {test['name']}: {test.get('error', 'Unknown error')}")
                 if len(failed_tests) > 3:
                     print(f"    ... and {len(failed_tests) - 3} more")
 
@@ -429,14 +436,14 @@ def main():
     # Print summary and save results
     runner.print_summary()
     results_file = runner.save_results()
-    print(f"\n📄 Detailed results saved to: {results_file}")
+    print(f"\n Detailed results saved to: {results_file}")
     
     # Overall status
     if phases_passed == total_phases:
         print("\n🎉 All phases passed! DexBot is ready for production use.")
         return 0
     else:
-        print(f"\n⚠️  {total_phases - phases_passed} phase(s) failed. Review the output above.")
+        print(f"\nWARN  {total_phases - phases_passed} phase(s) failed. Review the output above.")
         return 1
 
 
