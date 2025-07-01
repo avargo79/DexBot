@@ -458,7 +458,7 @@ def help(c):
     
     tasks = [
         ("clean", "Clean build artifacts and temporary files (selective tmp/ cleanup)"),
-        ("deep-clean", "Deep clean including ALL tmp/ directory contents (except .gitkeep)"),
+        ("deep_clean", "Deep clean including ALL tmp/ directory contents (except .gitkeep)"),
         ("lint", "Run basic syntax checks"),
         ("test", "Run all unit tests using pytest"),
         ("test-interactive", "Run Phase 1 interactive tests"),

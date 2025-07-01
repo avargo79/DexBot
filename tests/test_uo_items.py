@@ -365,6 +365,46 @@ class TestConvenienceFunctions(unittest.TestCase):
         self.assertEqual(result, [])
 
     @patch('utils.uo_items.get_item_database')
+    def test_get_reagent_ids_pass_case(self, mock_get_db):
+        """Test get_reagent_ids returns list of reagent IDs"""
+        mock_db = MagicMock()
+        mock_db.get_item_ids_by_name.return_value = [3962, 3963, 3964]
+        mock_get_db.return_value = mock_db
+        
+        result = get_reagent_ids()
+        self.assertEqual(result, [3962, 3963, 3964])
+
+    @patch('utils.uo_items.get_item_database')
+    def test_get_reagent_ids_fail_case(self, mock_get_db):
+        """Test get_reagent_ids with no reagents found"""
+        mock_db = MagicMock()
+        mock_db.get_item_ids_by_name.return_value = []
+        mock_get_db.return_value = mock_db
+        
+        result = get_reagent_ids()
+        self.assertEqual(result, [])
+
+    @patch('utils.uo_items.get_item_database')
+    def test_get_potion_ids_pass_case(self, mock_get_db):
+        """Test get_potion_ids returns list of potion IDs"""
+        mock_db = MagicMock()
+        mock_db.get_item_ids_by_name.return_value = [3852, 3853, 3854]
+        mock_get_db.return_value = mock_db
+        
+        result = get_potion_ids()
+        self.assertEqual(result, [3852, 3853, 3854])
+
+    @patch('utils.uo_items.get_item_database')
+    def test_get_potion_ids_fail_case(self, mock_get_db):
+        """Test get_potion_ids with no potions found"""
+        mock_db = MagicMock()
+        mock_db.get_item_ids_by_name.return_value = []
+        mock_get_db.return_value = mock_db
+        
+        result = get_potion_ids()
+        self.assertEqual(result, [])
+
+    @patch('utils.uo_items.get_item_database')
     def test_get_valuable_item_ids_pass_case(self, mock_get_db):
         """Test get_valuable_item_ids returns correct IDs"""
         mock_db = MagicMock()

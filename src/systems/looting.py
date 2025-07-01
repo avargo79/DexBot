@@ -11,7 +11,7 @@ from enum import Enum
 from ..config.config_manager import ConfigManager
 from ..core.logger import Logger, SystemStatus
 from ..utils.imports import Items, Misc, Mobiles, Player, Target, Timer
-from ..utils.uo_items import get_item_database, get_item_id
+from ..utils.uo_items import get_item_database
 
 # Constants for system performance tuning
 CACHE_CLEANUP_INTERVAL_SECONDS = 60  # Clean cache every minute
@@ -126,8 +126,8 @@ class LootingSystem:
             except Exception as e:
                 Logger.warning(f"Failed to get currency IDs from database: {e}")
         
-        # Fallback to hardcoded gold IDs
-        return [0x06F4, 0x06F5]  # Gold coins/piles
+        # Fallback to hardcoded gold IDs (matching primary gold ID: 1712 or 0x06B0)
+        return [1712]  # Gold coins/piles
     
     def _identify_item(self, item) -> Dict[str, Any]:
         """Identify item using database lookup.
