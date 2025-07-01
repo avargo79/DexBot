@@ -74,7 +74,79 @@ def clean(c):
                 print(f"   Removed {cache_path}")
                 dirs.remove(dir_name)
     
+    # Selectively clean tmp/ directory
+    tmp_dir = "tmp"
+    if os.path.exists(tmp_dir):
+        print(f"🧹 Selectively cleaning {tmp_dir}/ directory...")
+        cleaned_count = 0
+        
+        for filename in os.listdir(tmp_dir):
+            file_path = os.path.join(tmp_dir, filename)
+            
+            # Skip directories and essential files
+            if os.path.isdir(file_path) or filename == ".gitkeep":
+                continue
+            
+            # Clean test result files and temporary scripts
+            should_clean = (
+                filename.startswith("test_results_") or
+                filename.endswith("_temp.py") or
+                filename.startswith("fix_unicode") or
+                filename.startswith("analyze_") or
+                filename.startswith("test_") and filename.endswith(".py")
+            )
+            
+            if should_clean:
+                try:
+                    os.remove(file_path)
+                    print(f"   Removed {file_path}")
+                    cleaned_count += 1
+                except OSError as e:
+                    print(f"   Warning: Could not remove {file_path}: {e}")
+        
+        if cleaned_count > 0:
+            print(f"   Cleaned {cleaned_count} temporary files from {tmp_dir}/")
+        else:
+            print(f"   No temporary files found to clean in {tmp_dir}/")
+    
     print("✅ Clean completed")
+
+
+@task
+def deep_clean(c):
+    """Deep clean including all tmp/ directory contents (except .gitkeep)"""
+    print("🧹 Deep cleaning build artifacts and ALL temporary files...")
+    
+    # First run regular clean
+    clean(c)
+    
+    # Deep clean tmp/ directory (preserve only .gitkeep)
+    tmp_dir = "tmp"
+    if os.path.exists(tmp_dir):
+        print(f"🧹 Deep cleaning ALL files in {tmp_dir}/ directory...")
+        cleaned_count = 0
+        
+        for filename in os.listdir(tmp_dir):
+            file_path = os.path.join(tmp_dir, filename)
+            
+            # Skip directories and .gitkeep
+            if os.path.isdir(file_path) or filename == ".gitkeep":
+                continue
+            
+            try:
+                os.remove(file_path)
+                print(f"   Removed {file_path}")
+                cleaned_count += 1
+            except OSError as e:
+                print(f"   Warning: Could not remove {file_path}: {e}")
+        
+        if cleaned_count > 0:
+            print(f"   Deep cleaned {cleaned_count} files from {tmp_dir}/")
+        else:
+            print(f"   No files found to clean in {tmp_dir}/")
+    
+    print("✅ Deep clean completed")
+
 
 @task
 def lint(c):
@@ -367,7 +439,8 @@ def help(c):
     print("=" * 50)
     
     tasks = [
-        ("clean", "Clean build artifacts and temporary files"),
+        ("clean", "Clean build artifacts and temporary files (selective tmp/ cleanup)"),
+        ("deep-clean", "Deep clean including ALL tmp/ directory contents (except .gitkeep)"),
         ("lint", "Run basic syntax checks"),
         ("test", "Run all unit tests using pytest"),
         ("test-interactive", "Run Phase 1 interactive tests"),
