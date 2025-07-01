@@ -13,7 +13,7 @@ import os
 # Add the src directory to path for imports
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
-from utils.uo_items import UOItemDatabase, get_item_database, get_item_id, get_gem_ids, get_reagent_ids, get_potion_ids, get_valuable_item_ids
+from utils.uo_items import UOItemDatabase, get_item_database, get_item_id, get_gem_ids, get_reagent_ids, get_potion_ids, get_valuable_item_ids, evaluate_items_for_looting, get_items_by_ids, get_database_performance_stats
 
 
 class TestUOItemDatabaseClass(unittest.TestCase):
@@ -400,27 +400,292 @@ class TestSingletonPattern(unittest.TestCase):
     """Test the singleton pattern for get_item_database"""
 
     def test_singleton_pass_case(self):
-        """Test that get_item_database returns the same instance"""
-        # Clear any existing instance
-        if hasattr(get_item_database, '_instance'):
-            delattr(get_item_database, '_instance')
-        
+        """Test that singleton pattern returns same instance"""
+        # Use the singleton function twice
         db1 = get_item_database()
         db2 = get_item_database()
+        
+        # Should be the same instance
         self.assertIs(db1, db2)
 
-    def test_singleton_edge_case(self):
-        """Test singleton behavior with multiple calls"""
-        # Clear any existing instance
-        if hasattr(get_item_database, '_instance'):
-            delattr(get_item_database, '_instance')
-        
-        instances = [get_item_database() for _ in range(5)]
-        first_instance = instances[0]
-        
-        for instance in instances[1:]:
-            self.assertIs(instance, first_instance)
+
+class TestBulkOperations(unittest.TestCase):
+    """Test the new bulk operation methods"""
+    
+    def setUp(self):
+        """Set up test fixtures for bulk operations"""
+        self.mock_db_data = {
+            "metadata": {
+                "version": "2.0",
+                "total_items": 5,
+                "last_updated": "2025-06-30"
+            },
+            "categories": {
+                "currency": {
+                    "description": "Gold and currency items",
+                    "items": {
+                        "gold_coins": {
+                            "decimal_id": 3821,
+                            "hex_id": "0x0EED",
+                            "name": "Gold Coins",
+                            "aliases": ["gold"],
+                            "value_tier": "high"
+                        }
+                    }
+                },
+                "gems": {
+                    "description": "Precious gems",
+                    "items": {
+                        "diamond": {
+                            "decimal_id": 3862,
+                            "hex_id": "0x0F16", 
+                            "name": "Diamond",
+                            "aliases": ["gem"],
+                            "value_tier": "very_high"
+                        },
+                        "ruby": {
+                            "decimal_id": 3859,
+                            "hex_id": "0x0F13",
+                            "name": "Ruby",
+                            "aliases": ["gem"],
+                            "value_tier": "high"
+                        }
+                    }
+                },
+                "reagents": {
+                    "description": "Spell reagents",
+                    "items": {
+                        "black_pearl": {
+                            "decimal_id": 3962,
+                            "hex_id": "0x0F7A",
+                            "name": "Black Pearl",
+                            "aliases": ["reagent"],
+                            "value_tier": "medium"
+                        }
+                    }
+                }
+            },
+            "quick_lookup": {
+                "by_decimal_id": {
+                    "3821": "currency.gold_coins",
+                    "3862": "gems.diamond", 
+                    "3859": "gems.ruby",
+                    "3962": "reagents.black_pearl"
+                },
+                "by_name": {
+                    "gold": ["currency.gold_coins"],
+                    "gem": ["gems.diamond", "gems.ruby"],
+                    "reagent": ["reagents.black_pearl"]
+                },
+                "by_value_tier": {
+                    "very_high": ["gems.diamond"],
+                    "high": ["currency.gold_coins", "gems.ruby"],
+                    "medium": ["reagents.black_pearl"]
+                }
+            }
+        }
+    
+    # Bulk ID Lookup Tests
+    def test_get_items_by_ids_pass_case(self):
+        """Test bulk ID lookup with valid IDs"""
+        with patch('builtins.open', mock_open(read_data=json.dumps(self.mock_db_data))):
+            db = UOItemDatabase('test_db.json')
+            
+            # Test bulk lookup
+            results = db.get_items_by_ids([3821, 3862, 3859])
+            
+            # Should return all three items
+            self.assertEqual(len(results), 3)
+            self.assertIsNotNone(results[3821])
+            self.assertIsNotNone(results[3862])
+            self.assertIsNotNone(results[3859])
+            
+            # Check specific item data
+            self.assertEqual(results[3821]['name'], 'Gold Coins')
+            self.assertEqual(results[3862]['name'], 'Diamond')
+            self.assertEqual(results[3859]['name'], 'Ruby')
+    
+    def test_get_items_by_ids_fail_case(self):
+        """Test bulk ID lookup with invalid IDs"""
+        with patch('builtins.open', mock_open(read_data=json.dumps(self.mock_db_data))):
+            db = UOItemDatabase('test_db.json')
+            
+            # Test with non-existent IDs
+            results = db.get_items_by_ids([9999, 8888])
+            
+            # Should return None for both
+            self.assertEqual(len(results), 2)
+            self.assertIsNone(results[9999])
+            self.assertIsNone(results[8888])
+    
+    def test_get_items_by_ids_edge_case(self):
+        """Test bulk ID lookup with mixed valid/invalid IDs"""
+        with patch('builtins.open', mock_open(read_data=json.dumps(self.mock_db_data))):
+            db = UOItemDatabase('test_db.json')
+            
+            # Test with mix of valid and invalid IDs
+            results = db.get_items_by_ids([3821, 9999, 3862])
+            
+            # Should return mixed results
+            self.assertEqual(len(results), 3)
+            self.assertIsNotNone(results[3821])
+            self.assertIsNone(results[9999])
+            self.assertIsNotNone(results[3862])
+    
+    # Bulk Name Lookup Tests
+    def test_get_items_by_names_pass_case(self):
+        """Test bulk name lookup with valid names"""
+        with patch('builtins.open', mock_open(read_data=json.dumps(self.mock_db_data))):
+            db = UOItemDatabase('test_db.json')
+            
+            # Test bulk name lookup
+            results = db.get_items_by_names(['gold', 'gem'])
+            
+            # Should return results for both names
+            self.assertEqual(len(results), 2)
+            self.assertEqual(len(results['gold']), 1)
+            self.assertEqual(len(results['gem']), 2)  # Diamond and Ruby
+            
+            # Check specific results
+            self.assertEqual(results['gold'][0]['name'], 'Gold Coins')
+            gem_names = [item['name'] for item in results['gem']]
+            self.assertIn('Diamond', gem_names)
+            self.assertIn('Ruby', gem_names)
+    
+    def test_get_items_by_names_fail_case(self):
+        """Test bulk name lookup with invalid names"""
+        with patch('builtins.open', mock_open(read_data=json.dumps(self.mock_db_data))):
+            db = UOItemDatabase('test_db.json')
+            
+            # Test with non-existent names
+            results = db.get_items_by_names(['nonexistent', 'invalid'])
+            
+            # Should return empty lists
+            self.assertEqual(len(results), 2)
+            self.assertEqual(results['nonexistent'], [])
+            self.assertEqual(results['invalid'], [])
+    
+    # Bulk Category Lookup Tests  
+    def test_get_items_by_categories_pass_case(self):
+        """Test bulk category lookup with valid categories"""
+        with patch('builtins.open', mock_open(read_data=json.dumps(self.mock_db_data))):
+            db = UOItemDatabase('test_db.json')
+            
+            # Test bulk category lookup
+            results = db.get_items_by_categories(['currency', 'gems'])
+            
+            # Should return items for both categories
+            self.assertEqual(len(results), 2)
+            self.assertEqual(len(results['currency']), 1)
+            self.assertEqual(len(results['gems']), 2)
+            
+            # Check specific results
+            self.assertIn('gold_coins', results['currency'])
+            self.assertIn('diamond', results['gems'])
+            self.assertIn('ruby', results['gems'])
+    
+    def test_get_items_by_categories_fail_case(self):
+        """Test bulk category lookup with invalid categories"""
+        with patch('builtins.open', mock_open(read_data=json.dumps(self.mock_db_data))):
+            db = UOItemDatabase('test_db.json')
+            
+            # Test with non-existent categories
+            results = db.get_items_by_categories(['nonexistent', 'invalid'])
+            
+            # Should return empty dictionaries
+            self.assertEqual(len(results), 2)
+            self.assertEqual(results['nonexistent'], {})
+            self.assertEqual(results['invalid'], {})
+    
+    # Bulk Looting Evaluation Tests
+    def test_evaluate_items_for_looting_pass_case(self):
+        """Test bulk looting evaluation with various items"""
+        with patch('builtins.open', mock_open(read_data=json.dumps(self.mock_db_data))):
+            db = UOItemDatabase('test_db.json')
+            
+            # Test evaluation with medium threshold
+            results = db.evaluate_items_for_looting([3821, 3862, 3962], 'medium')
+            
+            # Should return evaluations for all items
+            self.assertEqual(len(results), 3)
+            
+            # Check evaluation results
+            self.assertTrue(results[3821]['should_loot'])  # Gold (high value)
+            self.assertTrue(results[3862]['should_loot'])  # Diamond (very high value)
+            self.assertTrue(results[3962]['should_loot'])  # Black Pearl (medium value)
+            
+            # Check reasons are provided
+            self.assertIn('reason', results[3821])
+            self.assertIn('reason', results[3862])
+            self.assertIn('reason', results[3962])
+    
+    def test_evaluate_items_for_looting_fail_case(self):
+        """Test bulk looting evaluation with high threshold"""
+        with patch('builtins.open', mock_open(read_data=json.dumps(self.mock_db_data))):
+            db = UOItemDatabase('test_db.json')
+            
+            # Test evaluation with high threshold
+            results = db.evaluate_items_for_looting([3821, 3862, 3962], 'high')
+            
+            # Should return evaluations for all items
+            self.assertEqual(len(results), 3)
+            
+            # Check evaluation results
+            self.assertTrue(results[3821]['should_loot'])   # Gold (high value)
+            self.assertTrue(results[3862]['should_loot'])   # Diamond (very high value)
+            self.assertFalse(results[3962]['should_loot'])  # Black Pearl (medium value, below threshold)
+    
+    def test_evaluate_items_for_looting_edge_case(self):
+        """Test bulk looting evaluation with unknown items"""
+        with patch('builtins.open', mock_open(read_data=json.dumps(self.mock_db_data))):
+            db = UOItemDatabase('test_db.json')
+            
+            # Test evaluation with unknown item
+            results = db.evaluate_items_for_looting([3821, 9999], 'medium')
+            
+            # Should return evaluations for both items
+            self.assertEqual(len(results), 2)
+            
+            # Check evaluation results
+            self.assertTrue(results[3821]['should_loot'])   # Gold (known item)
+            self.assertFalse(results[9999]['should_loot'])  # Unknown item
+            self.assertIn('not found', results[9999]['reason'])
+    
+    # Performance Stats Tests
+    def test_get_performance_stats_pass_case(self):
+        """Test performance stats retrieval"""
+        with patch('builtins.open', mock_open(read_data=json.dumps(self.mock_db_data))):
+            db = UOItemDatabase('test_db.json')
+            
+            # Get performance stats
+            stats = db.get_performance_stats()
+            
+            # Should return comprehensive stats
+            self.assertIn('database_size_items', stats)
+            self.assertIn('lookup_table_sizes', stats)
+            self.assertIn('memory_usage_estimate', stats)
+            self.assertIn('categories_available', stats)
+            self.assertIn('value_tiers_available', stats)
+            
+            # Check specific values
+            self.assertEqual(stats['database_size_items'], 4)  # 4 total items
+            self.assertEqual(len(stats['categories_available']), 3)  # 3 categories
+            
+            # Check lookup table sizes
+            lookup_sizes = stats['lookup_table_sizes']
+            self.assertEqual(lookup_sizes['by_decimal_id'], 4)
+            self.assertEqual(lookup_sizes['by_name'], 3)
+            self.assertEqual(lookup_sizes['by_value_tier'], 3)
 
 
-if __name__ == "__main__":
-    unittest.main()
+class TestBulkConvenienceFunctions(unittest.TestCase):
+    """Test the new bulk convenience functions"""
+    
+    @patch('utils.uo_items.get_item_database')
+    def test_evaluate_items_for_looting_convenience_pass_case(self, mock_get_db):
+        """Test the convenience function for bulk looting evaluation"""
+        # Mock the database
+        mock_db = MagicMock()
+        mock_db.evaluate_items_for_looting.return_value = {
+            3821: {'should_loot': True, 'reason': 'Gold Coins (high value currency)'},
+            3862: {'should_loot': True, 'reason': 'Diamond (very_high value gems)'

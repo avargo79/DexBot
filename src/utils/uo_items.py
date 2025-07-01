@@ -13,7 +13,7 @@ from typing import Dict, List, Optional, Union, Any
 class UOItemDatabase:
     """Utility class for working with UO item IDs and data."""
     
-    def __init__(self, database_path: str = None):
+    def __init__(self, database_path: Optional[str] = None):
         """Initialize the database.
         
         Args:
@@ -215,7 +215,162 @@ class UOItemDatabase:
             pass
         
         return None
-    
+
+    def get_items_by_ids(self, item_ids: List[Union[int, str]]) -> Dict[Union[int, str], Optional[Dict[str, Any]]]:
+        """
+        Get multiple items by their decimal IDs in a single operation.
+        
+        This method is optimized for bulk lookups commonly needed during
+        corpse looting when evaluating multiple items simultaneously.
+        
+        Args:
+            item_ids: List of decimal item IDs (int or str)
+            
+        Returns:
+            Dictionary mapping item_id -> item_data (or None if not found)
+            
+        Example:
+            results = db.get_items_by_ids([3821, 3862, 3859])
+            for item_id, item_data in results.items():
+                if item_data:
+                    print(f"Found {item_data['name']} (ID: {item_id})")
+        """
+        results = {}
+        lookup = self.data.get('quick_lookup', {}).get('by_decimal_id', {})
+        
+        for item_id in item_ids:
+            item_id_str = str(item_id)
+            if item_id_str in lookup:
+                item_path = lookup[item_id_str]
+                results[item_id] = self._get_item_by_path(item_path)
+            else:
+                results[item_id] = None
+        
+        return results
+
+    def get_items_by_names(self, names: List[str]) -> Dict[str, List[Dict[str, Any]]]:
+        """
+        Get multiple items by their names in a single operation.
+        
+        Args:
+            names: List of item names or aliases to search for
+            
+        Returns:
+            Dictionary mapping name -> list of matching item_data
+            
+        Example:
+            results = db.get_items_by_names(['gem', 'reagent', 'potion'])
+            for name, items in results.items():
+                print(f"Found {len(items)} items for '{name}'")
+        """
+        results = {}
+        lookup = self.data.get('quick_lookup', {}).get('by_name', {})
+        
+        for name in names:
+            name_lower = name.lower()
+            items = []
+            
+            if name_lower in lookup:
+                for item_path in lookup[name_lower]:
+                    item_data = self._get_item_by_path(item_path)
+                    if item_data:
+                        items.append(item_data)
+            
+            results[name] = items
+        
+        return results
+
+    def get_items_by_categories(self, categories: List[str]) -> Dict[str, Dict[str, Dict[str, Any]]]:
+        """
+        Get items from multiple categories in a single operation.
+        
+        Args:
+            categories: List of category names
+            
+        Returns:
+            Dictionary mapping category -> category_items
+            
+        Example:
+            results = db.get_items_by_categories(['gems', 'reagents', 'potions'])
+            for category, items in results.items():
+                print(f"Category '{category}' has {len(items)} items")
+        """
+        results = {}
+        db_categories = self.data.get('categories', {})
+        
+        for category in categories:
+            if category in db_categories:
+                results[category] = db_categories[category].get('items', {})
+            else:
+                results[category] = {}
+        
+        return results
+
+    def evaluate_items_for_looting(self, item_ids: List[Union[int, str]], 
+                                 value_threshold: str = 'medium') -> Dict[Union[int, str], Dict[str, Any]]:
+        """
+        Bulk evaluate items for looting decisions based on database information.
+        
+        This method is specifically designed for integration with the looting system,
+        providing all necessary information for looting decisions in a single call.
+        
+        Args:
+            item_ids: List of item IDs to evaluate
+            value_threshold: Minimum value tier ('low', 'medium', 'high', 'very_high')
+            
+        Returns:
+            Dictionary mapping item_id -> evaluation_result containing:
+            - 'item_data': Full item information or None
+            - 'should_loot': Boolean recommendation based on value tier
+            - 'value_tier': Item's value tier or 'unknown'
+            - 'category': Item's category or 'unknown'
+            - 'reason': Text explanation of the decision
+            
+        Example:
+            evaluations = db.evaluate_items_for_looting([3821, 3862, 9999])
+            for item_id, eval_result in evaluations.items():
+                if eval_result['should_loot']:
+                    print(f"LOOT: {eval_result['reason']}")
+        """
+        tier_order = ['low', 'medium', 'high', 'very_high']
+        threshold_index = tier_order.index(value_threshold) if value_threshold in tier_order else 1
+        
+        items_data = self.get_items_by_ids(item_ids)
+        evaluations = {}
+        
+        for item_id, item_data in items_data.items():
+            if item_data:
+                value_tier = item_data.get('value_tier', 'low')
+                category = item_data.get('category', 'unknown')
+                
+                # Determine if item meets threshold
+                tier_index = tier_order.index(value_tier) if value_tier in tier_order else 0
+                should_loot = tier_index >= threshold_index
+                
+                # Generate reason
+                if should_loot:
+                    reason = f"{item_data.get('name', 'Unknown')} ({value_tier} value {category})"
+                else:
+                    reason = f"Below {value_threshold} threshold ({value_tier} value)"
+                
+                evaluations[item_id] = {
+                    'item_data': item_data,
+                    'should_loot': should_loot,
+                    'value_tier': value_tier,
+                    'category': category,
+                    'reason': reason
+                }
+            else:
+                evaluations[item_id] = {
+                    'item_data': None,
+                    'should_loot': False,
+                    'value_tier': 'unknown',
+                    'category': 'unknown',
+                    'reason': f'Item ID {item_id} not found in database'
+                }
+        
+        return evaluations
+
     def list_categories(self) -> List[str]:
         """Get list of all available categories."""
         return list(self.data.get('categories', {}).keys())
@@ -250,6 +405,28 @@ class UOItemDatabase:
             'last_updated': self.data.get('metadata', {}).get('last_updated', 'unknown')
         }
 
+    def get_performance_stats(self) -> Dict[str, Any]:
+        """
+        Get performance-related statistics about the database.
+        
+        Returns:
+            Dictionary containing performance metrics and cache statistics
+        """
+        quick_lookup = self.data.get('quick_lookup', {}) 
+        categories = self.data.get('categories', {})
+        
+        return {
+            'database_size_items': sum(len(cat_data.get('items', {})) for cat_data in categories.values()),
+            'lookup_table_sizes': {
+                'by_decimal_id': len(quick_lookup.get('by_decimal_id', {})),
+                'by_name': len(quick_lookup.get('by_name', {})),
+                'by_value_tier': len(quick_lookup.get('by_value_tier', {}))
+            },
+            'memory_usage_estimate': len(str(self.data)),
+            'categories_available': list(categories.keys()),
+            'value_tiers_available': list(quick_lookup.get('by_value_tier', {}).keys())
+        }
+        
 
 # Convenience functions for common usage
 def get_item_database() -> UOItemDatabase:
@@ -295,6 +472,51 @@ def get_valuable_item_ids(min_tier: str = 'high') -> List[int]:
     """Get item IDs for valuable items."""
     db = get_item_database()
     return db.get_valuable_items(min_tier)
+
+
+# New bulk operation convenience functions
+def evaluate_items_for_looting(item_ids: List[Union[int, str]], 
+                             value_threshold: str = 'medium') -> Dict[Union[int, str], Dict[str, Any]]:
+    """
+    Bulk evaluate items for looting decisions - convenience function.
+    
+    Args:
+        item_ids: List of item IDs to evaluate
+        value_threshold: Minimum value tier ('low', 'medium', 'high', 'very_high')
+        
+    Returns:
+        Dictionary mapping item_id -> evaluation_result
+        
+    Example:
+        # Evaluate a corpse with multiple items
+        corpse_items = [3821, 3862, 3859, 9999]  # Gold, Diamond, Ruby, Unknown
+        evaluations = evaluate_items_for_looting(corpse_items, 'medium')
+        
+        loot_these = [item_id for item_id, eval_result in evaluations.items() 
+                      if eval_result['should_loot']]
+    """
+    db = get_item_database()
+    return db.evaluate_items_for_looting(item_ids, value_threshold)
+
+
+def get_items_by_ids(item_ids: List[Union[int, str]]) -> Dict[Union[int, str], Optional[Dict[str, Any]]]:
+    """
+    Bulk lookup items by IDs - convenience function.
+    
+    Args:
+        item_ids: List of decimal item IDs
+        
+    Returns:
+        Dictionary mapping item_id -> item_data (or None if not found)
+    """
+    db = get_item_database()
+    return db.get_items_by_ids(item_ids)
+
+
+def get_database_performance_stats() -> Dict[str, Any]:
+    """Get performance statistics about the UO Items Database."""
+    db = get_item_database()
+    return db.get_performance_stats()
 
 
 # Example usage for DexBot scripts
