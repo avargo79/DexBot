@@ -76,7 +76,7 @@ class UOItemDatabase:
         for category_name, category_data in categories.items():
             items = category_data.get('items', {})
             for item_key, item_data in items.items():
-                if item_data.get('hex_id', '').upper() == hex_id:
+                if item_data.get('hex_id', '').upper() == hex_id.upper():
                     # Return a copy with additional metadata
                     result = item_data.copy()
                     result['key'] = item_key
