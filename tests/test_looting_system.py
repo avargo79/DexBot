@@ -131,38 +131,128 @@ class TestLootingSystem(unittest.TestCase):
 
 
 class TestLootingSystemIntegration(unittest.TestCase):
-    """Integration tests for the LootingSystem"""
+    """Integration tests for LootingSystem with UO Item Database"""
 
-    def test_config_file_consistency(self):
-        """Test that all configuration files are consistent"""
-        # Test that test config matches expected structure
-        test_config_path = os.path.join(os.path.dirname(__file__), "test_config_looting.json")
+    def setUp(self):
+        """Set up test fixtures for integration tests"""
+        # Add the src directory to path for imports  
+        sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
+
+    @patch('config.config_manager.ConfigManager')
+    def test_looting_system_database_integration(self, mock_config_manager):
+        """Test that LootingSystem properly integrates with UO Item Database"""
+        # Import here to avoid import issues during test discovery
+        from systems.looting import LootingSystem
         
-        if os.path.exists(test_config_path):
-            with open(test_config_path, 'r') as f:
-                test_config = json.load(f)
+        # Mock config manager
+        mock_config = mock_config_manager.return_value
+        mock_config.get_looting_config.return_value = {
+            "enabled": True,
+            "behavior": {"max_looting_range": 2},
+            "timing": {"loot_action_delay_ms": 150}
+        }
+        
+        # Create looting system instance
+        looting_system = LootingSystem(mock_config)
+        
+        # Test that item database is initialized
+        self.assertIsNotNone(looting_system.item_db, "UO Item Database should be initialized")
+        
+        # Test currency detection
+        if hasattr(looting_system, '_get_currency_ids'):
+            currency_ids = looting_system._get_currency_ids()
+            self.assertIsInstance(currency_ids, list, "Currency IDs should be a list")
+            self.assertIn(1712, currency_ids, "Gold (1712) should be in currency IDs")
+
+    @patch('config.config_manager.ConfigManager')
+    def test_item_identification_integration(self, mock_config_manager):
+        """Test item identification using UO Item Database"""
+        from systems.looting import LootingSystem
+        
+        # Mock config
+        mock_config = mock_config_manager.return_value
+        mock_config.get_looting_config.return_value = {
+            "enabled": True,
+            "behavior": {"max_looting_range": 2},
+            "timing": {"loot_action_delay_ms": 150}
+        }
+        
+        looting_system = LootingSystem(mock_config)
+        
+        # Create a mock item representing gold
+        class MockItem:
+            def __init__(self, item_id, name="Test Item"):
+                self.ItemID = item_id
+                self.Name = name
+        
+        mock_gold_item = MockItem(3821, "Gold Coins")  # 3821 = 0x0EED (Gold)
+        
+        # Test item identification
+        if hasattr(looting_system, '_identify_item'):
+            item_info = looting_system._identify_item(mock_gold_item)
+            self.assertIsInstance(item_info, dict, "Item info should be a dictionary")
+            # Gold should be identified as valuable
+            if 'category' in item_info:
+                self.assertIn('currency', item_info.get('category', '').lower(), 
+                             "Gold should be identified as currency")
+
+    @patch('config.config_manager.ConfigManager')
+    def test_currency_detection_integration(self, mock_config_manager):
+        """Test currency detection integration"""
+        from systems.looting import LootingSystem
+        
+        # Mock config
+        mock_config = mock_config_manager.return_value
+        mock_config.get_looting_config.return_value = {
+            "enabled": True,
+            "behavior": {"max_looting_range": 2}
+        }
+        
+        looting_system = LootingSystem(mock_config)
+        
+        # Test currency detection for gold (both decimal and hex representations)
+        if hasattr(looting_system, '_is_currency_item'):
+            # Test with decimal ID (3821)
+            is_gold_decimal = looting_system._is_currency_item(3821)
+            self.assertTrue(is_gold_decimal, "Gold (3821 decimal) should be detected as currency")
+            
+            # Test with hex ID (0x0EED = 3821)
+            is_gold_hex = looting_system._is_currency_item(0x0EED)
+            self.assertTrue(is_gold_hex, "Gold (0x0EED hex) should be detected as currency")
+
+    @patch('config.config_manager.ConfigManager')
+    def test_database_performance_integration(self, mock_config_manager):
+        """Test that database operations are efficient enough for looting"""
+        from systems.looting import LootingSystem
+        import time
+        
+        # Mock config
+        mock_config = mock_config_manager.return_value
+        mock_config.get_looting_config.return_value = {
+            "enabled": True,
+            "behavior": {"max_looting_range": 2}
+        }
+        
+        looting_system = LootingSystem(mock_config)
+        
+        if looting_system.item_db:
+            # Test bulk lookup performance (simulating checking multiple items on a corpse)
+            test_ids = [3821, 3862, 3859, 3962, 3963, 3964, 3965]  # Mix of currency, gems, reagents
+            
+            start_time = time.time()
+            
+            # Simulate what happens when looting system checks items
+            if hasattr(looting_system.item_db, 'get_items_by_ids'):
+                results = looting_system.item_db.get_items_by_ids(test_ids)
                 
-            # Test that test config has same structure as expected
-            self.assertIn("enabled", test_config)
-            self.assertIn("loot_range", test_config)
-            self.assertIn("item_filters", test_config)
-
-    def test_performance_configuration_values(self):
-        """Test that performance configuration values are reasonable"""
-        config_path = os.path.join(os.path.dirname(__file__), "..", "src", "config", "default_looting_config.json")
-        
-        if os.path.exists(config_path):
-            with open(config_path, 'r') as f:
-                config = json.load(f)
-            
-            # Test performance values are in reasonable ranges
-            if "delay_between_corpses" in config:
-                self.assertGreaterEqual(config["delay_between_corpses"], 50)
-                self.assertLessEqual(config["delay_between_corpses"], 1000)
-            
-            if "max_corpses_per_cycle" in config:
-                self.assertGreaterEqual(config["max_corpses_per_cycle"], 1)
-                self.assertLessEqual(config["max_corpses_per_cycle"], 20)
+                end_time = time.time()
+                lookup_time = end_time - start_time
+                
+                # Should be fast enough for real-time looting (< 50ms for 7 items)
+                self.assertLess(lookup_time, 0.05, 
+                               f"Bulk lookup should be fast (<50ms), took {lookup_time:.3f}s")
+                self.assertEqual(len(results), len(test_ids), 
+                               "Should return results for all requested IDs")
 
 
 class TestLootingSystemPerformance(unittest.TestCase):

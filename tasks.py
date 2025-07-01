@@ -7,8 +7,44 @@ from invoke import task
 import os
 import shutil
 import json
+import subprocess
+import glob
+import time
 from pprint import pformat
 from pathlib import Path
+from datetime import datetime
+
+def get_version_info():
+    """Read version information from version.txt file"""
+    version_file = Path('version.txt')
+    if not version_file.exists():
+        return "UNKNOWN", "Development Version", "UNKNOWN"
+    
+    try:
+        with open(version_file, 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                # Skip comments and empty lines
+                if line.startswith('#') or not line:
+                    continue
+                # Parse version line: VERSION|VERSION_NAME|BUILD_DATE
+                if '|' in line:
+                    parts = line.split('|')
+                    if len(parts) >= 3:
+                        return parts[0].strip(), parts[1].strip(), parts[2].strip()
+    except Exception as e:
+        print(f"Warning: Could not read version.txt: {e}")
+    
+    return "UNKNOWN", "Development Version", "UNKNOWN"
+
+def get_branch_info():
+    """Get current git branch name for development context"""
+    try:
+        result = subprocess.run(['git', 'branch', '--show-current'], 
+                              capture_output=True, text=True, check=True)
+        return result.stdout.strip()
+    except:
+        return "unknown-branch"
 
 # Configuration
 SRC_DIR = "src"
@@ -140,6 +176,10 @@ def bundle(c):
         ]
         
         try:
+            # Get version information
+            version, version_name, build_date = get_version_info()
+            branch = get_branch_info()
+            
             with open(BUNDLED_FILE, 'w', encoding='utf-8') as out_f:
                 # Write header
                 out_f.write('"""\n')
@@ -148,7 +188,9 @@ def bundle(c):
                 out_f.write('\n')
                 out_f.write('This file was automatically generated from modular source files.\n')
                 out_f.write('Author: RugRat79\n')
-                out_f.write('Version: 3.1.1 - Ignore List Optimization\n')
+                out_f.write(f'Version: {version} - {version_name}\n')
+                out_f.write(f'Build Date: {build_date}\n')
+                out_f.write(f'Branch: {branch}\n')
                 out_f.write('License: MIT\n')
                 out_f.write('"""\n\n')
                 
@@ -158,6 +200,15 @@ def bundle(c):
                 out_f.write('import time\n')
                 out_f.write('import json\n')
                 out_f.write('import os\n\n')
+                
+                # Write embedded version constants for bundled script
+                version, version_name, build_date = get_version_info()
+                branch = get_branch_info()
+                out_f.write('# Embedded version information for bundled script\n')
+                out_f.write(f'_BUNDLED_VERSION = "{version}"\n')
+                out_f.write(f'_BUNDLED_VERSION_NAME = "{version_name}"\n')
+                out_f.write(f'_BUNDLED_BUILD_DATE = "{build_date}"\n')
+                out_f.write(f'_BUNDLED_BRANCH = "{branch}"\n\n')
                 
                 # Write RazorEnhanced imports
                 out_f.write('# RazorEnhanced API imports\n')
@@ -253,12 +304,20 @@ def bundle(c):
     print("✅ Bundle completed")
 
 @task(pre=[clean, lint, test])
-def build(c):
-    """Full build pipeline: clean, lint, test, and bundle"""
-    print("🏗️  Running full build pipeline...")
+def pipeline(c):
+    """Full development pipeline: clean, lint, test, and build"""
+    print("🏗️  Running full development pipeline...")
     bundle(c)
-    print("🎉 Build completed successfully!")
+    print("🎉 Pipeline completed successfully!")
     print("📦 Bundled script: dist/DexBot.py")
+
+@task
+def build(c):
+    """Build the bundled DexBot.py file (without running tests)"""
+    print("🔨 Building DexBot.py...")
+    bundle(c)
+    print("✅ Build completed")
+    print("📦 Output: dist/DexBot.py")
 
 @task
 def dev(c):
@@ -303,19 +362,46 @@ def info(c):
 
 @task
 def help(c):
-    """Show available tasks and their descriptions"""
-    print("🚀 DexBot Development Tasks")
+    """Show all available development tasks and their descriptions"""
+    print("🛠️  DexBot Development Tasks")
     print("=" * 50)
-    print("clean    - Clean build artifacts and temporary files")
-    print("lint     - Run basic syntax checks")
-    print("test     - Run tests")
-    print("bundle   - Bundle source files into single distribution file")
-    print("build    - Full build pipeline (clean + lint + test + bundle)")
-    print("dev      - Development mode (test + lint + bundle)")
-    print("info     - Show project information and structure")
-    print("help     - Show this help message")
-    print("\nUsage: python -m invoke <task_name>")
-    print("Example: python -m invoke build")
+    
+    tasks = [
+        ("clean", "Clean build artifacts and temporary files"),
+        ("lint", "Run basic syntax checks"),
+        ("test", "Run all unit tests using pytest"),
+        ("test-interactive", "Run Phase 1 interactive tests"),
+        ("test-enhanced", "Run enhanced automated tests with comprehensive reporting"),
+        ("test-monitor", "Start RazorEnhanced output monitoring for testing"),
+        ("test-results", "List and display available test result files"),
+        ("test-all", "Run all test suites (unit, interactive, enhanced)"),
+        ("build", "Build the bundled DexBot.py file"),
+        ("dev", "Run development version (source files)"),
+        ("run", "Run the bundled DexBot.py file"),
+        ("validate", "Validate bundled script functionality"),
+        ("deploy", "Deploy bundled script to RazorEnhanced directory"),
+        ("pipeline", "Run complete development pipeline (clean, lint, test, build)"),
+        ("quick", "Quick development cycle (lint, test, build - skip clean)"),
+        ("watch", "Watch for file changes and auto-rebuild"),
+        ("version", "Show current version information"),
+        ("status", "Show development environment status"),
+        ("release", "Prepare a release with version bump and validation"),
+        ("info", "Show project information and structure"),
+        ("extract-api-data", "Extract API data using Python script (TECH-001)"),
+        ("help", "Show this help message")
+    ]
+    
+    for task_name, description in tasks:
+        print(f"  {task_name:<20} {description}")
+    
+    print("\n💡 Usage Examples:")
+    print("  python -m invoke status        # Check development environment")
+    print("  python -m invoke quick         # Fast development cycle")
+    print("  python -m invoke test-all      # Run all tests")
+    print("  python -m invoke pipeline      # Full pipeline with tests")
+    print("  python -m invoke deploy        # Deploy to RazorEnhanced")
+    print("  python -m invoke watch         # Auto-rebuild on changes")
+    print("\n📚 For more details, see docs/DEVELOPMENT_WORKFLOW.md")
 
 @task
 def generate_api_reference(c, format="all", input_path=None, output_path=None):
@@ -539,5 +625,355 @@ def extract_api_data(c, input_path=None, output_path=None, verbose=False):
     else:
         print("❌ API data extraction failed")
         print(f"Error: {result.stderr}")
+
+@task
+def test_interactive(c):
+    """Run Phase 1 interactive tests for DexBot core systems"""
+    print("🧪 Running Phase 1 Interactive Tests...")
+    
+    result = c.run("python tests/test_automation.py", warn=True)
+    
+    if result.ok:
+        print("✅ Interactive tests completed successfully")
+        # Check for test results file
+        result_files = glob.glob("tmp/*test_results*.json")
+        if result_files:
+            latest_result = max(result_files, key=os.path.getmtime)
+            print(f"📊 Test results saved to: {latest_result}")
+    else:
+        print("❌ Interactive tests failed")
+        print(f"Error: {result.stderr}")
+
+@task
+def test_enhanced(c):
+    """Run enhanced automated tests with comprehensive reporting"""
+    print("🚀 Running Enhanced Automated Tests...")
+    
+    result = c.run("python tests/test_automation_enhanced.py", warn=True)
+    
+    if result.ok:
+        print("✅ Enhanced tests completed successfully")
+        # Check for test results file
+        result_files = glob.glob("tmp/*test_results*.json")
+        if result_files:
+            latest_result = max(result_files, key=os.path.getmtime)
+            print(f"📊 Test results saved to: {latest_result}")
+    else:
+        print("❌ Enhanced tests failed")
+        print(f"Error: {result.stderr}")
+
+@task
+def test_monitor(c):
+    """Start RazorEnhanced output monitoring for testing"""
+    print("🔍 Starting RazorEnhanced Monitor...")
+    print("   Press CTRL+C to stop monitoring")
+    
+    cmd = 'python -c "from tests.test_automation_enhanced import RazorEnhancedMonitor; monitor = RazorEnhancedMonitor(); monitor.start_monitoring()"'
+    c.run(cmd, warn=True)
+
+@task
+def test_results(c):
+    """List and display available test result files"""
+    print("📋 Available Test Result Files:")
+    
+    result_files = glob.glob("tmp/*test_results*.json")
+    
+    if not result_files:
+        print("   No test result files found in tmp/")
+        return
+    
+    # Sort by modification time (newest first)
+    result_files.sort(key=os.path.getmtime, reverse=True)
+    
+    for i, file_path in enumerate(result_files):
+        file_stat = os.stat(file_path)
+        file_time = file_stat.st_mtime
+        file_size = file_stat.st_size
+        
+        print(f"   {i+1}. {os.path.basename(file_path)}")
+        print(f"      Modified: {datetime.fromtimestamp(file_time).strftime('%Y-%m-%d %H:%M:%S')}")
+        print(f"      Size: {file_size} bytes")
+        
+        # Try to read summary from the most recent file
+        if i == 0:
+            try:
+                with open(file_path, 'r') as f:
+                    data = json.load(f)
+                    if 'summary' in data:
+                        summary = data['summary']
+                        print(f"      Summary: {summary.get('passed', 0)}/{summary.get('total', 0)} tests passed")
+            except Exception as e:
+                print(f"      (Could not read summary: {e})")
+        print()
+    
+    print(f"💡 Use VS Code to open and review the most recent results file: {os.path.basename(result_files[0])}")
+
+@task
+def test_all(c):
+    """Run all test suites: unit tests, interactive tests, and enhanced tests"""
+    print("🎯 Running Complete Test Suite...")
+    
+    success_count = 0
+    total_tests = 3
+    
+    # Run unit tests
+    print("\n1️⃣ Running Unit Tests...")
+    result = c.run("python -m pytest tests/ -v", warn=True)
+    if result.ok:
+        print("✅ Unit tests passed")
+        success_count += 1
+    else:
+        print("❌ Unit tests failed")
+    
+    # Run interactive tests
+    print("\n2️⃣ Running Interactive Tests...")
+    result = c.run("python tests/test_automation.py", warn=True)
+    if result.ok:
+        print("✅ Interactive tests passed")
+        success_count += 1
+    else:
+        print("❌ Interactive tests failed")
+    
+    # Run enhanced tests
+    print("\n3️⃣ Running Enhanced Tests...")
+    result = c.run("python tests/test_automation_enhanced.py", warn=True)
+    if result.ok:
+        print("✅ Enhanced tests passed")
+        success_count += 1
+    else:
+        print("❌ Enhanced tests failed")
+    
+    # Summary
+    print(f"\n📊 Test Suite Summary: {success_count}/{total_tests} test suites passed")
+    
+    if success_count == total_tests:
+        print("🎉 All test suites passed!")
+        return True
+    else:
+        print("⚠️  Some test suites failed - check output above")
+        return False
+
+@task
+def validate(c):
+    """Validate bundled script functionality and integration"""
+    print("🔍 Validating bundled DexBot.py...")
+    
+    if not os.path.exists(BUNDLED_FILE):
+        print("❌ Bundled file not found. Run 'build' task first.")
+        return False
+    
+    # Check for required components
+    with open(BUNDLED_FILE, 'r', encoding='utf-8') as f:
+        content = f.read()
+    
+    required_components = [
+        'run_dexbot',
+        'ConfigManager',
+        'UOItemDatabase',
+        'LootingSystem',
+        'process_healing_journal'
+    ]
+    
+    missing_components = []
+    for component in required_components:
+        if component not in content:
+            missing_components.append(component)
+    
+    if missing_components:
+        print(f"❌ Missing components: {missing_components}")
+        return False
+    
+    print("✅ All required components present")
+    print(f"📊 File size: {os.path.getsize(BUNDLED_FILE):,} bytes")
+    return True
+
+@task
+def run(c):
+    """Run the bundled DexBot.py file (for testing outside RazorEnhanced)"""
+    print("🚀 Running bundled DexBot.py...")
+    
+    if not os.path.exists(BUNDLED_FILE):
+        print("❌ Bundled file not found. Run 'build' task first.")
+        return False
+    
+    print("⚠️  Note: This will fail outside RazorEnhanced environment")
+    result = c.run(f"python {BUNDLED_FILE}", warn=True)
+    
+    if result.ok:
+        print("✅ Script executed without syntax errors")
+    else:
+        print("❌ Script execution failed (expected outside RazorEnhanced)")
+    
+    return result.ok
+
+@task
+def deploy(c, target_path=None):
+    """Deploy bundled script to RazorEnhanced Scripts directory"""
+    print("🚀 Deploying DexBot.py to RazorEnhanced...")
+    
+    if not os.path.exists(BUNDLED_FILE):
+        print("❌ Bundled file not found. Run 'build' task first.")
+        return False
+    
+    # Auto-detect RazorEnhanced path if not provided
+    if target_path is None:
+        common_paths = [
+            "C:/Program Files (x86)/Ultima Online Unchained/Data/Plugins/RazorEnhanced/Scripts/",
+            "C:/Program Files/Ultima Online Unchained/Data/Plugins/RazorEnhanced/Scripts/",
+            "../"  # If running from within Scripts directory
+        ]
+        
+        for path in common_paths:
+            if os.path.exists(path):
+                target_path = path
+                break
+        
+        if target_path is None:
+            print("❌ Could not auto-detect RazorEnhanced Scripts directory")
+            print("   Please specify --target-path manually")
+            return False
+    
+    target_file = os.path.join(target_path, "DexBot.py")
+    
+    try:
+        shutil.copy2(BUNDLED_FILE, target_file)
+        print(f"✅ Deployed to: {target_file}")
+        print(f"   File size: {os.path.getsize(target_file):,} bytes")
+        return True
+    except Exception as e:
+        print(f"❌ Deployment failed: {e}")
+        return False
+
+@task
+def version(c):
+    """Show current version information"""
+    version, version_name, build_date = get_version_info()
+    branch = get_branch_info()
+    
+    print("📊 DexBot Version Information")
+    print("=" * 40)
+    print(f"Version: {version}")
+    print(f"Name: {version_name}")
+    print(f"Build Date: {build_date}")
+    print(f"Branch: {branch}")
+    
+    if os.path.exists(BUNDLED_FILE):
+        size = os.path.getsize(BUNDLED_FILE)
+        print(f"Bundled Size: {size:,} bytes ({size/1024:.1f} KB)")
+
+@task
+def status(c):
+    """Show development environment status"""
+    print("📊 DexBot Development Status")
+    print("=" * 40)
+    
+    # Version info
+    version, version_name, build_date = get_version_info()
+    print(f"Version: {version} - {version_name}")
+    
+    # File status
+    files_status = [
+        ("Source directory", SRC_DIR, os.path.exists(SRC_DIR)),
+        ("Bundled script", BUNDLED_FILE, os.path.exists(BUNDLED_FILE)),
+        ("Version file", "version.txt", os.path.exists("version.txt")),
+        ("Config directory", "config", os.path.exists("config")),
+        ("Tests directory", "tests", os.path.exists("tests")),
+    ]
+    
+    print("\nFile Status:")
+    for name, path, exists in files_status:
+        status_icon = "✅" if exists else "❌"
+        print(f"  {status_icon} {name}: {path}")
+    
+    # Git status
+    try:
+        result = subprocess.run(['git', 'status', '--porcelain'], 
+                              capture_output=True, text=True, check=True)
+        if result.stdout.strip():
+            print(f"\n⚠️  Git: {len(result.stdout.strip().split())} uncommitted changes")
+        else:
+            print("\n✅ Git: Working directory clean")
+    except:
+        print("\n❓ Git: Status unknown")
+
+@task
+def quick(c):
+    """Quick development cycle: lint, test, build (skip clean)"""
+    print("⚡ Quick development cycle...")
+    
+    if not lint(c):
+        print("❌ Quick cycle failed at lint stage")
+        return False
+    
+    if not test(c):
+        print("❌ Quick cycle failed at test stage") 
+        return False
+    
+    bundle(c)
+    print("✅ Quick cycle completed successfully!")
+    return True
+
+@task
+def watch(c):
+    """Watch for file changes and auto-rebuild (requires watchdog)"""
+    print("👀 Starting file watcher...")
+    print("   Install watchdog: pip install watchdog")
+    
+    try:
+        from watchdog.observers import Observer
+        from watchdog.events import FileSystemEventHandler
+    except ImportError:
+        print("❌ watchdog package not installed")
+        print("   Run: pip install watchdog")
+        return False
+    
+    class ChangeHandler(FileSystemEventHandler):
+        def on_modified(self, event):
+            if event.is_directory:
+                return
+            if event.src_path.endswith('.py'):
+                print(f"📝 File changed: {event.src_path}")
+                print("🔄 Auto-rebuilding...")
+                quick(c)
+    
+    observer = Observer()
+    observer.schedule(ChangeHandler(), SRC_DIR, recursive=True)
+    observer.start()
+    
+    try:
+        print("👀 Watching for changes... Press Ctrl+C to stop")
+        while True:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        observer.stop()
+        print("\n✅ File watcher stopped")
+    
+    observer.join()
+
+@task  
+def release(c, version_bump="patch"):
+    """Prepare a release: update version, build, validate, and tag"""
+    print(f"🚀 Preparing release with {version_bump} version bump...")
+    
+    # This is a placeholder - you'd need to implement version bumping logic
+    print("⚠️  Version bumping not yet implemented")
+    print("   Manually update version.txt file")
+    
+    # Run full pipeline
+    if not pipeline(c):
+        print("❌ Release preparation failed")
+        return False
+    
+    # Validate
+    if not validate(c):
+        print("❌ Release validation failed")
+        return False
+    
+    print("✅ Release preparation completed!")
+    print("📋 Next steps:")
+    print("   1. Review the bundled output")
+    print("   2. Test in RazorEnhanced")
+    print("   3. Commit and tag the release")
+    print("   4. Deploy to production")
 
 

@@ -3,9 +3,55 @@ Core Bot Configuration System
 Manages all configuration constants using the Singleton pattern and ConfigManager
 """
 
+import os
 from typing import Optional
 
 from ..config.config_manager import ConfigManager
+
+def _get_version_info():
+    """Read version information from version.txt file or use bundled constants"""
+    
+    # Check if we're running as a bundled script with embedded version info
+    import sys
+    main_module = sys.modules.get('__main__')
+    if hasattr(main_module, '_BUNDLED_VERSION'):
+        return (
+            getattr(main_module, '_BUNDLED_VERSION', 'UNKNOWN'),
+            getattr(main_module, '_BUNDLED_VERSION_NAME', 'Development Version'),
+            getattr(main_module, '_BUNDLED_BUILD_DATE', 'UNKNOWN')
+        )
+    
+    # Try to find version.txt in the project root
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    version_file = None
+    
+    # Search up the directory tree for version.txt
+    for _ in range(5):  # Max 5 levels up
+        test_path = os.path.join(current_dir, 'version.txt')
+        if os.path.exists(test_path):
+            version_file = test_path
+            break
+        current_dir = os.path.dirname(current_dir)
+    
+    if not version_file:
+        return "UNKNOWN", "Development Version", "UNKNOWN"
+    
+    try:
+        with open(version_file, 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                # Skip comments and empty lines
+                if line.startswith('#') or not line:
+                    continue
+                # Parse version line: VERSION|VERSION_NAME|BUILD_DATE
+                if '|' in line:
+                    parts = line.split('|')
+                    if len(parts) >= 3:
+                        return parts[0].strip(), parts[1].strip(), parts[2].strip()
+    except Exception:
+        pass
+    
+    return "UNKNOWN", "Development Version", "UNKNOWN"
 
 
 class BotConfig:
@@ -15,10 +61,11 @@ class BotConfig:
     and ConfigManager for persistent storage.
     """
 
-    # Version Information
-    VERSION = "3.1.1"
-    VERSION_NAME = "Phase 3.1.1 - Ignore List Optimization"
-    BUILD_DATE = "2025-06-30"  # Static build date for consistent version tracking
+    # Version Information - Read from version.txt
+    _version_info = _get_version_info()
+    VERSION = _version_info[0]
+    VERSION_NAME = _version_info[1]
+    BUILD_DATE = _version_info[2]
 
     _instance: Optional["BotConfig"] = None
 
