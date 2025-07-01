@@ -1,0 +1,2424 @@
+{
+  "metadata": {
+    "version": "2.0",
+    "description": "Comprehensive Ultima Online Item ID Database for DexBot",
+    "last_updated": "2025-06-30",
+    "format": "JSON",
+    "usage": "Import this file in scripts for item ID lookups",
+    "total_items": 120,
+    "source": "Comprehensive UO item database - consolidated and optimized for DexBot"
+  },
+  "categories": {
+    "currency": {
+      "description": "Gold and valuable currency items",
+      "items": {
+        "gold_coins": {
+          "decimal_id": 3821,
+          "hex_id": "0x0EED",
+          "name": "Gold Coins",
+          "aliases": [
+            "gold",
+            "coins"
+          ],
+          "value_tier": "high",
+          "stackable": true
+        },
+        "gold_pile": {
+          "decimal_id": 1712,
+          "hex_id": "0x06B0",
+          "name": "Gold Pile",
+          "aliases": [
+            "gold",
+            "pile"
+          ],
+          "value_tier": "high",
+          "stackable": true
+        }
+      }
+    },
+    "gems": {
+      "description": "Precious gems and valuables",
+      "items": {
+        "diamond": {
+          "decimal_id": 3862,
+          "hex_id": "0x0F16",
+          "name": "Diamond",
+          "aliases": [
+            "gem"
+          ],
+          "value_tier": "very_high",
+          "stackable": true
+        },
+        "ruby": {
+          "decimal_id": 3863,
+          "hex_id": "0x0F17",
+          "name": "Ruby",
+          "aliases": [
+            "gem"
+          ],
+          "value_tier": "very_high",
+          "stackable": true
+        },
+        "emerald": {
+          "decimal_id": 3864,
+          "hex_id": "0x0F18",
+          "name": "Emerald",
+          "aliases": [
+            "gem"
+          ],
+          "value_tier": "very_high",
+          "stackable": true
+        },
+        "sapphire": {
+          "decimal_id": 3865,
+          "hex_id": "0x0F19",
+          "name": "Sapphire",
+          "aliases": [
+            "gem"
+          ],
+          "value_tier": "very_high",
+          "stackable": true
+        },
+        "star_sapphire": {
+          "decimal_id": 3866,
+          "hex_id": "0x0F1A",
+          "name": "Star Sapphire",
+          "aliases": [
+            "gem"
+          ],
+          "value_tier": "very_high",
+          "stackable": true
+        },
+        "amethyst": {
+          "decimal_id": 3867,
+          "hex_id": "0x0F1B",
+          "name": "Amethyst",
+          "aliases": [
+            "gem"
+          ],
+          "value_tier": "high",
+          "stackable": true
+        },
+        "tourmaline": {
+          "decimal_id": 3868,
+          "hex_id": "0x0F1C",
+          "name": "Tourmaline",
+          "aliases": [
+            "gem"
+          ],
+          "value_tier": "high",
+          "stackable": true
+        },
+        "citrine": {
+          "decimal_id": 3869,
+          "hex_id": "0x0F1D",
+          "name": "Citrine",
+          "aliases": [
+            "gem"
+          ],
+          "value_tier": "high",
+          "stackable": true
+        }
+      }
+    },
+    "reagents": {
+      "description": "Magic reagents for spellcasting",
+      "items": {
+        "black_pearl": {
+          "decimal_id": 3962,
+          "hex_id": "0x0F7A",
+          "name": "Black Pearl",
+          "aliases": [
+            "reagent"
+          ],
+          "value_tier": "medium",
+          "stackable": true
+        },
+        "blood_moss": {
+          "decimal_id": 3963,
+          "hex_id": "0x0F7B",
+          "name": "Blood Moss",
+          "aliases": [
+            "reagent"
+          ],
+          "value_tier": "medium",
+          "stackable": true
+        },
+        "garlic": {
+          "decimal_id": 3964,
+          "hex_id": "0x0F7C",
+          "name": "Garlic",
+          "aliases": [
+            "reagent"
+          ],
+          "value_tier": "medium",
+          "stackable": true
+        },
+        "ginseng": {
+          "decimal_id": 3965,
+          "hex_id": "0x0F7D",
+          "name": "Ginseng",
+          "aliases": [
+            "reagent"
+          ],
+          "value_tier": "medium",
+          "stackable": true
+        },
+        "mandrake_root": {
+          "decimal_id": 3966,
+          "hex_id": "0x0F7E",
+          "name": "Mandrake Root",
+          "aliases": [
+            "reagent"
+          ],
+          "value_tier": "medium",
+          "stackable": true
+        },
+        "nightshade": {
+          "decimal_id": 3967,
+          "hex_id": "0x0F7F",
+          "name": "Nightshade",
+          "aliases": [
+            "reagent"
+          ],
+          "value_tier": "medium",
+          "stackable": true
+        },
+        "spiders_silk": {
+          "decimal_id": 3968,
+          "hex_id": "0x0F80",
+          "name": "Spider's Silk",
+          "aliases": [
+            "reagent"
+          ],
+          "value_tier": "medium",
+          "stackable": true
+        },
+        "sulfurous_ash": {
+          "decimal_id": 3969,
+          "hex_id": "0x0F81",
+          "name": "Sulfurous Ash",
+          "aliases": [
+            "reagent"
+          ],
+          "value_tier": "medium",
+          "stackable": true
+        }
+      }
+    },
+    "potions": {
+      "description": "Healing, cure, and magic potions",
+      "items": {
+        "lesser_heal_potion": {
+          "decimal_id": 3852,
+          "hex_id": "0x0F0C",
+          "name": "Lesser Heal Potion",
+          "aliases": [
+            "potion",
+            "heal"
+          ],
+          "value_tier": "medium",
+          "stackable": false
+        },
+        "heal_potion": {
+          "decimal_id": 3853,
+          "hex_id": "0x0F0D",
+          "name": "Heal Potion",
+          "aliases": [
+            "potion",
+            "heal"
+          ],
+          "value_tier": "medium",
+          "stackable": false
+        },
+        "greater_heal_potion": {
+          "decimal_id": 3854,
+          "hex_id": "0x0F0E",
+          "name": "Greater Heal Potion",
+          "aliases": [
+            "potion",
+            "heal"
+          ],
+          "value_tier": "high",
+          "stackable": false
+        },
+        "lesser_cure_potion": {
+          "decimal_id": 3847,
+          "hex_id": "0x0F07",
+          "name": "Lesser Cure Potion",
+          "aliases": [
+            "potion",
+            "cure"
+          ],
+          "value_tier": "medium",
+          "stackable": false
+        },
+        "cure_potion": {
+          "decimal_id": 3848,
+          "hex_id": "0x0F08",
+          "name": "Cure Potion",
+          "aliases": [
+            "potion",
+            "cure"
+          ],
+          "value_tier": "medium",
+          "stackable": false
+        },
+        "greater_cure_potion": {
+          "decimal_id": 3849,
+          "hex_id": "0x0F09",
+          "name": "Greater Cure Potion",
+          "aliases": [
+            "potion",
+            "cure"
+          ],
+          "value_tier": "high",
+          "stackable": false
+        },
+        "refresh_potion": {
+          "decimal_id": 3851,
+          "hex_id": "0x0F0B",
+          "name": "Refresh Potion",
+          "aliases": [
+            "potion",
+            "refresh"
+          ],
+          "value_tier": "medium",
+          "stackable": false
+        },
+        "lesser_poison_potion": {
+          "decimal_id": 3844,
+          "hex_id": "0x0F04",
+          "name": "Lesser Poison Potion",
+          "aliases": [
+            "potion",
+            "poison"
+          ],
+          "value_tier": "low",
+          "stackable": false
+        },
+        "poison_potion": {
+          "decimal_id": 3845,
+          "hex_id": "0x0F05",
+          "name": "Poison Potion",
+          "aliases": [
+            "potion",
+            "poison"
+          ],
+          "value_tier": "low",
+          "stackable": false
+        },
+        "greater_poison_potion": {
+          "decimal_id": 3846,
+          "hex_id": "0x0F06",
+          "name": "Greater Poison Potion",
+          "aliases": [
+            "potion",
+            "poison"
+          ],
+          "value_tier": "medium",
+          "stackable": false
+        },
+        "strength_potion": {
+          "decimal_id": 3849,
+          "hex_id": "0x0F09",
+          "name": "Strength Potion",
+          "aliases": [
+            "potion",
+            "strength"
+          ],
+          "value_tier": "medium",
+          "stackable": false
+        },
+        "agility_potion": {
+          "decimal_id": 3848,
+          "hex_id": "0x0F08",
+          "name": "Agility Potion",
+          "aliases": [
+            "potion",
+            "agility"
+          ],
+          "value_tier": "medium",
+          "stackable": false
+        }
+      }
+    },
+    "weapons": {
+      "description": "Weapons and combat items",
+      "items": {
+        "dagger": {
+          "decimal_id": 3922,
+          "hex_id": "0x0F52",
+          "name": "Dagger",
+          "aliases": [
+            "weapon",
+            "blade",
+            "sword"
+          ],
+          "value_tier": "medium",
+          "stackable": false
+        },
+        "kryss": {
+          "decimal_id": 3923,
+          "hex_id": "0x0F53",
+          "name": "Kryss",
+          "aliases": [
+            "weapon",
+            "blade",
+            "sword"
+          ],
+          "value_tier": "medium",
+          "stackable": false
+        },
+        "broadsword": {
+          "decimal_id": 3934,
+          "hex_id": "0x0F5E",
+          "name": "Broadsword",
+          "aliases": [
+            "weapon",
+            "sword"
+          ],
+          "value_tier": "medium",
+          "stackable": false
+        },
+        "longsword": {
+          "decimal_id": 3936,
+          "hex_id": "0x0F60",
+          "name": "Longsword",
+          "aliases": [
+            "weapon",
+            "sword"
+          ],
+          "value_tier": "medium",
+          "stackable": false
+        },
+        "katana": {
+          "decimal_id": 3937,
+          "hex_id": "0x0F61",
+          "name": "Katana",
+          "aliases": [
+            "weapon",
+            "sword"
+          ],
+          "value_tier": "high",
+          "stackable": false
+        },
+        "scimitar": {
+          "decimal_id": 3935,
+          "hex_id": "0x0F5F",
+          "name": "Scimitar",
+          "aliases": [
+            "weapon",
+            "sword"
+          ],
+          "value_tier": "medium",
+          "stackable": false
+        },
+        "viking_sword": {
+          "decimal_id": 3938,
+          "hex_id": "0x0F62",
+          "name": "Viking Sword",
+          "aliases": [
+            "weapon",
+            "sword"
+          ],
+          "value_tier": "medium",
+          "stackable": false
+        },
+        "club": {
+          "decimal_id": 3932,
+          "hex_id": "0x0F5C",
+          "name": "Club",
+          "aliases": [
+            "weapon",
+            "mace"
+          ],
+          "value_tier": "low",
+          "stackable": false
+        },
+        "mace": {
+          "decimal_id": 3933,
+          "hex_id": "0x0F5D",
+          "name": "Mace",
+          "aliases": [
+            "weapon",
+            "mace"
+          ],
+          "value_tier": "medium",
+          "stackable": false
+        },
+        "maul": {
+          "decimal_id": 5179,
+          "hex_id": "0x143B",
+          "name": "Maul",
+          "aliases": [
+            "weapon",
+            "mace"
+          ],
+          "value_tier": "high",
+          "stackable": false
+        },
+        "war_hammer": {
+          "decimal_id": 5185,
+          "hex_id": "0x1441",
+          "name": "War Hammer",
+          "aliases": [
+            "weapon",
+            "hammer"
+          ],
+          "value_tier": "high",
+          "stackable": false
+        },
+        "war_mace": {
+          "decimal_id": 5186,
+          "hex_id": "0x1442",
+          "name": "War Mace",
+          "aliases": [
+            "weapon",
+            "mace"
+          ],
+          "value_tier": "high",
+          "stackable": false
+        },
+        "bow": {
+          "decimal_id": 5042,
+          "hex_id": "0x13B2",
+          "name": "Bow",
+          "aliases": [
+            "weapon",
+            "ranged"
+          ],
+          "value_tier": "medium",
+          "stackable": false
+        },
+        "crossbow": {
+          "decimal_id": 3920,
+          "hex_id": "0x0F50",
+          "name": "Crossbow",
+          "aliases": [
+            "weapon",
+            "ranged"
+          ],
+          "value_tier": "medium",
+          "stackable": false
+        },
+        "heavy_crossbow": {
+          "decimal_id": 5117,
+          "hex_id": "0x13FD",
+          "name": "Heavy Crossbow",
+          "aliases": [
+            "weapon",
+            "ranged"
+          ],
+          "value_tier": "high",
+          "stackable": false
+        }
+      }
+    },
+    "armor": {
+      "description": "Protective armor and clothing",
+      "items": {
+        "leather_cap": {
+          "decimal_id": 5063,
+          "hex_id": "0x13C7",
+          "name": "Leather Cap",
+          "aliases": [
+            "armor",
+            "leather",
+            "helm"
+          ],
+          "value_tier": "low",
+          "stackable": false
+        },
+        "leather_gorget": {
+          "decimal_id": 5063,
+          "hex_id": "0x13C7",
+          "name": "Leather Gorget",
+          "aliases": [
+            "armor",
+            "leather",
+            "neck"
+          ],
+          "value_tier": "low",
+          "stackable": false
+        },
+        "leather_arms": {
+          "decimal_id": 5069,
+          "hex_id": "0x13CD",
+          "name": "Leather Arms",
+          "aliases": [
+            "armor",
+            "leather",
+            "sleeves"
+          ],
+          "value_tier": "low",
+          "stackable": false
+        },
+        "leather_gloves": {
+          "decimal_id": 5070,
+          "hex_id": "0x13CE",
+          "name": "Leather Gloves",
+          "aliases": [
+            "armor",
+            "leather",
+            "gloves"
+          ],
+          "value_tier": "low",
+          "stackable": false
+        },
+        "leather_chest": {
+          "decimal_id": 5075,
+          "hex_id": "0x13D3",
+          "name": "Leather Chest",
+          "aliases": [
+            "armor",
+            "leather",
+            "tunic"
+          ],
+          "value_tier": "low",
+          "stackable": false
+        },
+        "leather_legs": {
+          "decimal_id": 5074,
+          "hex_id": "0x13D2",
+          "name": "Leather Legs",
+          "aliases": [
+            "armor",
+            "leather",
+            "leggings"
+          ],
+          "value_tier": "low",
+          "stackable": false
+        },
+        "chainmail_coif": {
+          "decimal_id": 5051,
+          "hex_id": "0x13BB",
+          "name": "Chainmail Coif",
+          "aliases": [
+            "armor",
+            "chain",
+            "helm"
+          ],
+          "value_tier": "medium",
+          "stackable": false
+        },
+        "plate_helm": {
+          "decimal_id": 5146,
+          "hex_id": "0x1412",
+          "name": "Plate Helm",
+          "aliases": [
+            "armor",
+            "plate",
+            "helm"
+          ],
+          "value_tier": "high",
+          "stackable": false
+        },
+        "plate_arms": {
+          "decimal_id": 5136,
+          "hex_id": "0x1408",
+          "name": "Plate Arms",
+          "aliases": [
+            "armor",
+            "plate",
+            "arms"
+          ],
+          "value_tier": "high",
+          "stackable": false
+        },
+        "plate_gloves": {
+          "decimal_id": 5144,
+          "hex_id": "0x1410",
+          "name": "Plate Gloves",
+          "aliases": [
+            "armor",
+            "plate",
+            "gauntlets"
+          ],
+          "value_tier": "high",
+          "stackable": false
+        },
+        "plate_chest": {
+          "decimal_id": 5141,
+          "hex_id": "0x140D",
+          "name": "Plate Chest",
+          "aliases": [
+            "armor",
+            "plate",
+            "chest"
+          ],
+          "value_tier": "high",
+          "stackable": false
+        },
+        "plate_legs": {
+          "decimal_id": 5137,
+          "hex_id": "0x1409",
+          "name": "Plate Legs",
+          "aliases": [
+            "armor",
+            "plate",
+            "legs"
+          ],
+          "value_tier": "high",
+          "stackable": false
+        }
+      }
+    },
+    "tools": {
+      "description": "Tools and utility items",
+      "items": {
+        "bandages": {
+          "decimal_id": 3617,
+          "hex_id": "0x0E21",
+          "name": "Bandages",
+          "aliases": [
+            "bandage",
+            "heal"
+          ],
+          "value_tier": "medium",
+          "stackable": true
+        },
+        "skinning_knife": {
+          "decimal_id": 3780,
+          "hex_id": "0x0EC4",
+          "name": "Skinning Knife",
+          "aliases": [
+            "knife",
+            "skinning",
+            "tool"
+          ],
+          "value_tier": "low",
+          "stackable": false
+        },
+        "scissors": {
+          "decimal_id": 3998,
+          "hex_id": "0x0F9E",
+          "name": "Scissors",
+          "aliases": [
+            "tool",
+            "cutting"
+          ],
+          "value_tier": "low",
+          "stackable": false
+        },
+        "sewing_kit": {
+          "decimal_id": 3997,
+          "hex_id": "0x0F9D",
+          "name": "Sewing Kit",
+          "aliases": [
+            "tool",
+            "tailoring"
+          ],
+          "value_tier": "low",
+          "stackable": false
+        },
+        "tinker_tools": {
+          "decimal_id": 7864,
+          "hex_id": "0x1EB8",
+          "name": "Tinker Tools",
+          "aliases": [
+            "tool",
+            "tinkering"
+          ],
+          "value_tier": "low",
+          "stackable": false
+        },
+        "smith_hammer": {
+          "decimal_id": 4020,
+          "hex_id": "0x0FB4",
+          "name": "Smith Hammer",
+          "aliases": [
+            "tool",
+            "blacksmith",
+            "hammer"
+          ],
+          "value_tier": "low",
+          "stackable": false
+        },
+        "tongs": {
+          "decimal_id": 4027,
+          "hex_id": "0x0FBB",
+          "name": "Tongs",
+          "aliases": [
+            "tool",
+            "blacksmith"
+          ],
+          "value_tier": "low",
+          "stackable": false
+        },
+        "shovel": {
+          "decimal_id": 3897,
+          "hex_id": "0x0F39",
+          "name": "Shovel",
+          "aliases": [
+            "tool",
+            "digging"
+          ],
+          "value_tier": "low",
+          "stackable": false
+        },
+        "pickaxe": {
+          "decimal_id": 3717,
+          "hex_id": "0x0E85",
+          "name": "Pickaxe",
+          "aliases": [
+            "tool",
+            "mining"
+          ],
+          "value_tier": "low",
+          "stackable": false
+        },
+        "hatchet": {
+          "decimal_id": 3907,
+          "hex_id": "0x0F43",
+          "name": "Hatchet",
+          "aliases": [
+            "tool",
+            "lumber",
+            "axe"
+          ],
+          "value_tier": "low",
+          "stackable": false
+        },
+        "fishing_pole": {
+          "decimal_id": 3519,
+          "hex_id": "0x0DBF",
+          "name": "Fishing Pole",
+          "aliases": [
+            "tool",
+            "fishing"
+          ],
+          "value_tier": "low",
+          "stackable": false
+        },
+        "lockpicks": {
+          "decimal_id": 4136,
+          "hex_id": "0x1029",
+          "name": "Lockpicks",
+          "aliases": [
+            "tool",
+            "lockpicking"
+          ],
+          "value_tier": "medium",
+          "stackable": true
+        }
+      }
+    },
+    "resources": {
+      "description": "Raw materials and crafting resources",
+      "items": {
+        "iron_ore": {
+          "decimal_id": 6585,
+          "hex_id": "0x19B9",
+          "name": "Iron Ore",
+          "aliases": [
+            "ore",
+            "resource",
+            "mining"
+          ],
+          "value_tier": "low",
+          "stackable": true
+        },
+        "iron_ingot": {
+          "decimal_id": 6585,
+          "hex_id": "0x19B9",
+          "name": "Iron Ingot",
+          "aliases": [
+            "ingot",
+            "resource",
+            "metal"
+          ],
+          "value_tier": "medium",
+          "stackable": true
+        },
+        "dull_copper_ingot": {
+          "decimal_id": 6586,
+          "hex_id": "0x19BA",
+          "name": "Dull Copper Ingot",
+          "aliases": [
+            "ingot",
+            "resource",
+            "metal"
+          ],
+          "value_tier": "medium",
+          "stackable": true
+        },
+        "shadow_iron_ingot": {
+          "decimal_id": 6587,
+          "hex_id": "0x19BB",
+          "name": "Shadow Iron Ingot",
+          "aliases": [
+            "ingot",
+            "resource",
+            "metal"
+          ],
+          "value_tier": "high",
+          "stackable": true
+        },
+        "copper_ingot": {
+          "decimal_id": 6588,
+          "hex_id": "0x19BC",
+          "name": "Copper Ingot",
+          "aliases": [
+            "ingot",
+            "resource",
+            "metal"
+          ],
+          "value_tier": "medium",
+          "stackable": true
+        },
+        "bronze_ingot": {
+          "decimal_id": 6589,
+          "hex_id": "0x19BD",
+          "name": "Bronze Ingot",
+          "aliases": [
+            "ingot",
+            "resource",
+            "metal"
+          ],
+          "value_tier": "medium",
+          "stackable": true
+        },
+        "gold_ingot": {
+          "decimal_id": 6590,
+          "hex_id": "0x19BE",
+          "name": "Gold Ingot",
+          "aliases": [
+            "ingot",
+            "resource",
+            "metal"
+          ],
+          "value_tier": "high",
+          "stackable": true
+        },
+        "agapite_ingot": {
+          "decimal_id": 6591,
+          "hex_id": "0x19BF",
+          "name": "Agapite Ingot",
+          "aliases": [
+            "ingot",
+            "resource",
+            "metal"
+          ],
+          "value_tier": "very_high",
+          "stackable": true
+        },
+        "verite_ingot": {
+          "decimal_id": 6592,
+          "hex_id": "0x19C0",
+          "name": "Verite Ingot",
+          "aliases": [
+            "ingot",
+            "resource",
+            "metal"
+          ],
+          "value_tier": "very_high",
+          "stackable": true
+        },
+        "valorite_ingot": {
+          "decimal_id": 6593,
+          "hex_id": "0x19C1",
+          "name": "Valorite Ingot",
+          "aliases": [
+            "ingot",
+            "resource",
+            "metal"
+          ],
+          "value_tier": "very_high",
+          "stackable": true
+        },
+        "hides": {
+          "decimal_id": 4216,
+          "hex_id": "0x1078",
+          "name": "Hides",
+          "aliases": [
+            "leather",
+            "resource",
+            "hide"
+          ],
+          "value_tier": "low",
+          "stackable": true
+        },
+        "leather": {
+          "decimal_id": 4216,
+          "hex_id": "0x1078",
+          "name": "Leather",
+          "aliases": [
+            "leather",
+            "resource"
+          ],
+          "value_tier": "medium",
+          "stackable": true
+        },
+        "spined_leather": {
+          "decimal_id": 4217,
+          "hex_id": "0x1079",
+          "name": "Spined Leather",
+          "aliases": [
+            "leather",
+            "resource"
+          ],
+          "value_tier": "high",
+          "stackable": true
+        },
+        "horned_leather": {
+          "decimal_id": 4218,
+          "hex_id": "0x107A",
+          "name": "Horned Leather",
+          "aliases": [
+            "leather",
+            "resource"
+          ],
+          "value_tier": "very_high",
+          "stackable": true
+        },
+        "barbed_leather": {
+          "decimal_id": 4219,
+          "hex_id": "0x107B",
+          "name": "Barbed Leather",
+          "aliases": [
+            "leather",
+            "resource"
+          ],
+          "value_tier": "very_high",
+          "stackable": true
+        },
+        "logs": {
+          "decimal_id": 6632,
+          "hex_id": "0x19E8",
+          "name": "Logs",
+          "aliases": [
+            "wood",
+            "resource",
+            "lumber"
+          ],
+          "value_tier": "low",
+          "stackable": true
+        },
+        "boards": {
+          "decimal_id": 6633,
+          "hex_id": "0x19E9",
+          "name": "Boards",
+          "aliases": [
+            "lumber",
+            "resource",
+            "wood"
+          ],
+          "value_tier": "medium",
+          "stackable": true
+        },
+        "cotton": {
+          "decimal_id": 3576,
+          "hex_id": "0x0DF8",
+          "name": "Cotton",
+          "aliases": [
+            "cloth",
+            "resource"
+          ],
+          "value_tier": "low",
+          "stackable": true
+        },
+        "wool": {
+          "decimal_id": 3577,
+          "hex_id": "0x0DF9",
+          "name": "Wool",
+          "aliases": [
+            "cloth",
+            "resource"
+          ],
+          "value_tier": "low",
+          "stackable": true
+        },
+        "flax": {
+          "decimal_id": 3578,
+          "hex_id": "0x0DFA",
+          "name": "Flax",
+          "aliases": [
+            "cloth",
+            "resource"
+          ],
+          "value_tier": "low",
+          "stackable": true
+        },
+        "cloth": {
+          "decimal_id": 6583,
+          "hex_id": "0x19B7",
+          "name": "Cloth",
+          "aliases": [
+            "cloth",
+            "resource"
+          ],
+          "value_tier": "medium",
+          "stackable": true
+        },
+        "cut_cloth": {
+          "decimal_id": 6584,
+          "hex_id": "0x19B8",
+          "name": "Cut Cloth",
+          "aliases": [
+            "cloth",
+            "resource"
+          ],
+          "value_tier": "medium",
+          "stackable": true
+        }
+      }
+    },
+    "containers": {
+      "description": "Bags, boxes, and containers",
+      "items": {
+        "backpack": {
+          "decimal_id": 3701,
+          "hex_id": "0x0E75",
+          "name": "Backpack",
+          "aliases": [
+            "container",
+            "bag"
+          ],
+          "value_tier": "medium",
+          "stackable": false
+        },
+        "bag": {
+          "decimal_id": 3702,
+          "hex_id": "0x0E76",
+          "name": "Bag",
+          "aliases": [
+            "container"
+          ],
+          "value_tier": "low",
+          "stackable": false
+        },
+        "pouch": {
+          "decimal_id": 3703,
+          "hex_id": "0x0E77",
+          "name": "Pouch",
+          "aliases": [
+            "container"
+          ],
+          "value_tier": "low",
+          "stackable": false
+        },
+        "wooden_box": {
+          "decimal_id": 3712,
+          "hex_id": "0x0E80",
+          "name": "Wooden Box",
+          "aliases": [
+            "container",
+            "box"
+          ],
+          "value_tier": "low",
+          "stackable": false
+        },
+        "metal_box": {
+          "decimal_id": 3713,
+          "hex_id": "0x0E81",
+          "name": "Metal Box",
+          "aliases": [
+            "container",
+            "box"
+          ],
+          "value_tier": "medium",
+          "stackable": false
+        },
+        "wooden_chest": {
+          "decimal_id": 3650,
+          "hex_id": "0x0E42",
+          "name": "Wooden Chest",
+          "aliases": [
+            "container",
+            "chest"
+          ],
+          "value_tier": "medium",
+          "stackable": false
+        },
+        "metal_chest": {
+          "decimal_id": 3649,
+          "hex_id": "0x0E41",
+          "name": "Metal Chest",
+          "aliases": [
+            "container",
+            "chest"
+          ],
+          "value_tier": "high",
+          "stackable": false
+        },
+        "basket": {
+          "decimal_id": 2468,
+          "hex_id": "0x09A4",
+          "name": "Basket",
+          "aliases": [
+            "container"
+          ],
+          "value_tier": "low",
+          "stackable": false
+        },
+        "crate": {
+          "decimal_id": 3711,
+          "hex_id": "0x0E7F",
+          "name": "Crate",
+          "aliases": [
+            "container"
+          ],
+          "value_tier": "low",
+          "stackable": false
+        },
+        "barrel": {
+          "decimal_id": 4014,
+          "hex_id": "0x0FAE",
+          "name": "Barrel",
+          "aliases": [
+            "container"
+          ],
+          "value_tier": "low",
+          "stackable": false
+        }
+      }
+    },
+    "food": {
+      "description": "Food and consumable items",
+      "items": {
+        "apple": {
+          "decimal_id": 2512,
+          "hex_id": "0x09D0",
+          "name": "Apple",
+          "aliases": [
+            "food",
+            "fruit"
+          ],
+          "value_tier": "low",
+          "stackable": true
+        },
+        "banana": {
+          "decimal_id": 2513,
+          "hex_id": "0x09D1",
+          "name": "Banana",
+          "aliases": [
+            "food",
+            "fruit"
+          ],
+          "value_tier": "low",
+          "stackable": true
+        },
+        "grapes": {
+          "decimal_id": 2514,
+          "hex_id": "0x09D2",
+          "name": "Grapes",
+          "aliases": [
+            "food",
+            "fruit"
+          ],
+          "value_tier": "low",
+          "stackable": true
+        },
+        "peach": {
+          "decimal_id": 2515,
+          "hex_id": "0x09D3",
+          "name": "Peach",
+          "aliases": [
+            "food",
+            "fruit"
+          ],
+          "value_tier": "low",
+          "stackable": true
+        },
+        "pear": {
+          "decimal_id": 2516,
+          "hex_id": "0x09D4",
+          "name": "Pear",
+          "aliases": [
+            "food",
+            "fruit"
+          ],
+          "value_tier": "low",
+          "stackable": true
+        },
+        "bread": {
+          "decimal_id": 2581,
+          "hex_id": "0x0A15",
+          "name": "Bread",
+          "aliases": [
+            "food"
+          ],
+          "value_tier": "low",
+          "stackable": true
+        },
+        "cheese": {
+          "decimal_id": 2582,
+          "hex_id": "0x0A16",
+          "name": "Cheese",
+          "aliases": [
+            "food"
+          ],
+          "value_tier": "low",
+          "stackable": true
+        },
+        "fish_steak": {
+          "decimal_id": 2426,
+          "hex_id": "0x097A",
+          "name": "Fish Steak",
+          "aliases": [
+            "food",
+            "fish"
+          ],
+          "value_tier": "low",
+          "stackable": true
+        },
+        "meat": {
+          "decimal_id": 2424,
+          "hex_id": "0x0978",
+          "name": "Meat",
+          "aliases": [
+            "food"
+          ],
+          "value_tier": "low",
+          "stackable": true
+        }
+      }
+    },
+    "ammunition": {
+      "description": "Arrows, bolts, and ranged weapon ammunition",
+      "items": {
+        "arrow": {
+          "decimal_id": 3903,
+          "hex_id": "0x0F3F",
+          "name": "Arrow",
+          "aliases": [
+            "ammunition",
+            "ranged"
+          ],
+          "value_tier": "low",
+          "stackable": true
+        },
+        "bolt": {
+          "decimal_id": 7163,
+          "hex_id": "0x1BFB",
+          "name": "Bolt",
+          "aliases": [
+            "ammunition",
+            "ranged"
+          ],
+          "value_tier": "low",
+          "stackable": true
+        }
+      }
+    },
+    "miscellaneous": {
+      "description": "Magic items and miscellaneous objects",
+      "items": {
+        "spellbook": {
+          "decimal_id": 3834,
+          "hex_id": "0x0EFA",
+          "name": "Spellbook",
+          "aliases": [
+            "magic",
+            "book"
+          ],
+          "value_tier": "high",
+          "stackable": false
+        },
+        "rune": {
+          "decimal_id": 6462,
+          "hex_id": "0x1F3E",
+          "name": "Rune",
+          "aliases": [
+            "magic",
+            "travel"
+          ],
+          "value_tier": "medium",
+          "stackable": true
+        },
+        "runebook": {
+          "decimal_id": 8787,
+          "hex_id": "0x22C5",
+          "name": "Runebook",
+          "aliases": [
+            "magic",
+            "travel",
+            "book"
+          ],
+          "value_tier": "high",
+          "stackable": false
+        },
+        "key": {
+          "decimal_id": 4113,
+          "hex_id": "0x1011",
+          "name": "Key",
+          "aliases": [
+            "misc"
+          ],
+          "value_tier": "low",
+          "stackable": false
+        },
+        "bottle": {
+          "decimal_id": 3854,
+          "hex_id": "0x0F0E",
+          "name": "Bottle",
+          "aliases": [
+            "misc"
+          ],
+          "value_tier": "low",
+          "stackable": true
+        },
+        "pitcher": {
+          "decimal_id": 4083,
+          "hex_id": "0x0FF7",
+          "name": "Pitcher",
+          "aliases": [
+            "misc"
+          ],
+          "value_tier": "low",
+          "stackable": false
+        },
+        "lantern": {
+          "decimal_id": 2594,
+          "hex_id": "0x0A22",
+          "name": "Lantern",
+          "aliases": [
+            "light",
+            "misc"
+          ],
+          "value_tier": "low",
+          "stackable": false
+        },
+        "torch": {
+          "decimal_id": 2595,
+          "hex_id": "0x0A23",
+          "name": "Torch",
+          "aliases": [
+            "light",
+            "misc"
+          ],
+          "value_tier": "low",
+          "stackable": true
+        },
+        "candle": {
+          "decimal_id": 2596,
+          "hex_id": "0x0A24",
+          "name": "Candle",
+          "aliases": [
+            "light",
+            "misc"
+          ],
+          "value_tier": "low",
+          "stackable": true
+        },
+        "hair_dye": {
+          "decimal_id": 3838,
+          "hex_id": "0x0EFE",
+          "name": "Hair Dye",
+          "aliases": [
+            "misc"
+          ],
+          "value_tier": "low",
+          "stackable": true
+        },
+        "dye_tub": {
+          "decimal_id": 4011,
+          "hex_id": "0x0FAB",
+          "name": "Dye Tub",
+          "aliases": [
+            "misc",
+            "dye"
+          ],
+          "value_tier": "medium",
+          "stackable": false
+        }
+      }
+    }
+  },
+  "quick_lookup": {
+    "by_decimal_id": {
+      "3821": "currency.gold_coins",
+      "1712": "currency.gold_pile",
+      "3862": "gems.diamond",
+      "3863": "gems.ruby",
+      "3864": "gems.emerald",
+      "3865": "gems.sapphire",
+      "3866": "gems.star_sapphire",
+      "3867": "gems.amethyst",
+      "3868": "gems.tourmaline",
+      "3869": "gems.citrine",
+      "3962": "reagents.black_pearl",
+      "3963": "reagents.blood_moss",
+      "3964": "reagents.garlic",
+      "3965": "reagents.ginseng",
+      "3966": "reagents.mandrake_root",
+      "3967": "reagents.nightshade",
+      "3968": "reagents.spiders_silk",
+      "3969": "reagents.sulfurous_ash",
+      "3852": "potions.lesser_heal_potion",
+      "3853": "potions.heal_potion",
+      "3854": "miscellaneous.bottle",
+      "3847": "potions.lesser_cure_potion",
+      "3848": "potions.agility_potion",
+      "3849": "potions.strength_potion",
+      "3851": "potions.refresh_potion",
+      "3844": "potions.lesser_poison_potion",
+      "3845": "potions.poison_potion",
+      "3846": "potions.greater_poison_potion",
+      "3922": "weapons.dagger",
+      "3923": "weapons.kryss",
+      "3934": "weapons.broadsword",
+      "3936": "weapons.longsword",
+      "3937": "weapons.katana",
+      "3935": "weapons.scimitar",
+      "3938": "weapons.viking_sword",
+      "3932": "weapons.club",
+      "3933": "weapons.mace",
+      "5179": "weapons.maul",
+      "5185": "weapons.war_hammer",
+      "5186": "weapons.war_mace",
+      "5042": "weapons.bow",
+      "3920": "weapons.crossbow",
+      "5117": "weapons.heavy_crossbow",
+      "5063": "armor.leather_gorget",
+      "5069": "armor.leather_arms",
+      "5070": "armor.leather_gloves",
+      "5075": "armor.leather_chest",
+      "5074": "armor.leather_legs",
+      "5051": "armor.chainmail_coif",
+      "5146": "armor.plate_helm",
+      "5136": "armor.plate_arms",
+      "5144": "armor.plate_gloves",
+      "5141": "armor.plate_chest",
+      "5137": "armor.plate_legs",
+      "3617": "tools.bandages",
+      "3780": "tools.skinning_knife",
+      "3998": "tools.scissors",
+      "3997": "tools.sewing_kit",
+      "7864": "tools.tinker_tools",
+      "4020": "tools.smith_hammer",
+      "4027": "tools.tongs",
+      "3897": "tools.shovel",
+      "3717": "tools.pickaxe",
+      "3907": "tools.hatchet",
+      "3519": "tools.fishing_pole",
+      "4136": "tools.lockpicks",
+      "6585": "resources.iron_ingot",
+      "6586": "resources.dull_copper_ingot",
+      "6587": "resources.shadow_iron_ingot",
+      "6588": "resources.copper_ingot",
+      "6589": "resources.bronze_ingot",
+      "6590": "resources.gold_ingot",
+      "6591": "resources.agapite_ingot",
+      "6592": "resources.verite_ingot",
+      "6593": "resources.valorite_ingot",
+      "4216": "resources.leather",
+      "4217": "resources.spined_leather",
+      "4218": "resources.horned_leather",
+      "4219": "resources.barbed_leather",
+      "6632": "resources.logs",
+      "6633": "resources.boards",
+      "3576": "resources.cotton",
+      "3577": "resources.wool",
+      "3578": "resources.flax",
+      "6583": "resources.cloth",
+      "6584": "resources.cut_cloth",
+      "3701": "containers.backpack",
+      "3702": "containers.bag",
+      "3703": "containers.pouch",
+      "3712": "containers.wooden_box",
+      "3713": "containers.metal_box",
+      "3650": "containers.wooden_chest",
+      "3649": "containers.metal_chest",
+      "2468": "containers.basket",
+      "3711": "containers.crate",
+      "4014": "containers.barrel",
+      "2512": "food.apple",
+      "2513": "food.banana",
+      "2514": "food.grapes",
+      "2515": "food.peach",
+      "2516": "food.pear",
+      "2581": "food.bread",
+      "2582": "food.cheese",
+      "2426": "food.fish_steak",
+      "2424": "food.meat",
+      "3903": "ammunition.arrow",
+      "7163": "ammunition.bolt",
+      "3834": "miscellaneous.spellbook",
+      "6462": "miscellaneous.rune",
+      "8787": "miscellaneous.runebook",
+      "4113": "miscellaneous.key",
+      "4083": "miscellaneous.pitcher",
+      "2594": "miscellaneous.lantern",
+      "2595": "miscellaneous.torch",
+      "2596": "miscellaneous.candle",
+      "3838": "miscellaneous.hair_dye",
+      "4011": "miscellaneous.dye_tub"
+    },
+    "by_name": {
+      "gold coins": [
+        "currency.gold_coins"
+      ],
+      "gold": [
+        "currency.gold_coins",
+        "currency.gold_pile"
+      ],
+      "coins": [
+        "currency.gold_coins"
+      ],
+      "gold pile": [
+        "currency.gold_pile"
+      ],
+      "pile": [
+        "currency.gold_pile"
+      ],
+      "diamond": [
+        "gems.diamond"
+      ],
+      "gem": [
+        "gems.diamond",
+        "gems.ruby",
+        "gems.emerald",
+        "gems.sapphire",
+        "gems.star_sapphire",
+        "gems.amethyst",
+        "gems.tourmaline",
+        "gems.citrine"
+      ],
+      "ruby": [
+        "gems.ruby"
+      ],
+      "emerald": [
+        "gems.emerald"
+      ],
+      "sapphire": [
+        "gems.sapphire"
+      ],
+      "star sapphire": [
+        "gems.star_sapphire"
+      ],
+      "amethyst": [
+        "gems.amethyst"
+      ],
+      "tourmaline": [
+        "gems.tourmaline"
+      ],
+      "citrine": [
+        "gems.citrine"
+      ],
+      "black pearl": [
+        "reagents.black_pearl"
+      ],
+      "reagent": [
+        "reagents.black_pearl",
+        "reagents.blood_moss",
+        "reagents.garlic",
+        "reagents.ginseng",
+        "reagents.mandrake_root",
+        "reagents.nightshade",
+        "reagents.spiders_silk",
+        "reagents.sulfurous_ash"
+      ],
+      "blood moss": [
+        "reagents.blood_moss"
+      ],
+      "garlic": [
+        "reagents.garlic"
+      ],
+      "ginseng": [
+        "reagents.ginseng"
+      ],
+      "mandrake root": [
+        "reagents.mandrake_root"
+      ],
+      "nightshade": [
+        "reagents.nightshade"
+      ],
+      "spider's silk": [
+        "reagents.spiders_silk"
+      ],
+      "sulfurous ash": [
+        "reagents.sulfurous_ash"
+      ],
+      "lesser heal potion": [
+        "potions.lesser_heal_potion"
+      ],
+      "potion": [
+        "potions.lesser_heal_potion",
+        "potions.heal_potion",
+        "potions.greater_heal_potion",
+        "potions.lesser_cure_potion",
+        "potions.cure_potion",
+        "potions.greater_cure_potion",
+        "potions.refresh_potion",
+        "potions.lesser_poison_potion",
+        "potions.poison_potion",
+        "potions.greater_poison_potion",
+        "potions.strength_potion",
+        "potions.agility_potion"
+      ],
+      "heal": [
+        "potions.lesser_heal_potion",
+        "potions.heal_potion",
+        "potions.greater_heal_potion",
+        "tools.bandages"
+      ],
+      "heal potion": [
+        "potions.heal_potion"
+      ],
+      "greater heal potion": [
+        "potions.greater_heal_potion"
+      ],
+      "lesser cure potion": [
+        "potions.lesser_cure_potion"
+      ],
+      "cure": [
+        "potions.lesser_cure_potion",
+        "potions.cure_potion",
+        "potions.greater_cure_potion"
+      ],
+      "cure potion": [
+        "potions.cure_potion"
+      ],
+      "greater cure potion": [
+        "potions.greater_cure_potion"
+      ],
+      "refresh potion": [
+        "potions.refresh_potion"
+      ],
+      "refresh": [
+        "potions.refresh_potion"
+      ],
+      "lesser poison potion": [
+        "potions.lesser_poison_potion"
+      ],
+      "poison": [
+        "potions.lesser_poison_potion",
+        "potions.poison_potion",
+        "potions.greater_poison_potion"
+      ],
+      "poison potion": [
+        "potions.poison_potion"
+      ],
+      "greater poison potion": [
+        "potions.greater_poison_potion"
+      ],
+      "strength potion": [
+        "potions.strength_potion"
+      ],
+      "strength": [
+        "potions.strength_potion"
+      ],
+      "agility potion": [
+        "potions.agility_potion"
+      ],
+      "agility": [
+        "potions.agility_potion"
+      ],
+      "dagger": [
+        "weapons.dagger"
+      ],
+      "weapon": [
+        "weapons.dagger",
+        "weapons.kryss",
+        "weapons.broadsword",
+        "weapons.longsword",
+        "weapons.katana",
+        "weapons.scimitar",
+        "weapons.viking_sword",
+        "weapons.club",
+        "weapons.mace",
+        "weapons.maul",
+        "weapons.war_hammer",
+        "weapons.war_mace",
+        "weapons.bow",
+        "weapons.crossbow",
+        "weapons.heavy_crossbow"
+      ],
+      "blade": [
+        "weapons.dagger",
+        "weapons.kryss"
+      ],
+      "sword": [
+        "weapons.dagger",
+        "weapons.kryss",
+        "weapons.broadsword",
+        "weapons.longsword",
+        "weapons.katana",
+        "weapons.scimitar",
+        "weapons.viking_sword"
+      ],
+      "kryss": [
+        "weapons.kryss"
+      ],
+      "broadsword": [
+        "weapons.broadsword"
+      ],
+      "longsword": [
+        "weapons.longsword"
+      ],
+      "katana": [
+        "weapons.katana"
+      ],
+      "scimitar": [
+        "weapons.scimitar"
+      ],
+      "viking sword": [
+        "weapons.viking_sword"
+      ],
+      "club": [
+        "weapons.club"
+      ],
+      "mace": [
+        "weapons.club",
+        "weapons.mace",
+        "weapons.maul",
+        "weapons.war_mace"
+      ],
+      "maul": [
+        "weapons.maul"
+      ],
+      "war hammer": [
+        "weapons.war_hammer"
+      ],
+      "hammer": [
+        "weapons.war_hammer",
+        "tools.smith_hammer"
+      ],
+      "war mace": [
+        "weapons.war_mace"
+      ],
+      "bow": [
+        "weapons.bow"
+      ],
+      "ranged": [
+        "weapons.bow",
+        "weapons.crossbow",
+        "weapons.heavy_crossbow",
+        "ammunition.arrow",
+        "ammunition.bolt"
+      ],
+      "crossbow": [
+        "weapons.crossbow"
+      ],
+      "heavy crossbow": [
+        "weapons.heavy_crossbow"
+      ],
+      "leather cap": [
+        "armor.leather_cap"
+      ],
+      "armor": [
+        "armor.leather_cap",
+        "armor.leather_gorget",
+        "armor.leather_arms",
+        "armor.leather_gloves",
+        "armor.leather_chest",
+        "armor.leather_legs",
+        "armor.chainmail_coif",
+        "armor.plate_helm",
+        "armor.plate_arms",
+        "armor.plate_gloves",
+        "armor.plate_chest",
+        "armor.plate_legs"
+      ],
+      "leather": [
+        "armor.leather_cap",
+        "armor.leather_gorget",
+        "armor.leather_arms",
+        "armor.leather_gloves",
+        "armor.leather_chest",
+        "armor.leather_legs",
+        "resources.hides",
+        "resources.leather",
+        "resources.spined_leather",
+        "resources.horned_leather",
+        "resources.barbed_leather"
+      ],
+      "helm": [
+        "armor.leather_cap",
+        "armor.chainmail_coif",
+        "armor.plate_helm"
+      ],
+      "leather gorget": [
+        "armor.leather_gorget"
+      ],
+      "neck": [
+        "armor.leather_gorget"
+      ],
+      "leather arms": [
+        "armor.leather_arms"
+      ],
+      "sleeves": [
+        "armor.leather_arms"
+      ],
+      "leather gloves": [
+        "armor.leather_gloves"
+      ],
+      "gloves": [
+        "armor.leather_gloves"
+      ],
+      "leather chest": [
+        "armor.leather_chest"
+      ],
+      "tunic": [
+        "armor.leather_chest"
+      ],
+      "leather legs": [
+        "armor.leather_legs"
+      ],
+      "leggings": [
+        "armor.leather_legs"
+      ],
+      "chainmail coif": [
+        "armor.chainmail_coif"
+      ],
+      "chain": [
+        "armor.chainmail_coif"
+      ],
+      "plate helm": [
+        "armor.plate_helm"
+      ],
+      "plate": [
+        "armor.plate_helm",
+        "armor.plate_arms",
+        "armor.plate_gloves",
+        "armor.plate_chest",
+        "armor.plate_legs"
+      ],
+      "plate arms": [
+        "armor.plate_arms"
+      ],
+      "arms": [
+        "armor.plate_arms"
+      ],
+      "plate gloves": [
+        "armor.plate_gloves"
+      ],
+      "gauntlets": [
+        "armor.plate_gloves"
+      ],
+      "plate chest": [
+        "armor.plate_chest"
+      ],
+      "chest": [
+        "armor.plate_chest",
+        "containers.wooden_chest",
+        "containers.metal_chest"
+      ],
+      "plate legs": [
+        "armor.plate_legs"
+      ],
+      "legs": [
+        "armor.plate_legs"
+      ],
+      "bandages": [
+        "tools.bandages"
+      ],
+      "bandage": [
+        "tools.bandages"
+      ],
+      "skinning knife": [
+        "tools.skinning_knife"
+      ],
+      "knife": [
+        "tools.skinning_knife"
+      ],
+      "skinning": [
+        "tools.skinning_knife"
+      ],
+      "tool": [
+        "tools.skinning_knife",
+        "tools.scissors",
+        "tools.sewing_kit",
+        "tools.tinker_tools",
+        "tools.smith_hammer",
+        "tools.tongs",
+        "tools.shovel",
+        "tools.pickaxe",
+        "tools.hatchet",
+        "tools.fishing_pole",
+        "tools.lockpicks"
+      ],
+      "scissors": [
+        "tools.scissors"
+      ],
+      "cutting": [
+        "tools.scissors"
+      ],
+      "sewing kit": [
+        "tools.sewing_kit"
+      ],
+      "tailoring": [
+        "tools.sewing_kit"
+      ],
+      "tinker tools": [
+        "tools.tinker_tools"
+      ],
+      "tinkering": [
+        "tools.tinker_tools"
+      ],
+      "smith hammer": [
+        "tools.smith_hammer"
+      ],
+      "blacksmith": [
+        "tools.smith_hammer",
+        "tools.tongs"
+      ],
+      "tongs": [
+        "tools.tongs"
+      ],
+      "shovel": [
+        "tools.shovel"
+      ],
+      "digging": [
+        "tools.shovel"
+      ],
+      "pickaxe": [
+        "tools.pickaxe"
+      ],
+      "mining": [
+        "tools.pickaxe",
+        "resources.iron_ore"
+      ],
+      "hatchet": [
+        "tools.hatchet"
+      ],
+      "lumber": [
+        "tools.hatchet",
+        "resources.logs",
+        "resources.boards"
+      ],
+      "axe": [
+        "tools.hatchet"
+      ],
+      "fishing pole": [
+        "tools.fishing_pole"
+      ],
+      "fishing": [
+        "tools.fishing_pole"
+      ],
+      "lockpicks": [
+        "tools.lockpicks"
+      ],
+      "lockpicking": [
+        "tools.lockpicks"
+      ],
+      "iron ore": [
+        "resources.iron_ore"
+      ],
+      "ore": [
+        "resources.iron_ore"
+      ],
+      "resource": [
+        "resources.iron_ore",
+        "resources.iron_ingot",
+        "resources.dull_copper_ingot",
+        "resources.shadow_iron_ingot",
+        "resources.copper_ingot",
+        "resources.bronze_ingot",
+        "resources.gold_ingot",
+        "resources.agapite_ingot",
+        "resources.verite_ingot",
+        "resources.valorite_ingot",
+        "resources.hides",
+        "resources.leather",
+        "resources.spined_leather",
+        "resources.horned_leather",
+        "resources.barbed_leather",
+        "resources.logs",
+        "resources.boards",
+        "resources.cotton",
+        "resources.wool",
+        "resources.flax",
+        "resources.cloth",
+        "resources.cut_cloth"
+      ],
+      "iron ingot": [
+        "resources.iron_ingot"
+      ],
+      "ingot": [
+        "resources.iron_ingot",
+        "resources.dull_copper_ingot",
+        "resources.shadow_iron_ingot",
+        "resources.copper_ingot",
+        "resources.bronze_ingot",
+        "resources.gold_ingot",
+        "resources.agapite_ingot",
+        "resources.verite_ingot",
+        "resources.valorite_ingot"
+      ],
+      "metal": [
+        "resources.iron_ingot",
+        "resources.dull_copper_ingot",
+        "resources.shadow_iron_ingot",
+        "resources.copper_ingot",
+        "resources.bronze_ingot",
+        "resources.gold_ingot",
+        "resources.agapite_ingot",
+        "resources.verite_ingot",
+        "resources.valorite_ingot"
+      ],
+      "dull copper ingot": [
+        "resources.dull_copper_ingot"
+      ],
+      "shadow iron ingot": [
+        "resources.shadow_iron_ingot"
+      ],
+      "copper ingot": [
+        "resources.copper_ingot"
+      ],
+      "bronze ingot": [
+        "resources.bronze_ingot"
+      ],
+      "gold ingot": [
+        "resources.gold_ingot"
+      ],
+      "agapite ingot": [
+        "resources.agapite_ingot"
+      ],
+      "verite ingot": [
+        "resources.verite_ingot"
+      ],
+      "valorite ingot": [
+        "resources.valorite_ingot"
+      ],
+      "hides": [
+        "resources.hides"
+      ],
+      "hide": [
+        "resources.hides"
+      ],
+      "spined leather": [
+        "resources.spined_leather"
+      ],
+      "horned leather": [
+        "resources.horned_leather"
+      ],
+      "barbed leather": [
+        "resources.barbed_leather"
+      ],
+      "logs": [
+        "resources.logs"
+      ],
+      "wood": [
+        "resources.logs",
+        "resources.boards"
+      ],
+      "boards": [
+        "resources.boards"
+      ],
+      "cotton": [
+        "resources.cotton"
+      ],
+      "cloth": [
+        "resources.cotton",
+        "resources.wool",
+        "resources.flax",
+        "resources.cloth",
+        "resources.cut_cloth"
+      ],
+      "wool": [
+        "resources.wool"
+      ],
+      "flax": [
+        "resources.flax"
+      ],
+      "cut cloth": [
+        "resources.cut_cloth"
+      ],
+      "backpack": [
+        "containers.backpack"
+      ],
+      "container": [
+        "containers.backpack",
+        "containers.bag",
+        "containers.pouch",
+        "containers.wooden_box",
+        "containers.metal_box",
+        "containers.wooden_chest",
+        "containers.metal_chest",
+        "containers.basket",
+        "containers.crate",
+        "containers.barrel"
+      ],
+      "bag": [
+        "containers.backpack",
+        "containers.bag"
+      ],
+      "pouch": [
+        "containers.pouch"
+      ],
+      "wooden box": [
+        "containers.wooden_box"
+      ],
+      "box": [
+        "containers.wooden_box",
+        "containers.metal_box"
+      ],
+      "metal box": [
+        "containers.metal_box"
+      ],
+      "wooden chest": [
+        "containers.wooden_chest"
+      ],
+      "metal chest": [
+        "containers.metal_chest"
+      ],
+      "basket": [
+        "containers.basket"
+      ],
+      "crate": [
+        "containers.crate"
+      ],
+      "barrel": [
+        "containers.barrel"
+      ],
+      "apple": [
+        "food.apple"
+      ],
+      "food": [
+        "food.apple",
+        "food.banana",
+        "food.grapes",
+        "food.peach",
+        "food.pear",
+        "food.bread",
+        "food.cheese",
+        "food.fish_steak",
+        "food.meat"
+      ],
+      "fruit": [
+        "food.apple",
+        "food.banana",
+        "food.grapes",
+        "food.peach",
+        "food.pear"
+      ],
+      "banana": [
+        "food.banana"
+      ],
+      "grapes": [
+        "food.grapes"
+      ],
+      "peach": [
+        "food.peach"
+      ],
+      "pear": [
+        "food.pear"
+      ],
+      "bread": [
+        "food.bread"
+      ],
+      "cheese": [
+        "food.cheese"
+      ],
+      "fish steak": [
+        "food.fish_steak"
+      ],
+      "fish": [
+        "food.fish_steak"
+      ],
+      "meat": [
+        "food.meat"
+      ],
+      "arrow": [
+        "ammunition.arrow"
+      ],
+      "ammunition": [
+        "ammunition.arrow",
+        "ammunition.bolt"
+      ],
+      "bolt": [
+        "ammunition.bolt"
+      ],
+      "spellbook": [
+        "miscellaneous.spellbook"
+      ],
+      "magic": [
+        "miscellaneous.spellbook",
+        "miscellaneous.rune",
+        "miscellaneous.runebook"
+      ],
+      "book": [
+        "miscellaneous.spellbook",
+        "miscellaneous.runebook"
+      ],
+      "rune": [
+        "miscellaneous.rune"
+      ],
+      "travel": [
+        "miscellaneous.rune",
+        "miscellaneous.runebook"
+      ],
+      "runebook": [
+        "miscellaneous.runebook"
+      ],
+      "key": [
+        "miscellaneous.key"
+      ],
+      "misc": [
+        "miscellaneous.key",
+        "miscellaneous.bottle",
+        "miscellaneous.pitcher",
+        "miscellaneous.lantern",
+        "miscellaneous.torch",
+        "miscellaneous.candle",
+        "miscellaneous.hair_dye",
+        "miscellaneous.dye_tub"
+      ],
+      "bottle": [
+        "miscellaneous.bottle"
+      ],
+      "pitcher": [
+        "miscellaneous.pitcher"
+      ],
+      "lantern": [
+        "miscellaneous.lantern"
+      ],
+      "light": [
+        "miscellaneous.lantern",
+        "miscellaneous.torch",
+        "miscellaneous.candle"
+      ],
+      "torch": [
+        "miscellaneous.torch"
+      ],
+      "candle": [
+        "miscellaneous.candle"
+      ],
+      "hair dye": [
+        "miscellaneous.hair_dye"
+      ],
+      "dye tub": [
+        "miscellaneous.dye_tub"
+      ],
+      "dye": [
+        "miscellaneous.dye_tub"
+      ]
+    },
+    "by_value_tier": {
+      "high": [
+        "currency.gold_coins",
+        "currency.gold_pile",
+        "gems.amethyst",
+        "gems.tourmaline",
+        "gems.citrine",
+        "potions.greater_heal_potion",
+        "potions.greater_cure_potion",
+        "weapons.katana",
+        "weapons.maul",
+        "weapons.war_hammer",
+        "weapons.war_mace",
+        "weapons.heavy_crossbow",
+        "armor.plate_helm",
+        "armor.plate_arms",
+        "armor.plate_gloves",
+        "armor.plate_chest",
+        "armor.plate_legs",
+        "resources.shadow_iron_ingot",
+        "resources.gold_ingot",
+        "resources.spined_leather",
+        "containers.metal_chest",
+        "miscellaneous.spellbook",
+        "miscellaneous.runebook"
+      ],
+      "very_high": [
+        "gems.diamond",
+        "gems.ruby",
+        "gems.emerald",
+        "gems.sapphire",
+        "gems.star_sapphire",
+        "resources.agapite_ingot",
+        "resources.verite_ingot",
+        "resources.valorite_ingot",
+        "resources.horned_leather",
+        "resources.barbed_leather"
+      ],
+      "medium": [
+        "reagents.black_pearl",
+        "reagents.blood_moss",
+        "reagents.garlic",
+        "reagents.ginseng",
+        "reagents.mandrake_root",
+        "reagents.nightshade",
+        "reagents.spiders_silk",
+        "reagents.sulfurous_ash",
+        "potions.lesser_heal_potion",
+        "potions.heal_potion",
+        "potions.lesser_cure_potion",
+        "potions.cure_potion",
+        "potions.refresh_potion",
+        "potions.greater_poison_potion",
+        "potions.strength_potion",
+        "potions.agility_potion",
+        "weapons.dagger",
+        "weapons.kryss",
+        "weapons.broadsword",
+        "weapons.longsword",
+        "weapons.scimitar",
+        "weapons.viking_sword",
+        "weapons.mace",
+        "weapons.bow",
+        "weapons.crossbow",
+        "armor.chainmail_coif",
+        "tools.bandages",
+        "tools.lockpicks",
+        "resources.iron_ingot",
+        "resources.dull_copper_ingot",
+        "resources.copper_ingot",
+        "resources.bronze_ingot",
+        "resources.leather",
+        "resources.boards",
+        "resources.cloth",
+        "resources.cut_cloth",
+        "containers.backpack",
+        "containers.metal_box",
+        "containers.wooden_chest",
+        "miscellaneous.rune",
+        "miscellaneous.dye_tub"
+      ],
+      "low": [
+        "potions.lesser_poison_potion",
+        "potions.poison_potion",
+        "weapons.club",
+        "armor.leather_cap",
+        "armor.leather_gorget",
+        "armor.leather_arms",
+        "armor.leather_gloves",
+        "armor.leather_chest",
+        "armor.leather_legs",
+        "tools.skinning_knife",
+        "tools.scissors",
+        "tools.sewing_kit",
+        "tools.tinker_tools",
+        "tools.smith_hammer",
+        "tools.tongs",
+        "tools.shovel",
+        "tools.pickaxe",
+        "tools.hatchet",
+        "tools.fishing_pole",
+        "resources.iron_ore",
+        "resources.hides",
+        "resources.logs",
+        "resources.cotton",
+        "resources.wool",
+        "resources.flax",
+        "containers.bag",
+        "containers.pouch",
+        "containers.wooden_box",
+        "containers.basket",
+        "containers.crate",
+        "containers.barrel",
+        "food.apple",
+        "food.banana",
+        "food.grapes",
+        "food.peach",
+        "food.pear",
+        "food.bread",
+        "food.cheese",
+        "food.fish_steak",
+        "food.meat",
+        "ammunition.arrow",
+        "ammunition.bolt",
+        "miscellaneous.key",
+        "miscellaneous.bottle",
+        "miscellaneous.pitcher",
+        "miscellaneous.lantern",
+        "miscellaneous.torch",
+        "miscellaneous.candle",
+        "miscellaneous.hair_dye"
+      ]
+    }
+  }
+}

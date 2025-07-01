@@ -72,6 +72,15 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.temp
+
+# RazorEnhanced development aids
+stubs/
+*.stub
+
+# VS Code personal settings (keep .vscode/settings.json.example for team)
+.vscode/settings.json
+
+# Temporary development files
 tmp/*
 !tmp/.gitkeep
 

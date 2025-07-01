@@ -45,8 +45,8 @@
       "ignore_list_cleanup_interval_seconds": 180
     },
     "performance_thresholds": {
-      "main_loop_warning_ms": 200,
-      "system_execution_warning_ms": 100
+      "main_loop_warning_ms": 800,
+      "system_execution_warning_ms": 300
     }
   }
 }

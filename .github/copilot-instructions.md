@@ -180,6 +180,66 @@ from System import Int32 as int
 # - Target: Target.SetLast, Target.Last
 ```
 
+### Development Workflow Best Practices
+
+#### Git and Version Control Standards
+- **Commit Early and Often**: Make frequent, small commits with clear, descriptive messages
+- **Never Commit Broken Builds**: Always validate code compiles and core tests pass before committing
+  - Use `python -m invoke validate` to check system integrity before committing
+  - Run `python -m invoke test` to ensure test suite passes
+  - Use `python -m invoke build` to verify bundled output builds successfully
+- **Atomic Commits**: Each commit should represent one logical change or feature
+- **Descriptive Commit Messages**: Use conventional commit format when possible
+  ```
+  feat: add new looting system optimization
+  fix: resolve bandage count display issue in GUMP
+  docs: update development workflow guidelines
+  test: add integration tests for UO Items database
+  ```
+
+#### Preferred Development Workflow Commands
+Always use the unified invoke task system for development operations:
+
+```bash
+# Validation and Testing (use before committing)
+python -m invoke validate    # Check system integrity and function presence
+python -m invoke test       # Run comprehensive test suite
+python -m invoke build      # Build and validate bundled DexBot.py
+
+# Development Operations
+python -m invoke status     # Check git status and workspace health
+python -m invoke quick      # Fast build+test cycle for iterative development
+python -m invoke watch      # Monitor file changes during development
+
+# Information and Help
+python -m invoke version    # Display version and build information
+python -m invoke help       # Show all available tasks with descriptions
+python -m invoke --list     # List all available invoke tasks
+```
+
+#### Pre-Commit Validation Checklist
+Before any git commit, ensure:
+- [ ] `python -m invoke validate` passes (checks for missing functions, proper imports)
+- [ ] `python -m invoke test` shows high pass rates (96%+ expected)
+- [ ] `python -m invoke build` completes successfully
+- [ ] No syntax errors or import issues in modified files
+- [ ] Version information is current in `version.txt` if version changed
+- [ ] All new code follows project coding standards and includes proper documentation
+
+#### Continuous Integration Mindset
+- **Build Validation**: Every change should maintain build integrity
+- **Test Coverage**: New features require corresponding tests using the 3-case pattern
+- **Performance Awareness**: Consider long-running session impact (12+ hours)
+- **Documentation Updates**: Keep docs current with code changes
+- **Backward Compatibility**: Ensure config file migrations work properly
+
+#### Emergency Procedures
+If a broken commit is discovered:
+1. **Immediate**: Use `git revert <commit-hash>` rather than force-push if already shared
+2. **Assessment**: Run `python -m invoke validate` and `python -m invoke test` to identify issues
+3. **Fix Forward**: Create fix commits rather than amending shared history
+4. **Validation**: Ensure `python -m invoke build` produces working bundled output
+
 ### AI-Assisted Development Guidelines
 
 #### Context Awareness for AI
@@ -333,3 +393,18 @@ class RazorEnhancedAPIError(DexBotSystemError):
     """
     pass
 ```
+
+## Key Development Workflow Reminders
+
+Always include comprehensive docstrings with Args, Returns, Raises, and Example sections for DexBot code.
+Use RazorEnhanced-specific imports: 'from System.Collections.Generic import List' and 'from System import Int32 as int'.
+Wrap all RazorEnhanced API calls in try/except blocks with proper logging using Logger from src/core/logger.py.
+Follow the 3-case testing pattern: pass/fail/edge cases for all new functionality.
+Always create temporary files in the tmp/ directory to keep the workspace organized.
+Clean up the tmp/ directory when wrapping up work sessions to maintain a tidy workspace.
+
+**CRITICAL WORKFLOW PRACTICES:**
+- **Never commit broken builds** - Always run `python -m invoke validate` and `python -m invoke test` before committing
+- **Use invoke tasks** - Prefer `python -m invoke <task>` over direct commands for consistency and validation
+- **Commit frequently** - Make small, atomic commits with descriptive messages using conventional commit format
+- **Validate before commit** - Ensure build succeeds, tests pass (96%+ expected), and no syntax errors exist

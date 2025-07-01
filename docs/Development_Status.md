@@ -14,10 +14,11 @@ This document tracks the development progress for the DexBot modular bot system.
 ## 🎯 **Current Status Summary**
 
 ### **✅ Latest Completed Work (June 30, 2025)**
-- **� TECH-001 API Reference Optimization**: Complete API documentation system overhaul with multi-format output
-- **🧹 Legacy Cleanup**: Removed obsolete API reference files and archived PRD documentation
-- **� PRD Documentation System**: Streamlined PRD structure focused on active development features
+- **🔧 TECH-001 API Reference Optimization**: Complete API documentation system overhaul with multi-format output
+- **🧹 Legacy Cleanup**: Removed obsolete API reference files and archived PRD documentation  
+- **📋 PRD Documentation System**: Streamlined PRD structure focused on active development features
 - **🎯 Production Systems**: All core systems (Auto Heal, Combat, Looting) are complete and optimized
+- **📋 Documentation Restructure**: Combined FR-127/128 into unified UO Item Database System PRD
 
 ### **✅ Production Systems (v3.1.1)**
 - **🚀 Native API Integration**: Uses `Items.Filter.CheckIgnoreObject = True` for filter-level optimization

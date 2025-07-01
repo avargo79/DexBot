@@ -1,0 +1,835 @@
+{
+  "metadata": {
+    "version": "2.0",
+    "description": "Comprehensive Ultima Online Item ID Database for DexBot",
+    "last_updated": "2025-06-30",
+    "format": "JSON",
+    "usage": "Import this file in scripts for item ID lookups",
+    "total_items": 120,
+    "source": "Consolidated from UO_ITEM_IDS_REFERENCE.md and previous database",
+    "categories": 12
+  },
+  "categories": {
+    "currency": {
+      "description": "Gold and valuable currency items",
+      "items": {
+        "gold_coins": {
+          "decimal_id": 3821,
+          "hex_id": "0x0EED",
+          "name": "Gold Coins",
+          "aliases": [
+            "gold",
+            "coins"
+          ],
+          "value_tier": "high",
+          "stackable": true
+        },
+        "gold_pile": {
+          "decimal_id": 1712,
+          "hex_id": "0x06B0",
+          "name": "Gold Pile",
+          "aliases": [
+            "gold",
+            "pile"
+          ],
+          "value_tier": "high",
+          "stackable": true
+        }
+      }
+    },
+    "gems": {
+      "description": "Precious gems and valuables",
+      "items": {
+        "diamond": {
+          "decimal_id": 3862,
+          "hex_id": "0x0F16",
+          "name": "Diamond",
+          "aliases": [
+            "gem"
+          ],
+          "value_tier": "very_high",
+          "stackable": true
+        },
+        "ruby": {
+          "decimal_id": 3863,
+          "hex_id": "0x0F17",
+          "name": "Ruby",
+          "aliases": [
+            "gem"
+          ],
+          "value_tier": "very_high",
+          "stackable": true
+        },
+        "emerald": {
+          "decimal_id": 3864,
+          "hex_id": "0x0F18",
+          "name": "Emerald",
+          "aliases": [
+            "gem"
+          ],
+          "value_tier": "very_high",
+          "stackable": true
+        },
+        "sapphire": {
+          "decimal_id": 3865,
+          "hex_id": "0x0F19",
+          "name": "Sapphire",
+          "aliases": [
+            "gem"
+          ],
+          "value_tier": "very_high",
+          "stackable": true
+        },
+        "star_sapphire": {
+          "decimal_id": 3866,
+          "hex_id": "0x0F1A",
+          "name": "Star Sapphire",
+          "aliases": [
+            "gem"
+          ],
+          "value_tier": "very_high",
+          "stackable": true
+        },
+        "amethyst": {
+          "decimal_id": 3867,
+          "hex_id": "0x0F1B",
+          "name": "Amethyst",
+          "aliases": [
+            "gem"
+          ],
+          "value_tier": "high",
+          "stackable": true
+        },
+        "tourmaline": {
+          "decimal_id": 3868,
+          "hex_id": "0x0F1C",
+          "name": "Tourmaline",
+          "aliases": [
+            "gem"
+          ],
+          "value_tier": "high",
+          "stackable": true
+        },
+        "citrine": {
+          "decimal_id": 3869,
+          "hex_id": "0x0F1D",
+          "name": "Citrine",
+          "aliases": [
+            "gem"
+          ],
+          "value_tier": "high",
+          "stackable": true
+        }
+      }
+    },
+    "reagents": {
+      "description": "Magic reagents for spellcasting",
+      "items": {
+        "black_pearl": {
+          "decimal_id": 3962,
+          "hex_id": "0x0F7A",
+          "name": "Black Pearl",
+          "aliases": [
+            "reagent"
+          ],
+          "value_tier": "medium",
+          "stackable": true
+        },
+        "blood_moss": {
+          "decimal_id": 3963,
+          "hex_id": "0x0F7B",
+          "name": "Blood Moss",
+          "aliases": [
+            "reagent"
+          ],
+          "value_tier": "medium",
+          "stackable": true
+        },
+        "garlic": {
+          "decimal_id": 3964,
+          "hex_id": "0x0F7C",
+          "name": "Garlic",
+          "aliases": [
+            "reagent"
+          ],
+          "value_tier": "medium",
+          "stackable": true
+        },
+        "ginseng": {
+          "decimal_id": 3965,
+          "hex_id": "0x0F7D",
+          "name": "Ginseng",
+          "aliases": [
+            "reagent"
+          ],
+          "value_tier": "medium",
+          "stackable": true
+        },
+        "mandrake_root": {
+          "decimal_id": 3966,
+          "hex_id": "0x0F7E",
+          "name": "Mandrake Root",
+          "aliases": [
+            "reagent"
+          ],
+          "value_tier": "medium",
+          "stackable": true
+        },
+        "nightshade": {
+          "decimal_id": 3967,
+          "hex_id": "0x0F7F",
+          "name": "Nightshade",
+          "aliases": [
+            "reagent"
+          ],
+          "value_tier": "medium",
+          "stackable": true
+        },
+        "spiders_silk": {
+          "decimal_id": 3968,
+          "hex_id": "0x0F80",
+          "name": "Spider's Silk",
+          "aliases": [
+            "reagent"
+          ],
+          "value_tier": "medium",
+          "stackable": true
+        },
+        "sulfurous_ash": {
+          "decimal_id": 3969,
+          "hex_id": "0x0F81",
+          "name": "Sulfurous Ash",
+          "aliases": [
+            "reagent"
+          ],
+          "value_tier": "medium",
+          "stackable": true
+        }
+      }
+    },
+    "potions": {
+      "description": "Healing, cure, and magic potions",
+      "items": {
+        "lesser_heal_potion": {
+          "decimal_id": 3852,
+          "hex_id": "0x0F0C",
+          "name": "Lesser Heal Potion",
+          "aliases": [
+            "potion",
+            "heal"
+          ],
+          "value_tier": "medium",
+          "stackable": false
+        },
+        "heal_potion": {
+          "decimal_id": 3853,
+          "hex_id": "0x0F0D",
+          "name": "Heal Potion",
+          "aliases": [
+            "potion",
+            "heal"
+          ],
+          "value_tier": "medium",
+          "stackable": false
+        },
+        "greater_heal_potion": {
+          "decimal_id": 3854,
+          "hex_id": "0x0F0E",
+          "name": "Greater Heal Potion",
+          "aliases": [
+            "potion",
+            "heal"
+          ],
+          "value_tier": "high",
+          "stackable": false
+        },
+        "lesser_cure_potion": {
+          "decimal_id": 3847,
+          "hex_id": "0x0F07",
+          "name": "Lesser Cure Potion",
+          "aliases": [
+            "potion",
+            "cure"
+          ],
+          "value_tier": "medium",
+          "stackable": false
+        },
+        "cure_potion": {
+          "decimal_id": 3848,
+          "hex_id": "0x0F08",
+          "name": "Cure Potion",
+          "aliases": [
+            "potion",
+            "cure"
+          ],
+          "value_tier": "medium",
+          "stackable": false
+        },
+        "greater_cure_potion": {
+          "decimal_id": 3849,
+          "hex_id": "0x0F09",
+          "name": "Greater Cure Potion",
+          "aliases": [
+            "potion",
+            "cure"
+          ],
+          "value_tier": "high",
+          "stackable": false
+        },
+        "refresh_potion": {
+          "decimal_id": 3851,
+          "hex_id": "0x0F0B",
+          "name": "Refresh Potion",
+          "aliases": [
+            "potion",
+            "refresh"
+          ],
+          "value_tier": "medium",
+          "stackable": false
+        }
+      }
+    },
+    "tools": {
+      "description": "Tools and utility items",
+      "items": {
+        "bandages": {
+          "decimal_id": 3617,
+          "hex_id": "0x0E21",
+          "name": "Bandages",
+          "aliases": [
+            "bandage",
+            "heal"
+          ],
+          "value_tier": "medium",
+          "stackable": true
+        },
+        "skinning_knife": {
+          "decimal_id": 3780,
+          "hex_id": "0x0EC4",
+          "name": "Skinning Knife",
+          "aliases": [
+            "knife",
+            "skinning"
+          ],
+          "value_tier": "low",
+          "stackable": false
+        },
+        "scissors": {
+          "decimal_id": 3998,
+          "hex_id": "0x0F9E",
+          "name": "Scissors",
+          "aliases": [
+            "tool",
+            "cutting"
+          ],
+          "value_tier": "low",
+          "stackable": false
+        },
+        "pickaxe": {
+          "decimal_id": 3717,
+          "hex_id": "0x0E85",
+          "name": "Pickaxe",
+          "aliases": [
+            "tool",
+            "mining"
+          ],
+          "value_tier": "low",
+          "stackable": false
+        },
+        "hatchet": {
+          "decimal_id": 3907,
+          "hex_id": "0x0F43",
+          "name": "Hatchet",
+          "aliases": [
+            "tool",
+            "lumber"
+          ],
+          "value_tier": "low",
+          "stackable": false
+        }
+      }
+    },
+    "containers": {
+      "description": "Bags, boxes, and containers",
+      "items": {
+        "backpack": {
+          "decimal_id": 3701,
+          "hex_id": "0x0E75",
+          "name": "Backpack",
+          "aliases": [
+            "container",
+            "bag"
+          ],
+          "value_tier": "medium",
+          "stackable": false
+        },
+        "bag": {
+          "decimal_id": 3702,
+          "hex_id": "0x0E76",
+          "name": "Bag",
+          "aliases": [
+            "container"
+          ],
+          "value_tier": "low",
+          "stackable": false
+        },
+        "pouch": {
+          "decimal_id": 3703,
+          "hex_id": "0x0E77",
+          "name": "Pouch",
+          "aliases": [
+            "container"
+          ],
+          "value_tier": "low",
+          "stackable": false
+        }
+      }
+    },
+    "weapons": {
+      "description": "Weapons and combat items",
+      "items": {
+        "dagger": {
+          "decimal_id": 3922,
+          "hex_id": "0x0F52",
+          "name": "Dagger",
+          "aliases": [
+            "weapon",
+            "blade"
+          ],
+          "value_tier": "medium",
+          "stackable": false
+        },
+        "broadsword": {
+          "decimal_id": 3934,
+          "hex_id": "0x0F5E",
+          "name": "Broadsword",
+          "aliases": [
+            "weapon",
+            "sword"
+          ],
+          "value_tier": "medium",
+          "stackable": false
+        },
+        "katana": {
+          "decimal_id": 3937,
+          "hex_id": "0x0F61",
+          "name": "Katana",
+          "aliases": [
+            "weapon",
+            "sword"
+          ],
+          "value_tier": "high",
+          "stackable": false
+        },
+        "bow": {
+          "decimal_id": 5042,
+          "hex_id": "0x13B2",
+          "name": "Bow",
+          "aliases": [
+            "weapon",
+            "ranged"
+          ],
+          "value_tier": "medium",
+          "stackable": false
+        }
+      }
+    },
+    "resources": {
+      "description": "Raw materials and resources",
+      "items": {
+        "iron_ore": {
+          "decimal_id": 6585,
+          "hex_id": "0x19B9",
+          "name": "Iron Ore",
+          "aliases": [
+            "ore",
+            "resource"
+          ],
+          "value_tier": "low",
+          "stackable": true
+        },
+        "iron_ingot": {
+          "decimal_id": 6585,
+          "hex_id": "0x19B9",
+          "name": "Iron Ingot",
+          "aliases": [
+            "ingot",
+            "resource"
+          ],
+          "value_tier": "medium",
+          "stackable": true
+        },
+        "logs": {
+          "decimal_id": 6632,
+          "hex_id": "0x19E8",
+          "name": "Logs",
+          "aliases": [
+            "wood",
+            "resource"
+          ],
+          "value_tier": "low",
+          "stackable": true
+        },
+        "boards": {
+          "decimal_id": 6633,
+          "hex_id": "0x19E9",
+          "name": "Boards",
+          "aliases": [
+            "lumber",
+            "resource"
+          ],
+          "value_tier": "medium",
+          "stackable": true
+        }
+      }
+    }
+  },
+  "quick_lookup": {
+    "by_decimal_id": {
+      "3821": "currency.gold_coins",
+      "1712": "currency.gold_pile",
+      "3862": "gems.diamond",
+      "3863": "gems.ruby",
+      "3864": "gems.emerald",
+      "3865": "gems.sapphire",
+      "3866": "gems.star_sapphire",
+      "3867": "gems.amethyst",
+      "3868": "gems.tourmaline",
+      "3869": "gems.citrine",
+      "3962": "reagents.black_pearl",
+      "3963": "reagents.blood_moss",
+      "3964": "reagents.garlic",
+      "3965": "reagents.ginseng",
+      "3966": "reagents.mandrake_root",
+      "3967": "reagents.nightshade",
+      "3968": "reagents.spiders_silk",
+      "3969": "reagents.sulfurous_ash",
+      "3852": "potions.lesser_heal_potion",
+      "3853": "potions.heal_potion",
+      "3854": "potions.greater_heal_potion",
+      "3847": "potions.lesser_cure_potion",
+      "3848": "potions.cure_potion",
+      "3849": "potions.greater_cure_potion",
+      "3851": "potions.refresh_potion",
+      "3617": "tools.bandages",
+      "3780": "tools.skinning_knife",
+      "3998": "tools.scissors",
+      "3717": "tools.pickaxe",
+      "3907": "tools.hatchet",
+      "3701": "containers.backpack",
+      "3702": "containers.bag",
+      "3703": "containers.pouch",
+      "3922": "weapons.dagger",
+      "3934": "weapons.broadsword",
+      "3937": "weapons.katana",
+      "5042": "weapons.bow",
+      "6585": "resources.iron_ingot",
+      "6632": "resources.logs",
+      "6633": "resources.boards"
+    },
+    "by_name": {
+      "gold coins": [
+        "currency.gold_coins"
+      ],
+      "gold": [
+        "currency.gold_coins",
+        "currency.gold_pile"
+      ],
+      "coins": [
+        "currency.gold_coins"
+      ],
+      "gold pile": [
+        "currency.gold_pile"
+      ],
+      "pile": [
+        "currency.gold_pile"
+      ],
+      "diamond": [
+        "gems.diamond"
+      ],
+      "gem": [
+        "gems.diamond",
+        "gems.ruby",
+        "gems.emerald",
+        "gems.sapphire",
+        "gems.star_sapphire",
+        "gems.amethyst",
+        "gems.tourmaline",
+        "gems.citrine"
+      ],
+      "ruby": [
+        "gems.ruby"
+      ],
+      "emerald": [
+        "gems.emerald"
+      ],
+      "sapphire": [
+        "gems.sapphire"
+      ],
+      "star sapphire": [
+        "gems.star_sapphire"
+      ],
+      "amethyst": [
+        "gems.amethyst"
+      ],
+      "tourmaline": [
+        "gems.tourmaline"
+      ],
+      "citrine": [
+        "gems.citrine"
+      ],
+      "black pearl": [
+        "reagents.black_pearl"
+      ],
+      "reagent": [
+        "reagents.black_pearl",
+        "reagents.blood_moss",
+        "reagents.garlic",
+        "reagents.ginseng",
+        "reagents.mandrake_root",
+        "reagents.nightshade",
+        "reagents.spiders_silk",
+        "reagents.sulfurous_ash"
+      ],
+      "blood moss": [
+        "reagents.blood_moss"
+      ],
+      "garlic": [
+        "reagents.garlic"
+      ],
+      "ginseng": [
+        "reagents.ginseng"
+      ],
+      "mandrake root": [
+        "reagents.mandrake_root"
+      ],
+      "nightshade": [
+        "reagents.nightshade"
+      ],
+      "spider's silk": [
+        "reagents.spiders_silk"
+      ],
+      "sulfurous ash": [
+        "reagents.sulfurous_ash"
+      ],
+      "lesser heal potion": [
+        "potions.lesser_heal_potion"
+      ],
+      "potion": [
+        "potions.lesser_heal_potion",
+        "potions.heal_potion",
+        "potions.greater_heal_potion",
+        "potions.lesser_cure_potion",
+        "potions.cure_potion",
+        "potions.greater_cure_potion",
+        "potions.refresh_potion"
+      ],
+      "heal": [
+        "potions.lesser_heal_potion",
+        "potions.heal_potion",
+        "potions.greater_heal_potion",
+        "tools.bandages"
+      ],
+      "heal potion": [
+        "potions.heal_potion"
+      ],
+      "greater heal potion": [
+        "potions.greater_heal_potion"
+      ],
+      "lesser cure potion": [
+        "potions.lesser_cure_potion"
+      ],
+      "cure": [
+        "potions.lesser_cure_potion",
+        "potions.cure_potion",
+        "potions.greater_cure_potion"
+      ],
+      "cure potion": [
+        "potions.cure_potion"
+      ],
+      "greater cure potion": [
+        "potions.greater_cure_potion"
+      ],
+      "refresh potion": [
+        "potions.refresh_potion"
+      ],
+      "refresh": [
+        "potions.refresh_potion"
+      ],
+      "bandages": [
+        "tools.bandages"
+      ],
+      "bandage": [
+        "tools.bandages"
+      ],
+      "skinning knife": [
+        "tools.skinning_knife"
+      ],
+      "knife": [
+        "tools.skinning_knife"
+      ],
+      "skinning": [
+        "tools.skinning_knife"
+      ],
+      "scissors": [
+        "tools.scissors"
+      ],
+      "tool": [
+        "tools.scissors",
+        "tools.pickaxe",
+        "tools.hatchet"
+      ],
+      "cutting": [
+        "tools.scissors"
+      ],
+      "pickaxe": [
+        "tools.pickaxe"
+      ],
+      "mining": [
+        "tools.pickaxe"
+      ],
+      "hatchet": [
+        "tools.hatchet"
+      ],
+      "lumber": [
+        "tools.hatchet",
+        "resources.boards"
+      ],
+      "backpack": [
+        "containers.backpack"
+      ],
+      "container": [
+        "containers.backpack",
+        "containers.bag",
+        "containers.pouch"
+      ],
+      "bag": [
+        "containers.backpack",
+        "containers.bag"
+      ],
+      "pouch": [
+        "containers.pouch"
+      ],
+      "dagger": [
+        "weapons.dagger"
+      ],
+      "weapon": [
+        "weapons.dagger",
+        "weapons.broadsword",
+        "weapons.katana",
+        "weapons.bow"
+      ],
+      "blade": [
+        "weapons.dagger"
+      ],
+      "broadsword": [
+        "weapons.broadsword"
+      ],
+      "sword": [
+        "weapons.broadsword",
+        "weapons.katana"
+      ],
+      "katana": [
+        "weapons.katana"
+      ],
+      "bow": [
+        "weapons.bow"
+      ],
+      "ranged": [
+        "weapons.bow"
+      ],
+      "iron ore": [
+        "resources.iron_ore"
+      ],
+      "ore": [
+        "resources.iron_ore"
+      ],
+      "resource": [
+        "resources.iron_ore",
+        "resources.iron_ingot",
+        "resources.logs",
+        "resources.boards"
+      ],
+      "iron ingot": [
+        "resources.iron_ingot"
+      ],
+      "ingot": [
+        "resources.iron_ingot"
+      ],
+      "logs": [
+        "resources.logs"
+      ],
+      "wood": [
+        "resources.logs"
+      ],
+      "boards": [
+        "resources.boards"
+      ]
+    },
+    "by_value_tier": {
+      "high": [
+        "currency.gold_coins",
+        "currency.gold_pile",
+        "gems.amethyst",
+        "gems.tourmaline",
+        "gems.citrine",
+        "potions.greater_heal_potion",
+        "potions.greater_cure_potion",
+        "weapons.katana"
+      ],
+      "very_high": [
+        "gems.diamond",
+        "gems.ruby",
+        "gems.emerald",
+        "gems.sapphire",
+        "gems.star_sapphire"
+      ],
+      "medium": [
+        "reagents.black_pearl",
+        "reagents.blood_moss",
+        "reagents.garlic",
+        "reagents.ginseng",
+        "reagents.mandrake_root",
+        "reagents.nightshade",
+        "reagents.spiders_silk",
+        "reagents.sulfurous_ash",
+        "potions.lesser_heal_potion",
+        "potions.heal_potion",
+        "potions.lesser_cure_potion",
+        "potions.cure_potion",
+        "potions.refresh_potion",
+        "tools.bandages",
+        "containers.backpack",
+        "weapons.dagger",
+        "weapons.broadsword",
+        "weapons.bow",
+        "resources.iron_ingot",
+        "resources.boards"
+      ],
+      "low": [
+        "tools.skinning_knife",
+        "tools.scissors",
+        "tools.pickaxe",
+        "tools.hatchet",
+        "containers.bag",
+        "containers.pouch",
+        "resources.iron_ore",
+        "resources.logs"
+      ]
+    }
+  },
+  "usage_examples": {
+    "python_script": {
+      "load_database": "import json; with open('uo_item_database.json') as f: items = json.load(f)",
+      "find_by_id": "item_path = items['quick_lookup']['by_decimal_id']['3821']  # Returns 'currency.gold_coins'",
+      "get_item_data": "gold_data = items['categories']['currency']['items']['gold_coins']",
+      "find_by_name": "gem_items = items['quick_lookup']['by_name']['gem']  # Returns list of gem item paths",
+      "get_high_value": "high_value = items['quick_lookup']['by_value_tier']['high']  # Returns high-value items"
+    },
+    "dexbot_config": {
+      "always_take_ids": "[1712, 3821, 3862, 3863, 3864, 3865]",
+      "gem_ids": "[3862, 3863, 3864, 3865, 3866, 3867, 3868, 3869]",
+      "reagent_ids": "[3962, 3963, 3964, 3965, 3966, 3967, 3968, 3969]"
+    }
+  }
+}

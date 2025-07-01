@@ -11,6 +11,7 @@ from enum import Enum
 from ..config.config_manager import ConfigManager
 from ..core.logger import Logger, SystemStatus
 from ..utils.imports import Items, Misc, Mobiles, Player, Target, Timer
+from ..utils.uo_items import get_item_database
 
 # Constants for system performance tuning
 CACHE_CLEANUP_INTERVAL_SECONDS = 60  # Clean cache every minute
@@ -74,6 +75,20 @@ class LootingSystem:
         self.corpse_queue: List[CorpseInfo] = []
         self.processing_corpse = None
         
+        # Initialize UO Item Database for enhanced item identification
+        try:
+            self.item_db = get_item_database()
+            Logger.info("UO Item Database loaded successfully for looting system")
+        except Exception as e:
+            Logger.warning(f"Failed to load UO Item Database: {e}. Using fallback mode.")
+            self.item_db = None
+        
+        # Enhanced configuration with database validation
+        self._enhanced_config_cache = None
+        self._config_cache_timestamp = 0
+        self._config_cache_duration = 300  # 5 minutes
+        self._load_enhanced_config()
+        
         # Corpse processing cache to avoid reprocessing empty/looted corpses
         self.processed_corpses: Dict[int, float] = {}  # serial -> timestamp
         self.corpse_cache_duration = 300  # 5 minutes
@@ -97,6 +112,71 @@ class LootingSystem:
         self._load_ignore_list_settings()
         
         Logger.info(f"Looting System initialized with ignore list optimization: {self.use_ignore_list}")
+    
+    def _get_currency_ids(self) -> List[int]:
+        """Get all currency item IDs from the database.
+        
+        Returns:
+            List of currency item IDs. Falls back to hardcoded gold IDs if database unavailable.
+        """
+        if self.item_db:
+            try:
+                currency_items = self.item_db.get_items_by_category("currency")
+                return [item_data['decimal_id'] for item_data in currency_items.values()]
+            except Exception as e:
+                Logger.warning(f"Failed to get currency IDs from database: {e}")
+        
+        # Fallback to hardcoded gold IDs (matching primary gold ID: 1712 or 0x06B0)
+        return [1712]  # Gold coins/piles
+    
+    def _identify_item(self, item) -> Dict[str, Any]:
+        """Identify item using database lookup.
+        
+        Args:
+            item: The item object to identify
+            
+        Returns:
+            Dictionary with item identification information
+        """
+        item_id = getattr(item, 'ItemID', 0)
+        item_name = getattr(item, 'Name', 'Unknown')
+        
+        if self.item_db:
+            try:
+                db_item = self.item_db.get_item_by_id(item_id)
+                if db_item:
+                    return {
+                        'id': item_id,
+                        'name': db_item['name'],
+                        'category': db_item.get('category', 'unknown'),
+                        'value_tier': db_item.get('value_tier', 'unknown'),
+                        'from_database': True
+                    }
+            except Exception as e:
+                Logger.debug(f"Database lookup failed for item {item_id}: {e}")
+        
+        # Fallback to basic item information
+        return {
+            'id': item_id,
+            'name': item_name,
+            'category': 'unknown',
+            'value_tier': 'unknown',
+            'from_database': False
+        }
+    
+    def _is_currency_item(self, item_id: int) -> bool:
+        """Check if an item is currency using database lookup.
+        
+        Args:
+            item_id: The item ID to check
+            
+        Returns:
+            True if item is currency, False otherwise
+        """
+        if not hasattr(self, '_currency_ids_cache'):
+            self._currency_ids_cache = self._get_currency_ids()
+        
+        return item_id in self._currency_ids_cache
 
     def _load_ignore_list_settings(self) -> None:
         """Load ignore list optimization settings from configuration."""
@@ -535,9 +615,9 @@ class LootingSystem:
                     items_taken += 1
                     Logger.info(f"LOOTING: Successfully took item: {item.Name}")
                     
-                    # Track gold specifically (optimized check)
+                    # Track gold specifically (using database lookup)
                     item_id = getattr(item, 'ItemID', 0)
-                    if item_id == 0x06F4 or item_id == 0x06F5:  # Gold coins/piles 
+                    if self._is_currency_item(item_id):
                         gold_amount = getattr(item, 'Amount', 1)
                         self.stats['gold_collected'] += gold_amount
                         Logger.info(f"LOOTING: Collected {gold_amount} gold")
@@ -1010,9 +1090,9 @@ class LootingSystem:
         """
         self.stats['items_collected'] += 1
         
-        # Track gold specifically (optimized check)
+        # Track gold specifically (using database lookup)
         item_id = getattr(item, 'ItemID', 0)
-        if item_id == 0x06F4 or item_id == 0x06F5:  # Gold coins/piles
+        if self._is_currency_item(item_id):
             self.stats['gold_collected'] += item_amount
             
     def _verify_item_moved(self, item_serial: int) -> bool:
@@ -1049,29 +1129,37 @@ class LootingSystem:
         config = self.config_manager.get_looting_config()
         loot_lists = config.get('loot_lists', {})
         
+        # Enhanced item identification using database
+        item_info = self._identify_item(item)
         item_name = item.Name.lower() if item.Name else ""
-        item_id = getattr(item, 'ItemID', 0)
+        item_id = item_info['id']
+        
+        # Enhanced logging with database information
+        if item_info['from_database']:
+            Logger.debug(f"Evaluating {item_info['name']} (ID: {item_id}, Category: {item_info['category']}, Value: {item_info['value_tier']})")
+        else:
+            Logger.debug(f"Evaluating {item_name} (ID: {item_id}) - not in database")
         
         # Check never take list first (highest priority)
         never_take = loot_lists.get('never_take', [])
         if self._matches_loot_rules(item_name, item_id, never_take):
-            Logger.debug(f"Item {item_name} matches never_take rules")
+            Logger.debug(f"Item {item_info['name']} matches never_take rules")
             return LootDecision.NEVER_TAKE
         
         # Check always take list (second priority) 
         always_take = loot_lists.get('always_take', [])
         if self._matches_loot_rules(item_name, item_id, always_take):
-            Logger.debug(f"Item {item_name} matches always_take rules")
+            Logger.debug(f"Item {item_info['name']} matches always_take rules")
             return LootDecision.ALWAYS_TAKE
         
         # Check take if space list (third priority)
         take_if_space = loot_lists.get('take_if_space', [])
         if self._matches_loot_rules(item_name, item_id, take_if_space):
-            Logger.debug(f"Item {item_name} matches take_if_space rules")
+            Logger.debug(f"Item {item_info['name']} matches take_if_space rules")
             return LootDecision.TAKE_IF_SPACE
         
         # Default: unknown items are not taken unless explicitly configured
-        Logger.debug(f"Item {item_name} (ID: {item_id}) not in any loot list - marked as unknown")
+        Logger.debug(f"Item {item_info['name']} (ID: {item_id}) not in any loot list - marked as unknown")
         return LootDecision.UNKNOWN
         
     def _matches_loot_rules(self, item_name: str, item_id: int, rule_list: List[str]) -> bool:
@@ -1195,3 +1283,170 @@ class LootingSystem:
             'max_weight': Player.MaxWeight,
             'weight_percent': (Player.Weight / Player.MaxWeight) * 100 if Player.MaxWeight > 0 else 0
         }
+    
+    def _validate_loot_config(self) -> Dict[str, List[int]]:
+        """Convert and validate loot configuration against database.
+        
+        Returns:
+            Dictionary with converted loot lists (string names converted to IDs)
+        """
+        config = self.config_manager.get_looting_config()
+        loot_lists = config.get('loot_lists', {})
+        validated_config = {}
+        
+        for list_name, items in loot_lists.items():
+            validated_ids = []
+            
+            for item in items:
+                converted_ids = self._convert_config_item_to_ids(item)
+                validated_ids.extend(converted_ids)
+                
+            validated_config[list_name] = list(set(validated_ids))  # Remove duplicates
+            Logger.debug(f"Validated {list_name}: {len(validated_ids)} items")
+        
+        return validated_config
+    
+    def _convert_config_item_to_ids(self, item) -> List[int]:
+        """Convert a configuration item (string, ID, category rule) to list of IDs.
+        
+        Args:
+            item: Configuration item (can be int, string name, or category rule)
+            
+        Returns:
+            List of item IDs
+        """
+        if isinstance(item, int):
+            # Already an ID
+            return [item]
+        
+        if isinstance(item, str):
+            item_lower = item.lower().strip()
+            
+            # Handle category wildcards (e.g., "gems:*", "currency:*")
+            if ':*' in item_lower:
+                category = item_lower.replace(':*', '')
+                return self._get_category_item_ids(category)
+            
+            # Handle value tier rules (e.g., "tier:high", "tier:very_high")
+            if item_lower.startswith('tier:'):
+                tier = item_lower.replace('tier:', '')
+                return self._get_value_tier_item_ids(tier)
+            
+            # Handle string names - search in database
+            if self.item_db:
+                try:
+                    items = self.item_db.find_items_by_name(item_lower)
+                    if items:
+                        ids = [item_data['decimal_id'] for item_data in items]
+                        Logger.debug(f"'{item}' resolved to {len(ids)} items: {ids}")
+                        return ids
+                    else:
+                        Logger.warning(f"Item name '{item}' not found in database")
+                except Exception as e:
+                    Logger.warning(f"Database lookup failed for '{item}': {e}")
+            
+            # Try to parse as hex string (e.g., "0x0EED")
+            try:
+                if item_lower.startswith('0x'):
+                    hex_id = int(item_lower, 16)
+                    return [hex_id]
+            except ValueError:
+                pass
+        
+        Logger.warning(f"Could not convert config item '{item}' to item ID(s)")
+        return []
+    
+    def _get_category_item_ids(self, category: str) -> List[int]:
+        """Get all item IDs for a category.
+        
+        Args:
+            category: Category name (e.g., "gems", "currency", "reagents")
+            
+        Returns:
+            List of item IDs in that category
+        """
+        if not self.item_db:
+            return []
+        
+        try:
+            category_items = self.item_db.get_items_by_category(category)
+            ids = [item_data['decimal_id'] for item_data in category_items.values()]
+            Logger.debug(f"Category '{category}': {len(ids)} items")
+            return ids
+        except Exception as e:
+            Logger.warning(f"Failed to get category '{category}' items: {e}")
+            return []
+    
+    def _get_value_tier_item_ids(self, tier: str) -> List[int]:
+        """Get all item IDs for a value tier.
+        
+        Args:
+            tier: Value tier (e.g., "high", "very_high", "medium", "low")
+            
+        Returns:
+            List of item IDs with that value tier
+        """
+        if not self.item_db:
+            return []
+        
+        try:
+            tier_items = self.item_db.get_items_by_value_tier(tier)
+            ids = [item_data['decimal_id'] for item_data in tier_items]
+            Logger.debug(f"Value tier '{tier}': {len(ids)} items")
+            return ids
+        except Exception as e:
+            Logger.warning(f"Failed to get value tier '{tier}' items: {e}")
+            return []
+
+    def _load_enhanced_config(self) -> None:
+        """Load and cache enhanced configuration with database validation."""
+        try:
+            current_time = time.time()
+            
+            # Check if cache is still valid
+            if (self._enhanced_config_cache is not None and 
+                current_time - self._config_cache_timestamp < self._config_cache_duration):
+                return
+            
+            # Load base configuration
+            base_config = self.config_manager.get_looting_config()
+            
+            # Enhance configuration with database information if available
+            enhanced_config = base_config.copy()
+            if self.item_db:
+                try:
+                    # Add database-derived categories and items
+                    db_categories = self.item_db.get_available_categories()
+                    enhanced_config['available_categories'] = db_categories
+                    
+                    # Add currency information
+                    enhanced_config['currency_ids'] = self._get_currency_ids()
+                    
+                    Logger.debug(f"Enhanced config with {len(db_categories)} database categories")
+                except Exception as e:
+                    Logger.warning(f"Failed to enhance config with database info: {e}")
+            
+            # Cache the enhanced configuration
+            self._enhanced_config_cache = enhanced_config
+            self._config_cache_timestamp = current_time
+            
+            Logger.debug("Enhanced configuration loaded and cached successfully")
+            
+        except Exception as e:
+            Logger.error(f"Failed to load enhanced configuration: {e}")
+            # Fallback to basic config if available
+            try:
+                self._enhanced_config_cache = self.config_manager.get_looting_config()
+                self._config_cache_timestamp = time.time()
+            except Exception as fallback_error:
+                Logger.error(f"Failed to load fallback configuration: {fallback_error}")
+                self._enhanced_config_cache = {}
+
+    def get_enhanced_config(self) -> Dict[str, Any]:
+        """Get the enhanced configuration, reloading if cache is expired.
+        
+        Returns:
+            Dictionary containing enhanced configuration
+        """
+        self._load_enhanced_config()
+        return self._enhanced_config_cache or {}

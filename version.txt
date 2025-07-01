@@ -1,0 +1,17 @@
+# DexBot Version Information
+# Format: VERSION|VERSION_NAME|BUILD_DATE
+# This file is the single source of truth for version information
+
+3.2.0|UO Database Integration & Performance Optimization|2025-07-01
+
+# Version History:
+# 3.2.0 - UO Database Integration & Performance Optimization (2025-07-01)
+# 3.1.1 - Ignore List Optimization (2025-06-30)
+# 3.1.0 - Phase 3.1 Core Systems (2025-06-29)
+# 3.0.0 - Initial Production Release (2025-06-28)
+
+# Branch-based versioning guidelines:
+# - feature/FR-### branches should increment minor version (x.Y.z)
+# - hotfix/TECH-### branches should increment patch version (x.y.Z)
+# - main merges should be tagged with the version number
+# - Version name should reflect the primary feature/improvement
