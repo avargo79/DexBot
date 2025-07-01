@@ -178,7 +178,7 @@ python scripts/extract_razor_api_data.py --verbose
 
 ### Command Line Options
 - `--input, -i`: Path to AutoComplete.json file (default: ./Config/AutoComplete.json)
-- `--output, -o`: Output directory (default: ./tmp/api_extraction/)
+- `--output, -o`: Output directory (default: ./reports/api_extraction/)
 - `--verbose, -v`: Enable verbose output
 - `--help, -h`: Show help message
 

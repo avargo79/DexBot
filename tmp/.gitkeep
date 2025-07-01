@@ -1,3 +1,0 @@
-# This file keeps the tmp directory in git
-# The tmp directory is for temporary files during development and testing
-# Contents of this directory (except this file) are ignored by git

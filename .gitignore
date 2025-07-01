@@ -80,11 +80,17 @@ stubs/
 # VS Code personal settings (keep .vscode/settings.json.example for team)
 .vscode/settings.json
 
-# Temporary development files
-tmp/*
-!tmp/.gitkeep
-
-# Test automation results
-*test_results*.json
-*test_report*.json
+# Runtime generated directories and files
+logs/
+reports/
+*.log
+*_results_*.json
+*_performance_*.json
+*_analysis_*.json
+*_test_*.json
+*_report_*.json
 validation_results_*.json
+
+# Temporary files
+*.tmp
+*.temp

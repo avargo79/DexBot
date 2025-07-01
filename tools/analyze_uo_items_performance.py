@@ -11,8 +11,8 @@ import os
 from typing import Dict, List, Any, Tuple
 import json
 
-# Add the src directory to path for imports
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
+# Add the src directory to path for imports (from tools/ directory)
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
 try:
     from utils.uo_items import UOItemDatabase, get_item_database
@@ -184,8 +184,8 @@ class UOItemsPerformanceAnalyzer:
         """Analyze how the database is used in the looting system."""
         print("📊 Analyzing Integration Patterns...")
         
-        # Read the looting system file to analyze usage patterns
-        looting_file = os.path.join('src', 'systems', 'looting.py')
+        # Read the looting system file to analyze usage patterns (from tools/ directory)
+        looting_file = os.path.join('..', 'src', 'systems', 'looting.py')
         
         integration_analysis = {
             'usage_patterns': [],
@@ -355,12 +355,12 @@ def main():
         timestamp = time.strftime('%Y%m%d_%H%M%S')
         
         # Save raw results as JSON
-        results_file = f'tmp/uo_items_performance_results_{timestamp}.json'
+        results_file = f'reports/uo_items_performance_results_{timestamp}.json'
         with open(results_file, 'w', encoding='utf-8') as f:
             json.dump(results, f, indent=2)
         
         # Save formatted report
-        report_file = f'tmp/uo_items_performance_report_{timestamp}.md'
+        report_file = f'reports/uo_items_performance_report_{timestamp}.md'
         with open(report_file, 'w', encoding='utf-8') as f:
             f.write(report)
         

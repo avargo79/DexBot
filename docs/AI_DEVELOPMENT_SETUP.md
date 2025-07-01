@@ -12,6 +12,22 @@ DexBot is configured for optimal AI-assisted development with GitHub Copilot and
 
 **That's it!** No additional configuration needed.
 
+### Feature Development Workflow
+
+DexBot uses a standardized feature development workflow:
+
+1. **Prepare workspace** using the automated script:
+   ```powershell
+   # Start a new feature
+   .\prepare_feature.bat buff-management-system
+   ```
+
+2. **Follow the structured workflow** documented in:
+   - [Feature Development Workflow](FEATURE_DEVELOPMENT_WORKFLOW.md)
+   - PRD documents in `docs/prds/`
+
+3. **Use the AI prompts below** to generate code that follows DexBot patterns
+
 ### Optional VS Code Setup
 
 For additional development tools, see [`.vscode/README.md`](.vscode/README.md) for optional VS Code configuration.
