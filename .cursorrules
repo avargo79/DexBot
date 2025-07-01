@@ -1,0 +1,163 @@
+# DexBot - RazorEnhanced Python Bot Development Rules
+
+## Project Context
+You are working on DexBot, a high-performance modular bot system for Ultima Online using RazorEnhanced Python scripting environment.
+
+## Core Constraints & Environment
+- **Runtime**: RazorEnhanced Python with .NET Framework integration (IronPython)
+- **Threading**: Single-threaded execution model preferred
+- **Memory**: Long-running sessions (12+ hours) require careful memory management
+- **APIs**: Only RazorEnhanced APIs available (no requests, pandas, etc.)
+- **Performance**: Optimize for minimal API calls and efficient resource usage
+
+## Architecture Requirements
+- Follow existing modular patterns in `src/systems/`
+- Use ConfigManager for all configuration (`src/config/config_manager.py`)
+- Use Logger from `src/core/logger.py` for all logging
+- Implement 3-case testing pattern (pass/fail/edge)
+- Include comprehensive error handling with specific exceptions
+
+## Code Generation Rules
+
+### Always Include
+1. **Comprehensive docstrings** with Args, Returns, Raises, Example sections
+2. **Type hints** for better code clarity and IDE support
+3. **Error handling** with specific exception types
+4. **Logging statements** for debugging and monitoring
+5. **Input validation** for all public methods
+6. **Performance considerations** for long-running operations
+7. **Temporary files in `tmp/` directory** for workspace organization
+8. **Cleanup `tmp/` directory** when wrapping up work sessions
+
+### RazorEnhanced API Patterns
+```python
+# Standard imports
+from System.Collections.Generic import List
+from System import Int32 as int
+from ..core.logger import Logger
+
+# Safe API call wrapper
+def safe_api_call(self, operation: str, api_func, *args, **kwargs):
+    try:
+        result = api_func(*args, **kwargs)
+        Logger.debug(f"{operation} successful")
+        return result
+    except Exception as e:
+        Logger.error(f"{operation} failed: {e}")
+        return None
+```
+
+### Configuration Loading Pattern
+```python
+def __init__(self):
+    self.config_manager = ConfigManager()
+    self.config = self.config_manager.get_system_config('system_name')
+    self.enabled = self.config.get('enabled', False)
+```
+
+### System Architecture Pattern
+```python
+class NewBotSystem:
+    """
+    Brief system description.
+    
+    This system handles [specific functionality] for the DexBot automation.
+    Integrates with [other systems] and uses [RazorEnhanced APIs].
+    """
+    
+    def __init__(self):
+        """Initialize the system with configuration and state."""
+        self.config_manager = ConfigManager()
+        self.config = self.config_manager.get_system_config('new_system')
+        self.enabled = self.config.get('enabled', False)
+        
+    def update(self) -> bool:
+        """
+        Main system update method called by bot loop.
+        
+        Returns:
+            bool: True if system performed an action, False otherwise
+        """
+        if not self.enabled:
+            return False
+            
+        try:
+            return self._perform_system_logic()
+        except Exception as e:
+            Logger.error(f"System update failed: {e}")
+            return False
+```
+
+### Testing Requirements (3-Case Pattern)
+```python
+class TestExampleSystem(unittest.TestCase):
+    """Test suite following 3-case pattern."""
+    
+    def test_normal_operation_pass_case(self):
+        """Test normal system operation - PASS CASE."""
+        pass
+        
+    def test_error_handling_fail_case(self):
+        """Test error conditions - FAIL CASE."""
+        pass
+        
+    def test_boundary_conditions_edge_case(self):
+        """Test edge cases and boundaries - EDGE CASE."""
+        pass
+```
+
+## Performance Guidelines
+- Minimize RazorEnhanced API calls in loops
+- Cache frequently accessed data
+- Use efficient data structures for large datasets
+- Profile memory usage for session-long operations
+- Implement graceful degradation for API failures
+
+## Error Handling Patterns
+- Use specific exception types (DexBotSystemError, RazorEnhancedAPIError)
+- Always log errors with context
+- Implement retry mechanisms with exponential backoff
+- Graceful degradation when APIs fail
+- Clear error messages for troubleshooting
+
+## Naming Conventions
+- `snake_case` for functions, variables, and file names
+- `PascalCase` for classes and type variables
+- `UPPER_CASE` for constants
+- Descriptive names that indicate RazorEnhanced context
+- Include system context in variable names
+
+## Common RazorEnhanced APIs
+- Player: Player.Name, Player.Hits, Player.HitsMax, Player.Mount, Player.Buffs
+- Items: Items.FindBySerial, Items.GetPropValue, Items.Filter
+- Mobiles: Mobiles.FindBySerial, Mobiles.Filter, Mobiles.Select
+- Misc: Misc.Pause, Misc.SendMessage, Misc.IgnoreObject, Misc.ClearIgnore
+- Journal: Journal.Search, Journal.Clear
+- Gumps: Gumps.SendAction, Gumps.CloseGump
+- Target: Target.SetLast, Target.Last
+
+## Anti-Patterns to Avoid
+- Don't use standard Python libraries not available in RazorEnhanced
+- Avoid threading/multiprocessing (single-threaded model)
+- Don't use `eval()`, `exec()`, or other dynamic code execution
+- Avoid hard-coded values (use configuration instead)
+- Don't ignore API return values or exceptions
+
+## Workspace Management
+- Create all temporary files in `tmp/` directory
+- Clean up `tmp/` directory when wrapping up work sessions
+- Use descriptive filenames for temporary files
+- Maintain organized project structure
+- **Cleanup Rules**:
+  - Remove old temporary analysis files (`.md` files from previous sessions)
+  - Remove temporary directories created for testing/extraction
+  - Always preserve `.gitkeep` file to maintain git tracking
+  - Keep final summary documents for reference
+- **File Preservation**: Never delete `.gitkeep`, configuration files, or active project files
+
+## Integration Requirements
+- Systems should integrate through well-defined interfaces
+- Use event-driven patterns for loose coupling
+- Implement graceful shutdown for long-running processes
+- Support configuration reloading without restart
+- Maintain backward compatibility in API changes

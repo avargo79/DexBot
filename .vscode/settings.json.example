@@ -1,0 +1,56 @@
+{
+    "github.copilot.enable": {
+        "python": true,
+        "markdown": true,
+        "json": true,
+        "plaintext": true
+    },
+    "github.copilot.chat.codeGeneration.useInstructionFiles": true,
+    "github.copilot.chat.codeGeneration.instructions": [
+        {
+            "text": "Always include comprehensive docstrings with Args, Returns, Raises, and Example sections for DexBot code."
+        },
+        {
+            "text": "Use RazorEnhanced-specific imports: 'from System.Collections.Generic import List' and 'from System import Int32 as int'."
+        },
+        {
+            "text": "Wrap all RazorEnhanced API calls in try/except blocks with proper logging using Logger from src/core/logger.py."
+        },
+        {
+            "text": "Follow the 3-case testing pattern: pass/fail/edge cases for all new functionality."
+        },
+        {
+            "text": "Always create temporary files in the tmp/ directory to keep the workspace organized."
+        },
+        {
+            "text": "Clean up the tmp/ directory when wrapping up work sessions to maintain a tidy workspace."
+        }
+    ],
+    "chat.promptFiles": true,
+    "python.defaultInterpreterPath": "python",
+    "python.linting.enabled": true,
+    "python.linting.flake8Enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.formatting.provider": "black",
+    "python.formatting.blackArgs": ["--line-length", "100"],
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit"
+    },
+    "files.associations": {
+        "*.py": "python"
+    },
+    "python.analysis.typeCheckingMode": "basic",
+    "python.analysis.autoImportCompletions": true,
+    "editor.suggestSelection": "first",
+    "editor.tabCompletion": "on",
+    "editor.wordBasedSuggestions": "matchingDocuments",
+    "editor.quickSuggestions": {
+        "other": true,
+        "comments": true,
+        "strings": true
+    },
+    "workbench.editorAssociations": {
+        "*.md": "default"
+    }
+}
