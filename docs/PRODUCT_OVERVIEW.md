@@ -1,7 +1,7 @@
 # DexBot Product Overview
 
 **Version**: 3.1.1  
-**Last Updated**: June 30, 2025  
+**Last Updated**: July 1, 2025  
 **Product Type**: Modular Bot System for Ultima Online  
 
 ## Executive Summary

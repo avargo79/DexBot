@@ -1,7 +1,12 @@
 # DexBot - Modular Bot System
 
 ![Build Status](https://github.com/avargo79/DexBot/actions/workflows/ci-cd.yml/badge.svg)
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![License](https://img.shields.io/badg├──├── scripts/                        # ⚡ Build and development tools
+│   ├── build.ps1                   # PowerShell build script
+│   └── build.sh                    # Cross-platform shell script
+├── tools/                          # 🛠️ Development and analysis tools
+├── tests/                          # 🧪 Comprehensive test suites/                           # 🗂️ Runtime logs and debugging output
+├── reports/                        # 📊 Generated analysis reports and test resultslicense-MIT-blue.svg)
 ![Python](https://img.shields.io/badge/python-3.7+-green.svg)
 
 ## 🚀 Quick Navigation
@@ -28,6 +33,7 @@ The entire codebase, documentation, build system, and DevOps infrastructure were
 - [🤖 AI-Coded Proof of Concept](#-ai-coded-proof-of-concept)
 - [📋 Table of Contents](#-table-of-contents)
 - [Recent Updates (v3.1.1)](#recent-updates-v311)
+- [Feature Development](#feature-development)
 - [Directory Structure](#directory-structure)
 - [Features](#features)
 - [Developer Workflow](#developer-workflow)
@@ -117,11 +123,11 @@ DexBot is a modular bot system for Ultima Online with RazorEnhanced, featuring a
 
 ## Directory Structure
 
-**Clean v3.1.1 Structure** (After Phase 3 Cleanup):
+**Professional v3.2.0 Structure** (After Workspace Modernization):
 ```
 DexBot/
 ├── dist/
-│   └── DexBot.py                   # 🚀 Production build (211,189 bytes, v3.1.1)
+│   └── DexBot.py                   # 🚀 Production build (244KB, v3.2.0)
 ├── src/                            # 📁 Modular source code
 │   ├── core/                       # Core bot functionality
 │   │   ├── bot_config.py           # Configuration constants and settings
@@ -139,48 +145,45 @@ DexBot/
 │   └── utils/                      # Utility functions and helpers
 ├── docs/                           # 📚 Essential documentation
 │   ├── CHANGELOG.md                # Version history (updated to v3.1.1)
-│   ├── DexBot_PRD.md               # Product Requirements Document
-│   ├── DexBot_Tasks.md             # Development progress tracking
-│   ├── json/                       # JSON format API documentation
-│   │   ├── api_reference.json      # Comprehensive API reference  
-│   │   ├── classes/                # Individual class documentation
-│   │   └── search_index.json       # Search index for API reference
-│   ├── html/                       # HTML format API documentation
-│   │   ├── index.html              # Main API reference page
-│   │   └── ...                     # Individual class HTML files
-│   ├── markdown/                   # Markdown format API documentation
-│   │   ├── API_Reference.md        # Main API reference document
-│   │   └── classes/                # Individual class documentation
-│   └── API_DOCUMENTATION_README.md # API documentation guide
+│   ├── FEATURES.md                 # Comprehensive feature documentation
+│   ├── PRODUCT_OVERVIEW.md         # Executive summary and vision
+│   ├── Development_Status.md       # Development progress tracking
+│   ├── DEVELOPMENT_WORKFLOW.md     # Development process guide
+│   ├── FEATURE_DEVELOPMENT_WORKFLOW.md # Feature development guide
+│   ├── backlog/                    # Product backlog organization
+│   │   ├── PRODUCT_BACKLOG.md      # Master prioritized backlog
+│   │   ├── high-priority/          # P1 items (current development)
+│   │   ├── medium-priority/        # P2 items (next 2-3 versions)
+│   │   └── future/                 # P3+ items (long-term ideas)
+│   └── prds/                       # Product Requirements Documents
+│       ├── FR-084_Buff_Management_System.md
+│       ├── FR-095_Inventory_Management_System.md
+│       ├── FR-096_Equipment_Manager_System.md
+│       ├── FR-126_Server_Specific_Settings_System.md
+│       ├── FR-127-128_UO_Item_Database_System.md
+│       └── TECH-001_API_Reference_Optimization.md
 ├── ref/                            # 📖 Reference documentation and databases
 │   ├── uo_item_database.json       # Comprehensive UO item database (JSON)
 │   └── html/                       # Multi-format API documentation
-├── scripts/                        # 🔧 Build and development tools
+├── logs/                           # �️ Runtime logs (gitignored)
+├── reports/                        # 📊 Generated reports (gitignored)
+├── scripts/                        # � Build and development tools
 │   ├── build.ps1                   # PowerShell build script (working)
 │   └── build.sh                    # Cross-platform shell script
-├── tmp/                            # 📊 Phase 3+ development docs
-│   ├── .gitkeep                    # Git directory placeholder
-│   ├── development_workflow_reminder.md
-│   ├── phase3_test_results.md      # Phase 3 testing documentation
-│   ├── phase3_optimization_plan.md # Performance optimization plans
-│   ├── phase3_performance_analysis_guide.md
-│   ├── phase3_1_optimization_summary.md
-│   ├── phase3_1_1_ignore_list_optimization.md
-│   ├── PHASE_3_1_1_FINAL_SUMMARY.md
-│   └── PHASE_3_CLEANUP_COMPLETE.md # Cleanup documentation
 ├── tests/                          # 🧪 Test infrastructure
 ├── .github/                        # 🏗️ CI/CD pipeline
 ├── pyproject.toml                  # Python project configuration
 ├── requirements.txt                # Python dependencies
-├── README.md                       # This documentation
-└── DEVELOPMENT_RULES.md            # Development best practices
+├── README.md                       # Project documentation (this file)
+└── tasks.py                        # Development task automation (invoke)
 ```
 
 **Key Improvements**:
-- ✅ **Clean Structure**: Removed 19+ temp/empty files from Phase 2
-- ✅ **Production Ready**: Working v3.1.1 build with all optimizations
-- ✅ **Organized Docs**: Essential documentation only, no empty placeholders
-- ✅ **Phase 3 Ready**: Clean `/tmp` with only relevant Phase 3+ documentation
+- ✅ **Professional Organization**: Clean, logical directory structure
+- ✅ **Production Ready**: Updated v3.2.0 build with UO Database Integration
+- ✅ **Modernized Structure**: logs/ and reports/ replace obsolete tmp/ directory
+- ✅ **Enhanced Tooling**: Comprehensive development tools and automation
+- ✅ **Current Documentation**: All docs updated to July 1, 2025
 
 ## Features
 
@@ -327,50 +330,62 @@ git push origin feature/your-feature-name
 # Create Pull Request on GitHub
 ```
 
-The CI/CD pipeline will automatically validate your changes and provide feedback.
+## Feature Development
 
-## 🔄 Complete Developer Workflow
+Starting work on a new feature in DexBot is streamlined with our feature preparation workflow:
 
-### Prerequisites
-- Python 3.7+ (for development tasks)
-- Git for version control
-- VS Code with RazorEnhanced extension (recommended)
-- RazorEnhanced client (for testing/deployment)
+### Automated Feature Setup
 
-### Step-by-Step Development Process
+We provide dedicated scripts to prepare your workspace for new feature development:
 
-1. **Environment Setup**
-   ```bash
-   git clone https://github.com/avargo79/DexBot.git
-   cd DexBot
-   pip install -r requirements.txt
-   ```
+```powershell
+# Windows (PowerShell)
+# To start a new feature
+.\scripts\prepare_feature.ps1 feature-name
 
-2. **Feature Development**
-   ```bash
-   git checkout -b feature/new-feature
-   # Make your changes
-   python -m invoke bundle  # Create distributable
-   ```
+# Non-interactive mode for CI/CD pipelines
+.\scripts\prepare_feature.ps1 feature-name -NonInteractive
 
-3. **Testing in RazorEnhanced**
-   - Copy `dist/DexBot.py` to your RazorEnhanced Scripts folder
-   - Test the functionality in-game
-   - Iterate as needed
+# Additional options
+.\scripts\prepare_feature.ps1 -Help  # Shows all available options
+```
 
-4. **Quality Assurance**
-   ```bash
-   python -m invoke test     # Run tests
-   python -m invoke lint     # Check code quality
-   python -m invoke build    # Full build validation
-   ```
+```bash
+# Linux/macOS (Bash)
+# To start a new feature
+./scripts/prepare_feature.sh feature-name
 
-5. **Deployment**
-   ```bash
-   git commit -m "feat: description"
-   git push origin feature/new-feature
-   # Create Pull Request
-   ```
+# Non-interactive mode for CI/CD pipelines
+./scripts/prepare_feature.sh feature-name --non-interactive
+
+# Additional options
+./scripts/prepare_feature.sh --help  # Shows all available options
+```
+
+The scripts will:
+1. Update your main branch from remote
+2. Clean up merged branches and temporary files
+3. Run validation and tests
+4. Create a feature branch with the proper naming convention (`feature/your-feature-name`)
+5. Set up a planning document in `reports/` with initial structure for the feature
+
+**Additional Script Options:**
+- Skip specific steps with `-SkipGitUpdate`/`--skip-git`, `-SkipCleanup`/`--skip-cleanup`, or `-SkipValidation`/`--skip-validation`
+- Run in CI/CD environments with `-NonInteractive`/`--non-interactive`
+- Get detailed help with `-Help`/`--help`
+
+### Feature Development Process
+
+Our complete feature development process is documented in:
+- [Feature Development Workflow](docs/FEATURE_DEVELOPMENT_WORKFLOW.md)
+- [Development Workflow](docs/DEVELOPMENT_WORKFLOW.md)
+
+### Key Feature Documentation
+
+Before implementing a feature, always review:
+1. The Product Requirements Document (PRD) in `docs/prds/`
+2. The backlog prioritization in `docs/backlog/`
+3. The architecture overview in project documentation
 
 ## Quick Start
 
@@ -694,8 +709,10 @@ This project showcases how AI can handle end-to-end software development, from i
 
 ## 🔗 Related Links
 
-- **[Product Requirements Document](docs/DexBot_PRD.md)** - Detailed feature specifications
-- **[Development Tasks](docs/DexBot_Tasks.md)** - Project roadmap and progress tracking 
+- **[Product Overview](docs/PRODUCT_OVERVIEW.md)** - Executive summary and product vision
+- **[Product Backlog](docs/backlog/PRODUCT_BACKLOG.md)** - Prioritized feature roadmap and development tracking
+- **[Features & Capabilities](docs/FEATURES.md)** - Comprehensive feature documentation
+- **[Development Status](docs/Development_Status.md)** - Current project status and progress
 - **[API Reference](ref/API_DOCUMENTATION_README.md)** - Complete RazorEnhanced API documentation system
 - **[Changelog](docs/CHANGELOG.md)** - Version history and release notes
 - **[GitHub Actions](https://github.com/avargo79/DexBot/actions)** - Live build and deployment status

@@ -1,7 +1,7 @@
 # DexBot Features & Capabilities
 
-**Version**: 3.1.1  
-**Last Updated**: June 30, 2025  
+**Version**: 3.2.0  
+**Last Updated**: July 1, 2025  
 
 ## Overview
 
@@ -269,6 +269,6 @@ This document provides a comprehensive overview of DexBot's current features and
 
 ---
 
-**Last Updated**: June 30, 2025  
-**Version Coverage**: DexBot v3.1.1  
+**Last Updated**: July 1, 2025  
+**Version Coverage**: DexBot v3.2.0  
 **Next Review**: Monthly feature assessment

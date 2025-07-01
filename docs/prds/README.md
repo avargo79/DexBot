@@ -175,5 +175,5 @@ When creating or updating PRDs:
 
 ---
 
-**Last Updated**: June 30, 2025  
+**Last Updated**: July 1, 2025  
 **Document Version**: 1.0
