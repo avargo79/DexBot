@@ -688,4 +688,5 @@ class TestBulkConvenienceFunctions(unittest.TestCase):
         mock_db = MagicMock()
         mock_db.evaluate_items_for_looting.return_value = {
             3821: {'should_loot': True, 'reason': 'Gold Coins (high value currency)'},
-            3862: {'should_loot': True, 'reason': 'Diamond (very_high value gems)'
+            3862: {'should_loot': True, 'reason': 'Diamond (very_high value gems)'}
+        }
