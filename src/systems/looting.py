@@ -83,6 +83,12 @@ class LootingSystem:
             Logger.warning(f"Failed to load UO Item Database: {e}. Using fallback mode.")
             self.item_db = None
         
+        # Enhanced configuration with database validation
+        self._enhanced_config_cache = None
+        self._config_cache_timestamp = 0
+        self._config_cache_duration = 300  # 5 minutes
+        self._load_enhanced_config()
+        
         # Corpse processing cache to avoid reprocessing empty/looted corpses
         self.processed_corpses: Dict[int, float] = {}  # serial -> timestamp
         self.corpse_cache_duration = 300  # 5 minutes
@@ -1277,3 +1283,117 @@ class LootingSystem:
             'max_weight': Player.MaxWeight,
             'weight_percent': (Player.Weight / Player.MaxWeight) * 100 if Player.MaxWeight > 0 else 0
         }
+    
+    def _validate_loot_config(self) -> Dict[str, List[int]]:
+        """Convert and validate loot configuration against database.
+        
+        Returns:
+            Dictionary with converted loot lists (string names converted to IDs)
+        """
+        config = self.config_manager.get_looting_config()
+        loot_lists = config.get('loot_lists', {})
+        validated_config = {}
+        
+        for list_name, items in loot_lists.items():
+            validated_ids = []
+            
+            for item in items:
+                converted_ids = self._convert_config_item_to_ids(item)
+                validated_ids.extend(converted_ids)
+                
+            validated_config[list_name] = list(set(validated_ids))  # Remove duplicates
+            Logger.debug(f"Validated {list_name}: {len(validated_ids)} items")
+        
+        return validated_config
+    
+    def _convert_config_item_to_ids(self, item) -> List[int]:
+        """Convert a configuration item (string, ID, category rule) to list of IDs.
+        
+        Args:
+            item: Configuration item (can be int, string name, or category rule)
+            
+        Returns:
+            List of item IDs
+        """
+        if isinstance(item, int):
+            # Already an ID
+            return [item]
+        
+        if isinstance(item, str):
+            item_lower = item.lower().strip()
+            
+            # Handle category wildcards (e.g., "gems:*", "currency:*")
+            if ':*' in item_lower:
+                category = item_lower.replace(':*', '')
+                return self._get_category_item_ids(category)
+            
+            # Handle value tier rules (e.g., "tier:high", "tier:very_high")
+            if item_lower.startswith('tier:'):
+                tier = item_lower.replace('tier:', '')
+                return self._get_value_tier_item_ids(tier)
+            
+            # Handle string names - search in database
+            if self.item_db:
+                try:
+                    items = self.item_db.find_items_by_name(item_lower)
+                    if items:
+                        ids = [item_data['decimal_id'] for item_data in items]
+                        Logger.debug(f"'{item}' resolved to {len(ids)} items: {ids}")
+                        return ids
+                    else:
+                        Logger.warning(f"Item name '{item}' not found in database")
+                except Exception as e:
+                    Logger.warning(f"Database lookup failed for '{item}': {e}")
+            
+            # Try to parse as hex string (e.g., "0x0EED")
+            try:
+                if item_lower.startswith('0x'):
+                    hex_id = int(item_lower, 16)
+                    return [hex_id]
+            except ValueError:
+                pass
+        
+        Logger.warning(f"Could not convert config item '{item}' to item ID(s)")
+        return []
+    
+    def _get_category_item_ids(self, category: str) -> List[int]:
+        """Get all item IDs for a category.
+        
+        Args:
+            category: Category name (e.g., "gems", "currency", "reagents")
+            
+        Returns:
+            List of item IDs in that category
+        """
+        if not self.item_db:
+            return []
+        
+        try:
+            category_items = self.item_db.get_items_by_category(category)
+            ids = [item_data['decimal_id'] for item_data in category_items.values()]
+            Logger.debug(f"Category '{category}': {len(ids)} items")
+            return ids
+        except Exception as e:
+            Logger.warning(f"Failed to get category '{category}' items: {e}")
+            return []
+    
+    def _get_value_tier_item_ids(self, tier: str) -> List[int]:
+        """Get all item IDs for a value tier.
+        
+        Args:
+            tier: Value tier (e.g., "high", "very_high", "medium", "low")
+            
+        Returns:
+            List of item IDs with that value tier
+        """
+        if not self.item_db:
+            return []
+        
+        try:
+            tier_items = self.item_db.get_items_by_value_tier(tier)
+            ids = [item_data['decimal_id'] for item_data in tier_items]
+            Logger.debug(f"Value tier '{tier}': {len(ids)} items")
+            return ids
+        except Exception as e:
+            Logger.warning(f"Failed to get value tier '{tier}' items: {e}")
+            return []

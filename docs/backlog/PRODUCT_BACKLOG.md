@@ -17,6 +17,10 @@ This document contains the prioritized product backlog for DexBot. Items are org
 ## High Priority (P1) - Current Development
 
 ### Features
+- **FR-127/128**: UO Item Database System → [PRD](../prds/FR-127-128_UO_Item_Database_System.md)
+  - *Complete optimization and integration of UO item reference system*
+  - **Effort**: 8-12 hours | **Target**: v3.2.0
+
 - **FR-084**: Buff Management System → [PRD](../prds/FR-084_Buff_Management_System.md)
   - *Auto-buff system with smart reagent management and performance optimization*
   - **Effort**: 2-3 weeks | **Target**: v3.2.1
@@ -95,7 +99,7 @@ This document contains the prioritized product backlog for DexBot. Items are org
 
 ## Backlog Metrics
 
-**Total Items**: 19  
+**Total Items**: 18  
 **High Priority**: 5 items  
 **Medium Priority**: 7 items  
 **Future/Ideas**: 7 items  
