@@ -239,6 +239,16 @@ class ConfigManager:
                 "death_pause_enabled": True,
                 "emergency_stop_on_critical_error": True,
             },
+            "performance_optimization": {
+                "looting_optimizations": {
+                    "ignore_list_cleanup_interval_seconds": 180,
+                    "use_ignore_list": True
+                },
+                "performance_thresholds": {
+                    "main_loop_warning_ms": 800,
+                    "system_execution_warning_ms": 300
+                }
+            },
             "logging": {
                 "console_logging": True,
                 "file_logging": False,
@@ -344,10 +354,10 @@ class ConfigManager:
             "version": "1.0",
             "enabled": True,  # Enable by default for testing
             "timing": {
-                "corpse_scan_interval_ms": 1000,
-                "loot_action_delay_ms": 200,
-                "container_open_timeout_ms": 2000,
-                "skinning_action_delay_ms": 500
+                "corpse_scan_interval_ms": 500,
+                "loot_action_delay_ms": 150,
+                "container_open_timeout_ms": 1000,
+                "skinning_action_delay_ms": 300
             },
             "behavior": {
                 "max_looting_range": 2,  # Reduced from 3 to 2 for better performance

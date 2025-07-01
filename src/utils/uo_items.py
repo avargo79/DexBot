@@ -20,8 +20,32 @@ class UOItemDatabase:
             database_path: Path to the JSON database file. If None, uses default location.
         """
         if database_path is None:
-            # Default to the ref directory
-            database_path = os.path.join(os.path.dirname(__file__), '..', '..', 'ref', 'uo_item_database.json')
+            # Default to the ref directory - handle multiple execution contexts
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+            
+            # Try multiple possible locations for the database file
+            possible_paths = [
+                # For bundled script in DexBot directory
+                os.path.join(script_dir, 'ref', 'uo_item_database.json'),
+                # For bundled script in RazorEnhanced Scripts directory
+                os.path.join(script_dir, 'DexBot', 'ref', 'uo_item_database.json'),
+                # For development from src/utils/
+                os.path.join(script_dir, '..', '..', 'ref', 'uo_item_database.json'),
+                # For bundled script from dist/ directory
+                os.path.join(script_dir, '..', 'ref', 'uo_item_database.json'),
+                # Absolute path fallback
+                r'C:\Program Files (x86)\Ultima Online Unchained\Data\Plugins\RazorEnhanced\Scripts\DexBot\ref\uo_item_database.json'
+            ]
+            
+            database_path = None
+            for path in possible_paths:
+                if os.path.exists(path):
+                    database_path = path
+                    break
+            
+            # If still not found, use the first path as default (will show proper error)
+            if database_path is None:
+                database_path = possible_paths[0]
         
         self.database_path = database_path
         self.data = self._load_database()
@@ -427,6 +451,15 @@ class UOItemDatabase:
             'value_tiers_available': list(quick_lookup.get('by_value_tier', {}).keys())
         }
         
+    def get_available_categories(self) -> List[str]:
+        """Get list of all available categories in the database.
+        
+        Returns:
+            List of category names
+        """
+        categories = self.data.get('categories', {})
+        return list(categories.keys())
+
 
 # Convenience functions for common usage
 def get_item_database() -> UOItemDatabase:
@@ -519,30 +552,3 @@ def get_database_performance_stats() -> Dict[str, Any]:
     return db.get_performance_stats()
 
 
-# Example usage for DexBot scripts
-if __name__ == "__main__":
-    # Example usage
-    db = UOItemDatabase()
-    
-    print("=== UO Item Database Example Usage ===")
-    
-    # Get item by ID
-    gold_item = db.get_item_by_id(3821)
-    print(f"Item ID 3821: {gold_item['name'] if gold_item else 'Not found'}")
-    
-    # Get items by name
-    gems = db.get_items_by_name('gem')
-    print(f"Found {len(gems)} gems")
-    
-    # Get valuable items
-    valuable = db.get_valuable_items('high')
-    print(f"High-value item IDs: {valuable}")
-    
-    # Get category items
-    potions = db.get_items_by_category('potions')
-    print(f"Potion categories: {list(potions.keys())}")
-    
-    # Quick lookups
-    print(f"Gold ID: {get_item_id('gold')}")
-    print(f"Gem IDs: {get_gem_ids()}")
-    print(f"Reagent IDs: {get_reagent_ids()}")

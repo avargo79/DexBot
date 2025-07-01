@@ -1397,3 +1397,56 @@ class LootingSystem:
         except Exception as e:
             Logger.warning(f"Failed to get value tier '{tier}' items: {e}")
             return []
+
+    def _load_enhanced_config(self) -> None:
+        """Load and cache enhanced configuration with database validation."""
+        try:
+            current_time = time.time()
+            
+            # Check if cache is still valid
+            if (self._enhanced_config_cache is not None and 
+                current_time - self._config_cache_timestamp < self._config_cache_duration):
+                return
+            
+            # Load base configuration
+            base_config = self.config_manager.get_looting_config()
+            
+            # Enhance configuration with database information if available
+            enhanced_config = base_config.copy()
+            if self.item_db:
+                try:
+                    # Add database-derived categories and items
+                    db_categories = self.item_db.get_available_categories()
+                    enhanced_config['available_categories'] = db_categories
+                    
+                    # Add currency information
+                    enhanced_config['currency_ids'] = self._get_currency_ids()
+                    
+                    Logger.debug(f"Enhanced config with {len(db_categories)} database categories")
+                except Exception as e:
+                    Logger.warning(f"Failed to enhance config with database info: {e}")
+            
+            # Cache the enhanced configuration
+            self._enhanced_config_cache = enhanced_config
+            self._config_cache_timestamp = current_time
+            
+            Logger.debug("Enhanced configuration loaded and cached successfully")
+            
+        except Exception as e:
+            Logger.error(f"Failed to load enhanced configuration: {e}")
+            # Fallback to basic config if available
+            try:
+                self._enhanced_config_cache = self.config_manager.get_looting_config()
+                self._config_cache_timestamp = time.time()
+            except Exception as fallback_error:
+                Logger.error(f"Failed to load fallback configuration: {fallback_error}")
+                self._enhanced_config_cache = {}
+
+    def get_enhanced_config(self) -> Dict[str, Any]:
+        """Get the enhanced configuration, reloading if cache is expired.
+        
+        Returns:
+            Dictionary containing enhanced configuration
+        """
+        self._load_enhanced_config()
+        return self._enhanced_config_cache or {}

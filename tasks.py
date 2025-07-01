@@ -131,6 +131,7 @@ def bundle(c):
             "src/core/bot_config.py", 
             "src/core/logger.py",
             "src/utils/helpers.py",
+            "src/utils/uo_items.py",
             "src/systems/auto_heal.py",
             "src/systems/combat.py",
             "src/systems/looting.py",
@@ -147,7 +148,7 @@ def bundle(c):
                 out_f.write('\n')
                 out_f.write('This file was automatically generated from modular source files.\n')
                 out_f.write('Author: RugRat79\n')
-                out_f.write('Version: 3.1.1 (Phase 3.1.1 - Ignore List Optimization)\n')
+                out_f.write('Version: 3.1.1 - Ignore List Optimization\n')
                 out_f.write('License: MIT\n')
                 out_f.write('"""\n\n')
                 
