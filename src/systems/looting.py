@@ -11,6 +11,7 @@ from enum import Enum
 from ..config.config_manager import ConfigManager
 from ..core.logger import Logger, SystemStatus
 from ..utils.imports import Items, Misc, Mobiles, Player, Target, Timer
+from ..utils.uo_items import get_item_database, get_item_id
 
 # Constants for system performance tuning
 CACHE_CLEANUP_INTERVAL_SECONDS = 60  # Clean cache every minute
@@ -74,6 +75,14 @@ class LootingSystem:
         self.corpse_queue: List[CorpseInfo] = []
         self.processing_corpse = None
         
+        # Initialize UO Item Database for enhanced item identification
+        try:
+            self.item_db = get_item_database()
+            Logger.info("UO Item Database loaded successfully for looting system")
+        except Exception as e:
+            Logger.warning(f"Failed to load UO Item Database: {e}. Using fallback mode.")
+            self.item_db = None
+        
         # Corpse processing cache to avoid reprocessing empty/looted corpses
         self.processed_corpses: Dict[int, float] = {}  # serial -> timestamp
         self.corpse_cache_duration = 300  # 5 minutes
@@ -97,6 +106,71 @@ class LootingSystem:
         self._load_ignore_list_settings()
         
         Logger.info(f"Looting System initialized with ignore list optimization: {self.use_ignore_list}")
+    
+    def _get_currency_ids(self) -> List[int]:
+        """Get all currency item IDs from the database.
+        
+        Returns:
+            List of currency item IDs. Falls back to hardcoded gold IDs if database unavailable.
+        """
+        if self.item_db:
+            try:
+                currency_items = self.item_db.get_items_by_category("currency")
+                return [item_data['decimal_id'] for item_data in currency_items.values()]
+            except Exception as e:
+                Logger.warning(f"Failed to get currency IDs from database: {e}")
+        
+        # Fallback to hardcoded gold IDs
+        return [0x06F4, 0x06F5]  # Gold coins/piles
+    
+    def _identify_item(self, item) -> Dict[str, Any]:
+        """Identify item using database lookup.
+        
+        Args:
+            item: The item object to identify
+            
+        Returns:
+            Dictionary with item identification information
+        """
+        item_id = getattr(item, 'ItemID', 0)
+        item_name = getattr(item, 'Name', 'Unknown')
+        
+        if self.item_db:
+            try:
+                db_item = self.item_db.get_item_by_id(item_id)
+                if db_item:
+                    return {
+                        'id': item_id,
+                        'name': db_item['name'],
+                        'category': db_item.get('category', 'unknown'),
+                        'value_tier': db_item.get('value_tier', 'unknown'),
+                        'from_database': True
+                    }
+            except Exception as e:
+                Logger.debug(f"Database lookup failed for item {item_id}: {e}")
+        
+        # Fallback to basic item information
+        return {
+            'id': item_id,
+            'name': item_name,
+            'category': 'unknown',
+            'value_tier': 'unknown',
+            'from_database': False
+        }
+    
+    def _is_currency_item(self, item_id: int) -> bool:
+        """Check if an item is currency using database lookup.
+        
+        Args:
+            item_id: The item ID to check
+            
+        Returns:
+            True if item is currency, False otherwise
+        """
+        if not hasattr(self, '_currency_ids_cache'):
+            self._currency_ids_cache = self._get_currency_ids()
+        
+        return item_id in self._currency_ids_cache
 
     def _load_ignore_list_settings(self) -> None:
         """Load ignore list optimization settings from configuration."""
@@ -535,9 +609,9 @@ class LootingSystem:
                     items_taken += 1
                     Logger.info(f"LOOTING: Successfully took item: {item.Name}")
                     
-                    # Track gold specifically (optimized check)
+                    # Track gold specifically (using database lookup)
                     item_id = getattr(item, 'ItemID', 0)
-                    if item_id == 0x06F4 or item_id == 0x06F5:  # Gold coins/piles 
+                    if self._is_currency_item(item_id):
                         gold_amount = getattr(item, 'Amount', 1)
                         self.stats['gold_collected'] += gold_amount
                         Logger.info(f"LOOTING: Collected {gold_amount} gold")
@@ -1010,9 +1084,9 @@ class LootingSystem:
         """
         self.stats['items_collected'] += 1
         
-        # Track gold specifically (optimized check)
+        # Track gold specifically (using database lookup)
         item_id = getattr(item, 'ItemID', 0)
-        if item_id == 0x06F4 or item_id == 0x06F5:  # Gold coins/piles
+        if self._is_currency_item(item_id):
             self.stats['gold_collected'] += item_amount
             
     def _verify_item_moved(self, item_serial: int) -> bool:
@@ -1049,29 +1123,37 @@ class LootingSystem:
         config = self.config_manager.get_looting_config()
         loot_lists = config.get('loot_lists', {})
         
+        # Enhanced item identification using database
+        item_info = self._identify_item(item)
         item_name = item.Name.lower() if item.Name else ""
-        item_id = getattr(item, 'ItemID', 0)
+        item_id = item_info['id']
+        
+        # Enhanced logging with database information
+        if item_info['from_database']:
+            Logger.debug(f"Evaluating {item_info['name']} (ID: {item_id}, Category: {item_info['category']}, Value: {item_info['value_tier']})")
+        else:
+            Logger.debug(f"Evaluating {item_name} (ID: {item_id}) - not in database")
         
         # Check never take list first (highest priority)
         never_take = loot_lists.get('never_take', [])
         if self._matches_loot_rules(item_name, item_id, never_take):
-            Logger.debug(f"Item {item_name} matches never_take rules")
+            Logger.debug(f"Item {item_info['name']} matches never_take rules")
             return LootDecision.NEVER_TAKE
         
         # Check always take list (second priority) 
         always_take = loot_lists.get('always_take', [])
         if self._matches_loot_rules(item_name, item_id, always_take):
-            Logger.debug(f"Item {item_name} matches always_take rules")
+            Logger.debug(f"Item {item_info['name']} matches always_take rules")
             return LootDecision.ALWAYS_TAKE
         
         # Check take if space list (third priority)
         take_if_space = loot_lists.get('take_if_space', [])
         if self._matches_loot_rules(item_name, item_id, take_if_space):
-            Logger.debug(f"Item {item_name} matches take_if_space rules")
+            Logger.debug(f"Item {item_info['name']} matches take_if_space rules")
             return LootDecision.TAKE_IF_SPACE
         
         # Default: unknown items are not taken unless explicitly configured
-        Logger.debug(f"Item {item_name} (ID: {item_id}) not in any loot list - marked as unknown")
+        Logger.debug(f"Item {item_info['name']} (ID: {item_id}) not in any loot list - marked as unknown")
         return LootDecision.UNKNOWN
         
     def _matches_loot_rules(self, item_name: str, item_id: int, rule_list: List[str]) -> bool:
