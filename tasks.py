@@ -469,6 +469,7 @@ def help(c):
         ("build", "Build the bundled DexBot.py file"),
         ("dev", "Run development version (source files)"),
         ("run", "Run the bundled DexBot.py file"),
+        ("run-with-logging", "Run DexBot with comprehensive output logging to file"),
         ("validate", "Validate bundled script functionality"),
         ("deploy", "Deploy bundled script to RazorEnhanced directory"),
         ("pipeline", "Run complete development pipeline (clean, lint, test, build)"),
@@ -479,6 +480,7 @@ def help(c):
         ("release", "Prepare a release with version bump and validation"),
         ("info", "Show project information and structure"),
         ("extract-api-data", "Extract API data using Python script (TECH-001)"),
+        ("analyze-journal-logs", "Analyze UO journal logs for DexBot activity and debugging"),
         ("help", "Show this help message")
     ]
     
@@ -490,8 +492,12 @@ def help(c):
     print("  python -m invoke quick         # Fast development cycle")
     print("  python -m invoke test-all      # Run all tests")
     print("  python -m invoke pipeline      # Full pipeline with tests")
+    print("  python -m invoke run-with-logging  # Run with log file capture")
     print("  python -m invoke deploy        # Deploy to RazorEnhanced")
     print("  python -m invoke watch         # Auto-rebuild on changes")
+    print("\n📄 Log Files:")
+    print("  All log files are saved to tmp/ directory with timestamps")
+    print("  Example: tmp/dexbot_run_20250101_120000.log")
     print("\n📚 For more details, see docs/DEVELOPMENT_WORKFLOW.md")
 
 @task
@@ -1066,5 +1072,74 @@ def release(c, version_bump="patch"):
     print("   2. Test in RazorEnhanced")
     print("   3. Commit and tag the release")
     print("   4. Deploy to production")
+
+@task
+def run_with_logging(c):
+    """Run DexBot with comprehensive logging to file"""
+    import datetime
+    
+    if not os.path.exists(BUNDLED_FILE):
+        print(f"❌ Bundled file not found: {BUNDLED_FILE}")
+        print("Run 'python -m invoke build' first")
+        return
+    
+    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    log_file = f"tmp/dexbot_run_{timestamp}.log"
+    
+    # Ensure tmp directory exists
+    os.makedirs("tmp", exist_ok=True)
+    
+    print("🚀 Running DexBot with Comprehensive Logging")
+    print("=" * 50)
+    print(f"📁 DexBot Script: {BUNDLED_FILE}")
+    print(f"📄 Log Output: {log_file}")
+    print(f"🕒 Started: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print()
+    print("💡 This will show output in console AND save to log file")
+    print("   Press Ctrl+C to stop DexBot when testing is complete")
+    print()
+    
+    try:
+        # PowerShell command with Tee-Object for simultaneous console and file output
+        cmd = f'python {BUNDLED_FILE} | Tee-Object -FilePath "{log_file}"'
+        c.run(cmd)
+    except KeyboardInterrupt:
+        print("\n⏸️  DexBot execution stopped by user")
+    except Exception as e:
+        print(f"\n❌ Error running DexBot: {e}")
+    finally:
+        if os.path.exists(log_file):
+            file_size = os.path.getsize(log_file)
+            print(f"\n✅ Log file saved: {log_file}")
+            print(f"📊 Log file size: {file_size:,} bytes ({file_size/1024:.1f} KB)")
+            print(f"🕒 Completed: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        else:
+            print(f"\n⚠️  Log file not created: {log_file}")
+
+@task
+def analyze_journal_logs(c):
+    """Analyze Ultima Online journal logs for DexBot activity"""
+    print("🔍 Analyzing UO Journal Logs for DexBot Activity")
+    print("=" * 50)
+    
+    # Check if the analyzer script exists
+    analyzer_script = "tmp/journal_log_analyzer.py"
+    if not os.path.exists(analyzer_script):
+        print(f"❌ Journal log analyzer script not found: {analyzer_script}")
+        print("   Run this task again to create the analyzer script")
+        return
+    
+    try:
+        # Run the journal log analyzer
+        print("📂 Searching for journal logs in standard UO location...")
+        c.run(f"python {analyzer_script}")
+        
+        print("\n💡 Analysis complete!")
+        print("   Check tmp/ directory for generated reports and extracts")
+        
+    except Exception as e:
+        print(f"❌ Error running journal log analyzer: {e}")
+        print("\n🔧 Manual usage:")
+        print(f"   python {analyzer_script}")
 
 
