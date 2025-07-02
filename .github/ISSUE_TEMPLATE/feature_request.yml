@@ -1,7 +1,7 @@
 name: Feature Request
 description: Suggest a new feature for DexBot
 title: "[FEATURE] "
-labels: ["enhancement"]
+labels: ["idea"]
 body:
   - type: markdown
     attributes:

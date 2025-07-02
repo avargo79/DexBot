@@ -28,7 +28,7 @@
 
 param(
     [Parameter(Mandatory=$true)]
-    [ValidateSet("list", "assign", "status", "comment", "close", "develop", "summary", "review-queue")]
+    [ValidateSet("list", "assign", "status", "comment", "close", "develop", "summary", "review-queue", "triage", "promote")]
     [string]$Action,
     
     [int]$IssueNumber,
@@ -43,7 +43,9 @@ param(
     [string]$Label,
     
     [ValidateSet("critical", "high", "medium", "low")]
-    [string]$Priority
+    [string]$Priority,
+    
+    [string]$FRNumber
 )
 
 # Color output functions
@@ -93,6 +95,14 @@ switch ($Action) {
     "develop" { 
         if (-not $IssueNumber) {
             Write-Error "IssueNumber is required for develop action"
+            exit 1
+        }
+    }
+    "promote" { 
+        if (-not $IssueNumber) {
+            Write-Error "IssueNumber is required for promote action"
+            Write-Error "Example: .\manage_issues.ps1 -Action promote -IssueNumber 14"
+            Write-Error "Example: .\manage_issues.ps1 -Action promote -IssueNumber 14 -FRNumber 'FR-086'"
             exit 1
         }
     }
@@ -373,11 +383,183 @@ switch ($Action) {
             Write-Host ""
             Write-Info "PRD Development Commands:"
             Write-Host "  Add PRD comment: gh issue comment ### --body-file prd-content.md" -ForegroundColor Gray
-            Write-Host "  Promote to planning: .\manage_issues.ps1 -Action status -IssueNumber ### -Status planning" -ForegroundColor Gray
+            Write-Host "  Promote to FR (auto FR#): .\manage_issues.ps1 -Action promote -IssueNumber ###" -ForegroundColor Gray
+            Write-Host "  Promote with custom FR#: .\manage_issues.ps1 -Action promote -IssueNumber ### -FRNumber 'FR-###'" -ForegroundColor Gray
+        }
+    }
+    
+    "promote" {
+        Write-Info "Promoting issue #$IssueNumber to formal Feature Request..."
+        try {
+            # Get current issue details
+            $issueData = gh issue view $IssueNumber --json title,body,author,assignees,labels | ConvertFrom-Json
+            $currentTitle = $issueData.title
+            $originalAuthor = $issueData.author.login
+            
+            # Auto-determine FR number if not provided
+            if (-not $FRNumber) {
+                Write-Info "Auto-determining next FR number..."
+                
+                # Get all existing FR issues
+                $allIssues = gh issue list --state all --limit 1000 --json title | ConvertFrom-Json
+                $frNumbers = @()
+                
+                foreach ($issue in $allIssues) {
+                    if ($issue.title -match "^FR-(\d+):") {
+                        $frNumbers += [int]$matches[1]
+                    }
+                }
+                
+                $nextFRNumber = if ($frNumbers.Count -gt 0) {
+                    ($frNumbers | Measure-Object -Maximum).Maximum + 1
+                } else {
+                    1
+                }
+                
+                $FRNumber = "FR-$nextFRNumber"
+                Write-Info "Next available FR number: $FRNumber"
+            }
+            
+            # Validate FR number format
+            if ($FRNumber -notmatch "^FR-\d+$") {
+                Write-Error "FR number must be in format 'FR-###' (e.g., FR-001, FR-042)"
+                return
+            }
+            
+            # Check if FR number already exists
+            $existingFR = gh issue list --state all --search "title:$FRNumber" --json number,title | ConvertFrom-Json
+            if ($existingFR.Count -gt 0) {
+                Write-Error "FR number $FRNumber already exists in issue #$($existingFR[0].number): $($existingFR[0].title)"
+                return
+            }
+            
+            # Create new FR issue title
+            $frTitle = "$FRNumber`: $currentTitle"
+            
+            # Extract PRD content from comments
+            Write-Info "Extracting PRD content from issue comments..."
+            $comments = gh issue view $IssueNumber --comments --json comments | ConvertFrom-Json
+            
+            $prdContent = ""
+            foreach ($comment in $comments.comments) {
+                if ($comment.body -match "(?s).*PRD.*|.*Product Requirements.*|.*## Requirements.*|.*## Specification.*") {
+                    $prdContent = $comment.body
+                    break
+                }
+            }
+            
+            # Create FR issue body
+            $frBody = @"
+# Feature Request: $FRNumber
+
+**Original Request:** #$IssueNumber by @$originalAuthor
+**Status:** Planning
+**Priority:** TBD (to be assigned during sprint planning)
+
+## Overview
+This feature request was promoted from the original user request in #$IssueNumber after triage and PRD development.
+
+## Original Description
+$($issueData.body)
+
+## Product Requirements Document (PRD)
+$prdContent
+
+## Implementation Status
+- [ ] Technical design
+- [ ] Implementation planning  
+- [ ] Development
+- [ ] Testing
+- [ ] Documentation
+- [ ] Deployment
+
+## Cross-References
+- Original request: #$IssueNumber
+- Related issues: (to be added during development)
+
+---
+*This is a formal Feature Request created from user feedback. Implementation timeline will be determined during sprint planning.*
+"@
+
+            Write-Info "Creating new FR issue: $frTitle"
+            
+            # Create the new FR issue
+            $newIssueNumber = gh issue create --title $frTitle --body $frBody --label "status:planning" --label "enhancement" | ForEach-Object {
+                if ($_ -match "#(\d+)") { $matches[1] }
+            }
+            
+            if (-not $newIssueNumber) {
+                Write-Error "Failed to create new FR issue"
+                return
+            }
+            
+            Write-Success "Created new FR issue #$newIssueNumber"
+            
+            # Subscribe original author to new FR issue
+            Write-Info "Subscribing @$originalAuthor to FR issue #$newIssueNumber..."  
+            try {
+                gh api repos/:owner/:repo/issues/$newIssueNumber/subscribers --method PUT --field "subscribers[]=@$originalAuthor" 2>$null
+            } catch {
+                Write-Warning "Could not auto-subscribe @$originalAuthor (they may need to subscribe manually)"
+            }
+            
+            # Close original issue with cross-reference
+            $closureComment = @"
+## ✅ Feature Request Approved & Promoted
+
+Thank you for this feature request! After review and PRD development, this has been approved for implementation.
+
+**🎯 Promoted to:** #$newIssueNumber ($FRNumber`)
+**📋 Status:** Planning
+**🔗 Track Progress:** Follow #$newIssueNumber for development updates
+
+### What happens next:
+1. **Technical Design** - Our team will create detailed technical specifications
+2. **Sprint Planning** - The feature will be scheduled in an upcoming development sprint  
+3. **Implementation** - Development work will begin based on the PRD
+4. **Updates** - You'll receive notifications on progress via #$newIssueNumber
+
+Thanks for contributing to DexBot! 🚀
+
+---
+*This request is now managed as formal Feature Request $FRNumber in issue #$newIssueNumber*
+"@
+            
+            gh issue comment $IssueNumber --body $closureComment
+            gh issue close $IssueNumber
+            
+            # Add cross-reference comment to new FR
+            $crossRefComment = @"
+## 📋 Feature Request Details
+
+**Original User Request:** #$IssueNumber  
+**Requested by:** @$originalAuthor  
+**Promotion Date:** $(Get-Date -Format 'yyyy-MM-dd')  
+**PRD Status:** Complete
+
+This feature request was created from user feedback and has completed the triage and PRD development process.
+"@
+            
+            gh issue comment $newIssueNumber --body $crossRefComment
+            
+            Write-Success "✅ Promotion Complete!"
+            Write-Success "Original request #$IssueNumber closed with cross-reference"
+            Write-Success "New FR issue #$newIssueNumber created and ready for planning"
+            Write-Success "Original author @$originalAuthor subscribed to updates"
+            
+            Write-Host ""
+            Write-Info "Next Steps:"
+            Write-Host "  1. Assign component/priority labels: gh issue edit $newIssueNumber --add-label 'component:core' --add-label 'priority:medium'" -ForegroundColor Gray
+            Write-Host "  2. Assign to milestone: gh issue edit $newIssueNumber --milestone 'v1.2.0'" -ForegroundColor Gray
+            Write-Host "  3. Begin technical design and implementation planning" -ForegroundColor Gray
+            
+        } catch {
+            Write-Error "Failed to promote issue: $($_.Exception.Message)"
+            Write-Error "Stack trace: $($_.ScriptStackTrace)"
         }
     }
 }
 
 Write-Host ""
 Write-Info "Issue management complete!"
-Write-Info "Available actions: list, review-queue, assign, status, comment, close, develop, summary"
+Write-Info "Available actions: list, review-queue, assign, status, comment, close, develop, summary, promote"

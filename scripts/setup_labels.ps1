@@ -64,6 +64,7 @@ $Labels = @(
     @{ Name = "status:blocked"; Description = "Cannot proceed due to dependencies"; Color = "000000" },
     
     # Type Labels (enhance existing ones)
+    @{ Name = "idea"; Description = "Initial idea or suggestion needing evaluation"; Color = "E6F3FF" },
     @{ Name = "maintenance"; Description = "Code cleanup, refactoring, optimization"; Color = "FEF2C0" },
     @{ Name = "performance"; Description = "Performance improvements"; Color = "FF6B6B" },
     @{ Name = "security"; Description = "Security-related issues"; Color = "EE0701" },
@@ -122,7 +123,7 @@ Write-Info "Status Labels:"
 Write-Host "  status:proposed, status:planning, status:in-progress, status:review, status:testing, status:blocked" -ForegroundColor Gray
 
 Write-Info "Type Labels:"
-Write-Host "  enhancement, bug, documentation, maintenance, performance, security, testing" -ForegroundColor Gray
+Write-Host "  idea, enhancement, bug, documentation, maintenance, performance, security, testing" -ForegroundColor Gray
 
 Write-Host ""
 Write-Info "Next steps:"

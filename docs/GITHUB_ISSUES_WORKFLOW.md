@@ -170,8 +170,7 @@ gh issue close 123 --comment "Reason for closing"
 2. **Draft PRD**: Create detailed Product Requirements Document
 3. **Post PRD**: Add PRD content as issue comment, tag original author
 4. **Iterate**: Refine based on feedback and discussion
-5. **Approve**: When finalized, promote to planning status
-6. **Assign FR Number**: Manually assign FR-### number for tracking
+5. **Promote**: When approved, use promote action to create new FR issue
 
 ```bash
 # Add PRD content to issue
@@ -181,9 +180,20 @@ gh issue comment 123 --body "## Product Requirements Document
 
 @original-author Please review this PRD and let us know your thoughts."
 
-# After approval, promote to planning
-.\scripts\manage_issues.ps1 -Action status -IssueNumber 123 -Status planning
+# After approval, promote to formal Feature Request (creates new FR issue)
+.\scripts\manage_issues.ps1 -Action promote -IssueNumber 123
+
+# Or specify a custom FR number
+.\scripts\manage_issues.ps1 -Action promote -IssueNumber 123 -FRNumber FR-086
 ```
+
+**What the promote action does:**
+- Auto-determines next available FR number (if not specified)
+- Creates new FR issue with proper title and PRD content
+- Cross-links original request and new FR issue
+- Subscribes original requester to FR issue for updates
+- Closes original request with friendly message
+- Sets up FR issue for development planning
 
 ## Issue Management Commands
 
@@ -415,8 +425,26 @@ body:
 # 3. Develop PRD in issue comments
 gh issue comment 123 --body "## PRD Content..."
 
-# 4. After approval, promote to planning
-.\scripts\manage_issues.ps1 -Action status -IssueNumber 123 -Status planning
+# 4. After approval, promote to formal Feature Request
+.\scripts\manage_issues.ps1 -Action promote -IssueNumber 123
+
+# 5. Assign component and priority to new FR issue
+gh issue edit <new-fr-number> --add-label "component:looting" --add-label "priority:medium"
+```
+
+### Feature Request Management
+```bash
+# Promote user request to formal FR (auto-determines FR number)
+.\scripts\manage_issues.ps1 -Action promote -IssueNumber 123
+
+# Promote with specific FR number
+.\scripts\manage_issues.ps1 -Action promote -IssueNumber 123 -FRNumber FR-086
+
+# Update FR status during development
+.\scripts\manage_issues.ps1 -Action status -IssueNumber 456 -Status in-progress
+
+# Mark FR as complete
+.\scripts\manage_issues.ps1 -Action status -IssueNumber 456 -Status testing
 ```
 
 ## Next Steps
