@@ -94,3 +94,4 @@ validation_results_*.json
 # Temporary files
 *.tmp
 *.temp
+tmp/
