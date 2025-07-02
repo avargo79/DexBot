@@ -1,0 +1,122 @@
+{
+    "version": "1.0.0",
+    "last_updated": "2025-07-02",
+    "repository": "DexBot/DexBot",
+    "components": {
+        "intelligent_routing": {
+            "enabled": true,
+            "confidence_threshold": 0.75,
+            "auto_assign": false,
+            "component_categories": [
+                "core",
+                "combat",
+                "looting",
+                "auto_heal",
+                "auto_buff",
+                "ui",
+                "configuration"
+            ],
+            "nlp_analysis_level": "comprehensive",
+            "min_training_samples": 10
+        },
+        "predictive_dashboard": {
+            "enabled": true,
+            "refresh_interval_hours": 24,
+            "prediction_horizon_days": 30,
+            "confidence_interval": 0.90,
+            "include_historical_data": true,
+            "chart_types": [
+                "burn_down",
+                "velocity",
+                "completion_forecast",
+                "bottleneck_analysis"
+            ],
+            "output_formats": [
+                "markdown",
+                "html",
+                "json"
+            ]
+        },
+        "self_optimization": {
+            "enabled": true,
+            "learning_rate": 0.05,
+            "optimization_interval_days": 7,
+            "features_to_optimize": [
+                "routing_confidence",
+                "assignment_accuracy",
+                "prediction_precision",
+                "workflow_efficiency"
+            ],
+            "max_parameter_adjustment": 0.2,
+            "history_window_days": 90
+        }
+    },
+    "github_integration": {
+        "webhooks_enabled": false,
+        "webhook_secret": "",
+        "webhook_events": [
+            "issues",
+            "issue_comment",
+            "pull_request",
+            "project_card"
+        ],
+        "actions_enabled": false,
+        "action_triggers": [
+            "issue_opened",
+            "issue_labeled",
+            "issue_assigned",
+            "issue_closed"
+        ],
+        "api_token_configured": false,
+        "api_rate_limit_buffer": 10
+    },
+    "automation_settings": {
+        "auto_triage": true,
+        "auto_labeling": true,
+        "auto_assignment": false,
+        "auto_prioritization": true,
+        "auto_prd_validation": true,
+        "auto_dashboard_generation": true,
+        "triage_threshold": 0.8,
+        "routing_threshold": 0.7,
+        "assignment_threshold": 0.9
+    },
+    "notification_settings": {
+        "email_enabled": false,
+        "email_recipients": [],
+        "email_server": "",
+        "email_port": 587,
+        "email_use_ssl": true,
+        "slack_enabled": false,
+        "slack_webhook_url": "",
+        "slack_channel": "",
+        "teams_enabled": false,
+        "teams_webhook_url": ""
+    },
+    "report_settings": {
+        "report_directory": "./reports",
+        "archive_reports": true,
+        "max_report_history": 10,
+        "default_format": "markdown",
+        "include_timestamps": true,
+        "include_system_info": true
+    },
+    "logging_settings": {
+        "log_level": "Information",
+        "log_directory": "./logs",
+        "max_log_size_mb": 10,
+        "max_log_files": 10,
+        "log_file_prefix": "automation_suite_",
+        "include_timestamp": true,
+        "console_output": true
+    },
+    "advanced_settings": {
+        "debug_mode": false,
+        "performance_tracking": true,
+        "api_caching_enabled": true,
+        "api_cache_duration_minutes": 15,
+        "parallel_processing": true,
+        "max_parallel_operations": 5,
+        "timeout_seconds": 300
+    }
+}
