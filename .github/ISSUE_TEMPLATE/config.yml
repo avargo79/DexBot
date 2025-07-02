@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: DexBot Documentation
+    url: https://github.com/avargo79/DexBot/blob/main/README.md
+    about: Read the comprehensive documentation and setup guides
+  - name: Development Workflow
+    url: https://github.com/avargo79/DexBot/blob/main/docs/DEVELOPMENT_WORKFLOW.md
+    about: Learn about the development process and contributing guidelines
+  - name: Feature Backlog
+    url: https://github.com/avargo79/DexBot/blob/main/docs/backlog/CURRENT_DEVELOPMENT_PRIORITIES.md
+    about: View planned features and development priorities
