@@ -28,12 +28,12 @@
 
 param(
     [Parameter(Mandatory=$true)]
-    [ValidateSet("list", "assign", "status", "comment", "close", "develop", "summary")]
+    [ValidateSet("list", "assign", "status", "comment", "close", "develop", "summary", "review-queue")]
     [string]$Action,
     
     [int]$IssueNumber,
     
-    [ValidateSet("planning", "in-progress", "review", "testing", "blocked")]
+    [ValidateSet("proposed", "planning", "in-progress", "review", "testing", "blocked")]
     [string]$Status,
     
     [string]$Comment,
@@ -141,7 +141,7 @@ switch ($Action) {
         Write-Info "Updating status of issue #$IssueNumber to '$Status'..."
         try {
             # Remove existing status labels
-            $statusLabels = @("status:planning", "status:in-progress", "status:review", "status:testing", "status:blocked")
+            $statusLabels = @("status:proposed", "status:planning", "status:in-progress", "status:review", "status:testing", "status:blocked")
             foreach ($statusLabel in $statusLabels) {
                 try {
                     gh issue edit $IssueNumber --remove-label $statusLabel 2>$null
@@ -306,7 +306,78 @@ switch ($Action) {
         Write-Host "  Start work on issue: .\manage_issues.ps1 -Action develop -IssueNumber 123" -ForegroundColor Gray
         Write-Host "  Update status: .\manage_issues.ps1 -Action status -IssueNumber 123 -Status review" -ForegroundColor Gray
     }
+    
+    "review-queue" {
+        Write-Info "Issues Needing Triage (Review Queue)"
+        Write-Host ""
+        
+        # Get all open issues
+        $allIssues = gh issue list --state open --json labels,title,number,createdAt,author | ConvertFrom-Json
+        
+        # Filter issues without status labels (need triage)
+        $triageIssues = @()
+        foreach ($issue in $allIssues) {
+            $hasStatusLabel = $false
+            foreach ($label in $issue.labels) {
+                if ($label.name -like "status:*") {
+                    $hasStatusLabel = $true
+                    break
+                }
+            }
+            if (-not $hasStatusLabel) {
+                $triageIssues += $issue
+            }
+        }
+        
+        if ($triageIssues.Count -eq 0) {
+            Write-Success "No issues pending triage - review queue is empty!"
+        } else {
+            Write-Warning "Found $($triageIssues.Count) issue(s) needing triage:"
+            Write-Host ""
+            
+            foreach ($issue in $triageIssues) {
+                $createdDate = [DateTime]::Parse($issue.createdAt).ToString("yyyy-MM-dd")
+                $author = $issue.author.login
+                
+                Write-Host "  #$($issue.number)" -ForegroundColor Cyan -NoNewline
+                Write-Host " - $($issue.title)" -ForegroundColor White
+                Write-Host "    Created: $createdDate by @$author" -ForegroundColor Gray
+                
+                # Show existing labels (non-status)
+                $otherLabels = $issue.labels | Where-Object { $_.name -notlike "status:*" } | ForEach-Object { $_.name }
+                if ($otherLabels.Count -gt 0) {
+                    Write-Host "    Labels: $($otherLabels -join ', ')" -ForegroundColor Gray
+                }
+                Write-Host ""
+            }
+            
+            Write-Info "Quick Triage Commands:"
+            Write-Host "  Mark as proposed: .\manage_issues.ps1 -Action status -IssueNumber ### -Status proposed" -ForegroundColor Gray
+            Write-Host "  View issue details: gh issue view ###" -ForegroundColor Gray
+            Write-Host "  Close invalid: gh issue close ### --comment 'Reason for closing'" -ForegroundColor Gray
+        }
+        
+        # Also show proposed issues ready for PRD work
+        Write-Host ""
+        Write-Info "Proposed Issues (Ready for PRD Development):"
+        $proposedIssues = gh issue list --label "status:proposed" --state open --json title,number,author | ConvertFrom-Json
+        
+        if ($proposedIssues.Count -eq 0) {
+            Write-Success "No proposed issues awaiting PRD development"
+        } else {
+            foreach ($issue in $proposedIssues) {
+                Write-Host "  #$($issue.number)" -ForegroundColor Yellow -NoNewline
+                Write-Host " - $($issue.title)" -ForegroundColor White
+                Write-Host "    Author: @$($issue.author.login)" -ForegroundColor Gray
+            }
+            Write-Host ""
+            Write-Info "PRD Development Commands:"
+            Write-Host "  Add PRD comment: gh issue comment ### --body-file prd-content.md" -ForegroundColor Gray
+            Write-Host "  Promote to planning: .\manage_issues.ps1 -Action status -IssueNumber ### -Status planning" -ForegroundColor Gray
+        }
+    }
 }
 
 Write-Host ""
 Write-Info "Issue management complete!"
+Write-Info "Available actions: list, review-queue, assign, status, comment, close, develop, summary"

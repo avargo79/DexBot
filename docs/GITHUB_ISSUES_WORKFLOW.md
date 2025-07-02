@@ -32,6 +32,7 @@ This document outlines the GitHub Issues-based project management workflow for D
 - `component:docs` - Documentation
 
 ### Status Labels
+- `status:proposed` - Items under consideration, not yet approved
 - `status:planning` - Requirements gathering and planning
 - `status:in-progress` - Currently being worked on
 - `status:review` - Ready for code review
@@ -39,6 +40,23 @@ This document outlines the GitHub Issues-based project management workflow for D
 - `status:blocked` - Cannot proceed due to dependencies
 
 ## Issue Creation Workflow
+
+### 0. Proposed Items (New!)
+```bash
+# Create a proposed feature for discussion
+gh issue create --title "[PROPOSED] Advanced Combat AI System" \
+  --body "## Proposal
+This is a proposal for an advanced combat AI system that would enhance target selection and combat tactics.
+
+## Discussion Points
+- Is this aligned with project goals?
+- What would be the implementation complexity?
+- Should this be prioritized over other features?
+
+## Next Steps
+If approved, this will be converted to a proper feature issue with full requirements." \
+  --label "status:proposed,enhancement,priority:medium"
+```
 
 ### 1. Feature Issues (from PRD)
 ```bash
@@ -119,6 +137,54 @@ gh pr create --title "Implement Buff Management System" \
 Closes #123"
 ```
 
+## Issue Triage Workflow
+
+### Manual Triage Process
+DexBot uses a manual triage process to ensure quality control and strategic alignment:
+
+1. **New Issue Submission**: Users create issues without status labels
+2. **Review Queue**: Maintainers review unlabeled issues for merit
+3. **Triage Decision**: 
+   - **Has Merit**: Label as `status:proposed` for PRD development
+   - **No Merit**: Close with explanation
+4. **PRD Development**: Create detailed requirements in issue comments
+5. **Final Approval**: Move to `status:planning` with FR-### number assignment
+
+### Triage Commands
+```bash
+# View issues needing triage and proposed items ready for PRD work
+.\scripts\manage_issues.ps1 -Action review-queue
+
+# Mark an issue as having merit (moves to proposed status)
+.\scripts\manage_issues.ps1 -Action status -IssueNumber 123 -Status proposed
+
+# View issue details for evaluation
+gh issue view 123
+
+# Close invalid issues
+gh issue close 123 --comment "Reason for closing"
+```
+
+### PRD Development Process
+1. **Research**: Analyze requirements and technical feasibility
+2. **Draft PRD**: Create detailed Product Requirements Document
+3. **Post PRD**: Add PRD content as issue comment, tag original author
+4. **Iterate**: Refine based on feedback and discussion
+5. **Approve**: When finalized, promote to planning status
+6. **Assign FR Number**: Manually assign FR-### number for tracking
+
+```bash
+# Add PRD content to issue
+gh issue comment 123 --body "## Product Requirements Document
+### Feature Overview
+[Detailed requirements here...]
+
+@original-author Please review this PRD and let us know your thoughts."
+
+# After approval, promote to planning
+.\scripts\manage_issues.ps1 -Action status -IssueNumber 123 -Status planning
+```
+
 ## Issue Management Commands
 
 ### List Issues
@@ -136,6 +202,10 @@ gh issue list --assignee @me
 
 ### Issue Status Updates
 ```bash
+# Promote proposed item to planning
+gh issue edit 123 --remove-label "status:proposed"
+gh issue edit 123 --add-label "status:planning"
+
 # Assign issue to yourself
 gh issue edit 123 --add-assignee @me
 
@@ -144,7 +214,7 @@ gh issue edit 123 --add-label "status:in-progress"
 gh issue edit 123 --remove-label "status:planning"
 
 # Comment on issue
-gh issue comment 123 --body "Starting work on this feature. Will begin with core buff detection logic."
+gh issue comment 123 --body "Starting work on this feature. Will begin with core implementation."
 ```
 
 ### Closing Issues
@@ -316,6 +386,38 @@ body:
 - Tag team members when input needed
 - Document decisions in issue comments
 - Keep status current with labels
+
+## Quick Reference
+
+### Daily Workflow Commands
+```bash
+# Review issues needing attention
+.\scripts\manage_issues.ps1 -Action review-queue
+
+# Check your assigned work
+.\scripts\manage_issues.ps1 -Action list -Mine
+
+# Project overview
+.\scripts\manage_issues.ps1 -Action summary
+
+# Start work on approved feature
+.\scripts\manage_issues.ps1 -Action develop -IssueNumber 123
+```
+
+### Triage Workflow
+```bash
+# 1. Review new submissions
+.\scripts\manage_issues.ps1 -Action review-queue
+
+# 2. Mark promising ones as proposed  
+.\scripts\manage_issues.ps1 -Action status -IssueNumber 123 -Status proposed
+
+# 3. Develop PRD in issue comments
+gh issue comment 123 --body "## PRD Content..."
+
+# 4. After approval, promote to planning
+.\scripts\manage_issues.ps1 -Action status -IssueNumber 123 -Status planning
+```
 
 ## Next Steps
 
