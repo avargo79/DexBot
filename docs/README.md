@@ -6,11 +6,16 @@ This directory contains all project documentation for DexBot, organized accordin
 
 ### 📋 Product Information
 - **[Product Overview](PRODUCT_OVERVIEW.md)** - Executive summary, vision, and market position
+- **[Project Status Summary](PROJECT_STATUS_SUMMARY.md)** - Comprehensive current project status and achievements
 - **[Features & Capabilities](FEATURES.md)** - Comprehensive feature documentation
 
 ### 🗂️ GitHub Issues Workflow
 - **[GitHub Issues Workflow](GITHUB_ISSUES_WORKFLOW.md)** - Official process guide for project management
 - **[Implementation Roadmap](GITHUB_ISSUES_IMPLEMENTATION_ROADMAP.md)** - Automation development tracking
+- **[Mock Testing Approach](MOCK_TESTING_APPROACH.md)** - Comprehensive testing methodology
+- **[Full Automation Suite Usage Guide](FULL_AUTOMATION_SUITE_USAGE_GUIDE.md)** - Complete automation system guide
+- **[Full Automation Suite Quickstart](FULL_AUTOMATION_SUITE_QUICKSTART.md)** - Quick setup guide
+- **[Full Automation Suite Troubleshooting](FULL_AUTOMATION_SUITE_TROUBLESHOOTING.md)** - Problem resolution guide
 
 ### 📋 Product Backlog
 - **[Product Backlog](backlog/PRODUCT_BACKLOG.md)** - Master prioritized list of features, bugs, and tasks
@@ -51,6 +56,7 @@ docs/
 - **Auto Heal System** ✅ - Automated healing and buff management
 - **Combat System** ✅ - Enemy detection, targeting, and engagement  
 - **Looting System** ✅ - Corpse processing and item management with performance optimization
+- **GitHub Issues Workflow Automation** ✅ - Complete automation suite with intelligent routing and predictive analytics
 
 ### Active Development PRDs
 - **[Inventory Management System](prds/FR-095_Inventory_Management_System.md)** - Smart inventory organization
