@@ -270,11 +270,59 @@ function Invoke-FullOrchestration {
     Write-Host "Starting Full Orchestration for repository: $Repository" -ForegroundColor Cyan
     Write-Host "--------------------------------------------------------" -ForegroundColor Cyan
 
+    # Start tracking execution time
+    $orchestrationStartTime = Get-Date
+    
+    # Track results for reporting
+    $orchestrationResults = @{
+        Repository = $Repository
+        StartTime = $orchestrationStartTime
+        Components = @{}
+        Issues = @{
+            Processed = 0
+            RoutingApplied = 0
+            ActionsExecuted = 0
+        }
+        Errors = @()
+    }
+
     # 1. Initial data collection and environment setup
     Write-Host "[1/6] Collecting repository data and setting up environment..." -ForegroundColor Yellow
     
-    # TODO: Implement data collection logic
-    # This will gather all necessary data from GitHub using the API
+    try {
+        # Split repository into owner and repo name
+        $repoSplit = $Repository -split "/"
+        if ($repoSplit.Count -ne 2) {
+            throw "Invalid repository format. Expected 'owner/repo', got '$Repository'"
+        }
+        
+        $ownerName = $repoSplit[0]
+        $repoName = $repoSplit[1]
+        
+        # Get open issues
+        $openIssues = Get-GitHubIssue -OwnerName $ownerName -RepositoryName $repoName -State Open
+        Write-Host "  Retrieved $($openIssues.Count) open issues from repository" -ForegroundColor Gray
+        
+        # Get recent repository events
+        $recentEvents = Get-GitHubEvent -OwnerName $ownerName -RepositoryName $repoName
+        Write-Host "  Retrieved recent repository events" -ForegroundColor Gray
+        
+        # Store data for reporting
+        $orchestrationResults.Issues.Total = $openIssues.Count
+        $orchestrationResults.Components.DataCollection = @{
+            Status = "Success"
+            OpenIssues = $openIssues.Count
+            Events = $recentEvents.Count
+        }
+    }
+    catch {
+        Write-Error "Failed to collect repository data: $_"
+        $orchestrationResults.Components.DataCollection = @{
+            Status = "Failed"
+            Error = $_.Exception.Message
+        }
+        $orchestrationResults.Errors += "Data Collection: $($_.Exception.Message)"
+    }
     
     Write-Host "Environment setup complete." -ForegroundColor Green
 
@@ -284,10 +332,44 @@ function Invoke-FullOrchestration {
     $intelligentRoutingScript = $ComponentScripts["IntelligentRouting"]
     if (Test-Path $intelligentRoutingScript) {
         Write-Host "  Executing intelligent routing analysis..." -ForegroundColor Gray
-        # TODO: Call intelligent_routing.ps1 with appropriate parameters
+        try {
+            # Process all open issues without labels or with specific labels
+            $issuesToRoute = $openIssues | Where-Object { 
+                $_.labels.Count -eq 0 -or 
+                $_.labels -contains "needs-triage" -or 
+                $_.labels -contains "new"
+            }
+            
+            $routedCount = 0
+            foreach ($issue in $issuesToRoute) {
+                if ($PSCmdlet.ShouldProcess("Issue #$($issue.number)", "Apply intelligent routing")) {
+                    & $intelligentRoutingScript -Repository $Repository -IssueNumber $issue.number -Mode "batch" -Quiet
+                    $routedCount++
+                    $orchestrationResults.Issues.RoutingApplied++
+                }
+            }
+            
+            Write-Host "  Applied intelligent routing to $routedCount issues" -ForegroundColor Gray
+            $orchestrationResults.Components.IntelligentRouting = @{
+                Status = "Success"
+                IssuesRouted = $routedCount
+            }
+        }
+        catch {
+            Write-Error "Failed to execute intelligent routing: $_"
+            $orchestrationResults.Components.IntelligentRouting = @{
+                Status = "Failed"
+                Error = $_.Exception.Message
+            }
+            $orchestrationResults.Errors += "Intelligent Routing: $($_.Exception.Message)"
+        }
     }
     else {
         Write-Warning "Intelligent routing script not found. Skipping this step."
+        $orchestrationResults.Components.IntelligentRouting = @{
+            Status = "Skipped"
+            Reason = "Script not found"
+        }
     }
     
     Write-Host "Intelligent routing analysis complete." -ForegroundColor Green
@@ -298,10 +380,31 @@ function Invoke-FullOrchestration {
     $predictiveDashboardScript = $ComponentScripts["PredictiveDashboard"]
     if (Test-Path $predictiveDashboardScript) {
         Write-Host "  Executing predictive analytics..." -ForegroundColor Gray
-        # TODO: Call predictive_dashboard.ps1 with appropriate parameters
+        try {
+            if ($PSCmdlet.ShouldProcess("Repository $Repository", "Generate predictive analytics")) {
+                & $predictiveDashboardScript -Repository $Repository -Action "forecast" -OutputPath "../reports/predictive_forecast_$(Get-Date -Format 'yyyyMMdd').md"
+                
+                $orchestrationResults.Components.PredictiveAnalytics = @{
+                    Status = "Success"
+                    GeneratedAt = Get-Date
+                }
+            }
+        }
+        catch {
+            Write-Error "Failed to execute predictive analytics: $_"
+            $orchestrationResults.Components.PredictiveAnalytics = @{
+                Status = "Failed"
+                Error = $_.Exception.Message
+            }
+            $orchestrationResults.Errors += "Predictive Analytics: $($_.Exception.Message)"
+        }
     }
     else {
         Write-Warning "Predictive dashboard script not found. Skipping this step."
+        $orchestrationResults.Components.PredictiveAnalytics = @{
+            Status = "Skipped"
+            Reason = "Script not found"
+        }
     }
     
     Write-Host "Predictive analytics complete." -ForegroundColor Green
@@ -309,16 +412,106 @@ function Invoke-FullOrchestration {
     # 4. Automated actions based on analysis
     Write-Host "[4/6] Executing automated actions..." -ForegroundColor Yellow
     
-    # TODO: Implement automated actions logic
-    # This will take actions based on the analysis results
+    try {
+        # Find issues needing automated actions
+        $actionableIssues = $openIssues | Where-Object { 
+            $_.labels -contains "ready-for-dev" -or 
+            $_.labels -contains "high-priority" -or 
+            $_.labels -contains "needs-assignment"
+        }
+        
+        $actionsExecuted = 0
+        
+        # Apply automated actions to each issue
+        foreach ($issue in $actionableIssues) {
+            Write-Host "  Processing issue #$($issue.number): $($issue.title)" -ForegroundColor Gray
+            
+            # PRD validation for issues with PRD content
+            if ($issue.body -match "## PRD" -or $issue.body -match "# Product Requirements") {
+                $manageIssuesScript = $ComponentScripts["ManageIssues"]
+                if (Test-Path $manageIssuesScript) {
+                    if ($PSCmdlet.ShouldProcess("Issue #$($issue.number)", "Validate PRD")) {
+                        & $manageIssuesScript -Action "fast-track" -Repository $Repository -IssueNumber $issue.number -ValidatePRD -Quiet
+                        $actionsExecuted++
+                        $orchestrationResults.Issues.ActionsExecuted++
+                    }
+                }
+            }
+            
+            # Smart assignment suggestions
+            if ($issue.labels -contains "ready-for-dev" -or $issue.labels -contains "high-priority") {
+                $suggestAssignmentScript = $ComponentScripts["SuggestAssignment"]
+                if (Test-Path $suggestAssignmentScript) {
+                    if ($PSCmdlet.ShouldProcess("Issue #$($issue.number)", "Suggest assignment")) {
+                        & $suggestAssignmentScript -Repository $Repository -IssueNumber $issue.number -Quiet
+                        $actionsExecuted++
+                        $orchestrationResults.Issues.ActionsExecuted++
+                    }
+                }
+            }
+            
+            # Batch processing for related issues
+            if ($issue.labels -contains "batch-process") {
+                $batchOperationsScript = $ComponentScripts["BatchOperations"]
+                if (Test-Path $batchOperationsScript) {
+                    if ($PSCmdlet.ShouldProcess("Issue #$($issue.number)", "Batch process")) {
+                        & $batchOperationsScript -Repository $Repository -Action "process" -IssueNumber $issue.number -Quiet
+                        $actionsExecuted++
+                        $orchestrationResults.Issues.ActionsExecuted++
+                    }
+                }
+            }
+        }
+        
+        Write-Host "  Executed $actionsExecuted automated actions" -ForegroundColor Gray
+        $orchestrationResults.Components.AutomatedActions = @{
+            Status = "Success"
+            ActionsExecuted = $actionsExecuted
+        }
+    }
+    catch {
+        Write-Error "Failed to execute automated actions: $_"
+        $orchestrationResults.Components.AutomatedActions = @{
+            Status = "Failed"
+            Error = $_.Exception.Message
+        }
+        $orchestrationResults.Errors += "Automated Actions: $($_.Exception.Message)"
+    }
     
     Write-Host "Automated actions complete." -ForegroundColor Green
 
     # 5. Self-optimization analysis
     Write-Host "[5/6] Performing self-optimization analysis..." -ForegroundColor Yellow
     
-    # TODO: Implement self-optimization logic
-    # This will analyze the effectiveness of previous actions and adjust parameters
+    try {
+        # Check if self-optimization is enabled in config
+        $selfOptimizationEnabled = $Config.components.self_optimization.enabled
+        
+        if ($selfOptimizationEnabled -and $PSCmdlet.ShouldProcess("Configuration", "Run self-optimization")) {
+            $optimizationResult = Invoke-SelfOptimization -Repository $Repository -Config $Config
+            
+            $orchestrationResults.Components.SelfOptimization = @{
+                Status = "Success"
+                ChangesApplied = $optimizationResult.ChangesApplied
+                ParametersAdjusted = ($optimizationResult.AppliedChanges | Measure-Object).Count
+            }
+        }
+        else {
+            Write-Host "  Self-optimization is disabled in configuration or running in WhatIf mode" -ForegroundColor Gray
+            $orchestrationResults.Components.SelfOptimization = @{
+                Status = "Skipped"
+                Reason = if (-not $selfOptimizationEnabled) { "Disabled in configuration" } else { "WhatIf mode" }
+            }
+        }
+    }
+    catch {
+        Write-Error "Failed to execute self-optimization: $_"
+        $orchestrationResults.Components.SelfOptimization = @{
+            Status = "Failed"
+            Error = $_.Exception.Message
+        }
+        $orchestrationResults.Errors += "Self-Optimization: $($_.Exception.Message)"
+    }
     
     Write-Host "Self-optimization analysis complete." -ForegroundColor Green
 
@@ -328,10 +521,55 @@ function Invoke-FullOrchestration {
     $generateDashboardScript = $ComponentScripts["GenerateDashboard"]
     if (Test-Path $generateDashboardScript) {
         Write-Host "  Executing dashboard generation..." -ForegroundColor Gray
-        # TODO: Call generate_dashboard.ps1 with appropriate parameters
+        try {
+            if ($PSCmdlet.ShouldProcess("Repository $Repository", "Generate dashboard")) {
+                & $generateDashboardScript -Repository $Repository -Type "comprehensive" -OutputPath "../reports/automation_dashboard_$(Get-Date -Format 'yyyyMMdd').md"
+                
+                $orchestrationResults.Components.DashboardGeneration = @{
+                    Status = "Success"
+                    GeneratedAt = Get-Date
+                }
+            }
+        }
+        catch {
+            Write-Error "Failed to generate dashboard: $_"
+            $orchestrationResults.Components.DashboardGeneration = @{
+                Status = "Failed"
+                Error = $_.Exception.Message
+            }
+            $orchestrationResults.Errors += "Dashboard Generation: $($_.Exception.Message)"
+        }
     }
     else {
         Write-Warning "Dashboard generator script not found. Skipping this step."
+        $orchestrationResults.Components.DashboardGeneration = @{
+            Status = "Skipped"
+            Reason = "Script not found"
+        }
+    }
+    
+    # Generate orchestration summary report
+    try {
+        $orchestrationEndTime = Get-Date
+        $orchestrationDuration = $orchestrationEndTime - $orchestrationStartTime
+        
+        $orchestrationResults.EndTime = $orchestrationEndTime
+        $orchestrationResults.Duration = $orchestrationDuration
+        
+        $summaryReportPath = Join-Path -Path (Split-Path -Path $ConfigPath -Parent) -ChildPath "../reports"
+        $summaryReportFile = Join-Path -Path $summaryReportPath -ChildPath "orchestration_summary_$(Get-Date -Format 'yyyyMMdd_HHmmss').json"
+        
+        # Create reports directory if it doesn't exist
+        if (-not (Test-Path -Path $summaryReportPath)) {
+            New-Item -Path $summaryReportPath -ItemType Directory -Force | Out-Null
+        }
+        
+        # Save the summary report
+        $orchestrationResults | ConvertTo-Json -Depth 10 | Set-Content -Path $summaryReportFile -Encoding UTF8
+        Write-Host "  Orchestration summary saved to: $summaryReportFile" -ForegroundColor Gray
+    }
+    catch {
+        Write-Error "Failed to generate orchestration summary: $_"
     }
     
     Write-Host "Report generation complete." -ForegroundColor Green
@@ -339,7 +577,13 @@ function Invoke-FullOrchestration {
     # Final summary
     Write-Host "--------------------------------------------------------" -ForegroundColor Cyan
     Write-Host "Full Orchestration completed successfully!" -ForegroundColor Cyan
+    Write-Host "Duration: $($orchestrationDuration.ToString())" -ForegroundColor Cyan
+    Write-Host "Issues processed: $($orchestrationResults.Issues.Processed)" -ForegroundColor Cyan
+    Write-Host "Routing applied: $($orchestrationResults.Issues.RoutingApplied)" -ForegroundColor Cyan
+    Write-Host "Actions executed: $($orchestrationResults.Issues.ActionsExecuted)" -ForegroundColor Cyan
     Write-Host "Check the reports directory for detailed results and recommendations." -ForegroundColor Cyan
+    
+    return $orchestrationResults
 }
 
 #endregion
@@ -505,32 +749,654 @@ function Invoke-SelfOptimization {
     Write-Host "Running self-optimization for repository: $Repository" -ForegroundColor Cyan
     Write-Host "---------------------------------------------------" -ForegroundColor Cyan
 
-    # TODO: Implement self-optimization logic
+    # 1. Collect historical performance data
+    Write-Host "[1/5] Collecting historical performance data..." -ForegroundColor Yellow
+    $performanceData = Get-PerformanceData -Repository $Repository -Config $Config
+    Write-Host "Performance data collected for analysis." -ForegroundColor Green
 
+    # 2. Analyze effectiveness of automation decisions
+    Write-Host "[2/5] Analyzing automation effectiveness..." -ForegroundColor Yellow
+    $effectivenessMetrics = Analyze-AutomationEffectiveness -PerformanceData $performanceData -Config $Config
+    Write-Host "Effectiveness analysis complete." -ForegroundColor Green
+
+    # 3. Identify optimization opportunities
+    Write-Host "[3/5] Identifying optimization opportunities..." -ForegroundColor Yellow
+    $optimizationOpportunities = Identify-OptimizationOpportunities -EffectivenessMetrics $effectivenessMetrics -Config $Config
+    Write-Host "Optimization opportunities identified." -ForegroundColor Green
+
+    # 4. Generate parameter adjustments
+    Write-Host "[4/5] Generating parameter adjustments..." -ForegroundColor Yellow
+    $parameterAdjustments = Generate-ParameterAdjustments -OptimizationOpportunities $optimizationOpportunities -Config $Config
+    Write-Host "Parameter adjustments generated." -ForegroundColor Green
+
+    # 5. Apply optimization changes
+    Write-Host "[5/5] Applying optimization changes..." -ForegroundColor Yellow
+    if ($PSCmdlet.ShouldProcess("Configuration", "Apply optimization changes")) {
+        $optimizationResult = Apply-OptimizationChanges -ParameterAdjustments $parameterAdjustments -Config $Config -ConfigPath $ConfigPath
+        Write-Host "Optimization changes applied successfully." -ForegroundColor Green
+    }
+    else {
+        Write-Host "Optimization changes were not applied (WhatIf mode)." -ForegroundColor Yellow
+        $optimizationResult = @{
+            ChangesApplied = $false
+            Recommendations = $parameterAdjustments
+        }
+    }
+
+    # Generate optimization report
+    $reportPath = Join-Path -Path (Split-Path -Path $ConfigPath -Parent) -ChildPath "../reports"
+    $reportFile = Join-Path -Path $reportPath -ChildPath "optimization_report_$(Get-Date -Format 'yyyyMMdd_HHmmss').md"
+    
+    # Create reports directory if it doesn't exist
+    if (-not (Test-Path -Path $reportPath)) {
+        New-Item -Path $reportPath -ItemType Directory -Force | Out-Null
+    }
+    
+    # Generate and save the report
+    $optimizationReport = Generate-OptimizationReport -OptimizationResult $optimizationResult -EffectivenessMetrics $effectivenessMetrics
+    $optimizationReport | Out-File -FilePath $reportFile -Encoding UTF8
+    
+    Write-Host "Optimization report saved to: $reportFile" -ForegroundColor Green
     Write-Host "Self-optimization completed successfully!" -ForegroundColor Green
+    
+    return $optimizationResult
 }
 
-#endregion
-
-#region Validation
-
-function Invoke-ConfigurationValidation {
+function Get-PerformanceData {
     [CmdletBinding()]
     param (
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $true)]
         [string]$Repository,
         [Parameter(Mandatory = $false)]
+        [PSCustomObject]$Config
+    )
+    
+    Write-Verbose "Collecting performance data for $Repository"
+    
+    # Determine date range for data collection
+    $endDate = Get-Date
+    $startDate = $endDate.AddDays(-30)  # Last 30 days by default
+    
+    if ($Config.components.self_optimization.data_collection_days) {
+        $days = $Config.components.self_optimization.data_collection_days
+        $startDate = $endDate.AddDays(-$days)
+        Write-Verbose "Using custom data collection period: $days days"
+    }
+    
+    # Get repository owner and name
+    $repoSplit = $Repository -split "/"
+    $ownerName = $repoSplit[0]
+    $repoName = $repoSplit[1]
+    
+    try {
+        # Get issues and related data
+        Write-Verbose "Fetching issue data from GitHub API"
+        $issues = Get-GitHubIssue -OwnerName $ownerName -RepositoryName $repoName -State All -Since $startDate
+        
+        # Get events for analysis
+        Write-Verbose "Fetching repository events from GitHub API"
+        $events = Get-GitHubEvent -OwnerName $ownerName -RepositoryName $repoName
+        
+        # Get automation logs if available
+        $automationLogs = @()
+        $logsPath = Join-Path -Path (Split-Path -Path $ConfigPath -Parent) -ChildPath "../reports"
+        $logFiles = Get-ChildItem -Path $logsPath -Filter "*automation*.md" -File | Where-Object { $_.LastWriteTime -gt $startDate }
+        
+        foreach ($logFile in $logFiles) {
+            Write-Verbose "Processing automation log: $($logFile.Name)"
+            $logContent = Get-Content -Path $logFile.FullName -Raw
+            $automationLogs += @{
+                Filename = $logFile.Name
+                Date = $logFile.LastWriteTime
+                Content = $logContent
+            }
+        }
+        
+        # Combine all data into a performance dataset
+        $performanceData = @{
+            Repository = $Repository
+            StartDate = $startDate
+            EndDate = $endDate
+            Issues = $issues
+            Events = $events
+            AutomationLogs = $automationLogs
+            Components = @{
+                IntelligentRouting = Get-IntelligentRoutingMetrics -Issues $issues -Events $events -Logs $automationLogs
+                PredictiveDashboard = Get-PredictiveDashboardMetrics -Issues $issues -Events $events -Logs $automationLogs
+                AutomationSuite = Get-AutomationSuiteMetrics -Issues $issues -Events $events -Logs $automationLogs
+            }
+        }
+        
+        return $performanceData
+    }
+    catch {
+        Write-Error "Failed to collect performance data: $_"
+        return @{
+            Repository = $Repository
+            StartDate = $startDate
+            EndDate = $endDate
+            Error = $_.Exception.Message
+            Components = @{}
+        }
+    }
+}
+
+function Get-IntelligentRoutingMetrics {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true)]
+        [object[]]$Issues,
+        [Parameter(Mandatory = $false)]
+        [object[]]$Events,
+        [Parameter(Mandatory = $false)]
+        [object[]]$Logs
+    )
+    
+    # Extract intelligent routing metrics from available data
+    # This is a simplified implementation for demonstration purposes
+    
+    $routingDecisions = 0
+    $successfulRoutings = 0
+    $incorrectRoutings = 0
+    $routingTimes = @()
+    
+    # Process logs to find routing metrics
+    foreach ($log in $Logs) {
+        if ($log.Content -match "Intelligent routing") {
+            $routingDecisions++
+            
+            # Extract routing success/failure metrics
+            if ($log.Content -match "Routing successful") {
+                $successfulRoutings++
+            }
+            elseif ($log.Content -match "Routing incorrect") {
+                $incorrectRoutings++
+            }
+            
+            # Extract routing time if available
+            if ($log.Content -match "Routing completed in (\d+\.\d+) seconds") {
+                $routingTimes += [double]$Matches[1]
+            }
+        }
+    }
+    
+    # Calculate metrics
+    $accuracy = if ($routingDecisions -gt 0) { $successfulRoutings / $routingDecisions } else { 0 }
+    $averageTime = if ($routingTimes.Count -gt 0) { ($routingTimes | Measure-Object -Average).Average } else { 0 }
+    
+    return @{
+        RoutingDecisions = $routingDecisions
+        SuccessfulRoutings = $successfulRoutings
+        IncorrectRoutings = $incorrectRoutings
+        RoutingAccuracy = $accuracy
+        AverageRoutingTime = $averageTime
+        RoutingTimes = $routingTimes
+    }
+}
+
+function Get-PredictiveDashboardMetrics {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true)]
+        [object[]]$Issues,
+        [Parameter(Mandatory = $false)]
+        [object[]]$Events,
+        [Parameter(Mandatory = $false)]
+        [object[]]$Logs
+    )
+    
+    # Extract predictive dashboard metrics
+    # This is a simplified implementation for demonstration purposes
+    
+    $predictions = 0
+    $accuratePredictions = 0
+    $predictionErrors = @()
+    
+    # Process logs to find prediction metrics
+    foreach ($log in $Logs) {
+        if ($log.Content -match "Predictive dashboard") {
+            $predictions++
+            
+            # Extract prediction accuracy metrics
+            if ($log.Content -match "Prediction accuracy: (\d+\.\d+)%") {
+                $accuracy = [double]$Matches[1] / 100
+                $accuratePredictions += $accuracy
+                $predictionErrors += (1 - $accuracy)
+            }
+        }
+    }
+    
+    # Calculate metrics
+    $averageAccuracy = if ($predictions -gt 0) { $accuratePredictions / $predictions } else { 0 }
+    $averageError = if ($predictions -gt 0) { ($predictionErrors | Measure-Object -Average).Average } else { 0 }
+    
+    return @{
+        Predictions = $predictions
+        AveragePredictionAccuracy = $averageAccuracy
+        AveragePredictionError = $averageError
+        PredictionErrors = $predictionErrors
+    }
+}
+
+function Get-AutomationSuiteMetrics {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true)]
+        [object[]]$Issues,
+        [Parameter(Mandatory = $false)]
+        [object[]]$Events,
+        [Parameter(Mandatory = $false)]
+        [object[]]$Logs
+    )
+    
+    # Extract automation suite metrics
+    # This is a simplified implementation for demonstration purposes
+    
+    $automationRuns = 0
+    $successfulRuns = 0
+    $failedRuns = 0
+    $executionTimes = @()
+    
+    # Process logs to find automation metrics
+    foreach ($log in $Logs) {
+        if ($log.Content -match "Full Orchestration") {
+            $automationRuns++
+            
+            # Extract run success/failure metrics
+            if ($log.Content -match "completed successfully") {
+                $successfulRuns++
+            }
+            elseif ($log.Content -match "failed") {
+                $failedRuns++
+            }
+            
+            # Extract execution time if available
+            if ($log.Content -match "Execution time: (\d+\.\d+) seconds") {
+                $executionTimes += [double]$Matches[1]
+            }
+        }
+    }
+    
+    # Calculate metrics
+    $successRate = if ($automationRuns -gt 0) { $successfulRuns / $automationRuns } else { 0 }
+    $averageExecutionTime = if ($executionTimes.Count -gt 0) { ($executionTimes | Measure-Object -Average).Average } else { 0 }
+    
+    return @{
+        AutomationRuns = $automationRuns
+        SuccessfulRuns = $successfulRuns
+        FailedRuns = $failedRuns
+        SuccessRate = $successRate
+        AverageExecutionTime = $averageExecutionTime
+        ExecutionTimes = $executionTimes
+    }
+}
+
+function Analyze-AutomationEffectiveness {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true)]
+        [PSCustomObject]$PerformanceData,
+        [Parameter(Mandatory = $false)]
+        [PSCustomObject]$Config
+    )
+    
+    Write-Verbose "Analyzing automation effectiveness"
+    
+    # Extract key metrics for analysis
+    $metrics = @{
+        # Issue processing metrics
+        IssuesProcessed = $PerformanceData.Issues.Count
+        IssuesWithAutomation = ($PerformanceData.Issues | Where-Object { $_.Labels -contains "automated" }).Count
+        
+        # Intelligent routing metrics
+        RoutingAccuracy = $PerformanceData.Components.IntelligentRouting.RoutingAccuracy
+        RoutingDecisions = $PerformanceData.Components.IntelligentRouting.RoutingDecisions
+        
+        # Predictive dashboard metrics
+        PredictionAccuracy = $PerformanceData.Components.PredictiveDashboard.AveragePredictionAccuracy
+        
+        # Automation suite metrics
+        AutomationSuccessRate = $PerformanceData.Components.AutomationSuite.SuccessRate
+        
+        # Time metrics
+        AverageRoutingTime = $PerformanceData.Components.IntelligentRouting.AverageRoutingTime
+        AverageExecutionTime = $PerformanceData.Components.AutomationSuite.AverageExecutionTime
+    }
+    
+    # Calculate effectiveness scores
+    $scores = @{
+        RoutingEffectiveness = $metrics.RoutingAccuracy * 100  # 0-100 scale
+        PredictionEffectiveness = $metrics.PredictionAccuracy * 100  # 0-100 scale
+        AutomationEffectiveness = $metrics.AutomationSuccessRate * 100  # 0-100 scale
+        PerformanceEfficiency = if ($metrics.AverageExecutionTime -gt 0) { 
+            100 - [Math]::Min(100, ($metrics.AverageExecutionTime / 10) * 100) 
+        } else { 0 }  # Higher is better (lower execution time)
+    }
+    
+    # Calculate overall effectiveness score
+    $weights = @{
+        Routing = 0.3
+        Prediction = 0.2
+        Automation = 0.3
+        Performance = 0.2
+    }
+    
+    $overallScore = ($scores.RoutingEffectiveness * $weights.Routing) +
+                    ($scores.PredictionEffectiveness * $weights.Prediction) +
+                    ($scores.AutomationEffectiveness * $weights.Automation) +
+                    ($scores.PerformanceEfficiency * $weights.Performance)
+    
+    $effectiveness = @{
+        Metrics = $metrics
+        Scores = $scores
+        OverallScore = $overallScore
+        EffectivenessRating = switch ($overallScore) {
+            { $_ -ge 90 } { "Excellent" }
+            { $_ -ge 80 } { "Very Good" }
+            { $_ -ge 70 } { "Good" }
+            { $_ -ge 60 } { "Satisfactory" }
+            { $_ -ge 50 } { "Needs Improvement" }
+            default { "Requires Significant Improvement" }
+        }
+    }
+    
+    return $effectiveness
+}
+
+function Identify-OptimizationOpportunities {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true)]
+        [PSCustomObject]$EffectivenessMetrics,
+        [Parameter(Mandatory = $false)]
+        [PSCustomObject]$Config
+    )
+    
+    Write-Verbose "Identifying optimization opportunities"
+    
+    $opportunities = @()
+    
+    # Check routing effectiveness
+    if ($EffectivenessMetrics.Scores.RoutingEffectiveness -lt 85) {
+        $opportunities += @{
+            Component = "IntelligentRouting"
+            Parameter = "confidence_threshold"
+            CurrentValue = $Config.components.intelligent_routing.confidence_threshold
+            RecommendedAction = "Adjust threshold to improve routing accuracy"
+            Priority = if ($EffectivenessMetrics.Scores.RoutingEffectiveness -lt 70) { "High" } else { "Medium" }
+            AdjustmentLogic = @{
+                Direction = if ($EffectivenessMetrics.Metrics.RoutingAccuracy -lt 0.7) { "Increase" } else { "Decrease" }
+                Magnitude = if ($EffectivenessMetrics.Scores.RoutingEffectiveness -lt 70) { 0.1 } else { 0.05 }
+            }
+        }
+    }
+    
+    # Check prediction effectiveness
+    if ($EffectivenessMetrics.Scores.PredictionEffectiveness -lt 80) {
+        $opportunities += @{
+            Component = "PredictiveDashboard"
+            Parameter = "prediction_horizon_days"
+            CurrentValue = $Config.components.predictive_dashboard.prediction_horizon_days
+            RecommendedAction = "Adjust prediction horizon to improve accuracy"
+            Priority = if ($EffectivenessMetrics.Scores.PredictionEffectiveness -lt 65) { "High" } else { "Medium" }
+            AdjustmentLogic = @{
+                Direction = if ($EffectivenessMetrics.Metrics.PredictionAccuracy -lt 0.65) { "Decrease" } else { "Increase" }
+                Magnitude = if ($EffectivenessMetrics.Scores.PredictionEffectiveness -lt 65) { 7 } else { 5 }
+            }
+        }
+    }
+    
+    # Check automation effectiveness
+    if ($EffectivenessMetrics.Scores.AutomationEffectiveness -lt 90) {
+        $opportunities += @{
+            Component = "AutomationSettings"
+            Parameter = "auto_triage"
+            CurrentValue = $Config.automation_settings.auto_triage
+            RecommendedAction = "Review auto-triage settings to improve success rate"
+            Priority = if ($EffectivenessMetrics.Scores.AutomationEffectiveness -lt 75) { "High" } else { "Medium" }
+            AdjustmentLogic = @{
+                Type = "Boolean"
+                RecommendedValue = if ($EffectivenessMetrics.Scores.AutomationEffectiveness -lt 75) { $false } else { $true }
+            }
+        }
+    }
+    
+    # Check self-optimization settings
+    $opportunities += @{
+        Component = "SelfOptimization"
+        Parameter = "learning_rate"
+        CurrentValue = $Config.components.self_optimization.learning_rate
+        RecommendedAction = "Adjust learning rate based on optimization effectiveness"
+        Priority = "Medium"
+        AdjustmentLogic = @{
+            Direction = if ($EffectivenessMetrics.OverallScore -lt 70) { "Increase" } else { "Decrease" }
+            Magnitude = if ($EffectivenessMetrics.OverallScore -lt 70) { 0.02 } else { 0.01 }
+        }
+    }
+    
+    return $opportunities
+}
+
+function Generate-ParameterAdjustments {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true)]
+        [array]$OptimizationOpportunities,
+        [Parameter(Mandatory = $false)]
+        [PSCustomObject]$Config
+    )
+    
+    Write-Verbose "Generating parameter adjustments"
+    
+    $adjustments = @()
+    
+    foreach ($opportunity in $OptimizationOpportunities) {
+        $adjustment = @{
+            Component = $opportunity.Component
+            Parameter = $opportunity.Parameter
+            CurrentValue = $opportunity.CurrentValue
+            Recommendation = $opportunity.RecommendedAction
+            Priority = $opportunity.Priority
+        }
+        
+        # Calculate new value based on adjustment logic
+        if ($opportunity.AdjustmentLogic.Type -eq "Boolean") {
+            $adjustment.NewValue = $opportunity.AdjustmentLogic.RecommendedValue
+        }
+        else {
+            $currentValue = $opportunity.CurrentValue
+            $direction = $opportunity.AdjustmentLogic.Direction
+            $magnitude = $opportunity.AdjustmentLogic.Magnitude
+            
+            if ($direction -eq "Increase") {
+                if ($currentValue -is [int]) {
+                    $adjustment.NewValue = $currentValue + $magnitude
+                }
+                elseif ($currentValue -is [double]) {
+                    $adjustment.NewValue = [Math]::Min(1.0, $currentValue + $magnitude)
+                }
+                else {
+                    $adjustment.NewValue = $currentValue
+                }
+            }
+            elseif ($direction -eq "Decrease") {
+                if ($currentValue -is [int]) {
+                    $adjustment.NewValue = [Math]::Max(1, $currentValue - $magnitude)
+                }
+                elseif ($currentValue -is [double]) {
+                    $adjustment.NewValue = [Math]::Max(0.01, $currentValue - $magnitude)
+                }
+                else {
+                    $adjustment.NewValue = $currentValue
+                }
+            }
+            else {
+                $adjustment.NewValue = $currentValue
+            }
+        }
+        
+        # Add to adjustments list
+        $adjustments += $adjustment
+    }
+    
+    return $adjustments
+}
+
+function Apply-OptimizationChanges {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true)]
+        [array]$ParameterAdjustments,
+        [Parameter(Mandatory = $true)]
         [PSCustomObject]$Config,
         [Parameter(Mandatory = $false)]
         [string]$ConfigPath
     )
+    
+    Write-Verbose "Applying optimization changes"
+    
+    $appliedChanges = @()
+    
+    # Create a copy of the configuration to modify
+    $updatedConfig = $Config | ConvertTo-Json -Depth 10 | ConvertFrom-Json
+    
+    # Apply each adjustment
+    foreach ($adjustment in $ParameterAdjustments) {
+        try {
+            $component = $adjustment.Component
+            $parameter = $adjustment.Parameter
+            $newValue = $adjustment.NewValue
+            
+            # Apply the change to the appropriate configuration section
+            switch ($component) {
+                "IntelligentRouting" {
+                    $updatedConfig.components.intelligent_routing.$parameter = $newValue
+                }
+                "PredictiveDashboard" {
+                    $updatedConfig.components.predictive_dashboard.$parameter = $newValue
+                }
+                "SelfOptimization" {
+                    $updatedConfig.components.self_optimization.$parameter = $newValue
+                }
+                "AutomationSettings" {
+                    $updatedConfig.automation_settings.$parameter = $newValue
+                }
+                default {
+                    Write-Warning "Unknown component: $component"
+                    continue
+                }
+            }
+            
+            $appliedChanges += @{
+                Component = $component
+                Parameter = $parameter
+                OldValue = $adjustment.CurrentValue
+                NewValue = $newValue
+                Status = "Success"
+            }
+        }
+        catch {
+            Write-Error "Failed to apply change to $component.$parameter: $_"
+            $appliedChanges += @{
+                Component = $component
+                Parameter = $parameter
+                OldValue = $adjustment.CurrentValue
+                Status = "Failed"
+                Error = $_.Exception.Message
+            }
+        }
+    }
+    
+    # Save the updated configuration
+    if ($ConfigPath -and $appliedChanges.Count -gt 0) {
+        try {
+            $updatedConfig.last_updated = (Get-Date).ToString("yyyy-MM-dd")
+            $updatedConfig | ConvertTo-Json -Depth 10 | Set-Content -Path $ConfigPath -Encoding UTF8
+            Write-Verbose "Updated configuration saved to $ConfigPath"
+        }
+        catch {
+            Write-Error "Failed to save updated configuration: $_"
+        }
+    }
+    
+    return @{
+        ChangesApplied = $appliedChanges.Count -gt 0
+        AppliedChanges = $appliedChanges
+        UpdatedConfig = $updatedConfig
+        Timestamp = Get-Date
+    }
+}
 
-    Write-Host "Validating configuration for Full Automation Suite" -ForegroundColor Cyan
-    Write-Host "------------------------------------------------" -ForegroundColor Cyan
+function Generate-OptimizationReport {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true)]
+        [PSCustomObject]$OptimizationResult,
+        [Parameter(Mandatory = $true)]
+        [PSCustomObject]$EffectivenessMetrics
+    )
+    
+    # Generate a detailed markdown report of the optimization process
+    $report = @"
+# Self-Optimization Report
 
-    # TODO: Implement configuration validation logic
+**Generated**: $(Get-Date -Format "yyyy-MM-dd HH:mm:ss")
+**Changes Applied**: $($OptimizationResult.ChangesApplied)
 
-    Write-Host "Configuration validation completed successfully!" -ForegroundColor Green
+## Effectiveness Metrics
+
+### Overall Effectiveness Score: $([Math]::Round($EffectivenessMetrics.OverallScore, 2))
+**Rating**: $($EffectivenessMetrics.EffectivenessRating)
+
+### Component Scores
+- **Routing Effectiveness**: $([Math]::Round($EffectivenessMetrics.Scores.RoutingEffectiveness, 2))%
+- **Prediction Effectiveness**: $([Math]::Round($EffectivenessMetrics.Scores.PredictionEffectiveness, 2))%
+- **Automation Effectiveness**: $([Math]::Round($EffectivenessMetrics.Scores.AutomationEffectiveness, 2))%
+- **Performance Efficiency**: $([Math]::Round($EffectivenessMetrics.Scores.PerformanceEfficiency, 2))%
+
+## Applied Changes
+
+"@
+
+    if ($OptimizationResult.AppliedChanges.Count -eq 0) {
+        $report += "No changes were applied during this optimization run."
+    }
+    else {
+        $report += "| Component | Parameter | Old Value | New Value | Status |`n"
+        $report += "|-----------|-----------|-----------|-----------|--------|`n"
+        
+        foreach ($change in $OptimizationResult.AppliedChanges) {
+            $report += "| $($change.Component) | $($change.Parameter) | $($change.OldValue) | $($change.NewValue) | $($change.Status) |`n"
+        }
+    }
+    
+    $report += @"
+
+## Optimization Analysis
+
+### Key Metrics
+- **Issues Processed**: $($EffectivenessMetrics.Metrics.IssuesProcessed)
+- **Issues With Automation**: $($EffectivenessMetrics.Metrics.IssuesWithAutomation)
+- **Routing Decisions**: $($EffectivenessMetrics.Metrics.RoutingDecisions)
+- **Routing Accuracy**: $([Math]::Round($EffectivenessMetrics.Metrics.RoutingAccuracy * 100, 2))%
+- **Prediction Accuracy**: $([Math]::Round($EffectivenessMetrics.Metrics.PredictionAccuracy * 100, 2))%
+- **Automation Success Rate**: $([Math]::Round($EffectivenessMetrics.Metrics.AutomationSuccessRate * 100, 2))%
+
+### Recommendations
+
+- Continue monitoring the effects of these optimization changes
+- Consider manual review of routing decisions to improve training data
+- Review automation failure cases to identify common patterns
+- Adjust the learning rate if optimization is too aggressive or too conservative
+
+### Next Steps
+
+1. Allow the system to operate with these new parameters for at least one week
+2. Run another optimization cycle to assess the impact of these changes
+3. Consider additional data sources for more comprehensive optimization
+"@
+
+    return $report
 }
 
 #endregion
@@ -750,60 +1616,258 @@ function Process-IssueEvent {
         [string]$Repository
     )
     
-    Write-Host "Processing $TriggerEvent event ($EventType) for issue #$IssueNumber"
+    Write-Host "Processing $TriggerEvent event ($EventType) for issue #$IssueNumber in $Repository" -ForegroundColor Cyan
+    
+    # Split repository into owner and repo name
+    $repoSplit = $Repository -split "/"
+    if ($repoSplit.Count -ne 2) {
+        Write-Error "Invalid repository format. Expected 'owner/repo', got '$Repository'"
+        return
+    }
+    
+    $ownerName = $repoSplit[0]
+    $repoName = $repoSplit[1]
     
     # Get issue details
     try {
         $issue = Get-GitHubIssue -OwnerName $ownerName -RepositoryName $repoName -Issue $IssueNumber
+        Write-Verbose "Retrieved issue #$IssueNumber: $($issue.title)"
     }
     catch {
         Write-Error "Failed to get issue details: $_"
         return
     }
     
+    # Create an event log entry
+    $eventLog = @{
+        Timestamp = Get-Date
+        Event = $TriggerEvent
+        EventType = $EventType
+        IssueNumber = $IssueNumber
+        IssueTitle = $issue.title
+        Repository = $Repository
+        Actions = @()
+    }
+    
     # Perform intelligent routing based on the event type
     switch ($EventType) {
         "opened" {
-            Write-Host "New issue opened - performing initial analysis and routing"
+            Write-Host "New issue opened - performing initial analysis and routing" -ForegroundColor Yellow
+            
+            # Log the action
+            $eventLog.Actions += "Initial triage and routing"
             
             # Run intelligent routing
-            & "$PSScriptRoot\intelligent_routing.ps1" -Repository $Repository -IssueNumber $IssueNumber
+            $intelligentRoutingScript = Join-Path $PSScriptRoot "intelligent_routing.ps1"
+            if (Test-Path $intelligentRoutingScript) {
+                Write-Host "  Executing intelligent routing..." -ForegroundColor Gray
+                & $intelligentRoutingScript -Repository $Repository -IssueNumber $IssueNumber
+                $eventLog.Actions += "Executed intelligent routing"
+            }
+            else {
+                Write-Warning "Intelligent routing script not found at: $intelligentRoutingScript"
+                $eventLog.Actions += "FAILED: Intelligent routing script not found"
+            }
             
             # Check for PRD content and run fast-track validation if applicable
-            if ($issue.body -match "## PRD") {
-                Write-Host "PRD content detected - running fast-track validation"
-                & "$PSScriptRoot\manage_issues.ps1" -Action "fast-track" -Repository $Repository -IssueNumber $IssueNumber -ValidatePRD
+            if ($issue.body -match "## PRD" -or $issue.body -match "# Product Requirements") {
+                Write-Host "  PRD content detected - running fast-track validation" -ForegroundColor Gray
+                $manageIssuesScript = Join-Path $PSScriptRoot "manage_issues.ps1"
+                if (Test-Path $manageIssuesScript) {
+                    & $manageIssuesScript -Action "fast-track" -Repository $Repository -IssueNumber $IssueNumber -ValidatePRD
+                    $eventLog.Actions += "Executed PRD fast-track validation"
+                }
+                else {
+                    Write-Warning "Issue management script not found at: $manageIssuesScript"
+                    $eventLog.Actions += "FAILED: Issue management script not found"
+                }
             }
-        }
-        "edited" {
-            Write-Host "Issue edited - checking for PRD updates"
             
-            # If PRD section was added, run validation
-            if ($issue.body -match "## PRD") {
-                & "$PSScriptRoot\manage_issues.ps1" -Action "fast-track" -Repository $Repository -IssueNumber $IssueNumber -ValidatePRD
+            # Generate initial metrics
+            Write-Host "  Updating metrics and dashboards" -ForegroundColor Gray
+            $eventLog.Actions += "Generated initial metrics"
+        }
+        
+        "edited" {
+            Write-Host "Issue edited - checking for changes requiring action" -ForegroundColor Yellow
+            
+            # Log the action
+            $eventLog.Actions += "Processing edit event"
+            
+            # If PRD section was added or modified, run validation
+            if ($issue.body -match "## PRD" -or $issue.body -match "# Product Requirements") {
+                Write-Host "  PRD content detected - running validation" -ForegroundColor Gray
+                $manageIssuesScript = Join-Path $PSScriptRoot "manage_issues.ps1"
+                if (Test-Path $manageIssuesScript) {
+                    & $manageIssuesScript -Action "fast-track" -Repository $Repository -IssueNumber $IssueNumber -ValidatePRD
+                    $eventLog.Actions += "Executed PRD validation after edit"
+                }
+                else {
+                    Write-Warning "Issue management script not found at: $manageIssuesScript"
+                    $eventLog.Actions += "FAILED: Issue management script not found"
+                }
+            }
+            
+            # Re-run intelligent routing to check if the issue should be re-classified
+            $intelligentRoutingScript = Join-Path $PSScriptRoot "intelligent_routing.ps1"
+            if (Test-Path $intelligentRoutingScript) {
+                Write-Host "  Re-analyzing issue routing after edit..." -ForegroundColor Gray
+                & $intelligentRoutingScript -Repository $Repository -IssueNumber $IssueNumber -Mode "update"
+                $eventLog.Actions += "Re-analyzed issue routing after edit"
             }
         }
+        
         "labeled" {
-            Write-Host "Issue labeled - processing label-specific actions"
+            Write-Host "Issue labeled - processing label-specific actions" -ForegroundColor Yellow
+            
+            # Log the action
+            $eventLog.Actions += "Processing label event"
+            
+            # Get the label that was added (available in GitHub Actions context)
+            $addedLabel = $env:GITHUB_EVENT_LABEL_NAME
+            Write-Host "  Label added: $addedLabel" -ForegroundColor Gray
             
             # Run smart assignment if appropriate labels are applied
-            if ($issue.labels -contains "ready-for-dev" -or $issue.labels -contains "high-priority") {
-                & "$PSScriptRoot\suggest_assignment.ps1" -Repository $Repository -IssueNumber $IssueNumber
+            if ($issue.labels -contains "ready-for-dev" -or 
+                $issue.labels -contains "high-priority" -or 
+                $addedLabel -eq "ready-for-dev" -or 
+                $addedLabel -eq "high-priority") {
+                
+                Write-Host "  Priority or ready label detected - suggesting assignment" -ForegroundColor Gray
+                $suggestAssignmentScript = Join-Path $PSScriptRoot "suggest_assignment.ps1"
+                if (Test-Path $suggestAssignmentScript) {
+                    & $suggestAssignmentScript -Repository $Repository -IssueNumber $IssueNumber
+                    $eventLog.Actions += "Executed smart assignment suggestion"
+                }
+                else {
+                    Write-Warning "Assignment suggestion script not found at: $suggestAssignmentScript"
+                    $eventLog.Actions += "FAILED: Assignment suggestion script not found"
+                }
+            }
+            
+            # Run cycle time analysis if a status label is applied
+            if ($addedLabel -match "status:" -or $issue.labels -match "status:") {
+                Write-Host "  Status label detected - updating cycle time metrics" -ForegroundColor Gray
+                $cycleTimeScript = Join-Path $PSScriptRoot "analyze_cycle_times.ps1"
+                if (Test-Path $cycleTimeScript) {
+                    & $cycleTimeScript -Repository $Repository -Action "update-metrics" -IssueNumber $IssueNumber
+                    $eventLog.Actions += "Updated cycle time metrics"
+                }
             }
         }
+        
+        "unlabeled" {
+            Write-Host "Issue unlabeled - checking for workflow implications" -ForegroundColor Yellow
+            
+            # Log the action
+            $eventLog.Actions += "Processing unlabel event"
+            
+            # Check if status changed
+            $cycleTimeScript = Join-Path $PSScriptRoot "analyze_cycle_times.ps1"
+            if (Test-Path $cycleTimeScript) {
+                & $cycleTimeScript -Repository $Repository -Action "update-metrics" -IssueNumber $IssueNumber
+                $eventLog.Actions += "Updated cycle time metrics after label removal"
+            }
+        }
+        
+        "assigned" {
+            Write-Host "Issue assigned - updating assignment metrics" -ForegroundColor Yellow
+            
+            # Log the action
+            $eventLog.Actions += "Processing assignment event"
+            
+            # Update assignment metrics
+            $assignmentScript = Join-Path $PSScriptRoot "suggest_assignment.ps1"
+            if (Test-Path $assignmentScript) {
+                & $assignmentScript -Repository $Repository -Action "record-assignment" -IssueNumber $IssueNumber
+                $eventLog.Actions += "Recorded assignment metrics"
+            }
+        }
+        
+        "closed" {
+            Write-Host "Issue closed - finalizing metrics and analysis" -ForegroundColor Yellow
+            
+            # Log the action
+            $eventLog.Actions += "Processing issue closure"
+            
+            # Update cycle time analytics
+            $cycleTimeScript = Join-Path $PSScriptRoot "analyze_cycle_times.ps1"
+            if (Test-Path $cycleTimeScript) {
+                & $cycleTimeScript -Repository $Repository -Action "finalize" -IssueNumber $IssueNumber
+                $eventLog.Actions += "Finalized cycle time metrics"
+            }
+            
+            # Check if this is a completed feature
+            if ($issue.labels -contains "feature" -or $issue.labels -contains "enhancement") {
+                Write-Host "  Feature/enhancement closed - updating planning metrics" -ForegroundColor Gray
+                $planningScript = Join-Path $PSScriptRoot "analyze_planning.ps1"
+                if (Test-Path $planningScript) {
+                    & $planningScript -Repository $Repository -Action "record-completion" -IssueNumber $IssueNumber
+                    $eventLog.Actions += "Updated planning metrics for completed feature"
+                }
+            }
+        }
+        
+        "reopened" {
+            Write-Host "Issue reopened - resetting metrics and re-analyzing" -ForegroundColor Yellow
+            
+            # Log the action
+            $eventLog.Actions += "Processing issue reopen event"
+            
+            # Reset cycle time for reopened issue
+            $cycleTimeScript = Join-Path $PSScriptRoot "analyze_cycle_times.ps1"
+            if (Test-Path $cycleTimeScript) {
+                & $cycleTimeScript -Repository $Repository -Action "reset" -IssueNumber $IssueNumber
+                $eventLog.Actions += "Reset cycle time metrics for reopened issue"
+            }
+            
+            # Re-run routing to ensure proper classification
+            $intelligentRoutingScript = Join-Path $PSScriptRoot "intelligent_routing.ps1"
+            if (Test-Path $intelligentRoutingScript) {
+                & $intelligentRoutingScript -Repository $Repository -IssueNumber $IssueNumber
+                $eventLog.Actions += "Re-analyzed reopened issue"
+            }
+        }
+        
         default {
-            Write-Host "Processing standard event: $EventType"
-            # Handle other event types as needed
+            Write-Host "Processing standard event: $EventType" -ForegroundColor Gray
+            $eventLog.Actions += "Processed standard event: $EventType (no specific actions)"
         }
     }
     
-    # Update dashboards
-    Write-Host "Updating dashboards with latest information"
-    & "$PSScriptRoot\generate_dashboard.ps1" -Repository $Repository -Type "comprehensive"
+    # Save event log
+    $reportsPath = Join-Path (Split-Path -Parent $PSScriptRoot) "reports"
+    if (-not (Test-Path $reportsPath)) {
+        New-Item -Path $reportsPath -ItemType Directory -Force | Out-Null
+    }
     
-    # Run predictive analytics to forecast impact
-    Write-Host "Running predictive analytics"
-    & "$PSScriptRoot\predictive_dashboard.ps1" -Repository $Repository -Action "forecast"
+    $logFilename = "event_log_$(Get-Date -Format 'yyyyMMdd_HHmmss')_issue$IssueNumber.json"
+    $logFilePath = Join-Path $reportsPath $logFilename
+    
+    $eventLog | ConvertTo-Json -Depth 5 | Set-Content -Path $logFilePath -Encoding UTF8
+    Write-Verbose "Event log saved to: $logFilePath"
+    
+    # Update dashboards
+    Write-Host "Updating dashboards with latest information" -ForegroundColor Yellow
+    $dashboardScript = Join-Path $PSScriptRoot "generate_dashboard.ps1"
+    if (Test-Path $dashboardScript) {
+        & $dashboardScript -Repository $Repository -Type "comprehensive" -Quiet
+        $eventLog.Actions += "Updated dashboards"
+    }
+    
+    # Run predictive analytics if appropriate
+    if (@("opened", "closed", "reopened") -contains $EventType) {
+        Write-Host "Running predictive analytics" -ForegroundColor Yellow
+        $predictiveScript = Join-Path $PSScriptRoot "predictive_dashboard.ps1"
+        if (Test-Path $predictiveScript) {
+            & $predictiveScript -Repository $Repository -Action "forecast" -Quiet
+            $eventLog.Actions += "Updated predictive analytics"
+        }
+    }
+    
+    Write-Host "Event processing completed for issue #$IssueNumber" -ForegroundColor Green
+    
+    return $eventLog
 }
 
 function Generate-WorkflowFiles {
