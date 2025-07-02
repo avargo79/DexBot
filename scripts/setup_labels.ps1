@@ -58,10 +58,13 @@ $Labels = @(
     # Status Labels
     @{ Name = "status:proposed"; Description = "Proposed item under consideration"; Color = "D4C5F9" },
     @{ Name = "status:planning"; Description = "Requirements gathering and planning"; Color = "EDEDED" },
+    @{ Name = "status:ready-for-pickup"; Description = "Ready for developer assignment"; Color = "7CFC00" },
     @{ Name = "status:in-progress"; Description = "Currently being worked on"; Color = "0052CC" },
-    @{ Name = "status:review"; Description = "Ready for code review"; Color = "5319E7" },
     @{ Name = "status:testing"; Description = "Being tested"; Color = "FF8C00" },
+    @{ Name = "status:on-hold"; Description = "Temporarily paused"; Color = "FFC107" },
     @{ Name = "status:blocked"; Description = "Cannot proceed due to dependencies"; Color = "000000" },
+    @{ Name = "status:rejected"; Description = "Will not be implemented"; Color = "DC3545" },
+    @{ Name = "status:implemented"; Description = "Feature implemented and deployed"; Color = "28A745" },
     
     # Type Labels (enhance existing ones)
     @{ Name = "idea"; Description = "Initial idea or suggestion needing evaluation"; Color = "E6F3FF" },
@@ -120,7 +123,8 @@ Write-Host "  component:auto-heal, component:combat, component:looting, componen
 Write-Host "  component:config, component:core, component:build, component:docs" -ForegroundColor Gray
 
 Write-Info "Status Labels:"
-Write-Host "  status:proposed, status:planning, status:in-progress, status:review, status:testing, status:blocked" -ForegroundColor Gray
+Write-Host "  status:proposed, status:planning, status:ready-for-pickup, status:in-progress" -ForegroundColor Gray
+Write-Host "  status:testing, status:on-hold, status:blocked, status:rejected, status:implemented" -ForegroundColor Gray
 
 Write-Info "Type Labels:"
 Write-Host "  idea, enhancement, bug, documentation, maintenance, performance, security, testing" -ForegroundColor Gray

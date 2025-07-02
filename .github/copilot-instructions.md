@@ -262,7 +262,7 @@ python -m invoke help       # Show all available tasks with descriptions
 python -m invoke --list     # List all available invoke tasks
 ```
 
-#### Pre-Commit Validation Checklist
+#### Validation Checklist
 Before any git commit, ensure:
 - [ ] `python -m invoke validate` passes (checks for missing functions, proper imports)
 - [ ] `python -m invoke test` shows high pass rates (96%+ expected)

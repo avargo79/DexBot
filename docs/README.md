@@ -8,6 +8,10 @@ This directory contains all project documentation for DexBot, organized accordin
 - **[Product Overview](PRODUCT_OVERVIEW.md)** - Executive summary, vision, and market position
 - **[Features & Capabilities](FEATURES.md)** - Comprehensive feature documentation
 
+### 🗂️ GitHub Issues Workflow
+- **[GitHub Issues Workflow](GITHUB_ISSUES_WORKFLOW.md)** - Official process guide for project management
+- **[Implementation Roadmap](GITHUB_ISSUES_IMPLEMENTATION_ROADMAP.md)** - Automation development tracking
+
 ### 📋 Product Backlog
 - **[Product Backlog](backlog/PRODUCT_BACKLOG.md)** - Master prioritized list of features, bugs, and tasks
 - **[Backlog Management Guide](backlog/README.md)** - Process documentation and best practices

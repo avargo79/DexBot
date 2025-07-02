@@ -14,7 +14,7 @@
     The issue number to operate on
 
 .PARAMETER Status
-    The status to set (planning, in-progress, review, testing, blocked)
+    The status to set (proposed, planning, ready-for-pickup, in-progress, testing, on-hold, blocked, rejected, implemented)
 
 .PARAMETER Comment
     Comment to add to the issue
@@ -33,7 +33,7 @@ param(
     
     [int]$IssueNumber,
     
-    [ValidateSet("proposed", "planning", "in-progress", "review", "testing", "blocked")]
+    [ValidateSet("proposed", "planning", "ready-for-pickup", "in-progress", "testing", "on-hold", "blocked", "rejected", "implemented")]
     [string]$Status,
     
     [string]$Comment,
@@ -46,6 +46,9 @@ param(
     [string]$Priority,
     
     [string]$FRNumber
+    
+    # TODO: Implement PRD validation functionality
+    # [switch]$PRDReady = $false  # Planned for Phase 1 Week 1 implementation
 )
 
 # Color output functions
@@ -151,7 +154,7 @@ switch ($Action) {
         Write-Info "Updating status of issue #$IssueNumber to '$Status'..."
         try {
             # Remove existing status labels
-            $statusLabels = @("status:proposed", "status:planning", "status:in-progress", "status:review", "status:testing", "status:blocked")
+            $statusLabels = @("status:proposed", "status:planning", "status:ready-for-pickup", "status:in-progress", "status:testing", "status:on-hold", "status:blocked", "status:rejected", "status:implemented")
             foreach ($statusLabel in $statusLabels) {
                 try {
                     gh issue edit $IssueNumber --remove-label $statusLabel 2>$null
@@ -314,7 +317,7 @@ switch ($Action) {
         Write-Info "Quick Actions:"
         Write-Host "  View your issues: .\manage_issues.ps1 -Action list -Mine" -ForegroundColor Gray
         Write-Host "  Start work on issue: .\manage_issues.ps1 -Action develop -IssueNumber 123" -ForegroundColor Gray
-        Write-Host "  Update status: .\manage_issues.ps1 -Action status -IssueNumber 123 -Status review" -ForegroundColor Gray
+        Write-Host "  Update status: .\manage_issues.ps1 -Action status -IssueNumber 123 -Status testing" -ForegroundColor Gray
     }
     
     "review-queue" {
