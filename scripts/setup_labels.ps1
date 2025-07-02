@@ -66,6 +66,9 @@ $Labels = @(
     @{ Name = "status:rejected"; Description = "Will not be implemented"; Color = "DC3545" },
     @{ Name = "status:implemented"; Description = "Feature implemented and deployed"; Color = "28A745" },
     
+    # PRD Labels
+    @{ Name = "prd:fast-track"; Description = "PRD approved for fast-track processing"; Color = "FF6B6B" },
+    
     # Type Labels (enhance existing ones)
     @{ Name = "idea"; Description = "Initial idea or suggestion needing evaluation"; Color = "E6F3FF" },
     @{ Name = "maintenance"; Description = "Code cleanup, refactoring, optimization"; Color = "FEF2C0" },
@@ -125,6 +128,9 @@ Write-Host "  component:config, component:core, component:build, component:docs"
 Write-Info "Status Labels:"
 Write-Host "  status:proposed, status:planning, status:ready-for-pickup, status:in-progress" -ForegroundColor Gray
 Write-Host "  status:testing, status:on-hold, status:blocked, status:rejected, status:implemented" -ForegroundColor Gray
+
+Write-Info "PRD Labels:"
+Write-Host "  prd:fast-track" -ForegroundColor Gray
 
 Write-Info "Type Labels:"
 Write-Host "  idea, enhancement, bug, documentation, maintenance, performance, security, testing" -ForegroundColor Gray
