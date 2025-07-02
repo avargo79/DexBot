@@ -88,6 +88,34 @@ body:
         - [ ] Testing completed
         - [ ] Documentation updated
 
+  - type: textarea
+    id: prd-document
+    attributes:
+      label: Product Requirements Document (PRD) - Optional
+      description: |
+        If you have a complete PRD for this feature, include it here. 
+        Features with complete PRDs can skip the PRD development phase and move directly to planning.
+      placeholder: |
+        ## Product Requirements Document (PRD)
+        
+        ### Technical Specifications
+        [Detailed implementation requirements]
+        
+        ### Architecture Overview
+        [System design and integration points]
+        
+        ### Dependencies
+        [Required systems, APIs, or other features]
+        
+        ### Risk Assessment
+        [Potential challenges and mitigation strategies]
+        
+        ### Timeline Estimate
+        [Development effort and schedule]
+        
+        ### Testing Requirements
+        [How the feature will be validated]
+
   - type: checkboxes
     id: related-work
     attributes:
@@ -98,7 +126,9 @@ body:
           required: true
         - label: I have checked the product backlog for similar requests
           required: false
-        - label: This feature has a corresponding PRD document
+        - label: This feature includes a complete PRD document above
+          required: false
+        - label: I am ready to proceed directly to planning phase (PRD complete)
           required: false
 
   - type: textarea
