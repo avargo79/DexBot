@@ -56,6 +56,14 @@ This directory contains YAML configuration files designed to help AI assistants 
 - Intelligent task resumption and coordination tracking
 - Quality assurance and continuous validation protocols
 
+### 🔗 `github-integration.yaml` - GitHub Ecosystem Integration
+**Purpose**: Comprehensive guidance for GitHub Actions, issue templates, and workflow management  
+**Contains**:
+- GitHub Actions workflow creation and optimization patterns
+- Issue template design and automation integration
+- Workflow configuration management and synchronization
+- Advanced GitHub integration and quality assurance protocols
+
 ## How AI Assistants Use These Files
 
 ### Automatic Context Loading
@@ -122,12 +130,14 @@ AI-generated code automatically includes:
 - **New system patterns** → Update development-tasks.yaml  
 - **New RazorEnhanced APIs** → Update razorenhanced-api.yaml
 - **New workflow processes** → Update ai-config.yaml
+- **GitHub workflow changes** → Update github-integration.yaml
 
 ### How to Extend
 1. Add new templates to development-tasks.yaml
 2. Document new patterns in project-context.yaml
 3. Update API references in razorenhanced-api.yaml
-4. Reflect changes in master ai-config.yaml
+4. Add GitHub workflow guidance to github-integration.yaml
+5. Reflect changes in master ai-config.yaml
 
 ## Integration with GitHub Copilot
 
