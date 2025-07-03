@@ -1,9 +1,57 @@
-# GitHub Authentication Setup (Fixed for PowerShellForGitHub compatibility)
+# GitHub Authentication Setup with .env file support
+function Read-EnvironmentFile {
+    param(
+        [string]$Path = ".env"
+    )
+    
+    $envVars = @{}
+    
+    if (Test-Path $Path) {
+        Write-Host "📄 Loading environment from: $Path" -ForegroundColor Cyan
+        Get-Content $Path | ForEach-Object {
+            if ($_ -match '^\s*([^#][^=]*?)\s*=\s*(.*)$') {
+                $key = $Matches[1].Trim()
+                $value = $Matches[2].Trim()
+                # Remove quotes if present
+                $value = $value -replace '^[''"]|[''"]$', ''
+                $envVars[$key] = $value
+                # Also set as environment variable for this session
+                Set-Item -Path "env:$key" -Value $value
+            }
+        }
+        Write-Host "✅ Loaded $($envVars.Count) environment variables" -ForegroundColor Green
+    } else {
+        Write-Host "⚠️  No .env file found at: $Path" -ForegroundColor Yellow
+        Write-Host "💡 Copy .env.example to .env and configure your GitHub token" -ForegroundColor Cyan
+    }
+    
+    return $envVars
+}
+
 function Initialize-GitHubAuthentication {
     param(
-        [Parameter(Mandatory = $true)]
-        [string]$Token
+        [Parameter(Mandatory = $false)]
+        [string]$Token,
+        [Parameter(Mandatory = $false)]
+        [string]$EnvFile = ".env"
     )
+    
+    # Load environment variables from .env file
+    $envVars = Read-EnvironmentFile -Path $EnvFile
+    
+    # Use token from parameter, environment file, or environment variable
+    if (-not $Token) {
+        $Token = $envVars['GITHUB_TOKEN']
+        if (-not $Token) {
+            $Token = $env:GITHUB_TOKEN
+        }
+    }
+    
+    if (-not $Token) {
+        Write-Host "❌ No GitHub token found!" -ForegroundColor Red
+        Write-Host "💡 Set GITHUB_TOKEN in .env file, environment variable, or pass as parameter" -ForegroundColor Yellow
+        return $false
+    }
     
     try {
         # Import PowerShellForGitHub module
