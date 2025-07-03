@@ -27,35 +27,11 @@ Ideas under consideration for potential near-term implementation:
 
 ### 💡 Player Enhancement Ideas
 
-#### Buff Management System Concept
-- **Problem**: Players spend significant time manually maintaining buffs and spells
-- **Idea**: Automated buff maintenance with intelligent reagent management
-- **Potential Value**: Reduces micromanagement, maintains optimal character performance
-- **Key Concepts**: Spell automation, reagent tracking, timing optimization
-- **Complexity Estimate**: Medium (if approved for development)
-
-#### Equipment Management System Concept
-- **Problem**: Gear degradation impacts performance if not actively monitored
-- **Idea**: Automated equipment management, repair, and optimization systems
-- **Potential Value**: Maintains combat effectiveness, reduces equipment-related downtime
-- **Key Concepts**: Durability monitoring, repair automation, gear optimization
-- **Complexity Estimate**: Low-Medium (if approved for development)
+*Note: Core player enhancement systems (Buff Management, Equipment Management) have been moved to GitHub Issues for development tracking.*
 
 ### 💡 System Optimization Ideas
 
-#### Server-Specific Settings System Concept
-- **Problem**: Different UO servers have different rules and optimal strategies
-- **Idea**: Automatic server detection with configuration adaptation
-- **Potential Value**: Optimized performance across different server environments
-- **Key Concepts**: Server detection, rule adaptation, setting synchronization
-- **Complexity Estimate**: Low (if approved for development)
-
-#### Inventory Management Enhancement Concept
-- **Problem**: Inventory organization becomes complex with extended bot usage
-- **Idea**: Intelligent inventory organization and resource tracking
-- **Potential Value**: Optimized storage space, better item tracking
-- **Key Concepts**: Smart sorting, capacity monitoring, item categorization
-- **Complexity Estimate**: Medium (if approved for development)
+*Note: Core optimization systems (Server-Specific Settings, Inventory Management) have been moved to GitHub Issues for development tracking.*
 
 ---
 
@@ -65,27 +41,7 @@ Ideas for potential medium-term consideration:
 
 ### 💡 Resource Management Concepts
 
-#### Advanced Inventory Management Enhancement
-- **Problem**: Extended bot usage leads to complex inventory organization challenges
-- **Concept**: Intelligent inventory organization and resource tracking system
-- **Potential Value**: Optimized storage space, better resource tracking, automated organization
-- **Key Ideas**: 
-  - Smart item sorting algorithms
-  - Capacity monitoring and alerts
-  - Resource tracking across multiple containers
-  - Bank integration for storage management
-- **Complexity Estimate**: Medium (if approved for development)
-
-#### Equipment Management Automation Enhancement
-- **Problem**: Gear degradation affects performance without active monitoring
-- **Concept**: Automated equipment management, repair, and optimization
-- **Potential Value**: Reduced downtime, maintained combat effectiveness
-- **Key Ideas**:
-  - Durability monitoring and automated repair scheduling
-  - Equipment set management for different activities
-  - Gear optimization recommendations
-  - Repair vendor integration
-- **Complexity Estimate**: Medium (if approved for development)
+*Note: Core resource management systems (Advanced Inventory Management, Equipment Management Automation) have been moved to GitHub Issues for development tracking.*
 
 ### 💡 User Experience Enhancement Ideas
 
@@ -113,16 +69,8 @@ Ideas for potential medium-term consideration:
 
 ### 💡 Advanced Integration Ideas
 
-#### Server Optimization Enhancement
-- **Problem**: Different UO servers have varying optimal configurations
-- **Concept**: Advanced server detection with automatic optimization
-- **Potential Value**: Optimized performance across different server environments
-- **Key Ideas**:
-  - Enhanced server detection algorithms
-  - Server-specific configuration profiles
-  - Automatic adaptation to server rules
-  - Community-contributed server configurations
-- **Complexity Estimate**: Low-Medium (if approved for development)
+_Note: Server Optimization Enhancement has been moved to GitHub Issues for development tracking._
+- **Note**: Basic server-specific settings system is tracked in GitHub Issues; this represents advanced enhancements
 
 #### Communication Integration Concept
 - **Problem**: Users want remote monitoring and notification capabilities
