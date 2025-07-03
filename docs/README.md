@@ -11,11 +11,7 @@ This directory contains all project documentation for DexBot, organized accordin
 
 ### 🗂️ GitHub Issues Workflow
 - **[GitHub Issues Workflow](GITHUB_ISSUES_WORKFLOW.md)** - Official process guide for project management
-- **[Implementation Roadmap](GITHUB_ISSUES_IMPLEMENTATION_ROADMAP.md)** - Automation development tracking
-- **[Mock Testing Approach](MOCK_TESTING_APPROACH.md)** - Comprehensive testing methodology
-- **[Full Automation Suite Usage Guide](FULL_AUTOMATION_SUITE_USAGE_GUIDE.md)** - Complete automation system guide
-- **[Full Automation Suite Quickstart](FULL_AUTOMATION_SUITE_QUICKSTART.md)** - Quick setup guide
-- **[Full Automation Suite Troubleshooting](FULL_AUTOMATION_SUITE_TROUBLESHOOTING.md)** - Problem resolution guide
+- **[GitHub Issues Automation](GITHUB_ISSUES_AUTOMATION.md)** - Complete automation system guide with usage, configuration, and troubleshooting
 
 ### 📋 Product Backlog
 - **[Product Backlog](backlog/PRODUCT_BACKLOG.md)** - Master prioritized list of features, bugs, and tasks
