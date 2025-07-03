@@ -32,23 +32,6 @@ This document contains feature ideas and concepts for DexBot that may be conside
 
 ### 💡 Player Enhancement Systems
 
-### Technical Debt
-- **TECH-002**: Configuration system performance improvements
-  - **Status**: 📋 Proposed | **Target**: v3.2.1
-
----
-
-## Medium Priority (P2) - Next 2-3 Versions
-
-### Features
-- **FR-084**: Buff Management System → [PRD](../prds/FR-084_Buff_Management_System.md)
-  - *Auto-buff system with smart reagent management and performance optimization*
-  - **Status**: 📝 Proposed | **Target**: v3.3.0
-
-- **FR-095**: Inventory Management System → [PRD](../prds/FR-095_Inventory_Management_System.md)
-  - *Intelligent inventory organization, resource tracking, and optimization*
-  - **Status**: 📝 Proposed | **Target**: v3.3.0
-
 #### Buff Management Concept
 - **Description**: Automated buff maintenance with smart reagent management
 - **Value Proposition**: Reduce micromanagement, maintain optimal character performance
