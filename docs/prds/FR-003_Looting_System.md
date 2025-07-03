@@ -1,8 +1,8 @@
-# PRD-003: Looting System
+# FR-003: Looting System
 **Product Requirements Document**
 
 ## Document Information
-- **Document ID**: PRD-003
+- **Document ID**: FR-003
 - **System Name**: Looting System
 - **Status**: IMPLEMENTED
 - **Priority**: High

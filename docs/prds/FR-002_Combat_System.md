@@ -1,8 +1,8 @@
-# PRD-002: Combat System
+# FR-002: Combat System
 **Product Requirements Document**
 
 ## Document Information
-- **Document ID**: PRD-002
+- **Document ID**: FR-002
 - **System Name**: Combat System
 - **Status**: IMPLEMENTED
 - **Priority**: High

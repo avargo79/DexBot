@@ -19,19 +19,19 @@ Each PRD follows a standardized format:
 ## Active PRDs
 
 ### Implemented Core Systems (P1)
-- **[PRD-001: Auto Heal System](./PRD-001_Auto_Heal_System.md)**
+- **[FR-001: Auto Heal System](./FR-001_Auto_Heal_System.md)**
   - Status: ✅ **IMPLEMENTED** (June 28, 2025)
   - Target: v3.0.0
   - Effort: 137 lines of code
   - *Intelligent automated healing with potions and bandages*
 
-- **[PRD-002: Combat System](./PRD-002_Combat_System.md)**
+- **[FR-002: Combat System](./FR-002_Combat_System.md)**
   - Status: ✅ **IMPLEMENTED** (June 29, 2025)
   - Target: v3.0.0
   - Effort: 595 lines of code
   - *Advanced combat automation with target acquisition and tactical AI*
 
-- **[PRD-003: Looting System](./PRD-003_Looting_System.md)**
+- **[FR-003: Looting System](./FR-003_Looting_System.md)**
   - Status: ✅ **IMPLEMENTED** (June 30, 2025)
   - Target: v3.0.0
   - Effort: 1,371 lines of code

@@ -1,8 +1,8 @@
-# PRD-001: Auto Heal System
+# FR-001: Auto Heal System
 **Product Requirements Document**
 
 ## Document Information
-- **Document ID**: PRD-001
+- **Document ID**: FR-001
 - **System Name**: Auto Heal System
 - **Status**: IMPLEMENTED
 - **Priority**: High
