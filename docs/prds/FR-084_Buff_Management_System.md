@@ -1,10 +1,12 @@
 # DexBot Feature Request: Buff Management System
 
 **Feature ID**: FR-084  
-**Priority**: Medium-High  
+**Priority**: Medium  
 **Estimated Effort**: 2-3 weeks  
-**Target Version**: v3.2.0  
-**Date**: June 30, 2025
+**Target Version**: v3.3.0  
+**Date**: June 30, 2025  
+**Status**: 📝 Proposed  
+**Last Updated**: July 2, 2025
 
 ## 1. Feature Overview
 

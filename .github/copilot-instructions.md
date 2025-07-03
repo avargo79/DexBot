@@ -13,6 +13,68 @@ This file provides context and guidelines for GitHub Copilot when working on the
 - **Performance Focus**: Optimized for long-running bot sessions (12+ hours)
 - **Production Ready**: All systems are battle-tested with performance metrics
 
+## AI Assistant Configuration System
+
+DexBot includes a comprehensive YAML configuration system specifically designed to help AI assistants work more effectively on the project. These files provide structured context, patterns, and guidelines for optimal development assistance.
+
+### YAML Configuration Files
+
+**📁 Location**: `.copilot/` directory
+
+1. **`ai-config.yaml`** - Master configuration file with project summary and workflows
+2. **`project-context.yaml`** - Detailed project context, architecture, and coding standards  
+3. **`development-tasks.yaml`** - Task-specific guidance and code templates
+4. **`razorenhanced-api.yaml`** - RazorEnhanced API reference and usage patterns
+5. **`coordination-enhancement.yaml`** - Advanced collaboration patterns and proactive assistance
+6. **`session-management.yaml`** - Session continuity and context preservation
+7. **`dev-tools-workflow.yaml`** - Dev tools automation and GitHub workflow guidance
+8. **`github-integration.yaml`** - GitHub Actions, issue templates, and ecosystem integration
+9. **`performance-intelligence.yaml`** - Performance monitoring, optimization, and predictive analytics
+10. **`adaptive-learning.yaml`** - Self-improving AI patterns and continuous learning
+
+### How to Use These Files
+
+**For AI Assistants (like GitHub Copilot):**
+- Reference these files when working on DexBot to understand project context
+- Use the code templates and patterns provided
+- Follow the guidelines for error handling, testing, and documentation
+- Leverage the RazorEnhanced API reference for accurate code generation
+
+**For Developers:**
+- Review these files to understand AI assistance capabilities
+- Update configurations when project patterns or standards change
+- Use as reference for consistent development practices
+- Extend with new patterns and templates as needed
+
+### Key Benefits
+
+- **Consistent Code Generation**: AI assistants use established patterns and standards
+- **Faster Development**: Pre-configured templates and examples speed up development
+- **Reduced Errors**: Built-in error handling patterns and RazorEnhanced constraints
+- **Better Integration**: AI-generated code follows project architecture and conventions
+- **Advanced Collaboration**: Proactive assistance and context-aware communication
+- **Session Continuity**: Seamless context preservation across work sessions
+- **Performance Intelligence**: Real-time optimization and predictive analytics
+- **Self-Improvement**: Adaptive learning from project patterns and outcomes
+- **Tool Integration**: Complete dev-tools and GitHub ecosystem automation
+- **Quality Assurance**: Built-in testing, validation, and code review patterns
+
+### Example Usage
+
+When asking for help with a new system:
+```
+"Create a new healing optimization system following DexBot patterns"
+```
+
+The AI will automatically:
+- Use proper RazorEnhanced imports and error handling
+- Follow the 3-case testing pattern
+- Include comprehensive docstrings and logging
+- Apply performance optimization strategies
+- Integrate with existing configuration management
+
+**💡 Tip**: Always reference the YAML files when working on DexBot to ensure optimal AI assistance and code quality.
+
 ## Architecture & Patterns
 
 ### Directory Structure
@@ -262,7 +324,7 @@ python -m invoke help       # Show all available tasks with descriptions
 python -m invoke --list     # List all available invoke tasks
 ```
 
-#### Pre-Commit Validation Checklist
+#### Validation Checklist
 Before any git commit, ensure:
 - [ ] `python -m invoke validate` passes (checks for missing functions, proper imports)
 - [ ] `python -m invoke test` shows high pass rates (96%+ expected)
@@ -271,7 +333,7 @@ Before any git commit, ensure:
 - [ ] Version information is current in `version.txt` if version changed
 - [ ] All new code follows project coding standards and includes proper documentation
 - [ ] Feature implementation aligns with requirements in the PRD document
-- [ ] All temporary planning files are in the `reports/` directory, not root folder
+- [ ] All temporary planning files are in the `tmp/` directory, not root folder
 
 #### Branch Management and PR Submission
 - **Create Feature Branch**: Always start from main with `.\scripts\prepare_feature.ps1 feature-name` (or `./scripts/prepare_feature.sh` on Linux/macOS)
@@ -356,11 +418,11 @@ Optimize this DexBot code for:
 - **Add inline comments** for complex RazorEnhanced API usage
 - **Consider edge cases** - null checks, empty collections, API failures
 - **Plan for extensibility** - use patterns that can be easily modified
-- **Create temporary files in `reports/`** - keep workspace organized by using the reports directory for all temporary analysis files
-- **Clean up `reports/` directory** - remove temporary files when wrapping up work sessions
+- **Create temporary files in `tmp/`** - keep workspace organized by using the tmp directory for all temporary analysis files
+- **Clean up `tmp/` directory** - remove temporary files when wrapping up work sessions
 
 #### Workspace Management Guidelines
-- **Temporary Files**: Always create temporary files in `reports/` directory
+- **Temporary Files**: Always create temporary files in `tmp/` directory
 - **File Naming**: Use descriptive names with context: `TASK_NAME_COMPLETION.md`, `FEATURE_ANALYSIS.md`
 - **Preserve Important Files**: Never delete `.gitkeep`, configuration files, or active project files
 - **Cleanup Rules**:
@@ -448,8 +510,8 @@ Always include comprehensive docstrings with Args, Returns, Raises, and Example 
 Use RazorEnhanced-specific imports: 'from System.Collections.Generic import List' and 'from System import Int32 as int'.
 Wrap all RazorEnhanced API calls in try/except blocks with proper logging using Logger from src/core/logger.py.
 Follow the 3-case testing pattern: pass/fail/edge cases for all new functionality.
-Always create temporary files in the reports/ directory to keep the workspace organized.
-Clean up the reports/ directory when wrapping up work sessions to maintain a tidy workspace.
+Always create temporary files in the tmp/ directory to keep the workspace organized.
+Clean up the tmp/ directory when wrapping up work sessions to maintain a tidy workspace.
 
 **CRITICAL WORKFLOW PRACTICES:**
 - **Never commit broken builds** - Always run `python -m invoke validate` and `python -m invoke test` before committing
@@ -458,7 +520,7 @@ Clean up the reports/ directory when wrapping up work sessions to maintain a tid
 - **Validate before commit** - Ensure build succeeds, tests pass (96%+ expected), and no syntax errors exist
 - **Follow standardized workflow** - Use the feature preparation script for all new features
 - **CI/CD compliance** - Fix all CI workflow failures before merging PRs
-- **Clean workspace** - Keep the repository clean by organizing temporary files in reports/
+- **Clean workspace** - Keep the repository clean by organizing temporary files in tmp/
 
 #### Continuous Integration Mindset
 - **Build Validation**: Every change should maintain build integrity

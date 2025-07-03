@@ -1,0 +1,58 @@
+name: GitHub Issues Workflow Automation
+
+on:
+  issues:
+    types: [opened, edited, labeled, unlabeled, assigned, unassigned, closed, reopened]
+  issue_comment:
+    types: [created, edited]
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Action to run (orchestrate, report, optimize, validate)'
+        required: true
+        default: 'orchestrate'
+      dry_run:
+        description: 'Dry run mode (true/false)'
+        required: false
+        default: 'false'
+
+jobs:
+  issue-automation:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up PowerShell modules
+        shell: pwsh
+        run: |
+          Install-Module -Name PowerShellForGitHub -Force -Scope CurrentUser
+
+      - name: Issue event trigger
+        if: github.event_name == 'issues' || github.event_name == 'issue_comment'
+        shell: pwsh
+        run: |
+          ./scripts/full_automation_suite.ps1 -Action orchestrate -TriggerEvent ${{ github.event_name }} -EventType ${{ github.event.action }} -IssueNumber ${{ github.event.issue.number }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Manual workflow trigger
+        if: github.event_name == 'workflow_dispatch'
+        shell: pwsh
+        run: |
+          ./scripts/full_automation_suite.ps1 -Action ${{ github.event.inputs.action }} -DryRun ${{ github.event.inputs.dry_run }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate Automation Report
+        shell: pwsh
+        run: |
+          ./scripts/full_automation_suite.ps1 -Action report -OutputPath 'automation-report.md'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Automation Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: automation-report
+          path: automation-report.md

@@ -1,0 +1,456 @@
+# DexBot GitHub Integration and Workflow Configuration
+# Comprehensive AI guidance for GitHub Actions, issue templates, and workflow management
+
+metadata:
+  version: "1.0"
+  created: "2025-07-03"
+  purpose: "AI guidance for GitHub ecosystem integration and workflow management"
+  extends: "ai-config.yaml, dev-tools-workflow.yaml"
+
+# GitHub ecosystem overview
+github_ecosystem:
+  
+  configuration_files:
+    workflows: ".github/workflows/*.yml - GitHub Actions CI/CD workflows"
+    issue_templates: ".github/ISSUE_TEMPLATE/*.yml - Issue creation templates"
+    workflow_config: "dev-tools/github-automation/workflow-config.yaml - Automation configuration"
+    automation_scripts: "dev-tools/github-automation/*.ps1 - PowerShell automation tools"
+  
+  integration_points:
+    ci_cd: "Continuous integration and deployment workflows"
+    issue_management: "Issue creation, labeling, and lifecycle management"
+    automation: "Repository automation and maintenance"
+    quality_assurance: "Code quality checks and validation"
+
+# GitHub Actions workflows guidance
+github_actions:
+  
+  workflow_files:
+    ci_cd:
+      file: ".github/workflows/ci-cd.yml"
+      purpose: "Main CI/CD pipeline for build, test, and validation"
+      triggers: ["push", "pull_request", "workflow_dispatch"]
+      key_jobs:
+        - "build: Build and validate DexBot distribution"
+        - "test: Run comprehensive test suite"
+        - "validate: Check code quality and standards"
+        - "performance: Performance benchmarking"
+      
+      ai_assistance_patterns:
+        job_enhancement:
+          - "Add new validation steps for system changes"
+          - "Integrate performance benchmarking for optimization work"
+          - "Add security scanning for dependency updates"
+          - "Implement artifact publishing for releases"
+        
+        trigger_optimization:
+          - "Configure path filters for selective execution"
+          - "Add manual dispatch for emergency workflows"
+          - "Set up schedule triggers for maintenance tasks"
+          - "Implement conditional execution based on file changes"
+    
+    codeql_analysis:
+      file: ".github/workflows/codeql-analysis.yml"
+      purpose: "Security analysis and vulnerability scanning"
+      triggers: ["push", "pull_request", "schedule"]
+      focus_areas: ["python", "security", "dependencies"]
+      
+      ai_assistance_patterns:
+        security_enhancement:
+          - "Configure custom CodeQL queries for RazorEnhanced patterns"
+          - "Add dependency vulnerability scanning"
+          - "Implement security policy enforcement"
+          - "Set up security advisory integration"
+    
+    issue_automation:
+      file: ".github/workflows/issue-automation.yml"
+      purpose: "Automated issue management and labeling"
+      triggers: ["issues", "issue_comment", "pull_request"]
+      automation_features:
+        - "Auto-labeling based on issue content"
+        - "Project board automation"
+        - "Stale issue management"
+        - "PR-issue linking validation"
+      
+      ai_assistance_patterns:
+        automation_enhancement:
+          - "Add intelligent label assignment based on content analysis"
+          - "Implement milestone auto-assignment rules"
+          - "Create status transition automation"
+          - "Add notification routing for critical issues"
+  
+  workflow_management:
+    common_patterns:
+      environment_setup:
+        - "Set up Python environment with specific version"
+        - "Install dependencies from requirements.txt"
+        - "Configure RazorEnhanced simulation environment"
+        - "Set up test data and mock environments"
+      
+      quality_gates:
+        - "Run invoke validate for system integrity checks"
+        - "Execute invoke test for comprehensive testing"
+        - "Perform invoke build for distribution validation"
+        - "Check code formatting and style compliance"
+      
+      artifact_management:
+        - "Upload test results and coverage reports"
+        - "Archive build artifacts and distributions"
+        - "Publish performance benchmark results"
+        - "Store logs and diagnostic information"
+    
+    troubleshooting_patterns:
+      common_failures:
+        test_failures: "Check test isolation and mock configuration"
+        build_failures: "Verify dependency versions and environment setup"
+        timeout_issues: "Optimize long-running operations or increase timeouts"
+        permission_errors: "Check GitHub token permissions and scopes"
+      
+      debugging_strategies:
+        - "Add debug output for environment inspection"
+        - "Use matrix builds for testing multiple configurations"
+        - "Implement workflow debugging with tmate or similar"
+        - "Add verbose logging for complex operations"
+
+# Issue templates guidance
+issue_templates:
+  
+  template_files:
+    bug_report:
+      file: ".github/ISSUE_TEMPLATE/bug_report.yml"
+      purpose: "Structured bug reporting with systematic information collection"
+      key_sections:
+        - "Bug description with clear reproduction steps"
+        - "Expected vs actual behavior comparison"
+        - "System information and environment details"
+        - "Additional context and supporting information"
+      
+      ai_assistance_patterns:
+        template_enhancement:
+          - "Add system-specific fields for auto-heal, combat, looting issues"
+          - "Include performance impact assessment fields"
+          - "Add RazorEnhanced version and configuration details"
+          - "Implement automatic label suggestion based on description"
+        
+        validation_improvement:
+          - "Add field validation for required information"
+          - "Include dropdown options for common issue types"
+          - "Implement conditional fields based on system selection"
+          - "Add helpful links and documentation references"
+    
+    feature_request:
+      file: ".github/ISSUE_TEMPLATE/feature_request.yml"
+      purpose: "Structured feature requests with impact and priority assessment"
+      key_sections:
+        - "Problem statement and use case description"
+        - "Proposed solution with implementation details"
+        - "Alternative approaches and trade-off analysis"
+        - "Impact assessment and priority justification"
+      
+      ai_assistance_patterns:
+        enhancement_guidance:
+          - "Add integration impact assessment for existing systems"
+          - "Include performance consideration fields"
+          - "Add complexity estimation and effort assessment"
+          - "Implement PRD reference and documentation linking"
+    
+    maintenance_task:
+      file: ".github/ISSUE_TEMPLATE/maintenance_task.yml"
+      purpose: "Technical debt, refactoring, and optimization tasks"
+      key_sections:
+        - "Current state analysis and problem identification"
+        - "Proposed improvements and optimization goals"
+        - "Success criteria and measurement approach"
+        - "Risk assessment and mitigation strategies"
+      
+      ai_assistance_patterns:
+        maintenance_optimization:
+          - "Add performance baseline and target metrics"
+          - "Include code quality improvement tracking"
+          - "Add dependency update and security considerations"
+          - "Implement effort estimation and timeline planning"
+    
+    config:
+      file: ".github/ISSUE_TEMPLATE/config.yml"
+      purpose: "Template selection configuration and customization"
+      configuration_options:
+        - "Template visibility and ordering"
+        - "Contact links and support information"
+        - "Custom template creation guidance"
+        - "Community contribution guidelines"
+  
+  template_management:
+    best_practices:
+      content_design:
+        - "Use clear, actionable field labels and descriptions"
+        - "Provide helpful examples and guidance text"
+        - "Include validation rules for required information"
+        - "Design for both novice and expert users"
+      
+      integration_optimization:
+        - "Align template fields with automation scripts"
+        - "Support automatic label assignment based on responses"
+        - "Enable workflow triggers based on template selection"
+        - "Facilitate data extraction for analytics and reporting"
+    
+    customization_patterns:
+      system_specific_templates:
+        - "Create specialized templates for auto-heal issues"
+        - "Design combat system optimization templates"
+        - "Develop looting system enhancement templates"
+        - "Build UI/GUMP improvement templates"
+      
+      workflow_integration:
+        - "Link templates to corresponding automation workflows"
+        - "Connect template data to project board automation"
+        - "Integrate with milestone and priority assignment"
+        - "Support multi-template workflows for complex issues"
+
+# Workflow configuration integration
+workflow_configuration:
+  
+  config_file_integration:
+    workflow_config_yaml:
+      location: "dev-tools/github-automation/workflow-config.yaml"
+      purpose: "Central configuration for GitHub automation and workflows"
+      key_sections:
+        - "Labels: Complete label taxonomy and color coding"
+        - "Issue patterns: Templates and automation rules"
+        - "Scripts: PowerShell automation tool configuration"
+        - "Workflows: Process definitions and status transitions"
+      
+      ai_management_patterns:
+        configuration_updates:
+          - "Add new labels for emerging system categories"
+          - "Update automation rules based on workflow evolution"
+          - "Modify issue patterns for improved categorization"
+          - "Enhance script configurations for new capabilities"
+        
+        synchronization_management:
+          - "Sync label changes between config and GitHub repository"
+          - "Update automation scripts when configuration changes"
+          - "Validate template compatibility with automation rules"
+          - "Maintain consistency across all GitHub integration points"
+  
+  cross_system_coordination:
+    ai_config_integration:
+      - "Reference workflow-config.yaml from dev-tools-workflow.yaml"
+      - "Align GitHub Actions with invoke task system"
+      - "Coordinate issue templates with development-tasks.yaml patterns"
+      - "Integrate automation rules with project-context.yaml guidelines"
+    
+    consistency_maintenance:
+      - "Ensure label taxonomies match across all systems"
+      - "Validate workflow definitions align with development processes"
+      - "Check automation rules support established patterns"
+      - "Verify template fields enable required data collection"
+
+# Advanced GitHub integration patterns
+advanced_integration:
+  
+  multi_workflow_coordination:
+    dependency_management:
+      - "Coordinate CI/CD with issue automation workflows"
+      - "Sequence security analysis with build validation"
+      - "Link performance testing with optimization issue creation"
+      - "Chain deployment workflows with notification systems"
+    
+    data_flow_optimization:
+      - "Share artifacts between related workflows"
+      - "Cache dependencies for improved performance"
+      - "Optimize trigger conditions to reduce unnecessary runs"
+      - "Implement conditional execution based on change scope"
+  
+  intelligent_automation:
+    content_analysis_automation:
+      - "Analyze issue content for automatic label assignment"
+      - "Extract system references for component labeling"
+      - "Identify priority indicators for automatic classification"
+      - "Detect duplicate issues for consolidation suggestions"
+    
+    workflow_adaptation:
+      - "Adjust automation rules based on project evolution"
+      - "Learn from manual interventions to improve automation"
+      - "Adapt to changing development patterns and priorities"
+      - "Optimize based on team feedback and usage analytics"
+  
+  quality_assurance_integration:
+    automated_validation:
+      - "Validate issue completeness before assignment"
+      - "Check PRD references and documentation links"
+      - "Verify acceptance criteria are testable and measurable"
+      - "Ensure proper labeling and categorization"
+    
+    continuous_improvement:
+      - "Monitor workflow effectiveness and efficiency"
+      - "Identify bottlenecks and optimization opportunities"
+      - "Track issue resolution times and quality metrics"
+      - "Analyze automation success rates and failure patterns"
+
+# AI assistance workflows for GitHub integration
+ai_github_workflows:
+  
+  workflow_creation_assistance:
+    new_workflow_development:
+      analysis_phase:
+        - "Identify workflow requirements and trigger conditions"
+        - "Analyze integration points with existing workflows"
+        - "Assess security and permission requirements"
+        - "Plan testing and validation strategies"
+      
+      implementation_phase:
+        - "Create workflow YAML with proper structure and syntax"
+        - "Implement job definitions with appropriate dependencies"
+        - "Configure environment variables and secrets management"
+        - "Add error handling and notification mechanisms"
+      
+      validation_phase:
+        - "Test workflow in development environment"
+        - "Validate integration with existing automation"
+        - "Check performance impact and resource usage"
+        - "Verify security compliance and best practices"
+  
+  template_enhancement_assistance:
+    template_optimization:
+      user_experience_improvement:
+        - "Simplify form structure for common use cases"
+        - "Add progressive disclosure for advanced options"
+        - "Implement helpful guidance and examples"
+        - "Optimize field ordering and grouping"
+      
+      automation_integration:
+        - "Design fields to support automatic processing"
+        - "Enable data extraction for workflow automation"
+        - "Support intelligent label and milestone assignment"
+        - "Facilitate integration with project management tools"
+  
+  configuration_management_assistance:
+    centralized_configuration:
+      update_coordination:
+        - "Synchronize changes across multiple configuration files"
+        - "Validate configuration compatibility across systems"
+        - "Update documentation to reflect configuration changes"
+        - "Test automation workflows after configuration updates"
+      
+      version_control_integration:
+        - "Track configuration changes with clear commit messages"
+        - "Create configuration change impact analysis"
+        - "Implement rollback procedures for problematic changes"
+        - "Document configuration evolution and decision rationale"
+
+# Troubleshooting and maintenance
+github_maintenance:
+  
+  common_issues:
+    workflow_failures:
+      symptoms: ["Workflow runs fail consistently", "Jobs timeout or hang", "Authentication errors"]
+      diagnosis:
+        - "Check workflow syntax and YAML formatting"
+        - "Verify environment variable and secret configuration"
+        - "Analyze job dependencies and resource requirements"
+        - "Review GitHub Actions marketplace action versions"
+      solutions:
+        - "Update action versions to latest stable releases"
+        - "Optimize resource usage and timeout configurations"
+        - "Fix authentication and permission issues"
+        - "Implement better error handling and retry logic"
+    
+    template_issues:
+      symptoms: ["Templates not appearing", "Field validation failures", "Automation not triggering"]
+      diagnosis:
+        - "Validate template YAML syntax and structure"
+        - "Check template configuration in config.yml"
+        - "Verify automation rule compatibility"
+        - "Test template rendering in GitHub interface"
+      solutions:
+        - "Fix YAML syntax errors and validation issues"
+        - "Update template configuration and visibility settings"
+        - "Align template fields with automation expectations"
+        - "Test templates with various input scenarios"
+    
+    automation_problems:
+      symptoms: ["Labels not applied automatically", "Issues not categorized", "Workflows not triggered"]
+      diagnosis:
+        - "Check automation rule configuration and syntax"
+        - "Verify trigger conditions and event handling"
+        - "Analyze workflow run logs and error messages"
+        - "Test automation rules with sample data"
+      solutions:
+        - "Update automation rules and trigger conditions"
+        - "Fix workflow permission and authentication issues"
+        - "Optimize automation logic and error handling"
+        - "Implement better monitoring and alerting"
+  
+  maintenance_procedures:
+    regular_maintenance:
+      weekly_tasks:
+        - "Review workflow run success rates and failure patterns"
+        - "Check for security updates to GitHub Actions"
+        - "Analyze issue template usage and effectiveness"
+        - "Monitor automation rule performance and accuracy"
+      
+      monthly_tasks:
+        - "Update GitHub Actions to latest versions"
+        - "Review and optimize workflow performance"
+        - "Analyze issue template feedback and usage patterns"
+        - "Update automation rules based on project evolution"
+      
+      quarterly_tasks:
+        - "Comprehensive review of all GitHub integrations"
+        - "Performance analysis and optimization planning"
+        - "Security audit of workflows and permissions"
+        - "Strategic planning for GitHub ecosystem evolution"
+
+# Quick reference for GitHub integration
+github_quick_reference:
+  
+  essential_commands:
+    workflow_management:
+      list_workflows: "gh workflow list"
+      run_workflow: "gh workflow run {workflow_name}"
+      view_runs: "gh run list --workflow={workflow_name}"
+      download_artifacts: "gh run download {run_id}"
+    
+    issue_template_testing:
+      create_from_template: "gh issue create --template {template_name}"
+      list_templates: "gh api repos/{owner}/{repo}/issues/templates"
+      validate_template: "gh api --method POST repos/{owner}/{repo}/issues --input template_test.json"
+    
+    automation_debugging:
+      view_logs: "gh run view {run_id} --log"
+      rerun_failed: "gh run rerun {run_id} --failed"
+      cancel_run: "gh run cancel {run_id}"
+      list_secrets: "gh secret list"
+  
+  configuration_files:
+    edit_workflow: "code .github/workflows/{workflow_name}.yml"
+    edit_template: "code .github/ISSUE_TEMPLATE/{template_name}.yml"
+    edit_config: "code dev-tools/github-automation/workflow-config.yaml"
+    test_automation: "dev-tools/github-automation/test_github_mock.ps1"
+  
+  validation_commands:
+    check_syntax: "yamllint .github/workflows/*.yml"
+    validate_templates: "gh api repos/{owner}/{repo}/issues/templates"
+    test_automation: "dev-tools/github-automation/github_api_mock.ps1"
+    verify_permissions: "gh auth status"
+
+# Integration with other AI configuration files
+ai_config_integration:
+  
+  cross_references:
+    dev_tools_workflow: "Detailed GitHub automation script guidance"
+    development_tasks: "Task templates that integrate with GitHub Issues"
+    project_context: "Development environment and workflow context"
+    coordination_enhancement: "Advanced collaboration patterns for GitHub workflows"
+  
+  unified_workflow:
+    issue_creation: "Combine GitHub templates with dev-tools automation"
+    development_tracking: "Link GitHub Issues with development-tasks patterns"
+    quality_assurance: "Integrate GitHub workflows with validation requirements"
+    documentation_sync: "Coordinate GitHub updates with project documentation"
+  
+  enhancement_opportunities:
+    ai_assisted_automation: "Use AI to improve GitHub automation intelligence"
+    workflow_optimization: "Apply AI insights to optimize GitHub workflows"
+    template_personalization: "Customize templates based on user patterns"
+    predictive_maintenance: "Use AI to predict and prevent GitHub integration issues"

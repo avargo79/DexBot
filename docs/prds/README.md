@@ -18,55 +18,71 @@ Each PRD follows a standardized format:
 
 ## Active PRDs
 
+### Implemented Core Systems (P1)
+- **[FR-001: Auto Heal System](./FR-001_Auto_Heal_System.md)**
+  - Status: ✅ **IMPLEMENTED** (June 28, 2025)
+  - Target: v3.0.0
+  - Effort: 137 lines of code
+  - *Intelligent automated healing with potions and bandages*
+
+- **[FR-002: Combat System](./FR-002_Combat_System.md)**
+  - Status: ✅ **IMPLEMENTED** (June 29, 2025)
+  - Target: v3.0.0
+  - Effort: 595 lines of code
+  - *Advanced combat automation with target acquisition and tactical AI*
+
+- **[FR-003: Looting System](./FR-003_Looting_System.md)**
+  - Status: ✅ **IMPLEMENTED** (June 30, 2025)
+  - Target: v3.0.0
+  - Effort: 1,371 lines of code
+  - *Sophisticated looting automation with intelligent item evaluation*
+
 ### High Priority Features (P1)
-- **[FR-084: Buff Management System](./FR-084_Buff_Management_System.md)**
-  - Status: ✅ Complete
-  - Target: v3.2.1
-  - Effort: 2-3 weeks
-  - *Automated buff maintenance with smart reagent management*
+- **[FR-127-128: UO Item Database System](./FR-127-128_UO_Item_Database_System.md)**
+  - Status: 📝 Ready for Development
+  - Target: v3.2.0
+  - Effort: 6-10 hours
+  - *Complete UO item database optimization and system integration*
 
 ### Technical Debt (P1)
 - **[TECH-001: API Reference Optimization](./TECH-001_API_Reference_Optimization.md)**
-  - Status: 📝 Ready for Development
+  - Status: ✅ **IMPLEMENTED** (July 2, 2025)
   - Target: v3.2.0
   - Effort: 1 week
   - *Comprehensive API reference system optimization and automation*
-  - **Implementation Guide**: [Detailed Tasks](./TECH-001_Implementation_Tasks.md)
 
 ### Medium Priority Features (P2)
+- **[FR-084: Buff Management System](./FR-084_Buff_Management_System.md)**
+  - Status: 📝 Proposed
+  - Target: v3.3.0
+  - Effort: 2-3 weeks
+  - *Automated buff maintenance with smart reagent management*
+
 - **[FR-095: Inventory Management System](./FR-095_Inventory_Management_System.md)**
-  - Status: ✅ Complete  
-  - Target: v3.3.1
+  - Status: 📝 Proposed
+  - Target: v3.3.0
   - Effort: 2-3 weeks
   - *Intelligent inventory organization and resource tracking*
 
 - **[FR-096: Equipment Manager System](./FR-096_Equipment_Manager_System.md)**
-  - Status: ✅ Complete
-  - Target: v3.3.2  
-  - Effort: 2-3 weeks
+  - Status: 📝 Proposed
+  - Target: v3.3.0
+  - Effort: 1-2 weeks
   - *Automated equipment management, repair, and optimization*
 
 - **[FR-126: Server-Specific Settings System](./FR-126_Server_Specific_Settings_System.md)**
   - Status: 📝 Proposed
-  - Target: v3.2.2
+  - Target: v3.3.0
   - Effort: 1-2 weeks  
   - *Unchained UO server detection with automatic server-specific optimizations*
 
 ### Future Features (P3+)
-*No future PRDs currently - see [Future Backlog](../backlog/future/features.md) for long-term ideas*
-
-## Archived PRDs
-
-### Completed System PRDs (Legacy)
-- **[PRD_Master.md](./archived/PRD_Master.md)** - Master system architecture (legacy format)
-- **[PRD_Auto_Heal_System.md](./archived/PRD_Auto_Heal_System.md)** - Auto Heal system (completed v3.1.x)
-- **[PRD_Combat_System.md](./archived/PRD_Combat_System.md)** - Combat system (completed v3.1.x)  
-- **[PRD_Looting_System.md](./archived/PRD_Looting_System.md)** - Looting system (completed v3.1.x)
+- **[GitHub Issues](https://github.com/avargo79/DexBot/issues?q=is%3Aissue+is%3Aopen+label%3Aidea)** - Long-term concepts and research ideas
 
 ## PRD Development Process
 
 ### 1. Initiation
-- Feature identified in product backlog
+- Feature identified through GitHub Issues workflow
 - Initial business case and value assessment
 - Assignment to product owner or technical lead
 
@@ -160,7 +176,7 @@ Completed or cancelled PRDs are moved to the `archived/` directory for historica
 
 ## Related Documents
 
-- **[Product Backlog](../backlog/PRODUCT_BACKLOG.md)** - Prioritized list of features and items
+- **[GitHub Issues](https://github.com/avargo79/DexBot/issues)** - Active development tracking and feature prioritization
 - **[Development Status](../Development_Status.md)** - Current project status and roadmap
 - **[Architecture Documentation](../README.md)** - Overall system architecture and design
 
@@ -170,10 +186,10 @@ When creating or updating PRDs:
 1. Use the standard template and format
 2. Include all required sections and information
 3. Get technical and business review before finalizing
-4. Update related backlog items and development status
+4. Update related GitHub Issues and development status
 5. Maintain links and cross-references
 
 ---
 
-**Last Updated**: July 1, 2025  
-**Document Version**: 1.0
+**Last Updated**: July 2, 2025  
+**Document Version**: 2.0

@@ -1,0 +1,139 @@
+name: Feature Request
+description: Suggest a new feature for DexBot
+title: "[FEATURE] "
+labels: ["idea"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a feature for DexBot! Please provide as much detail as possible.
+
+  - type: input
+    id: feature-title
+    attributes:
+      label: Feature Title
+      description: Brief, descriptive title for the feature
+      placeholder: e.g., "Buff Management System"
+    validations:
+      required: true
+
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: Feature Description
+      description: Detailed description of what this feature should do
+      placeholder: Describe the feature functionality, behavior, and purpose
+    validations:
+      required: true
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use Case / Scenario
+      description: How would this feature be used during gameplay?
+      placeholder: Describe specific scenarios where this feature would be beneficial
+    validations:
+      required: true
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      description: Which DexBot component does this feature relate to?
+      options:
+        - Auto Heal System
+        - Combat System
+        - Looting System
+        - User Interface (GUMPs)
+        - Configuration Management
+        - Core Systems
+        - Build/Development Tools
+        - Documentation
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority Level
+      description: How important is this feature?
+      options:
+        - Low - Nice to have enhancement
+        - Medium - Useful improvement
+        - High - Important feature
+        - Critical - Essential functionality
+      default: 1
+    validations:
+      required: true
+
+  - type: textarea
+    id: technical-requirements
+    attributes:
+      label: Technical Requirements
+      description: Any specific technical requirements or constraints
+      placeholder: |
+        - RazorEnhanced API requirements
+        - Performance considerations
+        - Configuration needs
+        - Integration requirements
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: What needs to be completed for this feature to be considered done?
+      placeholder: |
+        - [ ] Requirement 1
+        - [ ] Requirement 2
+        - [ ] Testing completed
+        - [ ] Documentation updated
+
+  - type: textarea
+    id: prd-document
+    attributes:
+      label: Product Requirements Document (PRD) - Optional
+      description: |
+        If you have a complete PRD for this feature, include it here. 
+        Features with complete PRDs can skip the PRD development phase and move directly to planning.
+      placeholder: |
+        ## Product Requirements Document (PRD)
+        
+        ### Technical Specifications
+        [Detailed implementation requirements]
+        
+        ### Architecture Overview
+        [System design and integration points]
+        
+        ### Dependencies
+        [Required systems, APIs, or other features]
+        
+        ### Risk Assessment
+        [Potential challenges and mitigation strategies]
+        
+        ### Timeline Estimate
+        [Development effort and schedule]
+        
+        ### Testing Requirements
+        [How the feature will be validated]
+
+  - type: checkboxes
+    id: related-work
+    attributes:
+      label: Related Work
+      description: Check any related items
+      options:
+        - label: I have reviewed existing features and this is not a duplicate
+          required: true
+        - label: I have checked the product backlog for similar requests
+          required: false
+        - label: This feature includes a complete PRD document above
+          required: false
+        - label: I am ready to proceed directly to planning phase (PRD complete)
+          required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any additional information, screenshots, or examples
+      placeholder: Add any other context, mockups, or examples that would be helpful

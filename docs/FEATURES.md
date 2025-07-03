@@ -7,6 +7,8 @@
 
 This document provides a comprehensive overview of DexBot's current features and capabilities, organized by system and functionality level.
 
+**For practical usage examples and code samples, see [Usage Examples](USAGE_EXAMPLES.md).**
+
 ## 🏥 Auto Heal System
 
 ### Core Healing Features
@@ -254,17 +256,17 @@ This document provides a comprehensive overview of DexBot's current features and
 ## 🔮 Future Capabilities (Roadmap)
 
 ### Near-Term Features (v3.2.x)
-- **Buff Management**: Automated character buff maintenance
-- **Enhanced UI**: Improved GUMP interface with additional features
+- **Buff Management**: Automated character buff maintenance → GitHub Issue #22
+- **Enhanced UI**: Improved GUMP interface with additional features → GitHub Issue #35
 - **Performance Gains**: Additional optimization opportunities
-- **Advanced Analytics**: Enhanced statistics and reporting
+- **Advanced Analytics**: Enhanced statistics and reporting → GitHub Issue #36
 
 ### Medium-Term Features (v3.3.x - v3.4.x)
 - **Inventory Management**: Smart inventory organization and tracking
 - **Equipment Manager**: Automated equipment management and repair
 
 ### Long-Term Vision (v4.0+)
-- **Platform Expansion**: Support for additional UO servers
+- **Platform Expansion**: Support for additional UO servers → GitHub Issue #37
 - **Community Features**: Sharing, collaboration, and social features
 
 ---

@@ -1,11 +1,17 @@
-# Feature Request: UO Item Database System (Combined)
+# PRD: UO Item Database System (Consolidated)
 
 **FR-127/128: Complete UO Item Database Optimization & Integration**
 
 **Priority**: High  
 **Estimated Effort**: 6-10 hours total  
 **Target Version**: v3.2.0  
-**Date**: June 30, 2025
+**Date**: June 30, 2025  
+**Status**: 📝 Ready for Development  
+**Last Updated**: July 2, 2025
+
+> **Note**: This consolidated PRD replaces the individual FR-127 and FR-128 documents, 
+> providing a comprehensive view of both database optimization and system integration 
+> in a single, coordinated implementation plan.
 
 ## 1. Feature Overview
 

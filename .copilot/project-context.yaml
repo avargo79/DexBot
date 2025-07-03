@@ -1,0 +1,373 @@
+# DexBot AI Assistant Configuration
+# This file provides structured context for GitHub Copilot and AI tools working on DexBot
+
+metadata:
+  version: "1.0"
+  created: "2025-07-03"
+  purpose: "AI assistant configuration for optimal DexBot development support"
+  
+project:
+  name: "DexBot"
+  type: "Ultima Online Automation Bot"
+  platform: "RazorEnhanced Python Scripting"
+  version: "3.2.0"
+  
+  description: |
+    High-performance, modular bot system for Ultima Online with intelligent 
+    healing, combat, and looting capabilities. Production-ready with 12+ hour 
+    stable sessions and 85-95% performance optimizations.
+
+# Core development context for AI assistants
+development_context:
+  environment:
+    runtime: "RazorEnhanced IronPython"
+    python_version: "3.x with .NET Framework integration"
+    constraints:
+      - "Single-threaded execution model preferred"
+      - "No standard Python packages (requests, pandas, etc.)"
+      - "Memory management crucial for long sessions"
+      - "Uses .NET APIs through Python bindings"
+    
+  architecture:
+    pattern: "Modular system with clear separation of concerns"
+    core_systems:
+      - "auto_heal: Intelligent healing and buff management"
+      - "combat: Enemy detection, targeting, engagement"
+      - "looting: Corpse processing with 90% optimization"
+      - "ui: GUMP interfaces and user interaction"
+      - "core: Bot logic and state management"
+      - "config: Configuration management"
+      - "utils: Utilities and helper functions"
+    
+  coding_standards:
+    line_length: 100
+    style_guide: "PEP 8 with project-specific conventions"
+    naming_conventions:
+      functions: "snake_case"
+      classes: "PascalCase" 
+      constants: "UPPER_CASE"
+      private: "_private_method"
+    string_quotes: "double quotes preferred"
+    
+  testing:
+    pattern: "3-case testing (pass/fail/edge)"
+    coverage_target: "96%+"
+    framework: "Custom testing with RazorEnhanced mocks"
+    
+# AI assistant behavior guidelines
+ai_guidelines:
+  code_generation:
+    always_include:
+      - "Comprehensive docstrings with Args, Returns, Raises, Example"
+      - "Type hints when beneficial"
+      - "Error handling with try/except blocks"
+      - "RazorEnhanced API error handling"
+      - "Logging using Logger from src/core/logger.py"
+    
+    prefer:
+      - "Explicit over implicit code"
+      - "Verbose for clarity over concise"
+      - "Comments for complex RazorEnhanced API usage"
+      - "Edge case consideration"
+      - "Extensible patterns"
+    
+    avoid:
+      - "Standard Python package imports"
+      - "Multi-threading (use single-thread patterns)"
+      - "eval(), exec(), or pickle.load() on untrusted data"
+      - "Hardcoded values (use configuration)"
+    
+  common_imports:
+    razorenhanced:
+      - "from System.Collections.Generic import List"
+      - "from System import Int32 as int"
+    project:
+      - "from src.core.logger import Logger"
+      - "from src.config.config_manager import ConfigManager"
+    
+  error_patterns:
+    razorenhanced_api: "RazorEnhancedAPIError"
+    system_errors: "DexBotSystemError"
+    always_wrap: "All RazorEnhanced API calls in try/except"
+    
+# Project-specific knowledge
+project_knowledge:
+  performance_critical:
+    - "Combat system update loops (100ms cycles)"
+    - "Looting system item evaluation"
+    - "API call optimization and caching"
+    - "Memory management for 12+ hour sessions"
+    
+  common_patterns:
+    configuration: "ConfigManager.get_setting('system.setting_name')"
+    logging: "Logger.info/debug/error/warning(message)"
+    api_calls: "Always wrap in try/except with specific error handling"
+    
+  file_locations:
+    configs: "config/*.json"
+    systems: "src/systems/*.py"
+    tests: "tests/test_*.py"
+    utils: "src/utils/*.py"
+    docs: "docs/*.md"
+    
+# Development workflow context
+workflow:
+  validation_commands:
+    integrity: "python -m invoke validate"
+    testing: "python -m invoke test"
+    build: "python -m invoke build"
+    
+  commit_requirements:
+    - "All invoke validate checks pass"
+    - "Test coverage maintains 96%+"
+    - "No syntax errors or import issues"
+    - "Documentation updated for changes"
+    
+  branch_strategy:
+    feature_prep: "./scripts/prepare_feature.ps1 feature-name"
+    commit_pattern: "conventional commits (feat:, fix:, docs:, test:)"
+    
+# Common development scenarios and solutions
+scenarios:
+  new_system_development:
+    steps:
+      1. "Review PRD in docs/prds/"
+      2. "Create config file in config/"
+      3. "Implement core system in src/systems/"
+      4. "Write 3-case tests in tests/"
+      5. "Add UI components in src/ui/ if needed"
+      6. "Update documentation"
+      7. "Validate with invoke commands"
+    
+    template_imports: |
+      from System.Collections.Generic import List
+      from System import Int32 as int
+      from src.core.logger import Logger
+      from src.config.config_manager import ConfigManager
+    
+  bug_fixing:
+    investigation:
+      - "Check logs in logs/ directory"
+      - "Review error patterns in src/core/logger.py"
+      - "Test with invoke test command"
+      - "Validate with invoke validate"
+    
+    testing:
+      - "Reproduce with minimal test case"
+      - "Add test case for the bug"
+      - "Verify fix doesn't break other systems"
+      - "Update documentation if needed"
+    
+  performance_optimization:
+    focus_areas:
+      - "API call reduction"
+      - "Memory usage optimization"
+      - "Loop efficiency in update cycles"
+      - "Caching strategies"
+    
+    measurement: "Use performance profiling in tmp/"
+    
+# File organization preferences
+file_organization:
+  temporary_files: "tmp/ directory"
+  analysis_files: "tmp/TASK_NAME_*.md"
+  cleanup_pattern: "Remove old temp files at session end"
+  preserve: "Final deliverables and .gitkeep"
+  
+# Documentation patterns for AI
+documentation_patterns:
+  context_blocks: |
+    """
+    === AI CONTEXT BLOCK ===
+    System: [System Name]
+    Purpose: [Brief description]
+    Dependencies: [Key dependencies]
+    Performance: [Performance considerations]
+    Error Handling: [Error scenarios]
+    Integration: [How it connects to other systems]
+    === END AI CONTEXT ===
+    """
+  
+  method_documentation: |
+    def method_name(self, param: type) -> return_type:
+        """
+        Brief description of what the method does.
+        
+        Args:
+            param: Description of parameter and expected values
+            
+        Returns:
+            Description of return value and structure
+            
+        Raises:
+            SpecificError: When specific condition occurs
+            
+        Example:
+            result = self.method_name("test_value")
+            if result.success:
+                process_result(result.data)
+        """
+
+# Quick reference for common tasks
+quick_reference:
+  start_new_feature: ".\scripts\prepare_feature.ps1 feature-name"
+  run_tests: "python -m invoke test"
+  validate_changes: "python -m invoke validate"
+  build_distribution: "python -m invoke build"
+  check_status: "python -m invoke status"
+  
+  common_file_locations:
+    main_config: "config/main_config.json"
+    auto_heal_config: "config/auto_heal_config.json"
+    combat_config: "config/combat_config.json"
+    looting_config: "config/looting_config.json"
+    
+  system_entry_points:
+    auto_heal: "src/systems/auto_heal.py"
+    combat: "src/systems/combat.py"
+    looting: "src/systems/looting.py"
+    
+  test_locations:
+    auto_heal_tests: "tests/test_auto_heal.py"
+    combat_tests: "tests/test_combat.py"
+    looting_tests: "tests/test_looting.py"
+
+# Enhanced understanding patterns for better coordination
+understanding_patterns:
+  
+  contextual_intelligence:
+    codebase_relationships:
+      core_dependencies:
+        - "Logger changes affect all systems that use logging"
+        - "ConfigManager changes affect all configuration-dependent systems"
+        - "BotController changes affect system integration and communication"
+      
+      system_interdependencies:
+        - "AutoHeal timing affects combat engagement windows"
+        - "Combat state affects looting trigger conditions"
+        - "Looting inventory management affects all systems' resource availability"
+      
+      configuration_relationships:
+        - "Global settings in main_config.json affect all systems"
+        - "System-specific configs inherit from default configs"
+        - "GUMP settings affect user interaction across all systems"
+    
+    performance_understanding:
+      critical_paths:
+        - "Main update loop (250ms cycle) - all systems must be efficient"
+        - "Auto heal checks (100ms) - highest frequency, must be optimized"
+        - "Combat target scanning - expensive operation, needs caching"
+        - "Looting item evaluation - high volume, needs optimization"
+      
+      optimization_hierarchy:
+        1. "Reduce RazorEnhanced API calls (highest impact)"
+        2. "Implement smart caching and ignore lists"
+        3. "Optimize data structures and algorithms"
+        4. "Batch operations to reduce overhead"
+      
+      memory_considerations:
+        - "Long-running sessions require careful memory management"
+        - "Caches need TTL and size limits to prevent memory leaks"
+        - "Ignore lists need periodic cleanup to prevent unlimited growth"
+        - "Event handlers and callbacks must be properly disposed"
+  
+  architectural_awareness:
+    design_principles:
+      modularity: "Each system operates independently but communicates through well-defined interfaces"
+      configurability: "All behavior is configurable through JSON files with sensible defaults"
+      reliability: "Comprehensive error handling and graceful degradation for all failure modes"
+      performance: "Optimized for 12+ hour continuous operation without degradation"
+      extensibility: "New systems can be added without modifying existing core components"
+    
+    integration_patterns:
+      event_driven: "Systems communicate through events to maintain loose coupling"
+      configuration_driven: "Behavior is controlled through configuration rather than code changes"
+      layered_architecture: "Clear separation between core, systems, UI, and utility layers"
+      plugin_architecture: "Systems can be enabled/disabled independently"
+    
+    quality_standards:
+      testing: "3-case pattern (pass/fail/edge) with 96%+ coverage target"
+      documentation: "Comprehensive docstrings with Args/Returns/Raises/Example"
+      error_handling: "All RazorEnhanced API calls wrapped with specific error handling"
+      performance: "All changes validated for impact on 12+ hour session stability"
+  
+  domain_expertise:
+    razorenhanced_constraints:
+      runtime_limitations:
+        - "IronPython environment with .NET integration"
+        - "No standard Python package support (no requests, pandas, etc.)"
+        - "Single-threaded execution model preferred"
+        - "Memory management is manual and critical"
+      
+      api_characteristics:
+        - "APIs can return None unexpectedly"
+        - "Some operations require timing delays to complete"
+        - "API call frequency affects performance significantly"
+        - "Error handling must account for .NET exceptions"
+      
+      performance_patterns:
+        - "Caching is essential for frequently accessed data"
+        - "Ignore lists prevent redundant processing"
+        - "Batch operations reduce overhead"
+        - "Timing optimization is critical for responsiveness"
+    
+    ultima_online_domain:
+      game_mechanics:
+        - "Player status changes require immediate response (healing)"
+        - "Combat requires precise timing and target management"
+        - "Looting has permission and timing constraints"
+        - "Inventory management affects all system operations"
+      
+      optimization_strategies:
+        - "Distance calculations are expensive - cache when possible"
+        - "Line of sight checks are expensive - use sparingly"
+        - "Item property queries are expensive - batch and cache"
+        - "Mobile scanning is expensive - use filters and limits"
+
+# Advanced communication protocols
+communication_protocols:
+  
+  proactive_communication:
+    anticipatory_assistance:
+      - "Suggest related optimizations when implementing features"
+      - "Identify potential integration issues before they occur"
+      - "Recommend complementary test cases based on change scope"
+      - "Propose documentation updates for modified functionality"
+    
+    contextual_guidance:
+      - "Explain DexBot-specific patterns when introducing new concepts"
+      - "Provide rationale for architectural decisions and constraints"
+      - "Share performance implications of different implementation approaches"
+      - "Reference existing similar implementations for consistency"
+    
+    knowledge_sharing:
+      - "Document new patterns discovered during development"
+      - "Explain complex RazorEnhanced concepts and limitations"
+      - "Create reusable examples and templates for future work"
+      - "Share optimization techniques and performance insights"
+  
+  adaptive_interaction:
+    request_interpretation:
+      explicit_requests: "Direct implementation with specified requirements"
+      implicit_requests: "Infer requirements from context and project patterns"
+      exploratory_requests: "Collaborate on problem analysis and solution design"
+      optimization_requests: "Focus on performance and efficiency improvements"
+    
+    response_calibration:
+      detail_level: "Adjust explanation depth based on request complexity and user expertise"
+      scope_management: "Break complex tasks into manageable phases with clear deliverables"
+      quality_focus: "Emphasize aspects most relevant to current development objectives"
+      efficiency_balance: "Optimize for both development speed and long-term maintainability"
+  
+  collaboration_enhancement:
+    decision_support:
+      - "Present multiple implementation options with trade-offs"
+      - "Provide performance and maintainability analysis for choices"
+      - "Suggest architectural alternatives when appropriate"
+      - "Recommend testing strategies based on implementation approach"
+    
+    continuous_improvement:
+      - "Learn from feedback to improve future assistance"
+      - "Adapt to preferred communication and development styles"
+      - "Refine understanding of project priorities and constraints"
+      - "Evolve assistance patterns based on collaboration outcomes"

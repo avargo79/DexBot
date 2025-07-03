@@ -1,0 +1,144 @@
+name: Maintenance Task
+description: Code cleanup, refactoring, or maintenance work
+title: "[MAINTENANCE] "
+labels: ["maintenance"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template for maintenance tasks like code cleanup, refactoring, performance optimization, or technical debt.
+
+  - type: input
+    id: task-title
+    attributes:
+      label: Task Title
+      description: Brief description of the maintenance task
+      placeholder: e.g., "Optimize UO Items database loading performance"
+    validations:
+      required: true
+
+  - type: textarea
+    id: task-description
+    attributes:
+      label: Task Description
+      description: Detailed description of what needs to be done
+      placeholder: Describe the maintenance work, why it's needed, and what it should accomplish
+    validations:
+      required: true
+
+  - type: dropdown
+    id: maintenance-type
+    attributes:
+      label: Maintenance Type
+      description: What type of maintenance is this?
+      options:
+        - Performance Optimization
+        - Code Refactoring
+        - Technical Debt Reduction
+        - Code Cleanup
+        - Documentation Update
+        - Dependency Update
+        - Build System Improvement
+        - Testing Enhancement
+    validations:
+      required: true
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Affected Component
+      description: Which component needs maintenance?
+      options:
+        - Auto Heal System
+        - Combat System
+        - Looting System
+        - User Interface (GUMPs)
+        - Configuration Management
+        - Core Systems
+        - Build System
+        - Documentation
+        - Testing Framework
+        - Multiple Components
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority Level
+      description: How urgent is this maintenance task?
+      options:
+        - Low - Can be done when time permits
+        - Medium - Should be addressed soon
+        - High - Important for project health
+        - Critical - Blocking other work
+      default: 1
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-issues
+    attributes:
+      label: Current Issues
+      description: What problems does this maintenance address?
+      placeholder: |
+        Describe current problems, inefficiencies, or technical debt:
+        - Performance bottlenecks
+        - Code complexity
+        - Maintenance difficulties
+        - Security concerns
+
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: Proposed Solution
+      description: How should this be addressed?
+      placeholder: |
+        Describe your proposed approach:
+        - Specific changes to make
+        - Technologies or patterns to use
+        - Steps to implement
+        - Alternative approaches considered
+
+  - type: textarea
+    id: success-criteria
+    attributes:
+      label: Success Criteria
+      description: How will we know this maintenance is complete?
+      placeholder: |
+        Define measurable success criteria:
+        - [ ] Performance improvement targets
+        - [ ] Code quality metrics
+        - [ ] Test coverage requirements
+        - [ ] Documentation updates
+
+  - type: textarea
+    id: impact-assessment
+    attributes:
+      label: Impact Assessment
+      description: What are the risks and benefits?
+      placeholder: |
+        Assess the impact:
+        - Benefits: What improvements will be gained?
+        - Risks: What could go wrong?
+        - Compatibility: Any breaking changes?
+        - Testing: What testing is needed?
+
+  - type: checkboxes
+    id: considerations
+    attributes:
+      label: Considerations
+      description: Check all that apply
+      options:
+        - label: This task requires careful testing
+        - label: This may have breaking changes
+        - label: Documentation needs updating
+        - label: Performance benchmarking needed
+        - label: Backward compatibility must be maintained
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other relevant information
+      placeholder: Links to related issues, technical references, or other context

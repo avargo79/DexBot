@@ -1,0 +1,483 @@
+# DexBot Development Tasks Configuration
+# Structured guidance for common development tasks and patterns
+
+metadata:
+  version: "1.0"
+  created: "2025-07-03"
+  purpose: "Task-specific guidance for AI assistants working on DexBot"
+
+# Task templates with specific guidance
+task_templates:
+  
+  new_system_implementation:
+    description: "Creating a new bot system (healing, combat, looting, etc.)"
+    requirements:
+      config: "Create JSON config file in config/"
+      implementation: "Main system class in src/systems/"
+      tests: "3-case test suite in tests/"
+      ui: "GUMP interface if user-facing"
+      docs: "Update relevant documentation"
+      github_issue: "Create or link to GitHub Issue for tracking"
+    
+    github_integration:
+      issue_creation:
+        - "Create GitHub Issue with FR- prefix for new system"
+        - "Include detailed requirements and acceptance criteria"
+        - "Add appropriate labels (enhancement, system-specific)"
+        - "Link to PRD document if available"
+      
+      development_tracking:
+        - "Link commits to GitHub Issue number"
+        - "Update issue with progress comments during development"
+        - "Reference issue in pull request descriptions"
+        - "Close issue when system is complete and merged"
+    
+    code_patterns:
+      system_class_template: |
+        class NewSystem:
+            def __init__(self, config_manager):
+                self.config = config_manager
+                self.logger = Logger()
+                self.enabled = self.config.get_setting('new_system.enabled', False)
+            
+            def update(self):
+                if not self.enabled:
+                    return
+                try:
+                    # Main system logic here
+                    pass
+                except Exception as e:
+                    self.logger.error(f"NewSystem error: {e}")
+      
+      config_template: |
+        {
+          "enabled": false,
+          "update_interval_ms": 1000,
+          "settings": {
+            "example_setting": "default_value"
+          }
+        }
+    
+    testing_pattern: |
+      def test_new_system_pass_case(self):
+          # Test successful operation
+      def test_new_system_fail_case(self):
+          # Test error conditions
+      def test_new_system_edge_case(self):
+          # Test boundary conditions
+  
+  performance_optimization:
+    description: "Optimizing existing systems for better performance"
+    focus_areas:
+      api_calls: "Reduce unnecessary RazorEnhanced API calls"
+      memory: "Optimize memory usage for long sessions"
+      loops: "Improve update loop efficiency"
+      caching: "Implement smart caching strategies"
+    
+    measurement_tools:
+      profiling: "Use performance_profile_*.md reports"
+      timing: "Add timing logs for critical sections"
+      memory: "Monitor memory usage patterns"
+    
+    optimization_patterns:
+      api_call_reduction: |
+        # Cache API results when possible
+        if not hasattr(self, '_cached_value') or self._should_refresh_cache():
+            self._cached_value = expensive_api_call()
+        return self._cached_value
+      
+      ignore_list_optimization: |
+        # Use ignore lists to avoid repeated processing
+        if item_serial in self.ignore_list:
+            return False
+        if not self._is_valuable_item(item):
+            self.ignore_list.add(item_serial)
+            return False
+  
+  bug_investigation:
+    description: "Systematic approach to investigating and fixing bugs"
+    investigation_steps:
+      1. "Reproduce the issue consistently"
+      2. "Check logs for error patterns"
+      3. "Identify the affected system"
+      4. "Create minimal test case"
+      5. "Implement fix with proper error handling"
+      6. "Add test to prevent regression"
+    
+    github_integration:
+      issue_creation:
+        - "Create GitHub Issue with BUG- prefix"
+        - "Include reproduction steps and expected vs actual behavior"
+        - "Add system-specific labels and priority level"
+        - "Reference related code files and error logs"
+      
+      resolution_tracking:
+        - "Update issue with investigation findings"
+        - "Link commits that implement the fix"
+        - "Document root cause and solution approach"
+        - "Close issue when fix is validated and merged"
+  
+  testing_implementation:
+    description: "Creating comprehensive tests for DexBot systems"
+    test_structure:
+      setup: "Mock RazorEnhanced APIs and dependencies"
+      teardown: "Clean up mocks and temporary data"
+      assertions: "Verify expected behavior and side effects"
+    
+    mock_patterns:
+      razorenhanced_mock: |
+        class MockPlayer:
+            Hits = 100
+            HitsMax = 100
+            Name = "TestPlayer"
+        
+        # Replace RazorEnhanced.Player with mock during tests
+      
+      config_mock: |
+        test_config = {
+            "system": {
+                "enabled": True,
+                "setting": "test_value"
+            }
+        }
+    
+    coverage_targets:
+      minimum: "90% code coverage"
+      preferred: "96%+ code coverage"
+      critical_systems: "100% coverage for auto_heal, combat, looting"
+
+# System-specific guidance
+system_guidance:
+  
+  auto_heal:
+    critical_functions:
+      - "heal_player(): Core healing logic"
+      - "check_bandage_healing(): Bandage management"
+      - "use_heal_potion(): Potion usage"
+    performance_notes:
+      - "Called every 100ms in main loop"
+      - "Must be extremely efficient"
+      - "Cache player status when possible"
+    common_issues:
+      - "Bandage timing conflicts"
+      - "Potion cooldown management"
+      - "Player status detection"
+  
+  combat:
+    critical_functions:
+      - "find_targets(): Enemy detection"
+      - "engage_target(): Combat engagement"
+      - "update_combat_state(): State management"
+    performance_notes:
+      - "Target scanning is expensive"
+      - "Use ignore lists for dead/invalid targets"
+      - "Optimize distance calculations"
+    common_issues:
+      - "Target disappearing during combat"
+      - "Distance calculation accuracy"
+      - "Line of sight validation"
+  
+  looting:
+    critical_functions:
+      - "find_corpses(): Corpse detection"
+      - "evaluate_item(): Item value assessment"
+      - "loot_corpse(): Item collection"
+    performance_notes:
+      - "90% optimization achieved through ignore lists"
+      - "Item evaluation must be fast"
+      - "Corpse scanning optimization critical"
+    common_issues:
+      - "Corpse access permissions"
+      - "Inventory space management"
+      - "Item weight calculations"
+
+# Code review checklist for AI
+code_review_checklist:
+  functionality:
+    - "Does the code fulfill its intended purpose?"
+    - "Are all edge cases handled appropriately?"
+    - "Is error handling comprehensive?"
+  
+  performance:
+    - "Are API calls minimized and cached?"
+    - "Is the code efficient for 12+ hour sessions?"
+    - "Are expensive operations avoided in tight loops?"
+  
+  maintainability:
+    - "Is the code readable and well-documented?"
+    - "Are naming conventions followed?"
+    - "Is the code modular and testable?"
+  
+  reliability:
+    - "Are all RazorEnhanced API calls wrapped in try/catch?"
+    - "Is graceful degradation implemented?"
+    - "Are timeouts and retries handled properly?"
+
+# Common pitfalls and solutions
+common_pitfalls:
+  
+  razorenhanced_api:
+    issue: "API calls returning None unexpectedly"
+    solution: "Always check for None and implement fallbacks"
+    pattern: |
+      try:
+          result = RazorEnhanced.Player.Hits
+          if result is None:
+              self.logger.warning("Player.Hits returned None")
+              return self.last_known_hits
+          return result
+      except Exception as e:
+          self.logger.error(f"Failed to get player hits: {e}")
+          return self.last_known_hits
+  
+  memory_management:
+    issue: "Memory usage grows over long sessions"
+    solution: "Implement proper cleanup and garbage collection"
+    pattern: |
+      def cleanup_old_data(self):
+          # Remove old entries from caches
+          current_time = time.time()
+          self.cache = {k: v for k, v in self.cache.items() 
+                       if current_time - v.timestamp < self.cache_ttl}
+  
+  configuration_errors:
+    issue: "Invalid config values causing crashes"
+    solution: "Validate all config values with defaults"
+    pattern: |
+      def get_validated_setting(self, key, default, validator=None):
+          value = self.config.get_setting(key, default)
+          if validator and not validator(value):
+              self.logger.warning(f"Invalid config value for {key}: {value}")
+              return default
+          return value
+
+# Integration patterns
+integration_patterns:
+  
+  system_communication:
+    description: "How systems communicate with each other"
+    pattern: "Event-driven communication through main bot controller"
+    example: |
+      # Combat system notifies healing system of damage
+      self.bot_controller.notify_event('player_damaged', damage_amount)
+  
+  configuration_management:
+    description: "Centralized configuration access"
+    pattern: "All systems use ConfigManager for settings"
+    example: |
+      self.enabled = self.config.get_setting('combat.enabled', False)
+      self.aggro_range = self.config.get_setting('combat.aggro_range', 8)
+  
+  error_propagation:
+    description: "How errors flow through the system"
+    pattern: "Log locally, notify globally for critical errors"
+    example: |
+      try:
+          critical_operation()
+      except CriticalError as e:
+          self.logger.error(f"Critical error: {e}")
+          self.bot_controller.handle_critical_error(e)
+          raise
+
+# Enhanced collaboration patterns
+collaboration_patterns:
+  
+  requirements_clarification:
+    when_to_ask:
+      - "Performance requirements are not specified"
+      - "Integration points with existing systems are unclear"
+      - "Error handling strategy is not defined"
+      - "Testing scope and validation criteria are ambiguous"
+    
+    effective_questions:
+      - "Should this system integrate with existing auto_heal/combat/looting?"
+      - "What performance characteristics are required (API calls, memory, timing)?"
+      - "How should errors be handled and reported to the user?"
+      - "What validation and testing approach would you prefer?"
+    
+    context_gathering:
+      - "Review related existing systems for patterns"
+      - "Check PRD documents for detailed requirements"
+      - "Analyze current architecture for integration constraints"
+      - "Identify performance benchmarks from similar systems"
+  
+  progressive_development:
+    phase_1_foundation:
+      objectives: "Core functionality with basic error handling"
+      deliverables:
+        - "Basic system class with configuration integration"
+        - "Core logic implementation with logging"
+        - "Simple test cases for primary functionality"
+        - "Configuration file with essential settings"
+      
+      validation_criteria:
+        - "System initializes without errors"
+        - "Basic functionality works as intended"
+        - "Configuration loading and validation works"
+        - "Initial test cases pass"
+    
+    phase_2_integration:
+      objectives: "Integration with existing DexBot systems"
+      deliverables:
+        - "Event communication with other systems"
+        - "GUMP interface integration if needed"
+        - "Performance optimization and caching"
+        - "Comprehensive error handling and recovery"
+      
+      validation_criteria:
+        - "Seamless integration with existing systems"
+        - "No performance degradation in other systems"
+        - "Proper error handling and user feedback"
+        - "All integration tests pass"
+    
+    phase_3_optimization:
+      objectives: "Performance tuning and polish"
+      deliverables:
+        - "Memory usage optimization for long sessions"
+        - "API call frequency optimization"
+        - "Advanced features and configuration options"
+        - "Complete documentation and examples"
+      
+      validation_criteria:
+        - "Performance meets DexBot standards"
+        - "Memory usage stable over extended periods"
+        - "All invoke commands pass successfully"
+        - "Documentation is complete and accurate"
+  
+  quality_collaboration:
+    code_review_process:
+      initial_review:
+        - "Check architectural alignment with DexBot patterns"
+        - "Verify RazorEnhanced constraints are respected"
+        - "Confirm error handling is comprehensive"
+        - "Validate performance considerations are addressed"
+      
+      detailed_review:
+        - "Analyze integration points with existing systems"
+        - "Review test coverage and test case quality"
+        - "Check documentation completeness and accuracy"
+        - "Verify configuration management integration"
+      
+      optimization_review:
+        - "Identify additional performance optimization opportunities"
+        - "Suggest code simplification and readability improvements"
+        - "Recommend additional test cases for edge conditions"
+        - "Propose documentation enhancements"
+    
+    feedback_integration:
+      immediate_fixes:
+        - "Address critical issues and blocking problems"
+        - "Fix obvious bugs and syntax errors"
+        - "Implement missing error handling"
+        - "Add required test cases"
+      
+      iterative_improvements:
+        - "Enhance performance based on benchmarking"
+        - "Improve code readability and maintainability"
+        - "Expand test coverage and edge case handling"
+        - "Enhance documentation with examples and patterns"
+      
+      future_enhancements:
+        - "Document optimization opportunities for future work"
+        - "Identify extensibility points for additional features"
+        - "Record lessons learned and pattern discoveries"
+        - "Plan roadmap for continued development"
+
+# Advanced problem-solving templates
+problem_solving_templates:
+  
+  systematic_debugging:
+    issue_reproduction:
+      steps:
+        1. "Gather detailed reproduction steps and environment info"
+        2. "Create minimal test case that demonstrates the issue"
+        3. "Identify specific conditions that trigger the problem"
+        4. "Document expected vs actual behavior clearly"
+      
+      information_collection:
+        - "Error messages and stack traces"
+        - "Configuration settings and environment state"
+        - "Recent changes that might have introduced the issue"
+        - "Performance metrics and resource usage patterns"
+    
+    root_cause_analysis:
+      hypothesis_generation:
+        - "Analyze error patterns and symptoms systematically"
+        - "Consider timing issues and race conditions"
+        - "Evaluate configuration and environment factors"
+        - "Review recent code changes for potential impacts"
+      
+      testing_strategy:
+        - "Design targeted tests to validate/eliminate hypotheses"
+        - "Use logging and instrumentation to gather detailed data"
+        - "Test in isolated environments to control variables"
+        - "Gradually introduce complexity to isolate root cause"
+    
+    solution_implementation:
+      fix_development:
+        - "Implement solution with comprehensive error handling"
+        - "Add monitoring and logging to prevent future occurrences"
+        - "Create regression tests to validate the fix"
+        - "Document the issue, cause, and solution for future reference"
+      
+      validation_process:
+        - "Verify fix resolves the original issue completely"
+        - "Confirm no new issues are introduced by the solution"
+        - "Test performance impact of the fix implementation"
+        - "Validate all related systems continue to function correctly"
+  
+  performance_optimization_methodology:
+    baseline_establishment:
+      measurement_setup:
+        - "Identify specific performance metrics to track"
+        - "Establish baseline measurements before optimization"
+        - "Set up monitoring and profiling infrastructure"
+        - "Define success criteria and optimization targets"
+      
+      bottleneck_identification:
+        - "Profile code execution to identify slow operations"
+        - "Analyze API call patterns for optimization opportunities"
+        - "Monitor memory usage patterns and allocation hotspots"
+        - "Identify inefficient algorithms and data structures"
+    
+    optimization_implementation:
+      targeted_improvements:
+        - "Implement caching for expensive API calls"
+        - "Use ignore lists to avoid redundant processing"
+        - "Batch operations to reduce overhead"
+        - "Optimize data structures for better performance"
+      
+      validation_and_measurement:
+        - "Measure performance improvements quantitatively"
+        - "Verify optimization doesn't introduce bugs or instability"
+        - "Test performance under various load conditions"
+        - "Document optimization techniques for future reference"
+
+# Context-aware assistance patterns
+context_awareness:
+  
+  session_continuity:
+    context_tracking:
+      - "Remember decisions and patterns established in current session"
+      - "Track which files and systems have been modified"
+      - "Maintain awareness of current development objectives"
+      - "Keep record of testing and validation status"
+    
+    consistency_maintenance:
+      - "Ensure new code follows patterns established in session"
+      - "Apply consistent naming and style choices throughout"
+      - "Maintain architectural decisions across related changes"
+      - "Use established error handling and logging patterns"
+  
+  adaptive_assistance:
+    complexity_adaptation:
+      simple_requests: "Provide direct implementation with minimal explanation"
+      complex_requests: "Break down into phases with detailed explanation"
+      exploratory_requests: "Collaborate on analysis and solution design"
+      maintenance_requests: "Focus on long-term maintainability and documentation"
+    
+    expertise_recognition:
+      - "Adjust explanation depth based on demonstrated knowledge"
+      - "Focus on DexBot-specific patterns for experienced developers"
+      - "Provide comprehensive context for newcomers to the project"
+      - "Collaborate on architectural decisions with project maintainers"

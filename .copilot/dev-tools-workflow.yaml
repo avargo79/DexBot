@@ -1,0 +1,388 @@
+# DexBot Development Tools and GitHub Issues Workflow Configuration
+# Comprehensive guidance for AI assistants working with DexBot's development automation tools
+
+metadata:
+  version: "1.0"
+  created: "2025-07-03"
+  purpose: "Development tools and GitHub Issues workflow guidance for AI assistants"
+  extends: "ai-config.yaml, development-tasks.yaml"
+
+# Development tools overview
+dev_tools_structure:
+  location: "dev-tools/"
+  categories:
+    github_automation: "GitHub Issues and workflow automation"
+    analysis: "Code analysis and optimization tools"
+    project_management: "Project tracking and planning tools"
+  
+  security_requirements:
+    github_token: "Required for GitHub API access"
+    token_setup: "See dev-tools/github-automation/SECURITY_SETUP.md"
+    environment_file: ".env file with GITHUB_TOKEN"
+
+# GitHub Issues workflow integration
+github_issues_workflow:
+  
+  automation_scripts:
+    location: "dev-tools/github-automation/"
+    
+    core_scripts:
+      create_issues: "create_issues.ps1 - Create issues from ideas.md or manual input"
+      manage_issues: "manage_issues.ps1 - Bulk operations on existing issues"
+      setup_labels: "setup_labels.ps1 - Configure repository labels"
+      check_existing: "check_existing_issues.ps1 - Audit existing issues"
+    
+    helper_scripts:
+      github_auth: "github_auth_helper.ps1 - Authentication utilities"
+      api_mock: "github_api_mock.ps1 - Testing without API calls"
+      test_mock: "test_github_mock.ps1 - Validate mock functionality"
+    
+    configuration:
+      workflow_config: "workflow-config.yaml - Labels, priorities, automation rules"
+      security_setup: "SECURITY_SETUP.md - Token setup and security guide"
+  
+  issue_management_patterns:
+    creation_workflow:
+      manual_creation:
+        - "Use create_issues.ps1 with -Interactive flag"
+        - "Provide title, description, and labels interactively"
+        - "AI can suggest appropriate labels based on content"
+        - "Validate against existing issues to prevent duplicates"
+      
+      bulk_creation:
+        - "Create ideas.md with structured issue descriptions"
+        - "Use create_issues.ps1 to process all ideas"
+        - "AI can help format ideas.md with proper structure"
+        - "Review and clean up created issues after bulk operations"
+      
+      template_usage:
+        feature_request: "Use FR- prefix with detailed requirements"
+        bug_report: "Use BUG- prefix with reproduction steps"
+        enhancement: "Use ENH- prefix with improvement description"
+        technical_debt: "Use TECH- prefix with debt explanation"
+        research: "Use RES- prefix with investigation scope"
+    
+    issue_organization:
+      labeling_strategy:
+        type_labels: "bug, enhancement, documentation, idea"
+        priority_labels: "priority-critical, priority-high, priority-medium, priority-low"
+        system_labels: "auto-heal, combat, looting, ui, core, config"
+        status_labels: "status-blocked, status-in-progress, status-review"
+      
+      milestone_management:
+        release_milestones: "Group issues by target release version"
+        feature_milestones: "Group related issues for major features"
+        maintenance_milestones: "Group ongoing maintenance and optimization tasks"
+      
+      project_boards:
+        development_workflow: "Backlog -> In Progress -> Review -> Done"
+        priority_management: "Critical -> High -> Medium -> Low priority columns"
+        system_organization: "Separate boards for each major system"
+
+# AI assistance patterns for GitHub Issues
+ai_github_assistance:
+  
+  issue_creation_support:
+    content_generation:
+      title_optimization:
+        - "Create clear, actionable titles that describe the specific work"
+        - "Use appropriate prefixes (FR-, BUG-, ENH-, TECH-, RES-)"
+        - "Include system context (auto-heal, combat, looting) when relevant"
+        - "Keep titles concise but descriptive (50-80 characters)"
+      
+      description_enhancement:
+        - "Provide detailed problem description with context"
+        - "Include acceptance criteria for features and enhancements"
+        - "Add reproduction steps for bugs with expected vs actual behavior"
+        - "Reference related code files, functions, or existing issues"
+        - "Suggest implementation approach when helpful"
+      
+      label_suggestions:
+        - "Analyze issue content to suggest appropriate type labels"
+        - "Recommend priority based on impact and urgency"
+        - "Identify affected systems for system-specific labels"
+        - "Suggest status labels based on current project state"
+    
+    automation_assistance:
+      script_execution:
+        - "Help run create_issues.ps1 with appropriate parameters"
+        - "Assist with workflow-config.yaml updates when needed"
+        - "Guide through authentication setup if required"
+        - "Validate issue creation results and suggest improvements"
+      
+      bulk_operations:
+        - "Help format ideas.md for bulk issue creation"
+        - "Assist with issue cleanup and organization after bulk creation"
+        - "Support label updates and issue management operations"
+        - "Help with milestone and project board organization"
+  
+  issue_management_support:
+    workflow_optimization:
+      development_integration:
+        - "Link code changes to relevant GitHub Issues"
+        - "Suggest issue updates based on development progress"
+        - "Recommend issue closure when features are completed"
+        - "Help maintain traceability between code and requirements"
+      
+      progress_tracking:
+        - "Monitor issue status and suggest updates"
+        - "Identify blocked issues and suggest resolution approaches"
+        - "Track completion progress for milestones and projects"
+        - "Generate progress reports and status summaries"
+    
+    quality_assurance:
+      issue_validation:
+        - "Review issue quality and suggest improvements"
+        - "Identify duplicate or similar issues"
+        - "Validate that acceptance criteria are testable"
+        - "Ensure issues have appropriate labels and assignments"
+      
+      maintenance_support:
+        - "Suggest periodic cleanup of stale or outdated issues"
+        - "Help organize issues into logical groups and milestones"
+        - "Identify opportunities to consolidate related issues"
+        - "Support migration of issues between states and projects"
+
+# Development tools integration patterns
+dev_tools_integration:
+  
+  script_execution_guidance:
+    powershell_environment:
+      setup_requirements:
+        - "PowerShell 5.1+ or PowerShell Core 7+"
+        - "GitHub CLI (gh) installed and authenticated"
+        - "GITHUB_TOKEN environment variable configured"
+        - "Internet connectivity for GitHub API access"
+      
+      execution_patterns:
+        interactive_mode: "Use -Interactive flag for guided input"
+        batch_mode: "Prepare data files and run non-interactively"
+        validation_mode: "Use -WhatIf flags to preview changes"
+        testing_mode: "Use mock scripts for development and testing"
+    
+    common_workflows:
+      feature_development:
+        1. "Create GitHub Issue for feature with FR- prefix"
+        2. "Use scripts/prepare_feature.ps1 to set up development branch"
+        3. "Implement feature following progressive development phases"
+        4. "Update issue with progress and link commits"
+        5. "Close issue when feature is complete and merged"
+      
+      bug_fixing:
+        1. "Create GitHub Issue for bug with BUG- prefix and reproduction steps"
+        2. "Use systematic debugging approach from development-tasks.yaml"
+        3. "Link bug fix commits to the GitHub Issue"
+        4. "Add regression tests to prevent similar issues"
+        5. "Close issue when fix is validated and merged"
+      
+      optimization_work:
+        1. "Create GitHub Issue for optimization with ENH- or TECH- prefix"
+        2. "Use performance analysis tools to establish baseline"
+        3. "Implement optimizations with before/after measurements"
+        4. "Document performance improvements in issue comments"
+        5. "Close issue when optimization goals are achieved"
+  
+  configuration_management:
+    workflow_config_updates:
+      label_management:
+        - "Add new labels to workflow-config.yaml when needed"
+        - "Update label descriptions and colors for clarity"
+        - "Maintain consistency between local config and GitHub"
+        - "Use setup_labels.ps1 to sync label changes"
+      
+      automation_rules:
+        - "Define issue auto-assignment rules based on labels"
+        - "Configure milestone auto-assignment for specific issue types"
+        - "Set up project board automation rules"
+        - "Maintain consistency in issue templates and formats"
+    
+    security_maintenance:
+      token_management:
+        - "Regularly rotate GitHub tokens for security"
+        - "Validate token permissions and scope"
+        - "Ensure .env file is properly gitignored"
+        - "Monitor token usage and expiration"
+      
+      access_control:
+        - "Review repository permissions and collaborator access"
+        - "Maintain separation between development and production tokens"
+        - "Use least-privilege principles for API access"
+        - "Document security procedures and emergency response"
+
+# AI workflow patterns for development tools
+ai_dev_tools_workflows:
+  
+  issue_driven_development:
+    workflow_integration:
+      issue_creation_phase:
+        ai_assistance:
+          - "Help analyze requirements and create well-structured issues"
+          - "Suggest appropriate labels, milestones, and project assignments"
+          - "Identify related existing issues and potential duplicates"
+          - "Recommend issue templates and format improvements"
+        
+        quality_checks:
+          - "Validate issue titles are clear and actionable"
+          - "Ensure descriptions include sufficient context and acceptance criteria"
+          - "Verify appropriate labels and priority assignments"
+          - "Check for proper linking to related issues or PRDs"
+      
+      development_phase:
+        progress_tracking:
+          - "Link commits and pull requests to relevant issues"
+          - "Update issue status and progress comments regularly"
+          - "Identify blockers and suggest resolution approaches"
+          - "Maintain traceability between code changes and requirements"
+        
+        quality_integration:
+          - "Ensure all changes meet issue acceptance criteria"
+          - "Validate that tests cover issue requirements"
+          - "Update documentation to reflect issue implementations"
+          - "Perform code review with issue context in mind"
+      
+      completion_phase:
+        validation_process:
+          - "Verify all issue acceptance criteria are met"
+          - "Confirm related tests pass and coverage is adequate"
+          - "Validate documentation is updated appropriately"
+          - "Check for any follow-up issues or technical debt"
+        
+        closure_workflow:
+          - "Update issue with final implementation details"
+          - "Link to merged pull requests and commits"
+          - "Close issue with appropriate resolution comments"
+          - "Create follow-up issues for any identified improvements"
+  
+  automation_optimization:
+    script_enhancement:
+      performance_improvements:
+        - "Optimize script execution time for large repositories"
+        - "Implement caching for frequently accessed GitHub data"
+        - "Add progress indicators for long-running operations"
+        - "Improve error handling and recovery mechanisms"
+      
+      usability_enhancements:
+        - "Add better input validation and user feedback"
+        - "Implement interactive modes with guided workflows"
+        - "Create batch processing capabilities for bulk operations"
+        - "Add comprehensive help and documentation features"
+    
+    workflow_refinement:
+      process_optimization:
+        - "Identify manual steps that can be automated"
+        - "Streamline multi-step workflows into single commands"
+        - "Add validation and safety checks for destructive operations"
+        - "Implement rollback capabilities for automation mistakes"
+      
+      integration_improvements:
+        - "Better integration with VS Code tasks and commands"
+        - "Seamless connection with invoke task system"
+        - "Integration with git workflows and branch management"
+        - "Coordination with build and testing automation"
+
+# Common dev-tools scenarios and solutions
+dev_tools_scenarios:
+  
+  new_project_setup:
+    github_repository_setup:
+      initial_configuration:
+        - "Run setup_labels.ps1 to configure standard labels"
+        - "Create initial milestones for project phases"
+        - "Set up project boards with appropriate columns"
+        - "Configure repository settings and permissions"
+      
+      issue_template_setup:
+        - "Create .github/ISSUE_TEMPLATE/ directory"
+        - "Add templates for bugs, features, and enhancements"
+        - "Configure default labels for each template type"
+        - "Set up automatic assignment rules"
+    
+    development_workflow_integration:
+      branch_protection:
+        - "Configure branch protection rules for main branch"
+        - "Require pull request reviews and status checks"
+        - "Set up continuous integration workflow requirements"
+        - "Configure merge restrictions and automation"
+      
+      automation_setup:
+        - "Configure GitHub Actions for CI/CD workflows"
+        - "Set up automated issue labeling and assignment"
+        - "Configure project board automation rules"
+        - "Implement automated milestone management"
+  
+  ongoing_maintenance:
+    regular_housekeeping:
+      issue_maintenance:
+        - "Review and update stale issues monthly"
+        - "Consolidate duplicate or similar issues"
+        - "Update priority labels based on current objectives"
+        - "Clean up completed issues and update documentation"
+      
+      automation_maintenance:
+        - "Review and update automation scripts quarterly"
+        - "Validate GitHub token permissions and expiration"
+        - "Update workflow-config.yaml with new patterns"
+        - "Test automation workflows with mock data"
+    
+    process_improvement:
+      workflow_analysis:
+        - "Analyze issue completion times and bottlenecks"
+        - "Review automation effectiveness and usage patterns"
+        - "Identify opportunities for workflow optimization"
+        - "Gather feedback from development team on process improvements"
+      
+      tool_enhancement:
+        - "Add new automation capabilities based on identified needs"
+        - "Improve existing scripts based on usage feedback"
+        - "Enhance integration with other development tools"
+        - "Update documentation and training materials"
+
+# Quick reference for dev-tools usage
+dev_tools_quick_reference:
+  
+  essential_commands:
+    issue_creation:
+      interactive: ".\dev-tools\github-automation\create_issues.ps1 -Interactive"
+      from_ideas: ".\dev-tools\github-automation\create_issues.ps1 -IdeasFile docs\backlog\ideas.md"
+      single_issue: ".\dev-tools\github-automation\create_issues.ps1 -Title 'Issue Title' -Body 'Description'"
+    
+    issue_management:
+      check_existing: ".\dev-tools\github-automation\check_existing_issues.ps1"
+      manage_bulk: ".\dev-tools\github-automation\manage_issues.ps1 -Action close -Label 'duplicate'"
+      setup_labels: ".\dev-tools\github-automation\setup_labels.ps1"
+    
+    testing_and_validation:
+      test_auth: ".\dev-tools\github-automation\github_auth_helper.ps1 -Test"
+      mock_api: ".\dev-tools\github-automation\github_api_mock.ps1"
+      validate_config: ".\dev-tools\github-automation\test_github_mock.ps1"
+  
+  common_parameters:
+    global_flags:
+      - "-WhatIf: Preview changes without executing"
+      - "-Verbose: Show detailed operation information"
+      - "-Interactive: Use guided input prompts"
+      - "-NonInteractive: Run without user prompts"
+    
+    authentication:
+      - "-Token: Specify GitHub token directly"
+      - "-UseEnvironment: Use GITHUB_TOKEN environment variable"
+      - "-ConfigFile: Specify custom configuration file"
+    
+    filtering_and_selection:
+      - "-Label: Filter by specific labels"
+      - "-Milestone: Filter by milestone"
+      - "-State: Filter by issue state (open, closed, all)"
+      - "-Since: Filter by date range"
+  
+  troubleshooting:
+    common_issues:
+      authentication_failure: "Check GITHUB_TOKEN environment variable and permissions"
+      api_rate_limit: "Use -WhatIf for testing or implement delay between requests"
+      network_connectivity: "Verify internet connection and GitHub API accessibility"
+      permission_denied: "Check repository permissions and token scope"
+    
+    diagnostic_commands:
+      test_authentication: ".\dev-tools\github-automation\github_auth_helper.ps1 -Test"
+      validate_config: ".\dev-tools\github-automation\test_github_mock.ps1"
+      check_permissions: "gh auth status"
+      test_connectivity: "Test-NetConnection api.github.com -Port 443"

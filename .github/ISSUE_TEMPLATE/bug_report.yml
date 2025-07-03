@@ -1,0 +1,176 @@
+name: Bug Report
+description: Report a bug or issue in DexBot
+title: "[BUG] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug! Please provide detailed information to help us reproduce and fix the issue.
+
+  - type: input
+    id: bug-title
+    attributes:
+      label: Bug Summary
+      description: Brief description of the bug
+      placeholder: e.g., "Memory leak during extended looting sessions"
+    validations:
+      required: true
+
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: Bug Description
+      description: Detailed description of what's wrong
+      placeholder: Describe what the bug is and how it affects DexBot operation
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: Clear steps to reproduce the bug
+      placeholder: |
+        1. Start DexBot with [specific configuration]
+        2. Perform [specific action]
+        3. Wait for [duration] or until [condition]
+        4. Observe [problem behavior]
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+      description: What should happen instead?
+      placeholder: Describe what you expected to happen
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: Actual Behavior
+      description: What actually happens?
+      placeholder: Describe what actually happens, including any error messages
+    validations:
+      required: true
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Affected Component
+      description: Which DexBot component has the bug?
+      options:
+        - Auto Heal System
+        - Combat System
+        - Looting System
+        - User Interface (GUMPs)
+        - Configuration Management
+        - Core Systems
+        - Build System
+        - Unknown/Multiple Components
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Bug Severity
+      description: How severe is this bug?
+      options:
+        - Low - Minor issue, doesn't affect core functionality
+        - Medium - Noticeable issue, affects some functionality
+        - High - Significant issue, affects core functionality
+        - Critical - System crash, data loss, or complete failure
+      default: 1
+    validations:
+      required: true
+
+  - type: input
+    id: dexbot-version
+    attributes:
+      label: DexBot Version
+      description: What version of DexBot are you using?
+      placeholder: e.g., "3.2.0"
+    validations:
+      required: true
+
+  - type: input
+    id: razor-version
+    attributes:
+      label: RazorEnhanced Version
+      description: What version of RazorEnhanced are you using?
+      placeholder: e.g., "1.6.8.2"
+
+  - type: input
+    id: uo-client
+    attributes:
+      label: UO Client
+      description: Which Ultima Online client are you using?
+      placeholder: e.g., "ClassicUO 3.19.15"
+
+  - type: dropdown
+    id: frequency
+    attributes:
+      label: Bug Frequency
+      description: How often does this bug occur?
+      options:
+        - Always - Happens every time
+        - Often - Happens most of the time
+        - Sometimes - Happens occasionally
+        - Rare - Happened once or twice
+      default: 0
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment-details
+    attributes:
+      label: Environment Details
+      description: Additional environment information
+      placeholder: |
+        - Operating System: Windows 10/11
+        - Session Duration: How long was DexBot running?
+        - Character Template: Warrior/Mage/etc.
+        - Gameplay Area: Where did this occur?
+        - Other running scripts: Any other RazorEnhanced scripts?
+
+  - type: textarea
+    id: error-logs
+    attributes:
+      label: Error Messages / Logs
+      description: Any error messages, console output, or log entries
+      placeholder: |
+        Paste any relevant error messages, console output, or log entries here.
+        Use ``` to format code/log blocks.
+
+  - type: textarea
+    id: workaround
+    attributes:
+      label: Workaround
+      description: Have you found any way to work around this issue?
+      placeholder: Describe any temporary solutions or workarounds you've discovered
+
+  - type: checkboxes
+    id: validation
+    attributes:
+      label: Validation
+      description: Please confirm the following
+      options:
+        - label: I have searched existing issues and this is not a duplicate
+          required: true
+        - label: I have tried the latest version of DexBot
+          required: true
+        - label: I can reproduce this bug consistently
+          required: false
+        - label: I have included all relevant information
+          required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other information that might be helpful
+      placeholder: Screenshots, configuration files, or other relevant information

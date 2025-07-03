@@ -3,6 +3,9 @@ Example: Using the UO Item Database System
 
 This example demonstrates how to use the new JSON-based UO item database
 and utility module for script-friendly item lookups.
+
+Note: For comprehensive usage documentation and additional examples,
+see docs/USAGE_EXAMPLES.md
 """
 
 import sys
