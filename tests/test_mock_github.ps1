@@ -7,7 +7,9 @@
 # Import the Mock GitHub API module
 $scriptPath = $MyInvocation.MyCommand.Path
 $scriptDir = Split-Path -Parent $scriptPath
-$mockApiPath = Join-Path $scriptDir "mock_github_api.ps1"
+$projectRoot = Split-Path -Parent $scriptDir
+$scriptsDir = Join-Path $projectRoot "scripts"
+$mockApiPath = Join-Path $scriptsDir "mock_github_api.ps1"
 
 if (Test-Path $mockApiPath) {
     . $mockApiPath
@@ -16,7 +18,7 @@ if (Test-Path $mockApiPath) {
 }
 
 # Import the actual Full Automation Suite for testing
-$fullAutomationPath = Join-Path $scriptDir "full_automation_suite.ps1"
+$fullAutomationPath = Join-Path $scriptsDir "full_automation_suite.ps1"
 if (Test-Path $fullAutomationPath) {
     # We'll dot-source it later with function overrides
     Write-Host "Found Full Automation Suite script at: $fullAutomationPath"

@@ -5,31 +5,37 @@ param(
     [string]$Repository,
     [string]$OutputPath = "reports\performance_profile_$(Get-Date -Format 'yyyyMMdd_HHmmss').md",
     [int]$Iterations = 3,
-    [string]$Token = $env:GITHUB_TOKEN
+    [string]$Token = $env:GITHUB_TOKEN,
+    [switch]$MockMode
 )
 
-# Verify GitHub token
-if (-not $Token) {
+# Verify GitHub token (unless in mock mode)
+if (-not $MockMode -and -not $Token) {
     Write-Host "GitHub token not found. Please set GITHUB_TOKEN environment variable or provide via -Token parameter." -ForegroundColor Red
+    Write-Host "Alternatively, use -MockMode for testing without real GitHub API calls." -ForegroundColor Yellow
     exit 1
 }
 
-# Ensure PowerShellForGitHub module is installed
-if (-not (Get-Module -ListAvailable -Name PowerShellForGitHub)) {
-    Write-Host "Installing PowerShellForGitHub module..." -ForegroundColor Yellow
-    Install-Module -Name PowerShellForGitHub -Scope CurrentUser -Force
-}
+# Ensure PowerShellForGitHub module is installed (unless in mock mode)
+if (-not $MockMode) {
+    if (-not (Get-Module -ListAvailable -Name PowerShellForGitHub)) {
+        Write-Host "Installing PowerShellForGitHub module..." -ForegroundColor Yellow
+        Install-Module -Name PowerShellForGitHub -Scope CurrentUser -Force
+    }
 
-# Import module
-Import-Module PowerShellForGitHub
+    # Import module
+    Import-Module PowerShellForGitHub
 
-# Setup authentication
-try {
-    Set-GitHubAuthentication -Token $Token
-    Write-Host "GitHub authentication configured successfully" -ForegroundColor Green
-} catch {
-    Write-Host "Failed to configure GitHub authentication: $_" -ForegroundColor Red
-    exit 1
+    # Import authentication helper with proper PowerShellForGitHub syntax
+    . "$PSScriptRoot/github_auth_helper.ps1"
+
+    # Setup authentication with correct syntax
+    if (-not (Initialize-GitHubAuthentication -Token $Token)) {
+        Write-Host "Failed to configure GitHub authentication" -ForegroundColor Red
+        exit 1
+    }
+} else {
+    Write-Host "Running in Mock Mode - skipping GitHub authentication" -ForegroundColor Yellow
 }
 
 # Set default repository if not provided

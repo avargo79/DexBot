@@ -145,6 +145,13 @@ try {
         Import-Module -Name PowerShellForGitHub -ErrorAction Stop
     }
 
+    # Import authentication helper for real environment testing
+    $authHelperPath = Join-Path -Path $PSScriptRoot -ChildPath "github_auth_helper.ps1"
+    if (Test-Path $authHelperPath) {
+        . $authHelperPath
+        Write-Verbose "GitHub authentication helper loaded successfully"
+    }
+
     # Define paths to component scripts
     $ScriptRoot = $PSScriptRoot
     $ComponentScripts = @{
@@ -586,6 +593,140 @@ function Invoke-FullOrchestration {
     Write-Host "Check the reports directory for detailed results and recommendations." -ForegroundColor Cyan
     
     return $orchestrationResults
+}
+
+#endregion
+
+#region Validation and Configuration
+
+function Invoke-ConfigurationValidation {
+    [CmdletBinding(SupportsShouldProcess = $true)]
+    param (
+        [Parameter(Mandatory = $true)]
+        [string]$Repository,
+        [Parameter(Mandatory = $false)]
+        [PSCustomObject]$Config,
+        [Parameter(Mandatory = $false)]
+        [string]$ConfigPath
+    )
+    
+    Write-Host "Starting Configuration Validation for repository: $Repository" -ForegroundColor Cyan
+    Write-Host "--------------------------------------------------------" -ForegroundColor Cyan
+    
+    try {
+        $validationResults = @{
+            Repository = $Repository
+            ConfigPath = $ConfigPath
+            Timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+            Status = "success"
+            Validations = @()
+            Warnings = @()
+            Errors = @()
+        }
+        
+        # Validate repository name format
+        if ($Repository -match '^[a-zA-Z0-9_-]+/[a-zA-Z0-9_.-]+$') {
+            $validationResults.Validations += "Repository name format is valid: $Repository"
+            Write-Host "✅ Repository name format: VALID" -ForegroundColor Green
+        } else {
+            $validationResults.Errors += "Invalid repository name format: $Repository"
+            Write-Host "❌ Repository name format: INVALID" -ForegroundColor Red
+        }
+        
+        # Validate configuration object
+        if ($Config) {
+            Write-Host "✅ Configuration object: PROVIDED" -ForegroundColor Green
+            $validationResults.Validations += "Configuration object is present"
+            
+            # Check required configuration sections
+            $requiredSections = @('routing', 'teams', 'labels', 'automation')
+            foreach ($section in $requiredSections) {
+                if ($Config.PSObject.Properties.Name -contains $section) {
+                    $validationResults.Validations += "Required section '$section' found in configuration"
+                    Write-Host "  ✅ Section '$section': FOUND" -ForegroundColor Green
+                } else {
+                    $validationResults.Warnings += "Required section '$section' missing from configuration"
+                    Write-Host "  ⚠️ Section '$section': MISSING" -ForegroundColor Yellow
+                }
+            }
+        } else {
+            $validationResults.Warnings += "No configuration object provided"
+            Write-Host "⚠️ Configuration object: NOT PROVIDED" -ForegroundColor Yellow
+        }
+        
+        # Validate configuration file path
+        if ($ConfigPath -and (Test-Path $ConfigPath)) {
+            $validationResults.Validations += "Configuration file exists at: $ConfigPath"
+            Write-Host "✅ Configuration file: EXISTS" -ForegroundColor Green
+        } elseif ($ConfigPath) {
+            $validationResults.Errors += "Configuration file not found at: $ConfigPath"
+            Write-Host "❌ Configuration file: NOT FOUND" -ForegroundColor Red
+        }
+        
+        # Validate GitHub authentication (mock mode safe)
+        try {
+            $authTest = Get-GitHubUser -ErrorAction SilentlyContinue
+            if ($authTest) {
+                $validationResults.Validations += "GitHub authentication: VALID"
+                Write-Host "✅ GitHub authentication: VALID" -ForegroundColor Green
+            } else {
+                $validationResults.Warnings += "GitHub authentication: NOT CONFIGURED (running in mock mode)"
+                Write-Host "⚠️ GitHub authentication: NOT CONFIGURED (mock mode)" -ForegroundColor Yellow
+            }
+        } catch {
+            $validationResults.Warnings += "GitHub authentication: NOT AVAILABLE (mock mode expected)"
+            Write-Host "⚠️ GitHub authentication: NOT AVAILABLE (mock mode)" -ForegroundColor Yellow
+        }
+        
+        # Determine overall status
+        if ($validationResults.Errors.Count -gt 0) {
+            $validationResults.Status = "failed"
+            Write-Host "❌ Overall validation: FAILED" -ForegroundColor Red
+        } elseif ($validationResults.Warnings.Count -gt 0) {
+            $validationResults.Status = "warning"
+            Write-Host "⚠️ Overall validation: PASSED WITH WARNINGS" -ForegroundColor Yellow
+        } else {
+            Write-Host "✅ Overall validation: PASSED" -ForegroundColor Green
+        }
+        
+        # Generate validation report
+        $reportPath = "reports/validation_report_$(Get-Date -Format 'yyyyMMdd_HHmmss').md"
+        $report = @"
+# Configuration Validation Report
+
+**Repository**: $Repository  
+**Timestamp**: $($validationResults.Timestamp)  
+**Status**: $($validationResults.Status.ToUpper())  
+
+## Validation Results
+
+### ✅ Successful Validations
+$($validationResults.Validations | ForEach-Object { "- $_" } | Out-String)
+
+### ⚠️ Warnings
+$($validationResults.Warnings | ForEach-Object { "- $_" } | Out-String)
+
+### ❌ Errors
+$($validationResults.Errors | ForEach-Object { "- $_" } | Out-String)
+
+---
+*Generated by DexBot GitHub Issues Workflow Automation v3.2.0*
+"@
+        
+        $report | Out-File -FilePath $reportPath -Encoding UTF8
+        Write-Host "📄 Validation report saved to: $reportPath" -ForegroundColor Cyan
+        
+        return $validationResults
+        
+    } catch {
+        Write-Error "Configuration validation failed: $($_.Exception.Message)"
+        return @{
+            Repository = $Repository
+            Status = "error"
+            Error = $_.Exception.Message
+            Timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+        }
+    }
 }
 
 #endregion
@@ -1298,7 +1439,7 @@ function Apply-OptimizationChanges {
             }
         }
         catch {
-            Write-Error "Failed to apply change to $component.$parameter: $_"
+            Write-Error "Failed to apply change to $component.$parameter`: $($_.Exception.Message)"
             $appliedChanges += @{
                 Component = $component
                 Parameter = $parameter
@@ -1485,6 +1626,26 @@ Example: ./intelligent_routing.ps1 -help
 # Load configuration
 $Config = Load-Configuration -ConfigPath $ConfigPath
 
+# Initialize GitHub authentication if Token is provided (for real environment testing)
+if ($Token) {
+    Write-Verbose "Initializing GitHub authentication for real environment testing"
+    if (Get-Command "Initialize-GitHubAuthentication" -ErrorAction SilentlyContinue) {
+        if (-not (Initialize-GitHubAuthentication -Token $Token)) {
+            Write-Error "Failed to authenticate with GitHub. Please check your token and try again."
+            exit 1
+        }
+    } else {
+        Write-Warning "GitHub authentication helper not available. Some features may be limited."
+    }
+} elseif ($env:GITHUB_TOKEN) {
+    Write-Verbose "Found GITHUB_TOKEN environment variable"
+    if (Get-Command "Initialize-GitHubAuthentication" -ErrorAction SilentlyContinue) {
+        if (-not (Initialize-GitHubAuthentication -Token $env:GITHUB_TOKEN)) {
+            Write-Warning "Failed to authenticate with GitHub using environment token. Continuing in mock mode."
+        }
+    }
+}
+
 # Process action
 try {
     switch ($Action) {
@@ -1633,10 +1794,10 @@ function Process-IssueEvent {
     # Get issue details
     try {
         $issue = Get-GitHubIssue -OwnerName $ownerName -RepositoryName $repoName -Issue $IssueNumber
-        Write-Verbose "Retrieved issue #$IssueNumber: $($issue.title)"
+        Write-Verbose "Retrieved issue #$IssueNumber`: $($issue.title)"
     }
     catch {
-        Write-Error "Failed to get issue details: $_"
+        Write-Error "Failed to get issue details: $($_.Exception.Message)"
         return
     }
     
@@ -2082,7 +2243,7 @@ function Process-GitHubWebhook {
             $issueNumber = $Payload.issue.number
             $comment = $Payload.comment.body
             
-            Write-Host "  Comment on issue #$issueNumber: $action"
+            Write-Host "  Comment on issue #$issueNumber`: $action"
             
             if ($action -eq "created" -and $comment -match "^/") {
                 # Command in comment

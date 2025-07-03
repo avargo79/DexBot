@@ -4,7 +4,9 @@
 # Import the Mock GitHub API module
 $scriptPath = $MyInvocation.MyCommand.Path
 $scriptDir = Split-Path -Parent $scriptPath
-$mockApiPath = Join-Path $scriptDir "mock_github_api.ps1"
+$projectRoot = Split-Path -Parent $scriptDir
+$scriptsDir = Join-Path $projectRoot "scripts"
+$mockApiPath = Join-Path $scriptsDir "mock_github_api.ps1"
 
 if (Test-Path $mockApiPath) {
     . $mockApiPath

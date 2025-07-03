@@ -35,7 +35,12 @@ class MockGitHubAPI {
             $repoJson = Get-Content $repoFile | ConvertFrom-Json
             $this.Repositories = @{}
             foreach ($prop in $repoJson.PSObject.Properties) {
-                $this.Repositories[$prop.Name] = $prop.Value
+                # Convert PSCustomObject back to hashtable
+                $repoHashtable = @{}
+                foreach ($repoProp in $prop.Value.PSObject.Properties) {
+                    $repoHashtable[$repoProp.Name] = $repoProp.Value
+                }
+                $this.Repositories[$prop.Name] = $repoHashtable
             }
         }
         
@@ -44,7 +49,12 @@ class MockGitHubAPI {
             $issuesJson = Get-Content $issuesFile | ConvertFrom-Json
             $this.Issues = @{}
             foreach ($prop in $issuesJson.PSObject.Properties) {
-                $this.Issues[$prop.Name] = $prop.Value
+                # Convert PSCustomObject back to hashtable
+                $issueHashtable = @{}
+                foreach ($issueProp in $prop.Value.PSObject.Properties) {
+                    $issueHashtable[$issueProp.Name] = $issueProp.Value
+                }
+                $this.Issues[$prop.Name] = $issueHashtable
             }
         }
         
@@ -94,7 +104,7 @@ class MockGitHubAPI {
         $this.APICallLog += $logEntry
         
         # Also write to a log file for persistence
-        $logJson = $logEntry | ConvertTo-Json -Compress
+        $logJson = $logEntry | ConvertTo-Json -Depth 10 -Compress
         Add-Content -Path (Join-Path $this.MockDataDirectory "api_call_log.txt") -Value $logJson
     }
 
@@ -326,7 +336,7 @@ class MockGitHubAPI {
                         number = $payload.number
                         title = $payload.title
                         body = $payload.body
-                        state = $payload.state ?? "open"
+                        state = if ($payload.state) { $payload.state } else { "open" }
                         html_url = "https://github.com/mock-user/$repoName/pull/$($payload.number)"
                     }
                 }
@@ -499,10 +509,10 @@ function Invoke-MockWebhookEvent {
     switch ($EventType) {
         "issues" {
             # Default issue data
-            $issueNumber = $EventData.number ?? (Get-Random -Minimum 1 -Maximum 100)
-            $issueTitle = $EventData.title ?? "Mock Issue #$issueNumber"
-            $issueBody = $EventData.body ?? "This is a mock issue for testing webhook events."
-            $issueLabels = $EventData.labels ?? @("test", "mock")
+            $issueNumber = if ($EventData.number) { $EventData.number } else { Get-Random -Minimum 1 -Maximum 100 }
+            $issueTitle = if ($EventData.title) { $EventData.title } else { "Mock Issue #$issueNumber" }
+            $issueBody = if ($EventData.body) { $EventData.body } else { "This is a mock issue for testing webhook events." }
+            $issueLabels = if ($EventData.labels) { $EventData.labels } else { @("test", "mock") }
             
             $payload.issue = @{
                 number = $issueNumber
@@ -511,13 +521,13 @@ function Invoke-MockWebhookEvent {
                 labels = $issueLabels
             }
             
-            Write-Host "  Issue #$issueNumber: $issueTitle"
+            Write-Host "  Issue #${issueNumber}: ${issueTitle}"
         }
         
         "issue_comment" {
             # Default comment data
-            $issueNumber = $EventData.number ?? (Get-Random -Minimum 1 -Maximum 100)
-            $commentBody = $EventData.comment_body ?? "This is a mock comment for testing webhook events."
+            $issueNumber = if ($EventData.number) { $EventData.number } else { Get-Random -Minimum 1 -Maximum 100 }
+            $commentBody = if ($EventData.comment_body) { $EventData.comment_body } else { "This is a mock comment for testing webhook events." }
             
             $payload.issue = @{
                 number = $issueNumber
@@ -527,20 +537,20 @@ function Invoke-MockWebhookEvent {
                 body = $commentBody
             }
             
-            Write-Host "  Comment on issue #$issueNumber: $commentBody"
+            Write-Host "  Comment on issue #${issueNumber}: ${commentBody}"
         }
         
         "pull_request" {
             # Default PR data
-            $prNumber = $EventData.number ?? (Get-Random -Minimum 1 -Maximum 100)
-            $prTitle = $EventData.title ?? "Mock PR #$prNumber"
-            $prBody = $EventData.body ?? "This is a mock pull request for testing webhook events."
+            $prNumber = if ($EventData.number) { $EventData.number } else { Get-Random -Minimum 1 -Maximum 100 }
+            $prTitle = if ($EventData.title) { $EventData.title } else { "Mock PR #$prNumber" }
+            $prBody = if ($EventData.body) { $EventData.body } else { "This is a mock pull request for testing webhook events." }
             
             $payload.number = $prNumber
             $payload.title = $prTitle
             $payload.body = $prBody
             
-            Write-Host "  PR #$prNumber: $prTitle"
+            Write-Host "  PR #${prNumber}: ${prTitle}"
         }
         
         default {

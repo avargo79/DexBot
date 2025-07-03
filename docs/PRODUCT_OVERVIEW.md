@@ -1,7 +1,7 @@
 # DexBot Product Overview
 
-**Version**: 3.1.1  
-**Last Updated**: July 1, 2025  
+**Version**: 3.2.0  
+**Last Updated**: July 2, 2025  
 **Product Type**: Modular Bot System for Ultima Online  
 
 ## Executive Summary
@@ -16,12 +16,13 @@ DexBot is a production-ready, modular automation system for Ultima Online that p
 
 ## Current Product Status
 
-### ✅ **Production Systems (v3.1.1)**
+### ✅ **Production Systems (v3.2.0)**
 1. **Auto Heal System**: Advanced healing with bandages and potions
 2. **Combat System**: Intelligent enemy detection and engagement  
 3. **Looting System**: Smart corpse processing with 90% performance optimization
 4. **GUMP Interface**: Real-time control and status monitoring
 5. **Configuration Management**: Persistent settings with runtime updates
+6. **GitHub Issues Workflow Automation**: Complete automation suite with intelligent routing, predictive analytics, and self-optimization
 
 ### 📈 **Key Performance Metrics**
 - **Performance**: 85-95% optimization gains through native API integration
@@ -61,10 +62,11 @@ DexBot is a production-ready, modular automation system for Ultima Online that p
 
 ## Product Roadmap
 
-### ✅ **Completed (v3.0 - v3.1.1)**
+### ✅ **Completed (v3.0 - v3.2.0)**
 - Core automation systems (Heal, Combat, Loot)
 - Revolutionary performance optimizations
 - Production-ready reliability and interface
+- **GitHub Issues Workflow Automation**: Complete automation suite with real environment validation
 
 ### 🚀 **Near Term (v3.2.x - Q3 2025)**
 - **Buff Management System**: Automated character buff maintenance
