@@ -25,6 +25,12 @@ DexBot includes a comprehensive YAML configuration system specifically designed 
 2. **`project-context.yaml`** - Detailed project context, architecture, and coding standards  
 3. **`development-tasks.yaml`** - Task-specific guidance and code templates
 4. **`razorenhanced-api.yaml`** - RazorEnhanced API reference and usage patterns
+5. **`coordination-enhancement.yaml`** - Advanced collaboration patterns and proactive assistance
+6. **`session-management.yaml`** - Session continuity and context preservation
+7. **`dev-tools-workflow.yaml`** - Dev tools automation and GitHub workflow guidance
+8. **`github-integration.yaml`** - GitHub Actions, issue templates, and ecosystem integration
+9. **`performance-intelligence.yaml`** - Performance monitoring, optimization, and predictive analytics
+10. **`adaptive-learning.yaml`** - Self-improving AI patterns and continuous learning
 
 ### How to Use These Files
 
@@ -46,6 +52,12 @@ DexBot includes a comprehensive YAML configuration system specifically designed 
 - **Faster Development**: Pre-configured templates and examples speed up development
 - **Reduced Errors**: Built-in error handling patterns and RazorEnhanced constraints
 - **Better Integration**: AI-generated code follows project architecture and conventions
+- **Advanced Collaboration**: Proactive assistance and context-aware communication
+- **Session Continuity**: Seamless context preservation across work sessions
+- **Performance Intelligence**: Real-time optimization and predictive analytics
+- **Self-Improvement**: Adaptive learning from project patterns and outcomes
+- **Tool Integration**: Complete dev-tools and GitHub ecosystem automation
+- **Quality Assurance**: Built-in testing, validation, and code review patterns
 
 ### Example Usage
 
