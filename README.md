@@ -148,17 +148,14 @@ DexBot/
 │   │   └── *.json                  # Configuration files
 │   └── utils/                      # Utility functions and helpers
 ├── docs/                           # 📚 Essential documentation
-│   ├── CHANGELOG.md                # Version history (updated to v3.1.1)
+│   ├── README.md                   # Documentation hub and navigation
+│   ├── OVERVIEW.md                 # Project overview and vision
+│   ├── PROJECT_STATUS.md           # Current development status
+│   ├── DEVELOPMENT_GUIDE.md        # Complete development workflow
+│   ├── GITHUB_WORKFLOW.md          # GitHub Issues and automation
 │   ├── FEATURES.md                 # Comprehensive feature documentation
-│   ├── PRODUCT_OVERVIEW.md         # Executive summary and vision
-│   ├── Development_Status.md       # Development progress tracking
-│   ├── DEVELOPMENT_WORKFLOW.md     # Development process guide
-│   ├── FEATURE_DEVELOPMENT_WORKFLOW.md # Feature development guide
-│   ├── backlog/                    # Product backlog organization
-│   │   ├── PRODUCT_BACKLOG.md      # Master prioritized backlog
-│   │   ├── high-priority/          # P1 items (current development)
-│   │   ├── medium-priority/        # P2 items (next 2-3 versions)
-│   │   └── future/                 # P3+ items (long-term ideas)
+│   ├── RESEARCH_AND_FUTURE_CONCEPTS.md # Long-term research concepts
+│   ├── CHANGELOG.md                # Version history
 │   └── prds/                       # Product Requirements Documents
 │       ├── FR-084_Buff_Management_System.md
 │       ├── FR-095_Inventory_Management_System.md
@@ -413,7 +410,7 @@ Our complete feature development process is documented in:
 
 Before implementing a feature, always review:
 1. The Product Requirements Document (PRD) in `docs/prds/`
-2. The backlog prioritization in `docs/backlog/`
+2. The GitHub Issues for current priorities: https://github.com/avargo79/DexBot/issues
 3. The architecture overview in project documentation
 
 ## Quick Start
@@ -742,7 +739,7 @@ This project showcases how AI can handle end-to-end software development, from i
 ## 🔗 Related Links
 
 - **[Product Overview](docs/PRODUCT_OVERVIEW.md)** - Executive summary and product vision
-- **[Product Backlog](docs/backlog/PRODUCT_BACKLOG.md)** - Prioritized feature roadmap and development tracking
+- **[GitHub Issues](https://github.com/avargo79/DexBot/issues)** - Active development tracking and feature prioritization
 - **[Features & Capabilities](docs/FEATURES.md)** - Comprehensive feature documentation
 - **[Development Status](docs/Development_Status.md)** - Current project status and progress
 - **[API Reference](ref/API_DOCUMENTATION_README.md)** - Complete RazorEnhanced API documentation system

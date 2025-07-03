@@ -63,8 +63,8 @@ The GitHub Issues Workflow Automation Suite provides comprehensive automation fo
 # Interactive issue creation
 .\tools\create_issues.ps1 -Interactive
 
-# Batch creation from backlog
-.\tools\create_issues.ps1 -BacklogFile "docs\backlog\PRODUCT_BACKLOG.md"
+# Create single issue from research concepts
+.\tools\create_issues.ps1 -BacklogFile "docs\RESEARCH_AND_FUTURE_CONCEPTS.md"
 
 # Dry run to preview
 .\tools\create_issues.ps1 -DryRun

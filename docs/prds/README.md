@@ -77,12 +77,12 @@ Each PRD follows a standardized format:
   - *Unchained UO server detection with automatic server-specific optimizations*
 
 ### Future Features (P3+)
-*No future PRDs currently - see [Future Backlog](../backlog/future/features.md) for long-term ideas*
+- **[GitHub Issues](https://github.com/avargo79/DexBot/issues?q=is%3Aissue+is%3Aopen+label%3Aidea)** - Long-term concepts and research ideas
 
 ## PRD Development Process
 
 ### 1. Initiation
-- Feature identified in product backlog
+- Feature identified through GitHub Issues workflow
 - Initial business case and value assessment
 - Assignment to product owner or technical lead
 
@@ -176,7 +176,7 @@ Completed or cancelled PRDs are moved to the `archived/` directory for historica
 
 ## Related Documents
 
-- **[Product Backlog](../backlog/PRODUCT_BACKLOG.md)** - Prioritized list of features and items
+- **[GitHub Issues](https://github.com/avargo79/DexBot/issues)** - Active development tracking and feature prioritization
 - **[Development Status](../Development_Status.md)** - Current project status and roadmap
 - **[Architecture Documentation](../README.md)** - Overall system architecture and design
 
@@ -186,7 +186,7 @@ When creating or updating PRDs:
 1. Use the standard template and format
 2. Include all required sections and information
 3. Get technical and business review before finalizing
-4. Update related backlog items and development status
+4. Update related GitHub Issues and development status
 5. Maintain links and cross-references
 
 ---

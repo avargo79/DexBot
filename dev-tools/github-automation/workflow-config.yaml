@@ -1,0 +1,501 @@
+# DexBot GitHub Automation Workflow Configuration
+# This file provides a structured reference for GitHub automation scripts and workflows
+
+metadata:
+  version: "1.0"
+  last_updated: "2025-07-03"
+  description: "GitHub automation workflow configuration for DexBot project"
+
+repository:
+  owner: "avargo79"
+  name: "DexBot"
+  full_name: "avargo79/DexBot"
+
+# GitHub Labels Configuration
+labels:
+  # Core labels (GitHub defaults + custom)
+  core:
+    - name: "bug"
+      description: "Something isn't working"
+      color: "#d73a4a"
+    - name: "enhancement"
+      description: "New feature or request"
+      color: "#a2eeef"
+    - name: "documentation"
+      description: "Improvements or additions to documentation"
+      color: "#0075ca"
+    - name: "duplicate"
+      description: "This issue or pull request already exists"
+      color: "#cfd3d7"
+    - name: "good first issue"
+      description: "Good for newcomers"
+      color: "#7057ff"
+    - name: "help wanted"
+      description: "Extra attention is needed"
+      color: "#008672"
+    - name: "invalid"
+      description: "This doesn't seem right"
+      color: "#e4e669"
+    - name: "question"
+      description: "Further information is requested"
+      color: "#d876e3"
+    - name: "wontfix"
+      description: "This will not be worked on"
+      color: "#ffffff"
+    - name: "idea"
+      description: "Initial idea or suggestion needing evaluation"
+      color: "#E6F3FF"
+
+  # Priority levels
+  priority:
+    - name: "priority:critical"
+      description: "Critical priority - blocking issues"
+      color: "#B60205"
+    - name: "priority:high"
+      description: "High priority - important features/fixes"
+      color: "#D93F0B"
+    - name: "priority:medium"
+      description: "Medium priority - standard development"
+      color: "#FBCA04"
+    - name: "priority:low"
+      description: "Low priority - nice to have improvements"
+      color: "#0E8A16"
+
+  # Component labels
+  components:
+    - name: "component:auto-heal"
+      description: "Auto heal system"
+      color: "#C5DEF5"
+    - name: "component:combat"
+      description: "Combat system"
+      color: "#F9D0C4"
+    - name: "component:looting"
+      description: "Looting system"
+      color: "#D4C5F9"
+    - name: "component:ui"
+      description: "User interface (GUMPs)"
+      color: "#C5F5DE"
+    - name: "component:config"
+      description: "Configuration management"
+      color: "#F5E6C5"
+    - name: "component:core"
+      description: "Core systems and utilities"
+      color: "#E6C5F5"
+    - name: "component:build"
+      description: "Build system and CI/CD"
+      color: "#C5F5F5"
+    - name: "component:docs"
+      description: "Documentation"
+      color: "#F5C5C5"
+
+  # Status labels
+  status:
+    - name: "status:proposed"
+      description: "Proposed item under consideration"
+      color: "#D4C5F9"
+    - name: "status:planning"
+      description: "Requirements gathering and planning"
+      color: "#EDEDED"
+    - name: "status:in-progress"
+      description: "Currently being worked on"
+      color: "#0052CC"
+    - name: "status:review"
+      description: "Ready for code review"
+      color: "#5319E7"
+    - name: "status:testing"
+      description: "Being tested"
+      color: "#FF8C00"
+    - name: "status:blocked"
+      description: "Cannot proceed due to dependencies"
+      color: "#000000"
+    - name: "status:ready-for-pickup"
+      description: "Ready for developer assignment"
+      color: "#7CFC00"
+    - name: "status:on-hold"
+      description: "Temporarily paused"
+      color: "#FFC107"
+    - name: "status:rejected"
+      description: "Will not be implemented"
+      color: "#DC3545"
+    - name: "status:implemented"
+      description: "Feature implemented and deployed"
+      color: "#28A745"
+
+  # Special labels
+  special:
+    - name: "maintenance"
+      description: "Code cleanup, refactoring, optimization"
+      color: "#FEF2C0"
+    - name: "performance"
+      description: "Performance improvements"
+      color: "#FF6B6B"
+    - name: "security"
+      description: "Security-related issues"
+      color: "#EE0701"
+    - name: "testing"
+      description: "Testing improvements and additions"
+      color: "#BFD4F2"
+    - name: "prd:fast-track"
+      description: "PRD approved for fast-track processing"
+      color: "#FF6B6B"
+
+# Issue Creation Patterns
+issue_patterns:
+  # PRD-based issues (formal requirements)
+  prd_issue:
+    labels: ["enhancement", "status:proposed", "priority:medium"]
+    title_format: "FR-{number}: {title}"
+    component_mapping:
+      auto_heal: "component:auto-heal"
+      combat: "component:combat"
+      looting: "component:looting"
+      ui: "component:ui"
+      config: "component:config"
+      core: "component:core"
+
+  # Technical issues
+  tech_issue:
+    labels: ["enhancement", "status:proposed", "priority:medium"]
+    title_format: "TECH-{number}: {title}"
+    default_component: "component:core"
+
+  # Ideas and concepts
+  idea_issue:
+    labels: ["enhancement", "idea", "priority:low"]
+    title_format: "{title}"
+    default_component: "component:core"
+
+  # Bug reports
+  bug_issue:
+    labels: ["bug", "priority:medium"]
+    title_format: "{title}"
+
+# Script Configuration
+scripts:
+  github_auth_helper:
+    file: "github_auth_helper.ps1"
+    description: "GitHub API authentication and request helper"
+    parameters:
+      - name: "Action"
+        type: "string"
+        required: true
+        options: ["GET", "POST", "PATCH", "DELETE"]
+      - name: "Endpoint"
+        type: "string"
+        required: true
+        description: "GitHub API endpoint"
+      - name: "Body"
+        type: "string"
+        required: false
+        description: "JSON body for POST/PATCH requests"
+    authentication:
+      method: "environment_variable"
+      variable: "GITHUB_TOKEN"
+      fallback: ".env file"
+
+  create_issues:
+    file: "create_issues.ps1"
+    description: "Create GitHub issues from backlog items"
+    parameters:
+      - name: "BacklogFile"
+        type: "string"
+        default: "docs\\RESEARCH_AND_FUTURE_CONCEPTS.md"
+        description: "Path to research concepts file (legacy parameter)"
+      - name: "DryRun"
+        type: "switch"
+        default: false
+      - name: "Interactive"
+        type: "switch"
+        default: false
+      - name: "CreateSingle"
+        type: "switch"
+        default: false
+      - name: "Title"
+        type: "string"
+        required_with: "CreateSingle"
+      - name: "Body"
+        type: "string"
+        required_with: "CreateSingle"
+      - name: "Labels"
+        type: "string"
+        description: "Comma-separated label names"
+
+  setup_labels:
+    file: "setup_labels.ps1"
+    description: "Create and update repository labels"
+    parameters:
+      - name: "DryRun"
+        type: "switch"
+        default: false
+
+  check_existing_issues:
+    file: "check_existing_issues.ps1"
+    description: "Check which PRDs/docs have corresponding GitHub issues"
+    parameters:
+      - name: "SearchTerm"
+        type: "string"
+        required: false
+        description: "Optional search term to filter results"
+
+  manage_issues:
+    file: "manage_issues.ps1"
+    description: "Manage existing GitHub issues (close duplicates, update labels)"
+    parameters:
+      - name: "Action"
+        type: "string"
+        options: ["CloseDuplicates", "UpdateLabels", "BulkUpdate"]
+      - name: "DryRun"
+        type: "switch"
+        default: false
+
+# Workflow Guidelines
+workflows:
+  new_idea:
+    steps:
+      - "Document idea in ideas.md file"
+      - "Create GitHub issue with 'idea' label"
+      - "Use priority:low for long-term concepts"
+      - "Add appropriate component label"
+      - "Include research and collaboration opportunities in description"
+
+  prd_to_issue:
+    steps:
+      - "Identify PRD document (FR-XXX or TECH-XXX)"
+      - "Create issue with enhancement + status:proposed labels"
+      - "Use PRD title format: 'FR-XXX: Title' or 'TECH-XXX: Title'"
+      - "Add appropriate component and priority labels"
+      - "Reference PRD document in issue body"
+
+  issue_lifecycle:
+    statuses:
+      - "proposed → planning → in-progress → review → testing → implemented"
+      - "Alternative: proposed → rejected"
+      - "Alternative: proposed → on-hold"
+
+# Common Commands
+common_commands:
+  # Label management
+  list_labels: "gh label list"
+  create_label: "gh label create {name} --description '{description}' --color {color}"
+  
+  # Issue management
+  list_issues: "gh issue list --limit 50"
+  list_proposed: "gh issue list --label 'status:proposed'"
+  list_ideas: "gh issue list --label 'idea'"
+  create_issue: "gh issue create --title '{title}' --body '{body}' --label '{labels}'"
+  
+  # Authentication
+  check_auth: "gh auth status"
+  login: "gh auth login"
+
+# Environment Setup
+environment:
+  required_files:
+    - ".env" # Contains GITHUB_TOKEN, GITHUB_OWNER, GITHUB_REPO
+    - ".env.example" # Template for environment variables
+  
+  required_tools:
+    - "GitHub CLI (gh)"
+    - "PowerShell 5.1+"
+    - "Git"
+  
+  env_variables:
+    GITHUB_TOKEN: "Personal Access Token for GitHub API"
+    GITHUB_OWNER: "Repository owner (avargo79)"
+    GITHUB_REPO: "Repository name (DexBot)"
+
+# Troubleshooting
+troubleshooting:
+  common_issues:
+    auth_failure:
+      symptoms: ["401 Unauthorized", "Authentication failed"]
+      solutions: ["Check GITHUB_TOKEN in .env", "Verify token permissions", "Run gh auth login"]
+    
+    label_not_found:
+      symptoms: ["could not add label: 'labelname' not found"]
+      solutions: ["Run setup_labels.ps1", "Check label name spelling", "Create label manually"]
+    
+    script_path_issues:
+      symptoms: ["Cannot find path", "Script not found"]
+      solutions: ["Ensure running from dev-tools/github-automation directory", "Use absolute paths", "Check file permissions"]
+    
+    api_rate_limit:
+      symptoms: ["API rate limit exceeded"]
+      solutions: ["Wait for rate limit reset", "Use authenticated requests", "Reduce request frequency"]
+
+# Best Practices
+best_practices:
+  - "Always test with --DryRun before making changes"
+  - "Use descriptive issue titles and bodies"
+  - "Apply appropriate labels consistently"
+  - "Reference source documents (PRDs, ideas.md) in issue descriptions"
+  - "Keep .env file secure and never commit it"
+  - "Run setup_labels.ps1 after repository setup"
+  - "Use check_existing_issues.ps1 to avoid duplicates"
+  - "Follow the established naming conventions for PRDs and issues"
+
+# Issue Templates
+issue_templates:
+  bug_report:
+    name: "Bug Report"
+    description: "Create a report to help us improve"
+    title: "[BUG] "
+    labels: ["bug", "priority:medium"]
+    body: |
+      **Describe the bug**
+      A clear and concise description of what the bug is.
+      
+      **To Reproduce**
+      Steps to reproduce the behavior:
+      1. Go to '...'
+      2. Click on '....'
+      3. See error
+      
+      **Expected behavior**
+      A clear and concise description of what you expected to happen.
+      
+      **System Information:**
+      - DexBot Version: 
+      - RazorEnhanced Version: 
+      - UO Client Version: 
+      
+      **Additional context**
+      Add any other context about the problem here.
+
+  feature_request:
+    name: "Feature Request"
+    description: "Suggest an idea for this project"
+    title: "[FEATURE] "
+    labels: ["enhancement", "idea", "priority:low"]
+    body: |
+      **Is your feature request related to a problem? Please describe.**
+      A clear and concise description of what the problem is.
+      
+      **Describe the solution you'd like**
+      A clear and concise description of what you want to happen.
+      
+      **Describe alternatives you've considered**
+      A clear and concise description of any alternative solutions or features you've considered.
+      
+      **Additional context**
+      Add any other context or screenshots about the feature request here.
+
+  prd_implementation:
+    name: "PRD Implementation"
+    description: "Create issue for implementing an existing PRD"
+    title: "FR-XXX: "
+    labels: ["enhancement", "status:proposed", "priority:medium"]
+    body: |
+      **PRD Reference**
+      Link to PRD document: docs/prds/FR-XXX_Name.md
+      
+      **Implementation Scope**
+      - [ ] Core functionality
+      - [ ] Configuration integration
+      - [ ] User interface (if applicable)
+      - [ ] Testing and validation
+      - [ ] Documentation updates
+      
+      **Acceptance Criteria**
+      (Copy from PRD or specify here)
+      
+      **Dependencies**
+      List any dependencies on other issues or external factors.
+
+# Automation Rules
+automation:
+  auto_label_rules:
+    - trigger: "title_contains"
+      patterns: ["[BUG]", "bug:", "error:", "crash", "broken"]
+      actions:
+        - add_labels: ["bug"]
+        - set_priority: "priority:high"
+    
+    - trigger: "title_contains"
+      patterns: ["[FEATURE]", "feature:", "enhancement:", "improve"]
+      actions:
+        - add_labels: ["enhancement"]
+        - set_priority: "priority:medium"
+    
+    - trigger: "title_contains"
+      patterns: ["FR-", "TECH-"]
+      actions:
+        - add_labels: ["enhancement", "status:proposed"]
+    
+    - trigger: "body_contains"
+      patterns: ["auto.heal", "healing", "bandage", "potion"]
+      actions:
+        - add_labels: ["component:auto-heal"]
+    
+    - trigger: "body_contains"
+      patterns: ["combat", "target", "attack", "weapon"]
+      actions:
+        - add_labels: ["component:combat"]
+    
+    - trigger: "body_contains"
+      patterns: ["loot", "corpse", "item", "container"]
+      actions:
+        - add_labels: ["component:looting"]
+
+  workflow_automation:
+    - trigger: "issue_opened"
+      conditions:
+        - has_label: "bug"
+        - has_label: "priority:critical"
+      actions:
+        - notify_team: true
+        - assign_to: "maintainer"
+    
+    - trigger: "status_change"
+      from: "status:proposed"
+      to: "status:in-progress"
+      actions:
+        - remove_labels: ["status:proposed"]
+        - add_labels: ["status:in-progress"]
+        - create_branch: "feature/issue-{number}"
+
+# Milestone Management
+milestones:
+  patterns:
+    release: "v{major}.{minor}.{patch}"
+    sprint: "Sprint {number} - {month} {year}"
+    research: "Research Phase - {topic}"
+  
+  auto_assignment:
+    - condition: "has_label:priority:critical"
+      milestone: "next_release"
+    - condition: "has_label:prd:fast-track"
+      milestone: "current_sprint"
+    - condition: "has_label:idea"
+      milestone: "research_backlog"
+
+# Project Board Integration
+project_boards:
+  main_board:
+    name: "DexBot Development"
+    columns:
+      - name: "Backlog"
+        automation: "issues_with:status:proposed"
+      - name: "Sprint Planning"
+        automation: "issues_with:status:planning"
+      - name: "In Progress"
+        automation: "issues_with:status:in-progress"
+      - name: "Review"
+        automation: "issues_with:status:review"
+      - name: "Testing"
+        automation: "issues_with:status:testing"
+      - name: "Done"
+        automation: "issues_with:status:implemented"
+
+# Issue Linking Patterns
+linking:
+  patterns:
+    blocks: "Blocks: #{issue_number}"
+    blocked_by: "Blocked by: #{issue_number}"
+    related: "Related: #{issue_number}"
+    implements: "Implements: docs/prds/{prd_file}"
+    resolves: "Resolves: #{issue_number}"
+    duplicates: "Duplicates: #{issue_number}"
+  
+  auto_detection:
+    - pattern: "(?i)(?:close[sd]?|fix(?:e[sd])?|resolve[sd]?) #(\d+)"

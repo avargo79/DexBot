@@ -1,14 +1,15 @@
 #!/usr/bin/env powershell
 <#
 .SYNOPSIS
-    Helper script for creating GitHub issues from DexBot backlog items
+    Helper script for creating GitHub issues manually or from research concepts
 
 .DESCRIPTION
-    This script reads the current development priorities and helps create
-    GitHub issues with appropriate labels and formatting.
+    This script helps create GitHub issues with appropriate labels and formatting.
+    NOTE: With the move to GitHub-first workflow, this script is primarily used for
+    manual issue creation rather than bulk backlog processing.
 
 .PARAMETER BacklogFile
-    Path to the backlog file to process
+    Path to the research concepts file (legacy parameter, not typically used)
 
 .PARAMETER DryRun
     If specified, shows what would be created without actually creating issues
@@ -22,7 +23,7 @@
 #>
 
 param(
-    [string]$BacklogFile = "docs\backlog\PRODUCT_BACKLOG.md",
+    [string]$BacklogFile = "docs\RESEARCH_AND_FUTURE_CONCEPTS.md",
     [switch]$DryRun = $false,
     [switch]$Interactive = $false
 )

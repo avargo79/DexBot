@@ -7,6 +7,8 @@
 
 This document provides a comprehensive overview of DexBot's current features and capabilities, organized by system and functionality level.
 
+**For practical usage examples and code samples, see [Usage Examples](USAGE_EXAMPLES.md).**
+
 ## 🏥 Auto Heal System
 
 ### Core Healing Features
