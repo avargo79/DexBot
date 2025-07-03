@@ -1,53 +1,79 @@
-# DexBot Feature Ideas & Concepts
+# DexBot Product Backlog
 
-**Last Updated**: July 2, 2025  
-**Version**: 2.0  
-
-## Overview
-
-This document contains feature ideas and concepts for DexBot that may be considered for future development. These are not committed features but rather a collection of ideas that could be valuable additions to the system.
-
-**Status Legend:**
-- 💡 **Idea**: Concept identified, needs evaluation
-- 🔍 **Under Review**: Being evaluated for feasibility and value
-- 📝 **Approved**: Approved for PRD development
-- ✅ **Implemented**: Feature has been implemented
+**Last Updated**: July 3, 2025  
+**Status**: Centralized backlog for DexBot development planning
 
 ---
 
-## Current Status Summary
+## 📚 Backlog Organization
 
-### ✅ Implemented Core Systems
-- **FR-001**: Auto Heal System (137 lines, June 28, 2025)
-- **FR-002**: Combat System (595 lines, June 29, 2025)
-- **FR-003**: Looting System (1,371 lines, June 30, 2025)
-- **TECH-001**: API Reference Optimization (July 2, 2025)
+### Current Backlog Structure
 
-### 📝 Approved for Development
-- **FR-127-128**: UO Item Database System - Ready for development
+- **`ideas.md`** - Consolidated feature ideas and visionary concepts for community discussion
+- **`technical-considerations.md`** - Current system status, known issues, and investigation areas
+- **`README.md`** - Backlog navigation and process documentation
+
+### ✅ Implemented Systems (Production Ready)
+
+**Core Bot Systems** (stable, battle-tested):
+- **FR-001**: Auto Heal System (implemented June 28, 2025)
+- **FR-002**: Combat System (implemented June 29, 2025)  
+- **FR-003**: Looting System (implemented June 30, 2025)
+- **TECH-001**: API Reference Optimization (implemented July 2, 2025)
+
+### 📝 Next Approved for Development
+- **FR-127-128**: UO Item Database System (ready for implementation)
 
 ---
 
-## Feature Ideas for Future Consideration
+## 🚀 Development Process
 
-### 💡 Player Enhancement Systems
+### From Ideas to Implementation
 
-#### Buff Management Concept
-- **Description**: Automated buff maintenance with smart reagent management
-- **Value Proposition**: Reduce micromanagement, maintain optimal character performance
-- **Key Features**: Spell automation, reagent tracking, timing optimization
-- **Complexity**: Medium (estimated 2-3 weeks if implemented)
+1. **Community Discussion**: Ideas in `ideas.md` are discussed in GitHub Discussions
+2. **Technical Assessment**: Core team evaluates feasibility and complexity
+3. **GitHub Issues**: Approved ideas become trackable GitHub Issues
+4. **PRD Development**: High-value features receive formal Product Requirements Documents
+5. **Implementation**: Features with PRDs enter the development pipeline
+6. **Production**: Completed features become part of the stable system
 
-#### Inventory Management Concept  
-- **Description**: Intelligent inventory organization and resource tracking
-- **Value Proposition**: Optimize storage space, track valuable items, automate organization
-- **Key Features**: Smart sorting, capacity monitoring, item categorization
-- **Complexity**: Medium (estimated 2-3 weeks if implemented)
+### How to Contribute
 
-#### Equipment Management Concept
-- **Description**: Automated equipment management, repair, and optimization
-- **Value Proposition**: Maintain gear condition, optimize combat effectiveness
-- **Key Features**: Durability monitoring, repair automation, gear optimization
+- **Feature Ideas**: Review `ideas.md` and contribute to GitHub Discussions
+- **Issue Reports**: Use GitHub Issues for bugs and problems
+- **Technical Input**: Review `technical-considerations.md` for investigation opportunities
+- **Development**: Contribute code through PRs for approved features
+
+### Backlog Principles
+
+- **Ideas-Focused**: The backlog contains concepts for discussion, not committed features
+- **Community-Driven**: Feature prioritization based on community input and value assessment
+- **Evidence-Based**: Implementation decisions backed by technical analysis and user needs
+- **Quality-First**: All features must meet DexBot's high quality and performance standards
+
+---
+
+## 📊 Current Status
+
+### System Health
+- **Core Systems**: All stable and production-ready
+- **Performance**: Optimized for 12+ hour runtime sessions
+- **Quality**: Comprehensive testing and validation in place
+- **Documentation**: All implemented features have complete PRD documentation
+
+### Development Focus
+- **Next Implementation**: FR-127-128 UO Item Database System
+- **Ongoing**: Community feedback collection and idea evaluation
+- **Quality Assurance**: Continuous monitoring and optimization of existing systems
+
+### Community Engagement
+- **GitHub Issues**: Active issue tracking and feature requests
+- **Documentation**: Comprehensive PRDs for all implemented systems
+- **Ideas Collection**: Consolidated in `ideas.md` for easy review and discussion
+
+---
+
+**Note**: This backlog represents the current state of DexBot development planning. All ideas are subject to community discussion, technical feasibility assessment, and prioritization based on user value and development resources.
 - **Complexity**: Medium (estimated 1-2 weeks if implemented)
 
 #### Server-Specific Settings Concept
