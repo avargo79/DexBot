@@ -18,6 +18,7 @@ config_files:
   dev_tools_workflow: ".copilot/dev-tools-workflow.yaml"
   github_integration: ".copilot/github-integration.yaml"
   performance_intelligence: ".copilot/performance-intelligence.yaml"
+  adaptive_learning: ".copilot/adaptive-learning.yaml"
 
 # Quick context summary for AI assistants
 project_summary:
