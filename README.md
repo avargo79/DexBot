@@ -173,7 +173,7 @@ DexBot/
 │   ├── build.sh                    # Cross-platform shell script
 │   ├── prepare_feature.*           # Feature development workflow scripts
 │   └── github_auth_helper.ps1      # GitHub authentication utility
-├── tools/                          # 🛠️ Development analysis and automation tools
+├── dev-tools/                      # 🛠️ Development analysis and automation tools
 │   ├── analyze_*.ps1               # Performance and planning analysis
 │   ├── generate_*.ps1              # Dashboard and PRD generation
 │   ├── *_issues.ps1                # GitHub issue management automation

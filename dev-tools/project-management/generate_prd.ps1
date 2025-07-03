@@ -156,7 +156,19 @@ if (-not $FeatureTitle) {
 }
 
 if (-not $TemplateName) {
-    $TemplateName = ($FeatureTitle -replace '[^a-zA-Z0-9]', '') + "_PRD"
+    # Generate next FR number based on existing PRDs
+    $prdPath = Join-Path (Split-Path $PSScriptRoot -Parent | Split-Path -Parent) "docs\prds"
+    $existingFRs = Get-ChildItem -Path $prdPath -Name "FR-*.md" | ForEach-Object {
+        if ($_ -match "FR-(\d+)") {
+            [int]$matches[1]
+        }
+    } | Sort-Object -Descending
+    
+    $nextFRNumber = if ($existingFRs) { $existingFRs[0] + 1 } else { 1 }
+    $frNumberPadded = $nextFRNumber.ToString("000")
+    
+    $sanitizedTitle = ($FeatureTitle -replace '[^a-zA-Z0-9]', '_')
+    $TemplateName = "FR-${frNumberPadded}_${sanitizedTitle}"
 }
 
 # Create output file path

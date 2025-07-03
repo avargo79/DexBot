@@ -14,6 +14,7 @@ session_management:
       context_review:
         - "Review recent git commits to understand current development focus"
         - "Check reports/ directory for recent analysis and completion summaries"
+        - "Check tmp/ directory for ongoing work and temporary files"
         - "Identify active feature branches and development objectives"
         - "Review any pending TODO items or incomplete work"
       
@@ -96,6 +97,7 @@ task_resumption:
       identification:
         - "Scan git status for uncommitted changes and works in progress"
         - "Review reports/ directory for incomplete analysis or implementation"
+        - "Review tmp/ directory for temporary work files to clean up or preserve"
         - "Check for TODO comments and incomplete implementations"
         - "Identify partially implemented features or optimizations"
       

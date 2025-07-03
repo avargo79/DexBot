@@ -333,7 +333,7 @@ Select-String -Path "logs\*.log" -Pattern "ERROR|FAILED"
 
 - **Documentation**: This comprehensive guide
 - **Configuration Examples**: See `config/` directory
-- **Test Scripts**: Use `tools/` scripts for validation
+- **Test Scripts**: Use `dev-tools/` scripts for validation
 - **Community**: Share experiences and improvements
 
 **Last Updated**: July 2, 2025  

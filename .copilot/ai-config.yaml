@@ -147,7 +147,7 @@ performance_guidelines:
   measurement:
     - "Use timing logs for critical sections"
     - "Monitor memory usage patterns"
-    - "Create performance reports in reports/"
+    - "Create performance reports in tmp/"
 
 # Error handling patterns
 error_handling:
@@ -298,8 +298,8 @@ copilot_integration:
     - "Use RazorEnhanced-specific imports"
     - "Wrap all API calls in try/except blocks"
     - "Follow 3-case testing pattern"
-    - "Create temporary files in reports/ directory"
-    - "Clean up reports/ when wrapping up sessions"
+    - "Create temporary files in tmp/ directory"
+    - "Clean up tmp/ when wrapping up sessions"
   
   workflow_practices:
     - "Never commit broken builds"

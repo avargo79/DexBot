@@ -29,7 +29,7 @@
 - **Automation Tools**: Complete suite of 14 PowerShell automation scripts validated
 
 #### � **Technical Infrastructure**
-- **Tools Directory**: Reorganized automation scripts from scripts/ to tools/ for better organization
+- **Tools Directory**: Reorganized automation scripts from scripts/ to dev-tools/ for better organization
 - **Authentication Helper**: New GitHub authentication utility for PowerShellForGitHub integration
 - **Test Infrastructure**: Enhanced test framework with real environment capabilities
 - **Documentation Quality**: Added markdownlint configuration and validation

@@ -165,12 +165,12 @@ scenarios:
       - "Loop efficiency in update cycles"
       - "Caching strategies"
     
-    measurement: "Use performance profiling in reports/"
+    measurement: "Use performance profiling in tmp/"
     
 # File organization preferences
 file_organization:
-  temporary_files: "reports/ directory"
-  analysis_files: "reports/TASK_NAME_*.md"
+  temporary_files: "tmp/ directory"
+  analysis_files: "tmp/TASK_NAME_*.md"
   cleanup_pattern: "Remove old temp files at session end"
   preserve: "Final deliverables and .gitkeep"
   

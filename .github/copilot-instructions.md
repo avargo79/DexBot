@@ -333,7 +333,7 @@ Before any git commit, ensure:
 - [ ] Version information is current in `version.txt` if version changed
 - [ ] All new code follows project coding standards and includes proper documentation
 - [ ] Feature implementation aligns with requirements in the PRD document
-- [ ] All temporary planning files are in the `reports/` directory, not root folder
+- [ ] All temporary planning files are in the `tmp/` directory, not root folder
 
 #### Branch Management and PR Submission
 - **Create Feature Branch**: Always start from main with `.\scripts\prepare_feature.ps1 feature-name` (or `./scripts/prepare_feature.sh` on Linux/macOS)
@@ -418,11 +418,11 @@ Optimize this DexBot code for:
 - **Add inline comments** for complex RazorEnhanced API usage
 - **Consider edge cases** - null checks, empty collections, API failures
 - **Plan for extensibility** - use patterns that can be easily modified
-- **Create temporary files in `reports/`** - keep workspace organized by using the reports directory for all temporary analysis files
-- **Clean up `reports/` directory** - remove temporary files when wrapping up work sessions
+- **Create temporary files in `tmp/`** - keep workspace organized by using the tmp directory for all temporary analysis files
+- **Clean up `tmp/` directory** - remove temporary files when wrapping up work sessions
 
 #### Workspace Management Guidelines
-- **Temporary Files**: Always create temporary files in `reports/` directory
+- **Temporary Files**: Always create temporary files in `tmp/` directory
 - **File Naming**: Use descriptive names with context: `TASK_NAME_COMPLETION.md`, `FEATURE_ANALYSIS.md`
 - **Preserve Important Files**: Never delete `.gitkeep`, configuration files, or active project files
 - **Cleanup Rules**:
@@ -510,8 +510,8 @@ Always include comprehensive docstrings with Args, Returns, Raises, and Example 
 Use RazorEnhanced-specific imports: 'from System.Collections.Generic import List' and 'from System import Int32 as int'.
 Wrap all RazorEnhanced API calls in try/except blocks with proper logging using Logger from src/core/logger.py.
 Follow the 3-case testing pattern: pass/fail/edge cases for all new functionality.
-Always create temporary files in the reports/ directory to keep the workspace organized.
-Clean up the reports/ directory when wrapping up work sessions to maintain a tidy workspace.
+Always create temporary files in the tmp/ directory to keep the workspace organized.
+Clean up the tmp/ directory when wrapping up work sessions to maintain a tidy workspace.
 
 **CRITICAL WORKFLOW PRACTICES:**
 - **Never commit broken builds** - Always run `python -m invoke validate` and `python -m invoke test` before committing
@@ -520,7 +520,7 @@ Clean up the reports/ directory when wrapping up work sessions to maintain a tid
 - **Validate before commit** - Ensure build succeeds, tests pass (96%+ expected), and no syntax errors exist
 - **Follow standardized workflow** - Use the feature preparation script for all new features
 - **CI/CD compliance** - Fix all CI workflow failures before merging PRs
-- **Clean workspace** - Keep the repository clean by organizing temporary files in reports/
+- **Clean workspace** - Keep the repository clean by organizing temporary files in tmp/
 
 #### Continuous Integration Mindset
 - **Build Validation**: Every change should maintain build integrity
