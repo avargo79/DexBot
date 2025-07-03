@@ -18,6 +18,25 @@ Each PRD follows a standardized format:
 
 ## Active PRDs
 
+### Implemented Core Systems (P1)
+- **[PRD-001: Auto Heal System](./PRD-001_Auto_Heal_System.md)**
+  - Status: ✅ **IMPLEMENTED** (June 28, 2025)
+  - Target: v3.0.0
+  - Effort: 137 lines of code
+  - *Intelligent automated healing with potions and bandages*
+
+- **[PRD-002: Combat System](./PRD-002_Combat_System.md)**
+  - Status: ✅ **IMPLEMENTED** (June 29, 2025)
+  - Target: v3.0.0
+  - Effort: 595 lines of code
+  - *Advanced combat automation with target acquisition and tactical AI*
+
+- **[PRD-003: Looting System](./PRD-003_Looting_System.md)**
+  - Status: ✅ **IMPLEMENTED** (June 30, 2025)
+  - Target: v3.0.0
+  - Effort: 1,371 lines of code
+  - *Sophisticated looting automation with intelligent item evaluation*
+
 ### High Priority Features (P1)
 - **[FR-127-128: UO Item Database System](./FR-127-128_UO_Item_Database_System.md)**
   - Status: 📝 Ready for Development
@@ -59,14 +78,6 @@ Each PRD follows a standardized format:
 
 ### Future Features (P3+)
 *No future PRDs currently - see [Future Backlog](../backlog/future/features.md) for long-term ideas*
-
-## Archived PRDs
-
-### Completed System PRDs (Legacy)
-- **[PRD_Master.md](./archived/PRD_Master.md)** - Master system architecture (legacy format)
-- **[PRD_Auto_Heal_System.md](./archived/PRD_Auto_Heal_System.md)** - Auto Heal system (completed v3.1.x)
-- **[PRD_Combat_System.md](./archived/PRD_Combat_System.md)** - Combat system (completed v3.1.x)  
-- **[PRD_Looting_System.md](./archived/PRD_Looting_System.md)** - Looting system (completed v3.1.x)
 
 ## PRD Development Process
 
@@ -180,5 +191,5 @@ When creating or updating PRDs:
 
 ---
 
-**Last Updated**: July 1, 2025  
-**Document Version**: 1.0
+**Last Updated**: July 2, 2025  
+**Document Version**: 2.0
