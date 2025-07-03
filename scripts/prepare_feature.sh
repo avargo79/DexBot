@@ -96,10 +96,10 @@ if [ "$SKIP_VALIDATION" = true ]; then
 fi
 
 # Execute Python script with arguments
-PYTHON_COMMAND="python tools/prepare_feature.py ${PYTHON_ARGS[*]}"
+PYTHON_COMMAND="python dev-tools/project-management/prepare_feature.py ${PYTHON_ARGS[*]}"
 echo -e "\e[33mExecuting: $PYTHON_COMMAND\e[0m"
 
-python tools/prepare_feature.py "${PYTHON_ARGS[@]}"
+python dev-tools/project-management/prepare_feature.py "${PYTHON_ARGS[@]}"
 RESULT=$?
 
 if [ $RESULT -ne 0 ]; then
