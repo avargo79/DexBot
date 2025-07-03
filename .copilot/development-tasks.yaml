@@ -262,3 +262,206 @@ integration_patterns:
           self.logger.error(f"Critical error: {e}")
           self.bot_controller.handle_critical_error(e)
           raise
+
+# Enhanced collaboration patterns
+collaboration_patterns:
+  
+  requirements_clarification:
+    when_to_ask:
+      - "Performance requirements are not specified"
+      - "Integration points with existing systems are unclear"
+      - "Error handling strategy is not defined"
+      - "Testing scope and validation criteria are ambiguous"
+    
+    effective_questions:
+      - "Should this system integrate with existing auto_heal/combat/looting?"
+      - "What performance characteristics are required (API calls, memory, timing)?"
+      - "How should errors be handled and reported to the user?"
+      - "What validation and testing approach would you prefer?"
+    
+    context_gathering:
+      - "Review related existing systems for patterns"
+      - "Check PRD documents for detailed requirements"
+      - "Analyze current architecture for integration constraints"
+      - "Identify performance benchmarks from similar systems"
+  
+  progressive_development:
+    phase_1_foundation:
+      objectives: "Core functionality with basic error handling"
+      deliverables:
+        - "Basic system class with configuration integration"
+        - "Core logic implementation with logging"
+        - "Simple test cases for primary functionality"
+        - "Configuration file with essential settings"
+      
+      validation_criteria:
+        - "System initializes without errors"
+        - "Basic functionality works as intended"
+        - "Configuration loading and validation works"
+        - "Initial test cases pass"
+    
+    phase_2_integration:
+      objectives: "Integration with existing DexBot systems"
+      deliverables:
+        - "Event communication with other systems"
+        - "GUMP interface integration if needed"
+        - "Performance optimization and caching"
+        - "Comprehensive error handling and recovery"
+      
+      validation_criteria:
+        - "Seamless integration with existing systems"
+        - "No performance degradation in other systems"
+        - "Proper error handling and user feedback"
+        - "All integration tests pass"
+    
+    phase_3_optimization:
+      objectives: "Performance tuning and polish"
+      deliverables:
+        - "Memory usage optimization for long sessions"
+        - "API call frequency optimization"
+        - "Advanced features and configuration options"
+        - "Complete documentation and examples"
+      
+      validation_criteria:
+        - "Performance meets DexBot standards"
+        - "Memory usage stable over extended periods"
+        - "All invoke commands pass successfully"
+        - "Documentation is complete and accurate"
+  
+  quality_collaboration:
+    code_review_process:
+      initial_review:
+        - "Check architectural alignment with DexBot patterns"
+        - "Verify RazorEnhanced constraints are respected"
+        - "Confirm error handling is comprehensive"
+        - "Validate performance considerations are addressed"
+      
+      detailed_review:
+        - "Analyze integration points with existing systems"
+        - "Review test coverage and test case quality"
+        - "Check documentation completeness and accuracy"
+        - "Verify configuration management integration"
+      
+      optimization_review:
+        - "Identify additional performance optimization opportunities"
+        - "Suggest code simplification and readability improvements"
+        - "Recommend additional test cases for edge conditions"
+        - "Propose documentation enhancements"
+    
+    feedback_integration:
+      immediate_fixes:
+        - "Address critical issues and blocking problems"
+        - "Fix obvious bugs and syntax errors"
+        - "Implement missing error handling"
+        - "Add required test cases"
+      
+      iterative_improvements:
+        - "Enhance performance based on benchmarking"
+        - "Improve code readability and maintainability"
+        - "Expand test coverage and edge case handling"
+        - "Enhance documentation with examples and patterns"
+      
+      future_enhancements:
+        - "Document optimization opportunities for future work"
+        - "Identify extensibility points for additional features"
+        - "Record lessons learned and pattern discoveries"
+        - "Plan roadmap for continued development"
+
+# Advanced problem-solving templates
+problem_solving_templates:
+  
+  systematic_debugging:
+    issue_reproduction:
+      steps:
+        1. "Gather detailed reproduction steps and environment info"
+        2. "Create minimal test case that demonstrates the issue"
+        3. "Identify specific conditions that trigger the problem"
+        4. "Document expected vs actual behavior clearly"
+      
+      information_collection:
+        - "Error messages and stack traces"
+        - "Configuration settings and environment state"
+        - "Recent changes that might have introduced the issue"
+        - "Performance metrics and resource usage patterns"
+    
+    root_cause_analysis:
+      hypothesis_generation:
+        - "Analyze error patterns and symptoms systematically"
+        - "Consider timing issues and race conditions"
+        - "Evaluate configuration and environment factors"
+        - "Review recent code changes for potential impacts"
+      
+      testing_strategy:
+        - "Design targeted tests to validate/eliminate hypotheses"
+        - "Use logging and instrumentation to gather detailed data"
+        - "Test in isolated environments to control variables"
+        - "Gradually introduce complexity to isolate root cause"
+    
+    solution_implementation:
+      fix_development:
+        - "Implement solution with comprehensive error handling"
+        - "Add monitoring and logging to prevent future occurrences"
+        - "Create regression tests to validate the fix"
+        - "Document the issue, cause, and solution for future reference"
+      
+      validation_process:
+        - "Verify fix resolves the original issue completely"
+        - "Confirm no new issues are introduced by the solution"
+        - "Test performance impact of the fix implementation"
+        - "Validate all related systems continue to function correctly"
+  
+  performance_optimization_methodology:
+    baseline_establishment:
+      measurement_setup:
+        - "Identify specific performance metrics to track"
+        - "Establish baseline measurements before optimization"
+        - "Set up monitoring and profiling infrastructure"
+        - "Define success criteria and optimization targets"
+      
+      bottleneck_identification:
+        - "Profile code execution to identify slow operations"
+        - "Analyze API call patterns for optimization opportunities"
+        - "Monitor memory usage patterns and allocation hotspots"
+        - "Identify inefficient algorithms and data structures"
+    
+    optimization_implementation:
+      targeted_improvements:
+        - "Implement caching for expensive API calls"
+        - "Use ignore lists to avoid redundant processing"
+        - "Batch operations to reduce overhead"
+        - "Optimize data structures for better performance"
+      
+      validation_and_measurement:
+        - "Measure performance improvements quantitatively"
+        - "Verify optimization doesn't introduce bugs or instability"
+        - "Test performance under various load conditions"
+        - "Document optimization techniques for future reference"
+
+# Context-aware assistance patterns
+context_awareness:
+  
+  session_continuity:
+    context_tracking:
+      - "Remember decisions and patterns established in current session"
+      - "Track which files and systems have been modified"
+      - "Maintain awareness of current development objectives"
+      - "Keep record of testing and validation status"
+    
+    consistency_maintenance:
+      - "Ensure new code follows patterns established in session"
+      - "Apply consistent naming and style choices throughout"
+      - "Maintain architectural decisions across related changes"
+      - "Use established error handling and logging patterns"
+  
+  adaptive_assistance:
+    complexity_adaptation:
+      simple_requests: "Provide direct implementation with minimal explanation"
+      complex_requests: "Break down into phases with detailed explanation"
+      exploratory_requests: "Collaborate on analysis and solution design"
+      maintenance_requests: "Focus on long-term maintainability and documentation"
+    
+    expertise_recognition:
+      - "Adjust explanation depth based on demonstrated knowledge"
+      - "Focus on DexBot-specific patterns for experienced developers"
+      - "Provide comprehensive context for newcomers to the project"
+      - "Collaborate on architectural decisions with project maintainers"

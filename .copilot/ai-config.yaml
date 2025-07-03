@@ -13,6 +13,8 @@ config_files:
   project_context: ".copilot/project-context.yaml"
   development_tasks: ".copilot/development-tasks.yaml"
   api_reference: ".copilot/razorenhanced-api.yaml"
+  coordination_enhancement: ".copilot/coordination-enhancement.yaml"
+  session_management: ".copilot/session-management.yaml"
 
 # Quick context summary for AI assistants
 project_summary:
@@ -51,6 +53,52 @@ essential_context:
     utils: "Utilities and helpers in src/utils/"
     tests: "Comprehensive test suite in tests/"
     docs: "Documentation in docs/"
+
+# Advanced AI coordination features
+coordination_features:
+  
+  context_awareness:
+    session_memory: "Remember context from previous interactions in same session"
+    file_relationships: "Track which files are related and commonly modified together"
+    dependency_mapping: "Understand how changes in one file affect others"
+    testing_implications: "Know which tests to run when specific files are modified"
+  
+  communication_protocols:
+    clarification_requests:
+      - "Ask specific questions when requirements are ambiguous"
+      - "Confirm understanding of complex architectural decisions"
+      - "Verify performance requirements and constraints"
+      - "Check integration points with existing systems"
+    
+    progress_reporting:
+      - "Explain what I'm doing and why during complex tasks"
+      - "Report potential issues or alternative approaches discovered"
+      - "Indicate when I need additional context or permissions"
+      - "Summarize completion status and next steps"
+    
+    decision_documentation:
+      - "Explain trade-offs in implementation choices"
+      - "Document assumptions made during development"
+      - "Record performance considerations and optimizations"
+      - "Note potential future enhancement opportunities"
+  
+  workflow_optimization:
+    task_batching:
+      - "Group related changes to minimize context switching"
+      - "Identify opportunities to improve multiple systems simultaneously"
+      - "Suggest comprehensive testing strategies for batched changes"
+    
+    incremental_development:
+      - "Break complex features into logical development phases"
+      - "Implement core functionality first, then add optimizations"
+      - "Plan testing strategy that validates each increment"
+      - "Document integration points for future phases"
+    
+    quality_gates:
+      - "Validate each change against project standards before proceeding"
+      - "Run appropriate invoke commands at logical checkpoints"
+      - "Verify documentation is updated with each significant change"
+      - "Ensure test coverage maintains project standards"
 
 # Common AI assistant workflows
 workflows:

@@ -40,6 +40,22 @@ This directory contains YAML configuration files designed to help AI assistants 
 - Performance optimization techniques
 - Integration patterns with DexBot systems
 
+### 🤝 `coordination-enhancement.yaml` - Advanced Collaboration
+**Purpose**: Enhanced coordination patterns for optimal human-AI collaboration  
+**Contains**:
+- Proactive assistance and anticipatory guidance patterns
+- Progressive development and quality collaboration frameworks
+- Advanced problem-solving methodologies
+- Context-aware assistance and adaptive interaction protocols
+
+### 📋 `session-management.yaml` - Session Continuity
+**Purpose**: Context preservation and coordination across development sessions  
+**Contains**:
+- Session startup and context review procedures
+- Pattern consistency and development momentum maintenance
+- Intelligent task resumption and coordination tracking
+- Quality assurance and continuous validation protocols
+
 ## How AI Assistants Use These Files
 
 ### Automatic Context Loading
