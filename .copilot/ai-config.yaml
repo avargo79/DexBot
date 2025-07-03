@@ -1,0 +1,291 @@
+# DexBot AI Assistant Master Configuration
+# Central configuration file that references all AI assistant configurations
+
+metadata:
+  version: "1.0"
+  created: "2025-07-03"
+  purpose: "Master configuration for AI assistants working on DexBot"
+  last_updated: "2025-07-03"
+
+# Configuration file hierarchy
+config_files:
+  master: ".copilot/ai-config.yaml"
+  project_context: ".copilot/project-context.yaml"
+  development_tasks: ".copilot/development-tasks.yaml"
+  api_reference: ".copilot/razorenhanced-api.yaml"
+
+# Quick context summary for AI assistants
+project_summary:
+  name: "DexBot"
+  description: "High-performance modular bot system for Ultima Online"
+  platform: "RazorEnhanced Python Scripting Environment"
+  version: "3.2.0"
+  
+  key_characteristics:
+    - "Production-ready with 12+ hour stable sessions"
+    - "85-95% performance optimizations achieved"
+    - "Modular architecture with clear separation of concerns"
+    - "Comprehensive testing with 96%+ coverage target"
+    - "GitHub Issues-based project management"
+
+# Essential context for every AI interaction
+essential_context:
+  runtime_environment:
+    - "RazorEnhanced IronPython (Python 3.x with .NET integration)"
+    - "Single-threaded execution model"
+    - "No standard Python packages (requests, pandas, etc.)"
+    - "Memory optimization crucial for long-running sessions"
+  
+  coding_standards:
+    - "100-character line length"
+    - "Comprehensive docstrings with Args/Returns/Raises/Example"
+    - "Type hints when beneficial"
+    - "Error handling for all RazorEnhanced API calls"
+    - "Logging using Logger from src/core/logger.py"
+  
+  project_structure:
+    config: "Configuration management in config/"
+    core: "Core bot logic and state management in src/core/"
+    systems: "Main bot systems in src/systems/"
+    ui: "GUMP interfaces in src/ui/"
+    utils: "Utilities and helpers in src/utils/"
+    tests: "Comprehensive test suite in tests/"
+    docs: "Documentation in docs/"
+
+# Common AI assistant workflows
+workflows:
+  
+  code_generation:
+    1. "Always include comprehensive docstrings"
+    2. "Add proper error handling with try/except"
+    3. "Use RazorEnhanced-safe patterns (no standard packages)"
+    4. "Include type hints for clarity"
+    5. "Add logging for debugging and monitoring"
+    6. "Consider performance implications for long sessions"
+  
+  bug_fixing:
+    1. "Identify the affected system (auto_heal, combat, looting, etc.)"
+    2. "Check existing error patterns in logs"
+    3. "Create minimal reproduction case"
+    4. "Implement fix with proper error handling"
+    5. "Add test case to prevent regression"
+    6. "Validate with invoke commands"
+  
+  feature_implementation:
+    1. "Review PRD document in docs/prds/"
+    2. "Plan system integration points"
+    3. "Create configuration schema"
+    4. "Implement core functionality"
+    5. "Add comprehensive tests (3-case pattern)"
+    6. "Create or update UI components"
+    7. "Update documentation"
+
+# Performance optimization guidelines
+performance_guidelines:
+  critical_paths:
+    - "Auto heal system: Called every 100ms"
+    - "Combat system: Target scanning and engagement"
+    - "Looting system: Item evaluation and corpse processing"
+  
+  optimization_strategies:
+    api_calls: "Cache results, use ignore lists, batch operations"
+    memory: "Clean up old data, avoid memory leaks"
+    loops: "Optimize update cycles, avoid unnecessary iterations"
+    
+  measurement:
+    - "Use timing logs for critical sections"
+    - "Monitor memory usage patterns"
+    - "Create performance reports in reports/"
+
+# Error handling patterns
+error_handling:
+  razorenhanced_api:
+    pattern: "Always wrap in try/except with specific handling"
+    example: |
+      try:
+          result = Player.Hits
+          if result is None:
+              Logger.warning("Player.Hits returned None")
+              return self.last_known_hits
+          return result
+      except Exception as e:
+          Logger.error(f"Failed to get player hits: {e}")
+          raise RazorEnhancedAPIError(f"Player API failure: {e}")
+  
+  system_errors:
+    pattern: "Log locally, propagate critical errors"
+    example: |
+      try:
+          critical_operation()
+      except Exception as e:
+          Logger.error(f"Critical system error: {e}")
+          self.bot_controller.handle_critical_error(e)
+          raise
+
+# Testing requirements
+testing_requirements:
+  coverage_target: "96%+"
+  test_pattern: "3-case testing (pass/fail/edge)"
+  mock_strategy: "Mock all RazorEnhanced APIs"
+  validation: "Use 'python -m invoke test' before commits"
+  
+  test_structure:
+    setup: "Mock RazorEnhanced environment"
+    execution: "Test specific functionality"
+    teardown: "Clean up mocks and temporary data"
+    assertions: "Verify expected behavior and side effects"
+
+# Documentation requirements
+documentation_requirements:
+  code_docs:
+    - "Comprehensive docstrings for all public methods"
+    - "Inline comments for complex RazorEnhanced usage"
+    - "Type hints for better code understanding"
+  
+  project_docs:
+    - "Update relevant documentation for changes"
+    - "Maintain cross-references between docs"
+    - "Keep examples and usage patterns current"
+  
+  ai_context:
+    - "Include AI context blocks for complex systems"
+    - "Document integration patterns"
+    - "Explain performance considerations"
+
+# Quick reference commands
+quick_commands:
+  validation: "python -m invoke validate"
+  testing: "python -m invoke test"
+  building: "python -m invoke build"
+  status: "python -m invoke status"
+  feature_prep: ".\\scripts\\prepare_feature.ps1 feature-name"
+
+# File templates for common tasks
+file_templates:
+  
+  new_system_class: |
+    """
+    === AI CONTEXT BLOCK ===
+    System: [System Name]
+    Purpose: [Brief description of system purpose]
+    Dependencies: [Key dependencies and integrations]
+    Performance: [Performance considerations and requirements]
+    Error Handling: [Expected error scenarios]
+    === END AI CONTEXT ===
+    """
+    
+    from System.Collections.Generic import List
+    from System import Int32 as int
+    from src.core.logger import Logger
+    from src.config.config_manager import ConfigManager
+    
+    class NewSystem:
+        def __init__(self, config_manager):
+            """
+            Initialize the new system.
+            
+            Args:
+                config_manager: Configuration manager instance
+            """
+            self.config = config_manager
+            self.logger = Logger()
+            self.enabled = self.config.get_setting('new_system.enabled', False)
+        
+        def update(self):
+            """
+            Main update method called from bot loop.
+            
+            Returns:
+                bool: True if update was successful, False otherwise
+                
+            Raises:
+                RazorEnhancedAPIError: When RazorEnhanced API calls fail
+            """
+            if not self.enabled:
+                return True
+                
+            try:
+                # Main system logic here
+                return self._perform_system_operation()
+                
+            except Exception as e:
+                self.logger.error(f"NewSystem update failed: {e}")
+                return False
+  
+  test_file_template: |
+    import unittest
+    from unittest.mock import Mock, patch
+    from src.systems.new_system import NewSystem
+    
+    class TestNewSystem(unittest.TestCase):
+        def setUp(self):
+            """Set up test fixtures."""
+            self.mock_config = Mock()
+            self.system = NewSystem(self.mock_config)
+        
+        def test_new_system_pass_case(self):
+            """Test successful operation."""
+            # Test implementation
+            pass
+        
+        def test_new_system_fail_case(self):
+            """Test error conditions."""
+            # Test implementation
+            pass
+        
+        def test_new_system_edge_case(self):
+            """Test boundary conditions."""
+            # Test implementation
+            pass
+
+# Integration with GitHub Copilot instructions
+copilot_integration:
+  instructions_file: "GitHub Copilot Instructions for DexBot (in project root)"
+  key_reminders:
+    - "Always include comprehensive docstrings"
+    - "Use RazorEnhanced-specific imports"
+    - "Wrap all API calls in try/except blocks"
+    - "Follow 3-case testing pattern"
+    - "Create temporary files in reports/ directory"
+    - "Clean up reports/ when wrapping up sessions"
+  
+  workflow_practices:
+    - "Never commit broken builds"
+    - "Use invoke tasks for consistency"
+    - "Make frequent, atomic commits"
+    - "Validate before every commit"
+    - "Follow standardized feature workflow"
+
+# AI assistant behavior preferences
+ai_preferences:
+  code_style: "Explicit and verbose over concise"
+  error_handling: "Comprehensive with specific error types"
+  documentation: "Detailed with examples and context"
+  testing: "Thorough with edge cases covered"
+  performance: "Always consider long-running session impact"
+  
+  communication:
+    - "Explain decisions and trade-offs"
+    - "Provide context for recommendations"
+    - "Suggest improvements when relevant"
+    - "Ask clarifying questions when needed"
+
+# Success criteria for AI assistance
+success_criteria:
+  code_quality:
+    - "Follows all project coding standards"
+    - "Includes comprehensive error handling"
+    - "Has proper documentation and tests"
+    - "Passes all validation checks"
+  
+  integration:
+    - "Works seamlessly with existing systems"
+    - "Follows established patterns and conventions"
+    - "Maintains performance requirements"
+    - "Preserves system stability"
+  
+  maintainability:
+    - "Code is readable and well-structured"
+    - "Changes are documented and traceable"
+    - "Future modifications are supported"
+    - "Technical debt is minimized"

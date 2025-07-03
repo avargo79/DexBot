@@ -1,0 +1,351 @@
+# DexBot RazorEnhanced API Reference for AI Assistants
+# Quick reference for RazorEnhanced APIs commonly used in DexBot
+
+metadata:
+  version: "1.0"
+  created: "2025-07-03"
+  purpose: "RazorEnhanced API reference for AI code generation"
+
+# Essential RazorEnhanced imports
+standard_imports:
+  system: |
+    from System.Collections.Generic import List
+    from System import Int32 as int
+  
+  common_razorenhanced: |
+    # These are accessed directly as global modules in RazorEnhanced
+    # Player, Items, Mobiles, Misc, Journal, Gumps, Target, etc.
+
+# Core API modules and their common usage patterns
+api_modules:
+  
+  Player:
+    description: "Player character information and status"
+    common_properties:
+      - "Player.Name: str - Player character name"
+      - "Player.Hits: int - Current hit points"
+      - "Player.HitsMax: int - Maximum hit points"
+      - "Player.Mana: int - Current mana"
+      - "Player.ManaMax: int - Maximum mana"
+      - "Player.Stamina: int - Current stamina"
+      - "Player.StaminaMax: int - Maximum stamina"
+      - "Player.Weight: int - Current weight"
+      - "Player.WeightMax: int - Maximum weight"
+      - "Player.Mount: int - Mount serial (0 if not mounted)"
+      - "Player.Position: Position - Player coordinates"
+      - "Player.Buffs: List - Active buffs/debuffs"
+    
+    usage_patterns:
+      health_check: |
+        if Player.Hits < Player.HitsMax * 0.8:
+            # Player needs healing
+            pass
+      
+      weight_check: |
+        if Player.Weight >= Player.WeightMax * 0.9:
+            # Player is overloaded
+            pass
+      
+      position_check: |
+        player_pos = Player.Position
+        distance = math.sqrt((player_pos.X - target_x)**2 + (player_pos.Y - target_y)**2)
+  
+  Items:
+    description: "Item manipulation and querying"
+    common_methods:
+      - "Items.FindBySerial(serial): Item - Find item by serial number"
+      - "Items.FindByID(item_id, container): List[Item] - Find items by ID"
+      - "Items.GetPropValue(item, property): str - Get item property"
+      - "Items.Filter(): ItemFilter - Create item filter"
+      - "Items.UseItem(item): bool - Use/activate item"
+      - "Items.Move(item, container, amount): bool - Move items"
+    
+    usage_patterns:
+      find_potions: |
+        heal_potions = Items.FindByID(0x0F0C, Player.Backpack.Serial)
+        if heal_potions:
+            strongest_potion = heal_potions[0]
+            Items.UseItem(strongest_potion)
+      
+      item_evaluation: |
+        item_value = Items.GetPropValue(item, "Value")
+        item_name = Items.GetPropValue(item, "Name")
+        if int(item_value) > 100:
+            # Valuable item
+            pass
+      
+      inventory_management: |
+        Items.Move(item, Player.Backpack.Serial, 1)
+        Misc.Pause(600)  # Wait for move to complete
+  
+  Mobiles:
+    description: "Mobile (creature/player) detection and information"
+    common_methods:
+      - "Mobiles.FindBySerial(serial): Mobile - Find mobile by serial"
+      - "Mobiles.Filter(): MobileFilter - Create mobile filter"
+      - "Mobiles.Select(filter_list, criteria): List[Mobile] - Find mobiles"
+      - "Mobiles.CanSee(mobile): bool - Check line of sight"
+    
+    usage_patterns:
+      find_enemies: |
+        enemy_filter = Mobiles.Filter()
+        enemy_filter.Enabled = True
+        enemy_filter.RangeMax = 8
+        enemy_filter.IsGhost = False
+        enemy_filter.Friend = False
+        enemies = Mobiles.Select([enemy_filter], 'Nearest')
+      
+      target_validation: |
+        target = Mobiles.FindBySerial(target_serial)
+        if target and target.Hits > 0 and not target.IsGhost:
+            # Valid target
+            pass
+      
+      distance_check: |
+        distance = Player.DistanceTo(mobile)
+        if distance <= combat_range:
+            # In range for combat
+            pass
+  
+  Misc:
+    description: "Miscellaneous utility functions"
+    common_methods:
+      - "Misc.Pause(milliseconds): void - Pause execution"
+      - "Misc.SendMessage(message, color): void - Send message to journal"
+      - "Misc.IgnoreObject(serial): void - Add to ignore list"
+      - "Misc.ClearIgnore(): void - Clear ignore list"
+      - "Misc.GetSharedValue(key): object - Get shared variable"
+      - "Misc.SetSharedValue(key, value): void - Set shared variable"
+    
+    usage_patterns:
+      ignore_management: |
+        # Ignore processed corpses
+        Misc.IgnoreObject(corpse.Serial)
+        
+        # Clear ignore list periodically
+        if time.time() - self.last_ignore_clear > 300:  # 5 minutes
+            Misc.ClearIgnore()
+            self.last_ignore_clear = time.time()
+      
+      shared_data: |
+        # Share data between systems
+        Misc.SetSharedValue("last_heal_time", time.time())
+        last_heal = Misc.GetSharedValue("last_heal_time")
+      
+      messaging: |
+        Misc.SendMessage(f"DexBot: {status_message}", 0x0040)
+  
+  Journal:
+    description: "Game journal/chat monitoring"
+    common_methods:
+      - "Journal.Search(text): bool - Search for text in journal"
+      - "Journal.SearchByColor(text, color): bool - Search by color"
+      - "Journal.Clear(): void - Clear journal buffer"
+      - "Journal.GetLineText(index): str - Get specific line"
+    
+    usage_patterns:
+      combat_feedback: |
+        if Journal.Search("You have been healed"):
+            # Healing was successful
+            self.last_heal_successful = True
+            Journal.Clear()
+      
+      error_detection: |
+        if Journal.Search("You cannot"):
+            # Some action failed
+            self.handle_action_failure()
+  
+  Gumps:
+    description: "GUMP (UI) creation and interaction"
+    common_methods:
+      - "Gumps.SendAction(gump_id, button_id): void - Press button"
+      - "Gumps.CloseGump(gump_id): void - Close gump"
+      - "Gumps.HasGump(): bool - Check if gump exists"
+      - "Gumps.GetGumpData(gump_id): GumpData - Get gump information"
+    
+    usage_patterns:
+      gump_creation: |
+        # DexBot creates custom GUMPs for UI
+        # See src/ui/ directory for GUMP implementations
+        pass
+      
+      button_handling: |
+        if button_id == 1:  # Start button
+            self.start_system()
+        elif button_id == 2:  # Stop button
+            self.stop_system()
+  
+  Target:
+    description: "Targeting system integration"
+    common_methods:
+      - "Target.SetLast(serial): void - Set last target"
+      - "Target.Last(): int - Get last target serial"
+      - "Target.Cancel(): void - Cancel current target"
+      - "Target.WaitForTarget(timeout): bool - Wait for target cursor"
+    
+    usage_patterns:
+      combat_targeting: |
+        Target.SetLast(enemy.Serial)
+        if Target.WaitForTarget(1000):
+            # Target set successfully
+            pass
+
+# Common error patterns and handling
+error_patterns:
+  
+  api_failures:
+    pattern: "RazorEnhanced APIs can return None or raise exceptions"
+    handling: |
+      try:
+          result = Player.Hits
+          if result is None:
+              # Handle None return
+              return default_value
+          return result
+      except Exception as e:
+          Logger.error(f"API call failed: {e}")
+          return default_value
+  
+  timing_issues:
+    pattern: "Actions need time to complete"
+    handling: |
+      Items.UseItem(potion)
+      Misc.Pause(500)  # Wait for action to register
+      
+      # Check if action was successful
+      if not self.verify_action_success():
+          # Retry or handle failure
+          pass
+  
+  object_disappearance:
+    pattern: "Game objects can disappear between API calls"
+    handling: |
+      item = Items.FindBySerial(item_serial)
+      if item is None:
+          # Item no longer exists
+          return False
+      
+      # Always verify object exists before using
+      if hasattr(item, 'Serial') and item.Serial > 0:
+          # Object is valid
+          pass
+
+# Performance optimization patterns
+performance_patterns:
+  
+  caching:
+    description: "Cache expensive API calls"
+    pattern: |
+      def get_cached_player_status(self):
+          current_time = time.time()
+          if (not hasattr(self, '_player_cache') or 
+              current_time - self._player_cache_time > 1.0):
+              self._player_cache = {
+                  'hits': Player.Hits,
+                  'mana': Player.Mana,
+                  'stamina': Player.Stamina
+              }
+              self._player_cache_time = current_time
+          return self._player_cache
+  
+  ignore_lists:
+    description: "Use ignore lists to avoid repeated processing"
+    pattern: |
+      def should_process_item(self, item):
+          if item.Serial in self.processed_items:
+              return False
+          
+          if not self.is_valuable(item):
+              self.processed_items.add(item.Serial)
+              Misc.IgnoreObject(item.Serial)
+              return False
+          
+          return True
+  
+  batch_operations:
+    description: "Group similar operations together"
+    pattern: |
+      def process_multiple_items(self, items):
+          # Process all items in one pass
+          for item in items:
+              if self.should_loot(item):
+                  Items.Move(item, Player.Backpack.Serial, 1)
+                  Misc.Pause(200)  # Small delay between moves
+
+# Integration with DexBot systems
+dexbot_integration:
+  
+  configuration_access:
+    pattern: |
+      from src.config.config_manager import ConfigManager
+      
+      def __init__(self):
+          self.config = ConfigManager()
+          self.enabled = self.config.get_setting('system.enabled', False)
+  
+  logging_integration:
+    pattern: |
+      from src.core.logger import Logger
+      
+      def process_action(self):
+          try:
+              # RazorEnhanced API call
+              result = Player.Hits
+              Logger.debug(f"Player hits: {result}")
+          except Exception as e:
+              Logger.error(f"Failed to get player hits: {e}")
+  
+  error_handling:
+    pattern: |
+      class RazorEnhancedAPIError(Exception):
+          pass
+      
+      def safe_api_call(self, api_func, *args, **kwargs):
+          try:
+              result = api_func(*args, **kwargs)
+              if result is None:
+                  raise RazorEnhancedAPIError("API returned None")
+              return result
+          except Exception as e:
+              Logger.error(f"RazorEnhanced API error: {e}")
+              raise RazorEnhancedAPIError(f"API call failed: {e}")
+
+# Common development scenarios
+development_scenarios:
+  
+  adding_new_api_usage:
+    steps:
+      1. "Check if API call is already wrapped in existing utils"
+      2. "Add proper error handling with try/catch"
+      3. "Consider caching if call is expensive"
+      4. "Add logging for debugging"
+      5. "Test with mock in unit tests"
+    
+    template: |
+      def new_api_operation(self):
+          try:
+              result = SomeAPI.SomeMethod()
+              if result is None:
+                  Logger.warning("API returned None")
+                  return default_value
+              
+              Logger.debug(f"API operation successful: {result}")
+              return result
+              
+          except Exception as e:
+              Logger.error(f"API operation failed: {e}")
+              raise RazorEnhancedAPIError(f"Failed to execute API operation: {e}")
+  
+  optimizing_existing_code:
+    focus_areas:
+      - "Reduce API call frequency"
+      - "Add caching for repeated queries"
+      - "Use ignore lists for processed objects"
+      - "Batch similar operations"
+    
+    measurement: |
+      # Add timing for performance measurement
+      start_time = time.time()
+      result = expensive_operation()
+      duration = time.time() - start_time
+      Logger.debug(f"Operation took {duration:.3f} seconds")

@@ -150,6 +150,42 @@ python -m invoke build      # Verify bundled output
 
 ## AI-Assisted Development
 
+### AI Assistant Configuration System
+
+DexBot includes a comprehensive YAML configuration system in the `.copilot/` directory that provides structured context for AI assistants like GitHub Copilot. This system enables more effective and consistent AI assistance throughout the development process.
+
+#### Configuration Files Overview
+
+- **`.copilot/ai-config.yaml`** - Master configuration with project summary and workflows
+- **`.copilot/project-context.yaml`** - Detailed development environment and architecture context
+- **`.copilot/development-tasks.yaml`** - Task-specific templates and guidance
+- **`.copilot/razorenhanced-api.yaml`** - RazorEnhanced API reference and usage patterns
+
+#### Benefits of the Configuration System
+
+**For AI Assistants:**
+- Automatic understanding of project constraints and patterns
+- Pre-configured templates for common development tasks
+- Built-in error handling and testing strategies
+- RazorEnhanced-specific API usage guidance
+
+**For Developers:**
+- Consistent AI-generated code that follows project standards
+- Faster development with pre-configured templates
+- Reduced errors through established patterns
+- Better integration with existing systems
+
+#### How to Use
+
+When requesting AI assistance, the configuration system automatically provides:
+- Proper RazorEnhanced imports and constraints
+- Comprehensive error handling patterns
+- 3-case testing templates
+- Performance optimization strategies
+- Integration with existing configuration management
+
+**Example**: When asking "Create a new healing optimization system", the AI will automatically apply DexBot patterns, use proper imports, include error handling, and follow the established architecture.
+
 ### GitHub Copilot Integration
 
 DexBot includes comprehensive GitHub Copilot instructions for optimal AI assistance:
@@ -157,67 +193,6 @@ DexBot includes comprehensive GitHub Copilot instructions for optimal AI assista
 1. **Install GitHub Copilot** extension in VS Code
 2. **Open DexBot project** - Copilot automatically loads project context
 3. **Start coding** - AI understands architecture, constraints, and patterns
-
-### Effective AI Prompts
-
-#### Creating New Systems
-```
-Create a new [system_name] for DexBot that:
-- Follows the existing architecture pattern
-- Uses ConfigManager for configuration  
-- Includes comprehensive error handling
-- Has 3-case testing pattern
-- Optimizes for 12+ hour runtime sessions
-- Uses RazorEnhanced APIs: [list specific APIs]
-```
-
-#### Bug Fixes
-```
-Fix this issue in DexBot:
-- Current behavior: [describe problem]
-- Expected behavior: [describe solution]
-- System affected: [auto_heal/combat/looting/ui/core]
-- Performance impact: [any performance considerations]
-```
-
-#### Performance Optimization
-```
-Optimize this DexBot code for:
-- Target: [specific performance metric]
-- Current issue: [describe performance problem]
-- Constraints: [RazorEnhanced limitations, memory limits]
-- Expected improvement: [specific goals]
-```
-
-### RazorEnhanced-Specific Development
-
-#### Key Constraints
-- **Runtime Environment**: IronPython with .NET Framework integration
-- **Threading**: Single-threaded execution model preferred
-- **Memory Management**: Critical for long-running sessions (12+ hours)
-- **API Limitations**: No standard Python packages (requests, pandas, etc.)
-
-#### Common RazorEnhanced Patterns
-```python
-# Standard imports
-from System.Collections.Generic import List
-from System import Int32 as int
-
-# Error handling with RazorEnhanced APIs
-try:
-    player_hits = Player.Hits
-    player_max_hits = Player.HitsMax
-except Exception as e:
-    Logger.error(f"RazorEnhanced API error: {e}")
-    return default_value
-
-# Safe API calls with validation
-if Player.Name:  # Ensure player is logged in
-    result = Mobiles.Filter()
-    if result:
-        # Process result
-        pass
-```
 
 ---
 
