@@ -19,36 +19,41 @@ Each PRD follows a standardized format:
 ## Active PRDs
 
 ### High Priority Features (P1)
-- **[FR-084: Buff Management System](./FR-084_Buff_Management_System.md)**
-  - Status: ✅ Complete
-  - Target: v3.2.1
-  - Effort: 2-3 weeks
-  - *Automated buff maintenance with smart reagent management*
+- **[FR-127-128: UO Item Database System](./FR-127-128_UO_Item_Database_System.md)**
+  - Status: 📝 Ready for Development
+  - Target: v3.2.0
+  - Effort: 6-10 hours
+  - *Complete UO item database optimization and system integration*
 
 ### Technical Debt (P1)
 - **[TECH-001: API Reference Optimization](./TECH-001_API_Reference_Optimization.md)**
-  - Status: 📝 Ready for Development
+  - Status: ✅ **IMPLEMENTED** (July 2, 2025)
   - Target: v3.2.0
   - Effort: 1 week
   - *Comprehensive API reference system optimization and automation*
-  - **Implementation Guide**: [Detailed Tasks](./TECH-001_Implementation_Tasks.md)
 
 ### Medium Priority Features (P2)
+- **[FR-084: Buff Management System](./FR-084_Buff_Management_System.md)**
+  - Status: 📝 Proposed
+  - Target: v3.3.0
+  - Effort: 2-3 weeks
+  - *Automated buff maintenance with smart reagent management*
+
 - **[FR-095: Inventory Management System](./FR-095_Inventory_Management_System.md)**
-  - Status: ✅ Complete  
-  - Target: v3.3.1
+  - Status: 📝 Proposed
+  - Target: v3.3.0
   - Effort: 2-3 weeks
   - *Intelligent inventory organization and resource tracking*
 
 - **[FR-096: Equipment Manager System](./FR-096_Equipment_Manager_System.md)**
-  - Status: ✅ Complete
-  - Target: v3.3.2  
-  - Effort: 2-3 weeks
+  - Status: 📝 Proposed
+  - Target: v3.3.0
+  - Effort: 1-2 weeks
   - *Automated equipment management, repair, and optimization*
 
 - **[FR-126: Server-Specific Settings System](./FR-126_Server_Specific_Settings_System.md)**
   - Status: 📝 Proposed
-  - Target: v3.2.2
+  - Target: v3.3.0
   - Effort: 1-2 weeks  
   - *Unchained UO server detection with automatic server-specific optimizations*
 

@@ -3,11 +3,13 @@
 ## 📋 **Basic Information**
 - **Feature ID**: FR-126
 - **Feature Name**: Server-Specific Settings System (Unchained UO)
-- **Proposed Version**: v3.2.2
-- **Priority**: Medium-High
+- **Proposed Version**: v3.3.0
+- **Priority**: Medium
 - **Effort Estimate**: 1-2 weeks
 - **Category**: System/Enhancement
-- **Target Quarter**: Q3 2025
+- **Target Quarter**: Q4 2025
+- **Status**: 📝 Proposed
+- **Last Updated**: July 2, 2025
 
 ## 🎯 **Feature Overview**
 **Brief Description**: Intelligent server detection system that provides Unchained UO-specific configurations and optimizations when connected to the target server.

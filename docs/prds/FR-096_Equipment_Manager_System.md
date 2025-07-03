@@ -1,10 +1,12 @@
 # DexBot Feature Request: Equipment Manager System
 
 **Feature ID**: FR-096  
-**Priority**: Medium-High  
+**Priority**: Medium  
 **Estimated Effort**: 1-2 weeks  
-**Target Version**: v3.2.1  
-**Date**: June 30, 2025
+**Target Version**: v3.3.0  
+**Date**: June 30, 2025  
+**Status**: 📝 Proposed  
+**Last Updated**: July 2, 2025
 
 ## 1. Feature Overview
 
