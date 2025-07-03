@@ -64,6 +64,14 @@ This directory contains YAML configuration files designed to help AI assistants 
 - Workflow configuration management and synchronization
 - Advanced GitHub integration and quality assurance protocols
 
+### 📊 `performance-intelligence.yaml` - Performance Intelligence System
+**Purpose**: AI-driven performance monitoring, optimization, and predictive analytics  
+**Contains**:
+- Intelligent performance monitoring and pattern recognition
+- Automated optimization recommendation engine
+- Predictive performance analytics and failure prevention
+- Real-time performance measurement and benchmarking frameworks
+
 ## How AI Assistants Use These Files
 
 ### Automatic Context Loading

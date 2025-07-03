@@ -1,0 +1,413 @@
+# DexBot Performance Intelligence Configuration
+# Advanced AI guidance for performance monitoring, optimization, and predictive analytics
+
+metadata:
+  version: "1.0"
+  created: "2025-07-03"
+  purpose: "AI-driven performance intelligence for optimization and monitoring"
+  extends: "ai-config.yaml, project-context.yaml, development-tasks.yaml"
+
+# Performance intelligence overview
+performance_intelligence:
+  
+  core_capabilities:
+    monitoring: "Real-time performance pattern recognition and analysis"
+    optimization: "Intelligent recommendation engine for performance improvements"
+    prediction: "Predictive analytics for performance degradation and bottlenecks"
+    automation: "Automated performance optimization and resource management"
+  
+  focus_areas:
+    long_running_sessions: "12+ hour session stability and performance maintenance"
+    memory_optimization: "Memory usage patterns and leak prevention"
+    api_efficiency: "RazorEnhanced API call optimization and caching strategies"
+    update_cycles: "Main loop efficiency and timing optimization"
+
+# Performance monitoring patterns
+performance_monitoring:
+  
+  critical_metrics:
+    system_performance:
+      memory_usage:
+        baseline: "Track memory consumption patterns over time"
+        growth_rate: "Monitor memory growth rate per hour/session"
+        peak_detection: "Identify memory usage spikes and correlate with operations"
+        leak_indicators: "Detect potential memory leaks through pattern analysis"
+        
+        ai_analysis_patterns:
+          trend_analysis: "Identify memory usage trends and predict future consumption"
+          anomaly_detection: "Flag unusual memory patterns that indicate issues"
+          correlation_mapping: "Connect memory spikes to specific system operations"
+          optimization_opportunities: "Suggest memory optimization based on usage patterns"
+      
+      api_call_efficiency:
+        frequency_tracking: "Monitor RazorEnhanced API call frequency per system"
+        response_times: "Track API response time patterns and degradation"
+        error_rates: "Monitor API failure rates and error patterns"
+        cache_effectiveness: "Measure cache hit rates and optimization opportunities"
+        
+        ai_analysis_patterns:
+          call_optimization: "Identify redundant or unnecessary API calls"
+          batching_opportunities: "Suggest API call batching for efficiency"
+          caching_strategies: "Recommend intelligent caching based on usage patterns"
+          error_correlation: "Analyze error patterns to predict and prevent failures"
+      
+      update_cycle_performance:
+        timing_analysis: "Monitor main loop execution times and variations"
+        bottleneck_identification: "Identify performance bottlenecks in update cycles"
+        system_balance: "Track relative performance across auto-heal, combat, looting"
+        efficiency_trends: "Monitor performance efficiency changes over time"
+        
+        ai_analysis_patterns:
+          optimization_priorities: "Rank systems by optimization impact potential"
+          timing_optimization: "Suggest update cycle timing improvements"
+          load_balancing: "Recommend system load balancing strategies"
+          performance_regression: "Detect and alert on performance degradation"
+  
+  system_specific_monitoring:
+    auto_heal_performance:
+      critical_paths:
+        - "heal_player() execution time (target: <5ms)"
+        - "check_bandage_healing() efficiency"
+        - "potion_cooldown_management() overhead"
+        - "player_status_detection() frequency"
+      
+      performance_indicators:
+        - "Healing response time under various conditions"
+        - "API call frequency per healing cycle"
+        - "Memory usage during extended healing sessions"
+        - "Error recovery efficiency and timing"
+      
+      ai_optimization_patterns:
+        predictive_healing: "Predict healing needs based on combat patterns"
+        resource_optimization: "Optimize potion and bandage usage efficiency"
+        timing_intelligence: "Intelligent timing for healing actions"
+        error_prevention: "Prevent common healing system errors"
+    
+    combat_performance:
+      critical_paths:
+        - "find_targets() execution time and efficiency"
+        - "engage_target() responsiveness"
+        - "update_combat_state() overhead"
+        - "distance_calculation() optimization"
+      
+      performance_indicators:
+        - "Target acquisition speed and accuracy"
+        - "Combat response time and effectiveness"
+        - "Memory usage during extended combat"
+        - "Line of sight calculation efficiency"
+      
+      ai_optimization_patterns:
+        target_prediction: "Predict optimal targets based on combat patterns"
+        engagement_optimization: "Optimize combat engagement strategies"
+        resource_efficiency: "Minimize computational overhead in combat"
+        tactical_intelligence: "AI-enhanced combat decision making"
+    
+    looting_performance:
+      critical_paths:
+        - "find_corpses() scanning efficiency"
+        - "evaluate_item() processing speed"
+        - "loot_corpse() execution time"
+        - "ignore_list_optimization() effectiveness"
+      
+      performance_indicators:
+        - "Corpse processing speed and thoroughness"
+        - "Item evaluation accuracy and speed"
+        - "Ignore list effectiveness (90%+ optimization target)"
+        - "Memory usage during mass looting scenarios"
+      
+      ai_optimization_patterns:
+        intelligent_scanning: "Smart corpse scanning based on area patterns"
+        value_prediction: "Predict item values for faster evaluation"
+        ignore_optimization: "Optimize ignore lists for maximum efficiency"
+        resource_management: "Intelligent inventory and weight management"
+
+# Performance optimization engine
+optimization_engine:
+  
+  intelligent_recommendations:
+    code_optimization:
+      algorithm_improvements:
+        - "Identify O(n²) operations that can be optimized to O(n log n) or O(n)"
+        - "Suggest data structure improvements for better performance"
+        - "Recommend caching strategies for expensive operations"
+        - "Identify opportunities for lazy evaluation and computation deferral"
+      
+      memory_optimization:
+        - "Detect and suggest fixes for memory leaks"
+        - "Recommend object pooling for frequently created/destroyed objects"
+        - "Suggest memory-efficient data structures"
+        - "Identify opportunities for garbage collection optimization"
+      
+      api_optimization:
+        - "Reduce unnecessary RazorEnhanced API calls through intelligent caching"
+        - "Batch related API calls for improved efficiency"
+        - "Implement smart retry logic for failed API calls"
+        - "Optimize API call timing to avoid rate limiting"
+    
+    system_integration_optimization:
+      cross_system_efficiency:
+        - "Optimize communication between auto-heal, combat, and looting systems"
+        - "Reduce duplicate operations across systems"
+        - "Implement shared caching for cross-system data"
+        - "Optimize system prioritization during high-load scenarios"
+      
+      resource_sharing:
+        - "Share expensive computations between systems"
+        - "Implement intelligent resource allocation"
+        - "Optimize memory usage across multiple systems"
+        - "Coordinate system activities to minimize conflicts"
+  
+  automatic_optimization:
+    adaptive_caching:
+      cache_intelligence:
+        - "Automatically adjust cache sizes based on memory availability"
+        - "Implement predictive cache pre-loading based on usage patterns"
+        - "Optimize cache eviction policies for maximum hit rates"
+        - "Dynamically adjust cache strategies based on system performance"
+      
+      smart_invalidation:
+        - "Intelligent cache invalidation based on data staleness"
+        - "Coordinate cache updates across multiple systems"
+        - "Implement cascading cache updates for related data"
+        - "Optimize cache coherency with minimal performance impact"
+    
+    dynamic_optimization:
+      runtime_adaptation:
+        - "Automatically adjust update frequencies based on system load"
+        - "Dynamically optimize algorithm choices based on current conditions"
+        - "Implement adaptive resource allocation during performance stress"
+        - "Automatically enable/disable features based on performance impact"
+      
+      load_balancing:
+        - "Distribute computational load across update cycles"
+        - "Prioritize critical operations during high-load scenarios"
+        - "Implement intelligent task scheduling for optimal performance"
+        - "Automatically adjust system priorities based on current needs"
+
+# Predictive performance analytics
+predictive_analytics:
+  
+  performance_forecasting:
+    session_duration_prediction:
+      - "Predict potential performance degradation based on current trends"
+      - "Forecast memory usage for extended sessions (12+ hours)"
+      - "Anticipate API rate limiting and suggest mitigation strategies"
+      - "Predict system stability based on historical performance patterns"
+    
+    bottleneck_prediction:
+      - "Identify systems likely to become performance bottlenecks"
+      - "Predict when cache optimizations will become insufficient"
+      - "Forecast when memory cleanup will be needed"
+      - "Anticipate when system rebalancing will be required"
+    
+    optimization_opportunity_detection:
+      - "Predict when new optimization opportunities will emerge"
+      - "Identify systems that will benefit most from optimization work"
+      - "Forecast ROI of potential performance improvements"
+      - "Predict optimal timing for performance optimization implementation"
+  
+  failure_prediction:
+    memory_exhaustion_prediction:
+      - "Predict when memory usage will exceed safe thresholds"
+      - "Forecast memory leak progression and impact"
+      - "Anticipate when garbage collection optimization will be needed"
+      - "Predict memory-related crash scenarios"
+    
+    api_failure_prediction:
+      - "Predict when API rate limiting will occur"
+      - "Forecast API failure cascades based on current patterns"
+      - "Anticipate when API retry logic will be insufficient"
+      - "Predict optimal API call timing to avoid failures"
+    
+    system_stability_prediction:
+      - "Predict when system performance will degrade below acceptable levels"
+      - "Forecast when manual intervention will be required"
+      - "Anticipate when automatic recovery mechanisms will be triggered"
+      - "Predict optimal maintenance timing for maximum uptime"
+
+# Performance measurement and benchmarking
+performance_measurement:
+  
+  benchmarking_framework:
+    baseline_establishment:
+      performance_baselines:
+        - "Auto-heal system: <100ms average response time"
+        - "Combat system: <200ms target acquisition time"
+        - "Looting system: <500ms per corpse processing time"
+        - "Memory usage: <500MB growth per hour in steady state"
+      
+      benchmark_scenarios:
+        - "High-intensity combat with continuous healing"
+        - "Mass looting scenarios with hundreds of corpses"
+        - "Extended AFK scenarios with minimal activity"
+        - "Mixed-activity scenarios representing typical usage"
+    
+    continuous_measurement:
+      real_time_metrics:
+        - "Update cycle timing with millisecond precision"
+        - "Memory usage tracking with 1-minute granularity"
+        - "API call frequency and response time monitoring"
+        - "Error rate tracking and pattern analysis"
+      
+      performance_reporting:
+        - "Hourly performance summary reports"
+        - "Daily optimization opportunity identification"
+        - "Weekly performance trend analysis"
+        - "Monthly performance improvement tracking"
+  
+  optimization_validation:
+    before_after_analysis:
+      improvement_measurement:
+        - "Quantify performance improvements from optimizations"
+        - "Validate optimization effectiveness over time"
+        - "Measure performance regression after changes"
+        - "Track cumulative performance improvement"
+      
+      roi_calculation:
+        - "Calculate return on investment for optimization work"
+        - "Measure development time vs. performance gain ratio"
+        - "Quantify stability improvements from optimizations"
+        - "Track user experience improvements"
+
+# AI-driven performance insights
+ai_performance_insights:
+  
+  pattern_recognition:
+    performance_patterns:
+      - "Identify recurring performance issues and their triggers"
+      - "Recognize optimization opportunities through usage pattern analysis"
+      - "Detect correlations between different performance metrics"
+      - "Identify optimal configurations for different usage scenarios"
+    
+    optimization_patterns:
+      - "Learn from successful optimization implementations"
+      - "Recognize when specific optimization strategies are most effective"
+      - "Identify patterns in performance improvement sustainability"
+      - "Detect when optimizations have reached diminishing returns"
+  
+  intelligent_recommendations:
+    context_aware_suggestions:
+      - "Recommend optimizations based on current system state"
+      - "Suggest configuration changes for optimal performance"
+      - "Recommend development priorities based on performance impact"
+      - "Suggest testing strategies for performance validation"
+    
+    proactive_optimization:
+      - "Suggest optimizations before performance issues become critical"
+      - "Recommend preventive measures based on predictive analysis"
+      - "Suggest architecture changes for long-term performance sustainability"
+      - "Recommend resource allocation strategies for optimal performance"
+
+# Performance optimization workflows
+performance_workflows:
+  
+  optimization_development:
+    planning_phase:
+      - "Identify performance optimization opportunities through AI analysis"
+      - "Prioritize optimizations based on impact and effort estimation"
+      - "Plan optimization implementation with minimal risk"
+      - "Design performance validation strategies"
+    
+    implementation_phase:
+      - "Implement optimizations with comprehensive before/after measurement"
+      - "Validate optimization effectiveness through systematic testing"
+      - "Monitor optimization impact on system stability"
+      - "Document optimization patterns for future reference"
+    
+    validation_phase:
+      - "Measure optimization effectiveness against established baselines"
+      - "Validate optimization sustainability over extended periods"
+      - "Confirm optimization compatibility with other systems"
+      - "Document optimization success and lessons learned"
+  
+  continuous_improvement:
+    monitoring_cycle:
+      - "Continuous monitoring of performance metrics and trends"
+      - "Regular analysis of optimization opportunities"
+      - "Periodic validation of existing optimization effectiveness"
+      - "Ongoing refinement of optimization strategies"
+    
+    evolution_cycle:
+      - "Evolution of optimization strategies based on learned patterns"
+      - "Adaptation of performance targets based on system growth"
+      - "Refinement of AI models based on optimization outcomes"
+      - "Integration of new optimization techniques and technologies"
+
+# Integration with existing AI configuration
+ai_integration:
+  
+  cross_system_coordination:
+    development_tasks_integration:
+      - "Integrate performance optimization into development task templates"
+      - "Add performance validation to code review checklists"
+      - "Include performance testing in 3-case testing patterns"
+      - "Coordinate performance optimization with GitHub Issues workflow"
+    
+    session_management_integration:
+      - "Include performance context in session startup procedures"
+      - "Maintain performance optimization momentum across sessions"
+      - "Track performance improvement progress across development sessions"
+      - "Preserve performance insights and recommendations between sessions"
+  
+  enhancement_synergy:
+    adaptive_learning_preparation:
+      - "Collect performance data for adaptive learning system"
+      - "Create performance pattern databases for AI learning"
+      - "Establish performance optimization success metrics"
+      - "Build foundation for self-improving performance optimization"
+    
+    decision_engine_preparation:
+      - "Provide performance data for intelligent decision making"
+      - "Create performance-based decision criteria and frameworks"
+      - "Establish performance risk assessment protocols"
+      - "Build performance consideration templates for decision analysis"
+
+# Performance intelligence commands and tools
+performance_tools:
+  
+  monitoring_commands:
+    real_time_monitoring:
+      start_monitoring: "python -m invoke performance-monitor --real-time"
+      system_metrics: "python -m invoke performance-metrics --system=all"
+      memory_analysis: "python -m invoke memory-analysis --detailed"
+      api_efficiency: "python -m invoke api-efficiency --system=auto-heal,combat,looting"
+    
+    reporting_commands:
+      performance_report: "python -m invoke performance-report --period=24h"
+      optimization_analysis: "python -m invoke optimization-analysis --recommendations"
+      benchmark_comparison: "python -m invoke benchmark-compare --baseline=last-week"
+      trend_analysis: "python -m invoke trend-analysis --metrics=memory,api,timing"
+  
+  optimization_commands:
+    optimization_analysis:
+      find_opportunities: "python -m invoke find-optimizations --system=all"
+      validate_optimization: "python -m invoke validate-optimization --before-after"
+      measure_impact: "python -m invoke measure-impact --optimization-id={id}"
+      optimization_report: "python -m invoke optimization-report --detailed"
+    
+    automated_optimization:
+      auto_optimize: "python -m invoke auto-optimize --safe-mode"
+      cache_optimization: "python -m invoke optimize-cache --adaptive"
+      memory_cleanup: "python -m invoke memory-cleanup --intelligent"
+      api_optimization: "python -m invoke optimize-api --batch-calls"
+
+# Performance intelligence best practices
+performance_best_practices:
+  
+  optimization_principles:
+    measurement_first: "Always measure before optimizing to establish baselines"
+    targeted_optimization: "Focus on high-impact optimizations with measurable benefits"
+    sustainable_improvements: "Implement optimizations that remain effective over time"
+    system_compatibility: "Ensure optimizations don't negatively impact other systems"
+  
+  ai_collaboration_patterns:
+    data_driven_decisions: "Use AI analysis to guide optimization priorities"
+    predictive_maintenance: "Leverage AI predictions for proactive optimization"
+    pattern_learning: "Learn from AI-identified patterns for better optimization strategies"
+    continuous_feedback: "Provide feedback to AI system for improved recommendations"
+  
+  development_integration:
+    performance_by_design: "Consider performance implications in all development decisions"
+    optimization_culture: "Embed performance optimization into development workflows"
+    knowledge_sharing: "Document and share performance insights across the team"
+    continuous_evolution: "Continuously evolve performance optimization strategies"
