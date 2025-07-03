@@ -15,6 +15,7 @@ config_files:
   api_reference: ".copilot/razorenhanced-api.yaml"
   coordination_enhancement: ".copilot/coordination-enhancement.yaml"
   session_management: ".copilot/session-management.yaml"
+  dev_tools_workflow: ".copilot/dev-tools-workflow.yaml"
 
 # Quick context summary for AI assistants
 project_summary:

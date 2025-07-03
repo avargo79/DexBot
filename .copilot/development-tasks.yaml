@@ -17,6 +17,20 @@ task_templates:
       tests: "3-case test suite in tests/"
       ui: "GUMP interface if user-facing"
       docs: "Update relevant documentation"
+      github_issue: "Create or link to GitHub Issue for tracking"
+    
+    github_integration:
+      issue_creation:
+        - "Create GitHub Issue with FR- prefix for new system"
+        - "Include detailed requirements and acceptance criteria"
+        - "Add appropriate labels (enhancement, system-specific)"
+        - "Link to PRD document if available"
+      
+      development_tracking:
+        - "Link commits to GitHub Issue number"
+        - "Update issue with progress comments during development"
+        - "Reference issue in pull request descriptions"
+        - "Close issue when system is complete and merged"
     
     code_patterns:
       system_class_template: |
@@ -90,16 +104,18 @@ task_templates:
       5. "Implement fix with proper error handling"
       6. "Add test to prevent regression"
     
-    common_bug_patterns:
-      api_failures: "RazorEnhanced API returns None or throws exception"
-      timing_issues: "Race conditions in update cycles"
-      memory_leaks: "Objects not properly cleaned up"
-      config_errors: "Invalid configuration values"
-    
-    debugging_tools:
-      logging: "Use Logger.debug() for detailed tracing"
-      validation: "Run invoke validate after changes"
-      testing: "Use invoke test to verify fix"
+    github_integration:
+      issue_creation:
+        - "Create GitHub Issue with BUG- prefix"
+        - "Include reproduction steps and expected vs actual behavior"
+        - "Add system-specific labels and priority level"
+        - "Reference related code files and error logs"
+      
+      resolution_tracking:
+        - "Update issue with investigation findings"
+        - "Link commits that implement the fix"
+        - "Document root cause and solution approach"
+        - "Close issue when fix is validated and merged"
   
   testing_implementation:
     description: "Creating comprehensive tests for DexBot systems"
