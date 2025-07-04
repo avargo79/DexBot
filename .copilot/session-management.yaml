@@ -82,6 +82,8 @@ session_management:
         - "Adapt to demonstrated expertise level and domain knowledge"
         - "Maintain consistency in explanation depth and technical focus"
         - "Preserve established collaboration patterns and workflows"
+        - "CRITICAL: Always enforce branch protection - never work directly on main"
+        - "Always start sessions with git fetch/pull main before creating branches"
       
       context_sharing:
         - "Provide relevant background when resuming interrupted work"

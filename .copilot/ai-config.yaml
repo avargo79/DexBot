@@ -117,17 +117,19 @@ workflows:
   
   bug_fixing:
     0. "CRITICAL: git fetch && git checkout main && git pull origin main BEFORE starting any new work"
-    1. "Identify the affected system (auto_heal, combat, looting, etc.)"
-    2. "Check existing error patterns in logs"
-    3. "Create minimal reproduction case"
-    4. "Implement fix with proper error handling"
-    5. "Add test case to prevent regression"
-    6. "Validate with invoke commands"
+    1. "CRITICAL: Create hotfix branch - NEVER work directly on main"
+    2. "Identify the affected system (auto_heal, combat, looting, etc.)"
+    3. "Check existing error patterns in logs"
+    4. "Create minimal reproduction case"
+    5. "Implement fix with proper error handling"
+    6. "Add test case to prevent regression"
+    7. "Validate with invoke commands"
   
   feature_implementation:
     0. "CRITICAL: git fetch && git checkout main && git pull origin main BEFORE starting any new work"
-    1. "Review PRD document in docs/prds/"
-    2. "Plan system integration points"
+    1. "CRITICAL: Create feature/hotfix branch - NEVER work directly on main"
+    2. "Review PRD document in docs/prds/"
+    3. "Plan system integration points"
     3. "Create configuration schema"
     4. "Implement core functionality"
     5. "Add comprehensive tests (3-case pattern)"

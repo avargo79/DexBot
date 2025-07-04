@@ -163,24 +163,27 @@ dev_tools_integration:
     common_workflows:
       feature_development:
         1. "PREREQUISITE: git fetch && git checkout main && git pull origin main"
-        2. "Create GitHub Issue for feature with FR- prefix"
-        3. "Use scripts/prepare_feature.ps1 to set up development branch"
-        4. "Implement feature following progressive development phases"
-        5. "Update issue with progress and link commits"
-        6. "Close issue when feature is complete and merged"
+        2. "CRITICAL: Create feature branch - NEVER work directly on main"
+        3. "Create GitHub Issue for feature with FR- prefix"
+        4. "Use scripts/prepare_feature.ps1 to set up development branch"
+        5. "Implement feature following progressive development phases"
+        6. "Update issue with progress and link commits"
+        7. "Create PR and merge to main - NEVER push directly to main"
       
       bug_fixing:
         1. "PREREQUISITE: git fetch && git checkout main && git pull origin main"
-        2. "Create GitHub Issue for bug with BUG- prefix and reproduction steps"
-        3. "Use systematic debugging approach from development-tasks.yaml"
-        4. "Link bug fix commits to the GitHub Issue"
-        5. "Add regression tests to prevent similar issues"
-        6. "Close issue when fix is validated and merged"
+        2. "CRITICAL: Create hotfix branch - NEVER work directly on main"
+        3. "Create GitHub Issue for bug with BUG- prefix and reproduction steps"
+        4. "Use systematic debugging approach from development-tasks.yaml"
+        5. "Link bug fix commits to the GitHub Issue"
+        6. "Add regression tests to prevent similar issues"
+        7. "Create PR and merge to main - NEVER push directly to main"
       
       optimization_work:
         1. "PREREQUISITE: git fetch && git checkout main && git pull origin main"
-        2. "Create GitHub Issue for optimization with ENH- or TECH- prefix"
-        3. "Use performance analysis tools to establish baseline"
+        2. "CRITICAL: Create feature/hotfix branch - NEVER work directly on main"
+        3. "Create GitHub Issue for optimization with ENH- or TECH- prefix"
+        4. "Use performance analysis tools to establish baseline"
         3. "Implement optimizations with before/after measurements"
         4. "Document performance improvements in issue comments"
         5. "Close issue when optimization goals are achieved"
@@ -306,6 +309,8 @@ dev_tools_scenarios:
         - "Require pull request reviews and status checks"
         - "Set up continuous integration workflow requirements"
         - "Configure merge restrictions and automation"
+        - "CRITICAL: Enforce 'no direct pushes to main' rule"
+        - "All changes must go through branch -> PR -> merge workflow"
       
       automation_setup:
         - "Configure GitHub Actions for CI/CD workflows"

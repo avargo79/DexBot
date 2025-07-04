@@ -515,6 +515,7 @@ Clean up the tmp/ directory when wrapping up work sessions to maintain a tidy wo
 
 **CRITICAL WORKFLOW PRACTICES:**
 - **ALWAYS fetch/pull main first** - Run `git fetch && git checkout main && git pull origin main` BEFORE starting any new work
+- **NEVER push directly to main** - ALWAYS create feature/hotfix branch and PR into main
 - **Never commit broken builds** - Always run `python -m invoke validate` and `python -m invoke test` before committing
 - **Use invoke tasks** - Prefer `python -m invoke <task>` over direct commands for consistency and validation
 - **Commit frequently** - Make small, atomic commits with descriptive messages using conventional commit format
