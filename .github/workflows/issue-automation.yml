@@ -32,7 +32,8 @@ jobs:
         if: github.event_name == 'issues' || github.event_name == 'issue_comment'
         shell: pwsh
         run: |
-          ./scripts/full_automation_suite.ps1 -Action orchestrate -TriggerEvent ${{ github.event_name }} -EventType ${{ github.event.action }} -IssueNumber ${{ github.event.issue.number }}
+          Write-Host "Issue automation triggered for event: ${{ github.event_name }} action: ${{ github.event.action }} issue: ${{ github.event.issue.number }}"
+          Write-Host "Basic issue automation logging - orchestration suite not yet implemented"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -40,14 +41,19 @@ jobs:
         if: github.event_name == 'workflow_dispatch'
         shell: pwsh
         run: |
-          ./scripts/full_automation_suite.ps1 -Action ${{ github.event.inputs.action }} -DryRun ${{ github.event.inputs.dry_run }}
+          Write-Host "Manual workflow triggered with action: ${{ github.event.inputs.action }} dry_run: ${{ github.event.inputs.dry_run }}"
+          Write-Host "Manual workflow automation - orchestration suite not yet implemented"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Generate Automation Report
         shell: pwsh
         run: |
-          ./scripts/full_automation_suite.ps1 -Action report -OutputPath 'automation-report.md'
+          Write-Host "Generating automation report placeholder"
+          echo "# GitHub Issues Automation Report" > automation-report.md
+          echo "- Event: ${{ github.event_name }}" >> automation-report.md
+          echo "- Action: ${{ github.event.action }}" >> automation-report.md
+          echo "- Timestamp: $(Get-Date)" >> automation-report.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
