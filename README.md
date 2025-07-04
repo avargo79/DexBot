@@ -4,6 +4,11 @@
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Python](https://img.shields.io/badge/python-3.7+-green.svg)
 
+> **🤖 AI Assistant Notice**: This project includes an AI Validation System (FR-129) that enforces workflow compliance.  
+> **Required**: Use `python -m invoke ai-check-command "git command"` for all git operations.  
+> **Available**: Tasks `ai-validate` and `ai-check-command` for workflow validation.  
+> **Location**: `src/utils/ai_validation.py` - See `.copilot/` directory for full AI configuration.
+
 ## 🚀 Quick Navigation
 
 **New Users**: [Quick Start](#quick-start) • [Installation](#1-installation) • [Usage](#2-usage)  

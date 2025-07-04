@@ -7,6 +7,25 @@ metadata:
   purpose: "Master configuration for AI assistants working on DexBot"
   last_updated: "2025-07-03"
 
+# 🚨 CRITICAL AI ASSISTANT REQUIREMENTS
+mandatory_system_usage:
+  ai_validation_system: "FR-129 AI Adaptive Learning Real-Time Validation System"
+  enforcement_level: "CRITICAL - Non-negotiable for all AI assistants"
+  
+  required_commands:
+    git_validation: "python -m invoke ai-check-command 'git command'"
+    workflow_check: "python -m invoke ai-validate"
+    command_wrapper: "Use ValidationIntegration.safe_execute_command()"
+  
+  prohibited_actions:
+    - "Direct git command execution without validation"
+    - "Bypassing ai-check-command for git operations"
+    - "Ignoring workflow compliance warnings"
+  
+  system_location: "src/utils/ai_validation.py"
+  configuration: "config/ai_validation_config.json"
+  quick_reference: "AI_VALIDATION_REFERENCE.md"
+
 # Configuration file hierarchy
 config_files:
   master: ".copilot/ai-config.yaml"

@@ -131,6 +131,17 @@ workflow:
     protection_rule: "NEVER push directly to main - ALWAYS create feature/hotfix branch and PR"
     workflow: "All changes must go through: branch -> commits -> PR -> merge"
     
+  # MANDATORY AI VALIDATION ENFORCEMENT
+  ai_validation_enforcement:
+    mandatory_validation: "ALL git commands MUST be validated through python -m invoke ai-check-command"
+    required_pattern: "NEVER execute git commands directly - ALWAYS use: python -m invoke ai-check-command 'git command'"
+    validation_commands:
+      git_check: "python -m invoke ai-check-command"
+      workflow_validate: "python -m invoke ai-validate"
+      command_safe_execute: "Use ValidationIntegration.safe_execute_command() wrapper"
+    enforcement_level: "CRITICAL - System will reject non-validated commands"
+    bypass_forbidden: "Direct git command execution without validation is prohibited"
+    
 # Common development scenarios and solutions
 scenarios:
   new_system_development:

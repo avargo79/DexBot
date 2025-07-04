@@ -1,6 +1,13 @@
 """
 Development tasks for DexBot - Python equivalent of npm scripts
 Run with: python -m invoke <task_name>
+
+🤖 AI ASSISTANT CONTEXT:
+- CRITICAL: Use AI validation system for all git commands
+- Required pattern: python -m invoke ai-check-command "git command"
+- Validation tasks: ai-validate, ai-check-command available
+- System enforces workflow compliance and learning
+- See: src/utils/ai_validation.py for implementation details
 """
 
 from invoke import task
