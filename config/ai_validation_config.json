@@ -1,0 +1,63 @@
+{
+    "enabled": true,
+    "validation_rules": {
+        "git_protection": {
+            "blocked_commands": [
+                "git push.*origin main",
+                "git push.*main",
+                "git commit.*--amend.*main"
+            ],
+            "required_workflow": [
+                "git fetch",
+                "git checkout main",
+                "git pull origin main"
+            ],
+            "branch_protection": true
+        },
+        "invoke_validation": {
+            "preferred_commands": [
+                "python -m invoke validate",
+                "python -m invoke test",
+                "python -m invoke build",
+                "python -m invoke status"
+            ],
+            "discouraged_patterns": [
+                "python -c.*import tasks",
+                "python tasks\\.py"
+            ],
+            "auto_correction": true
+        },
+        "workflow_enforcement": {
+            "branch_requirements": {
+                "feature_prefix": [
+                    "feature/",
+                    "hotfix/",
+                    "bugfix/"
+                ],
+                "main_protection": true,
+                "pr_required": true
+            },
+            "commit_validation": true,
+            "pre_command_checks": true
+        }
+    },
+    "learning_engine": {
+        "enabled": true,
+        "pattern_confidence_threshold": 0.7,
+        "learning_rate": 0.1,
+        "max_pattern_history": 100,
+        "confidence_decay_rate": 0.05
+    },
+    "integration": {
+        "invoke_tasks": true,
+        "command_line": true,
+        "decorator_validation": true,
+        "fail_open": true
+    },
+    "logging": {
+        "level": "INFO",
+        "log_validations": true,
+        "log_learning": true,
+        "log_corrections": true
+    }
+}

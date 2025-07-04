@@ -7,6 +7,25 @@ metadata:
   purpose: "Master configuration for AI assistants working on DexBot"
   last_updated: "2025-07-03"
 
+# 🚨 CRITICAL AI ASSISTANT REQUIREMENTS
+mandatory_system_usage:
+  ai_validation_system: "FR-129 AI Adaptive Learning Real-Time Validation System"
+  enforcement_level: "CRITICAL - Non-negotiable for all AI assistants"
+  
+  required_commands:
+    git_validation: "python -m invoke ai-check-command 'git command'"
+    workflow_check: "python -m invoke ai-validate"
+    command_wrapper: "Use ValidationIntegration.safe_execute_command()"
+  
+  prohibited_actions:
+    - "Direct git command execution without validation"
+    - "Bypassing ai-check-command for git operations"
+    - "Ignoring workflow compliance warnings"
+  
+  system_location: "src/utils/ai_validation.py"
+  configuration: "config/ai_validation_config.json"
+  quick_reference: "AI_VALIDATION_REFERENCE.md"
+
 # Configuration file hierarchy
 config_files:
   master: ".copilot/ai-config.yaml"
@@ -116,16 +135,20 @@ workflows:
     6. "Consider performance implications for long sessions"
   
   bug_fixing:
-    1. "Identify the affected system (auto_heal, combat, looting, etc.)"
-    2. "Check existing error patterns in logs"
-    3. "Create minimal reproduction case"
-    4. "Implement fix with proper error handling"
-    5. "Add test case to prevent regression"
-    6. "Validate with invoke commands"
+    0. "CRITICAL: git fetch && git checkout main && git pull origin main BEFORE starting any new work"
+    1. "CRITICAL: Create hotfix branch - NEVER work directly on main"
+    2. "Identify the affected system (auto_heal, combat, looting, etc.)"
+    3. "Check existing error patterns in logs"
+    4. "Create minimal reproduction case"
+    5. "Implement fix with proper error handling"
+    6. "Add test case to prevent regression"
+    7. "Validate with invoke commands"
   
   feature_implementation:
-    1. "Review PRD document in docs/prds/"
-    2. "Plan system integration points"
+    0. "CRITICAL: git fetch && git checkout main && git pull origin main BEFORE starting any new work"
+    1. "CRITICAL: Create feature/hotfix branch - NEVER work directly on main"
+    2. "Review PRD document in docs/prds/"
+    3. "Plan system integration points"
     3. "Create configuration schema"
     4. "Implement core functionality"
     5. "Add comprehensive tests (3-case pattern)"
