@@ -1,6 +1,13 @@
 """
 Development tasks for DexBot - Python equivalent of npm scripts
 Run with: python -m invoke <task_name>
+
+🤖 AI ASSISTANT CONTEXT:
+- CRITICAL: Use AI validation system for all git commands
+- Required pattern: python -m invoke ai-check-command "git command"
+- Validation tasks: ai-validate, ai-check-command available
+- System enforces workflow compliance and learning
+- See: src/utils/ai_validation.py for implementation details
 """
 
 from invoke import task
@@ -10,6 +17,7 @@ import json
 import subprocess
 import glob
 import time
+import sys
 from pprint import pformat
 from pathlib import Path
 from datetime import datetime
@@ -55,10 +63,38 @@ DEFAULT_MAIN_CONFIG_PATH = "src/config/default_main_config.json"
 DEFAULT_AUTO_HEAL_CONFIG_PATH = "src/config/default_auto_heal_config.json"
 DEFAULT_LOOTING_CONFIG_PATH = "src/config/default_looting_config.json"
 
+# AI Validation Integration
+def get_validation_integration():
+    """Get AI validation integration if available."""
+    try:
+        # Import dynamically to avoid issues if validation not available
+        sys.path.insert(0, os.path.abspath('.'))
+        from src.utils.ai_integration import ValidationIntegration
+        return ValidationIntegration()
+    except ImportError:
+        return None
+    except Exception as e:
+        print(f"Warning: AI validation not available: {e}")
+        return None
+
+def validate_task_context(task_name: str) -> bool:
+    """Validate task execution context using AI validation system."""
+    validation = get_validation_integration()
+    if not validation:
+        return True  # Proceed if validation not available
+    
+    print(f"[VALIDATION] Checking context for task '{task_name}'...")
+    try:
+        from src.utils.ai_integration import validate_invoke_context
+        return validate_invoke_context()
+    except Exception as e:
+        print(f"[VALIDATION] Warning: {e}")
+        return True  # Proceed on validation errors
+
 @task
 def clean(c):
     """Clean build artifacts and temporary files"""
-    print("🧹 Cleaning build artifacts...")
+    print("[CLEAN] Cleaning build artifacts...")
     
     # Remove dist directory
     if os.path.exists(DIST_DIR):
@@ -74,106 +110,103 @@ def clean(c):
                 print(f"   Removed {cache_path}")
                 dirs.remove(dir_name)
     
-    # Selectively clean tmp/ directory
-    tmp_dir = "tmp"
-    if os.path.exists(tmp_dir):
-        print(f"🧹 Selectively cleaning {tmp_dir}/ directory...")
-        cleaned_count = 0
-        
-        for filename in os.listdir(tmp_dir):
-            file_path = os.path.join(tmp_dir, filename)
-            
-            # Skip directories and essential files
-            if os.path.isdir(file_path) or filename == ".gitkeep":
-                continue
-            
-            # Clean test result files and temporary scripts
-            should_clean = (
-                filename.startswith("test_results_") or
-                filename.endswith("_temp.py") or
-                filename.startswith("fix_unicode") or
-                filename.startswith("analyze_") or
-                filename.startswith("test_") and filename.endswith(".py")
-            )
-            
-            if should_clean:
-                try:
-                    os.remove(file_path)
-                    print(f"   Removed {file_path}")
-                    cleaned_count += 1
-                except OSError as e:
-                    print(f"   Warning: Could not remove {file_path}: {e}")
-        
-        if cleaned_count > 0:
-            print(f"   Cleaned {cleaned_count} temporary files from {tmp_dir}/")
-        else:
-            print(f"   No temporary files found to clean in {tmp_dir}/")
+    # Clean runtime generated files in logs/ and reports/
+    cleaned_count = 0
+    for directory in ["logs", "reports"]:
+        if os.path.exists(directory):
+            print(f"[CLEAN] Cleaning {directory}/ directory...")
+            for filename in os.listdir(directory):
+                file_path = os.path.join(directory, filename)
+                
+                # Skip README.md files
+                if filename == "README.md":
+                    continue
+                
+                # Clean runtime generated files
+                if filename.endswith(('.log', '.json', '.md', '.txt')):
+                    try:
+                        os.remove(file_path)
+                        print(f"   Removed {file_path}")
+                        cleaned_count += 1
+                    except OSError as e:
+                        print(f"   Warning: Could not remove {file_path}: {e}")
     
-    print("✅ Clean completed")
+    if cleaned_count > 0:
+        print(f"   Cleaned {cleaned_count} runtime files from logs/ and reports/")
+    
+    print("[SUCCESS] Clean completed")
 
 
 @task
 def deep_clean(c):
-    """Deep clean including all tmp/ directory contents (except .gitkeep)"""
-    print("🧹 Deep cleaning build artifacts and ALL temporary files...")
+    """Deep clean including all runtime files and workspace organization"""
+    print("[DEEP-CLEAN] Deep cleaning build artifacts, ALL runtime files, and organizing workspace...")
     
-    # First run regular clean
+    # First run workspace organization
+    organize(c)
+    
+    # Then run regular clean
     clean(c)
     
-    # Deep clean tmp/ directory (preserve only .gitkeep)
-    tmp_dir = "tmp"
-    if os.path.exists(tmp_dir):
-        print(f"🧹 Deep cleaning ALL files in {tmp_dir}/ directory...")
-        cleaned_count = 0
-        
-        for filename in os.listdir(tmp_dir):
-            file_path = os.path.join(tmp_dir, filename)
+    # Deep clean logs/ and reports/ directories entirely
+    cleaned_count = 0
+    for directory in ["logs", "reports"]:
+        if os.path.exists(directory):
+            print(f"[CLEAN] Deep cleaning ALL files in {directory}/ directory...")
             
-            # Skip directories and .gitkeep
-            if os.path.isdir(file_path) or filename == ".gitkeep":
-                continue
+            for filename in os.listdir(directory):
+                file_path = os.path.join(directory, filename)
+                
+                # Skip README.md files
+                if filename == "README.md":
+                    continue
+                
+                try:
+                    if os.path.isfile(file_path):
+                        os.remove(file_path)
+                        print(f"   Removed {file_path}")
+                        cleaned_count += 1
+                    elif os.path.isdir(file_path):
+                        shutil.rmtree(file_path)
+                        print(f"   Removed {file_path}/")
+                        cleaned_count += 1
+                except OSError as e:
+                    print(f"   Warning: Could not remove {file_path}: {e}")
             
-            try:
-                os.remove(file_path)
-                print(f"   Removed {file_path}")
-                cleaned_count += 1
-            except OSError as e:
-                print(f"   Warning: Could not remove {file_path}: {e}")
-        
-        if cleaned_count > 0:
-            print(f"   Deep cleaned {cleaned_count} files from {tmp_dir}/")
-        else:
-            print(f"   No files found to clean in {tmp_dir}/")
+    if cleaned_count > 0:
+        print(f"   Deep cleaned {cleaned_count} files from runtime directories")
+    else:
+        print(f"   No files found to clean in runtime directories")
     
-    print("✅ Deep clean completed")
+    print("[SUCCESS] Deep clean completed")
 
 
 @task
 def lint(c):
     """Run basic syntax checks"""
-    print("🔍 Running syntax checks...")
+    print("[SEARCH] Running syntax checks...")
 
     # Basic syntax check for main file (try bundled version first, then original)
     main_file_checked = False
     if os.path.exists(BUNDLED_FILE):
         try:
             c.run(f"python -m py_compile {BUNDLED_FILE}", hide=True)
-            print(f"✅ {BUNDLED_FILE} syntax check passed")
+            print(f"[SUCCESS] {BUNDLED_FILE} syntax check passed")
             main_file_checked = True
         except Exception as e:
-            print(f"❌ {BUNDLED_FILE} syntax check failed: {e}")
+            print(f"[ERROR] {BUNDLED_FILE} syntax check failed: {e}")
             return False
     elif os.path.exists(MAIN_FILE):
         try:
             c.run(f"python -m py_compile {MAIN_FILE}", hide=True)
-            print(f"✅ {MAIN_FILE} syntax check passed")
+            print(f"[SUCCESS] {MAIN_FILE} syntax check passed")
             main_file_checked = True
         except Exception as e:
-            print(f"❌ {MAIN_FILE} syntax check failed: {e}")
+            print(f"[ERROR] {MAIN_FILE} syntax check failed: {e}")
             return False
     
     if not main_file_checked:
-        print(f"⚠️  Warning: Neither {BUNDLED_FILE} nor {MAIN_FILE} found for syntax check")
+        print(f"[WARNING]  Warning: Neither {BUNDLED_FILE} nor {MAIN_FILE} found for syntax check")
 
     # Check all Python files in src/
     if os.path.exists(SRC_DIR):
@@ -183,18 +216,18 @@ def lint(c):
                     file_path = os.path.join(root, file)
                     try:
                         c.run(f"python -m py_compile {file_path}", hide=True)
-                        print(f"✅ {file_path} syntax check passed")
+                        print(f"[SUCCESS] {file_path} syntax check passed")
                     except Exception as e:
-                        print(f"❌ {file_path} syntax check failed: {e}")
+                        print(f"[ERROR] {file_path} syntax check failed: {e}")
                         return False
 
-    print("✅ All syntax checks passed")
+    print("[SUCCESS] All syntax checks passed")
     return True
 
 @task
 def test(c):
     """Run core tests (unit tests with pytest)"""
-    print("🧪 Running core tests...")
+    print("[EXPERIMENT] Running core tests...")
     
     # Check if we have pytest and unit tests
     has_pytest = False
@@ -215,12 +248,12 @@ def test(c):
                 try:
                     result = c.run(f"python -m pytest {test_path} -v", warn=True)
                     if result.ok:
-                        print(f"✅ {test_file} passed")
+                        print(f"[SUCCESS] {test_file} passed")
                     else:
-                        print(f"❌ {test_file} failed")
+                        print(f"[ERROR] {test_file} failed")
                         test_passed = False
                 except Exception as e:
-                    print(f"❌ {test_file} execution failed: {e}")
+                    print(f"[ERROR] {test_file} execution failed: {e}")
                     test_passed = False
     else:
         print("ℹ️  pytest not available - running simple validation")
@@ -228,28 +261,28 @@ def test(c):
         for test_file in unit_tests:
             test_path = f"tests/{test_file}"
             if os.path.exists(test_path):
-                print(f"✅ {test_file} exists")
+                print(f"[SUCCESS] {test_file} exists")
             else:
-                print(f"❌ {test_file} missing")
+                print(f"[ERROR] {test_file} missing")
                 test_passed = False
     
     if test_passed:
-        print("✅ Core tests completed successfully")
+        print("[SUCCESS] Core tests completed successfully")
     else:
-        print("❌ Some core tests failed")
+        print("[ERROR] Some core tests failed")
     
     return test_passed
 
 @task
 def bundle(c):
     """Bundle all source files into a single distribution file"""
-    print("📦 Bundling source files...")
+    print("[PACKAGE] Bundling source files...")
     
     # Create dist directory
     os.makedirs(DIST_DIR, exist_ok=True)
     
     if os.path.exists(SRC_DIR):
-        print("🔧 Bundling modular source files...")
+        print("[TOOL] Bundling modular source files...")
         
         # Source files in dependency order
         source_files = [
@@ -325,9 +358,9 @@ def bundle(c):
                         looting_config_json = json.load(f)
                         looting_config_content = pformat(looting_config_json, indent=2)
                         out_f.write(f'DEFAULT_LOOTING_CONFIG = {looting_config_content}\n\n')
-                    print("  📦 Added default configurations (as Python dicts)")
+                    print("  [PACKAGE] Added default configurations (as Python dicts)")
                 except Exception as e:
-                    print(f"  ⚠️  Warning: Could not prepend default configs: {e}")
+                    print(f"  [WARNING]  Warning: Could not prepend default configs: {e}")
                 
                 # Process each source file
                 for src_file in source_files:
@@ -369,7 +402,7 @@ def bundle(c):
                             out_f.write('\n'.join(processed_lines))
                             out_f.write('\n\n')
                     else:
-                        print(f"  ⚠️  Warning: {src_file} not found")
+                        print(f"  [WARNING]  Warning: {src_file} not found")
                 
                 # Write entry point
                 out_f.write('# ===========================================\n')
@@ -378,51 +411,51 @@ def bundle(c):
                 out_f.write('if __name__ == "__main__":\n')
                 out_f.write('    run_dexbot()\n')
             
-            print(f"✅ Bundled to {BUNDLED_FILE}")
-            print(f"   📊 Size: {os.path.getsize(BUNDLED_FILE)} bytes")
+            print(f"[SUCCESS] Bundled to {BUNDLED_FILE}")
+            print(f"   [STATS] Size: {os.path.getsize(BUNDLED_FILE)} bytes")
             
         except Exception as e:
-            print(f"❌ Bundling failed: {e}")
+            print(f"[ERROR] Bundling failed: {e}")
             # Fall back to copying main file
             shutil.copy(MAIN_FILE, BUNDLED_FILE)
             print(f"   📄 Fell back to copying {MAIN_FILE}")
     else:
         print("📄 Copying monolithic file (src/ not yet created)...")
         shutil.copy(MAIN_FILE, BUNDLED_FILE)
-        print(f"✅ Copied {MAIN_FILE} to {BUNDLED_FILE}")
+        print(f"[SUCCESS] Copied {MAIN_FILE} to {BUNDLED_FILE}")
     
-    print("✅ Bundle completed")
+    print("[SUCCESS] Bundle completed")
 
 @task(pre=[clean, lint, test])
 def pipeline(c):
     """Full development pipeline: clean, lint, test, and build"""
-    print("🏗️  Running full development pipeline...")
+    print("[BUILD]  Running full development pipeline...")
     bundle(c)
     print("🎉 Pipeline completed successfully!")
-    print("📦 Bundled script: dist/DexBot.py")
+    print("[PACKAGE] Bundled script: dist/DexBot.py")
 
 @task
 def build(c):
     """Build the bundled DexBot.py file (without running tests)"""
     print("🔨 Building DexBot.py...")
     bundle(c)
-    print("✅ Build completed")
-    print("📦 Output: dist/DexBot.py")
+    print("[SUCCESS] Build completed")
+    print("[PACKAGE] Output: dist/DexBot.py")
 
 @task
 def dev(c):
     """Development mode - run tests and bundle for quick iteration"""
-    print("🚀 Development mode...")
+    print("[LAUNCH] Development mode...")
     if test(c) and lint(c):
         bundle(c)
-        print("✅ Development build ready")
+        print("[SUCCESS] Development build ready")
     else:
-        print("❌ Development build failed")
+        print("[ERROR] Development build failed")
 
 @task
 def info(c):
     """Show project information and structure"""
-    print("📊 DexBot Project Information")
+    print("[STATS] DexBot Project Information")
     print("=" * 50)
     
     # File sizes
@@ -457,8 +490,9 @@ def help(c):
     print("=" * 50)
     
     tasks = [
-        ("clean", "Clean build artifacts and temporary files (selective tmp/ cleanup)"),
-        ("deep_clean", "Deep clean including ALL tmp/ directory contents (except .gitkeep)"),
+        ("clean", "Clean build artifacts and runtime files"),
+        ("deep_clean", "Deep clean including ALL runtime files and workspace organization"),
+        ("organize", "Organize workspace by moving files to their proper directories (tests/, scripts/, reports/)"),
         ("lint", "Run basic syntax checks"),
         ("test", "Run all unit tests using pytest"),
         ("test-interactive", "Run Phase 1 interactive tests"),
@@ -489,6 +523,7 @@ def help(c):
     
     print("\n💡 Usage Examples:")
     print("  python -m invoke status        # Check development environment")
+    print("  python -m invoke organize      # Clean up workspace organization")
     print("  python -m invoke quick         # Fast development cycle")
     print("  python -m invoke test-all      # Run all tests")
     print("  python -m invoke pipeline      # Full pipeline with tests")
@@ -496,9 +531,9 @@ def help(c):
     print("  python -m invoke deploy        # Deploy to RazorEnhanced")
     print("  python -m invoke watch         # Auto-rebuild on changes")
     print("\n📄 Log Files:")
-    print("  All log files are saved to tmp/ directory with timestamps")
-    print("  Example: tmp/dexbot_run_20250101_120000.log")
-    print("\n📚 For more details, see docs/DEVELOPMENT_WORKFLOW.md")
+    print("  All log files are saved to logs/ directory with timestamps")
+    print("  Example: logs/dexbot_run_20250101_120000.log")
+    print("\n[DOCS] For more details, see docs/DEVELOPMENT_WORKFLOW.md")
 
 @task
 def generate_api_reference(c, format="all", input_path=None, output_path=None):
@@ -510,7 +545,7 @@ def generate_api_reference(c, format="all", input_path=None, output_path=None):
         input_path: Path to AutoComplete.json (default: ./config/AutoComplete.json)
         output_path: Output directory (default: ./ref/)
     """
-    print("🔧 Generating API reference documentation (TECH-001)...")
+    print("[TOOL] Generating API reference documentation (TECH-001)...")
     
     # Parse format argument
     if format == "all":
@@ -540,9 +575,9 @@ def generate_api_reference(c, format="all", input_path=None, output_path=None):
     result = c.run(" ".join(cmd), warn=True)
     
     if result.ok:
-        print("✅ API reference generation completed successfully")
+        print("[SUCCESS] API reference generation completed successfully")
     else:
-        print("❌ API reference generation failed")
+        print("[ERROR] API reference generation failed")
         print(f"Error: {result.stderr}")
 
 @task
@@ -553,7 +588,7 @@ def consolidate_api_references(c, output_path=None):
     Args:
         output_path: Output directory (default: ./ref/)
     """
-    print("🔧 Consolidating existing API references (TECH-001)...")
+    print("[TOOL] Consolidating existing API references (TECH-001)...")
     
     if output_path is None:
         output_path = "./ref/"
@@ -569,10 +604,10 @@ def consolidate_api_references(c, output_path=None):
     result = c.run(" ".join(cmd), warn=True)
     
     if result.ok:
-        print("✅ API reference consolidation completed successfully")
+        print("[SUCCESS] API reference consolidation completed successfully")
         print("📄 Check ./ref/consolidated/ for consolidation report")
     else:
-        print("❌ API reference consolidation failed")
+        print("[ERROR] API reference consolidation failed")
         print(f"Error: {result.stderr}")
 
 @task
@@ -583,7 +618,7 @@ def validate_api_reference(c, input_path=None):
     Args:
         input_path: Path to AutoComplete.json (default: ./config/AutoComplete.json)
     """
-    print("🔧 Validating API reference system (TECH-001)...")
+    print("[TOOL] Validating API reference system (TECH-001)...")
     
     if input_path is None:
         input_path = "./config/AutoComplete.json"
@@ -599,9 +634,9 @@ def validate_api_reference(c, input_path=None):
     result = c.run(" ".join(cmd), warn=True)
     
     if result.ok:
-        print("✅ API reference validation completed successfully")
+        print("[SUCCESS] API reference validation completed successfully")
     else:
-        print("❌ API reference validation failed")
+        print("[ERROR] API reference validation failed")
         print(f"Error: {result.stderr}")
 
 @task
@@ -614,18 +649,18 @@ def api_reference_workflow(c):
     2. Generate new documentation
     3. Validate the system
     """
-    print("🚀 Starting complete API reference optimization workflow (TECH-001)...")
+    print("[LAUNCH] Starting complete API reference optimization workflow (TECH-001)...")
     
     # Step 1: Consolidate existing references
-    print("\n📋 Step 1: Consolidating existing API references...")
+    print("\n[LIST] Step 1: Consolidating existing API references...")
     consolidate_api_references(c)
     
     # Step 2: Generate new documentation
-    print("\n📚 Step 2: Generating new API documentation...")
+    print("\n[DOCS] Step 2: Generating new API documentation...")
     generate_api_reference(c)
     
     # Step 3: Validate the system
-    print("\n✅ Step 3: Validating API reference system...")
+    print("\n[SUCCESS] Step 3: Validating API reference system...")
     validate_api_reference(c)
     
     print("\n🎉 API reference optimization workflow completed!")
@@ -643,7 +678,7 @@ def fetch_razor_api_data(c, razor_path=None, output_path=None):
         razor_path: Path to RazorEnhanced installation (default: auto-detect)
         output_path: Where to save AutoComplete.json (default: ./config/)
     """
-    print("🔧 Fetching RazorEnhanced API data (TECH-001)...")
+    print("[TOOL] Fetching RazorEnhanced API data (TECH-001)...")
     
     import os
     from pathlib import Path
@@ -664,7 +699,7 @@ def fetch_razor_api_data(c, razor_path=None, output_path=None):
                 break
         
         if razor_path is None:
-            print("❌ Could not auto-detect RazorEnhanced installation")
+            print("[ERROR] Could not auto-detect RazorEnhanced installation")
             print("   Please specify --razor-path manually")
             return
     
@@ -679,16 +714,16 @@ def fetch_razor_api_data(c, razor_path=None, output_path=None):
     dest_file = Path(output_path) / "AutoComplete.json"
     
     if not source_file.exists():
-        print(f"❌ AutoComplete.json not found at: {source_file}")
+        print(f"[ERROR] AutoComplete.json not found at: {source_file}")
         return
     
     try:
         import shutil
         shutil.copy2(source_file, dest_file)
-        print(f"✅ Copied AutoComplete.json to: {dest_file}")
+        print(f"[SUCCESS] Copied AutoComplete.json to: {dest_file}")
         print(f"   File size: {dest_file.stat().st_size} bytes")
     except Exception as e:
-        print(f"❌ Failed to copy file: {str(e)}")
+        print(f"[ERROR] Failed to copy file: {str(e)}")
 
 @task
 def extract_api_data(c, input_path=None, output_path=None, verbose=False):
@@ -697,10 +732,10 @@ def extract_api_data(c, input_path=None, output_path=None, verbose=False):
     
     Args:
         input_path: Path to AutoComplete.json (default: auto-detect)
-        output_path: Output directory (default: ./tmp/api_extraction/)
+        output_path: Output directory (default: ./reports/api_extraction/)
         verbose: Enable verbose output
     """
-    print("🔧 Extracting API data using Python script (TECH-001)...")
+    print("[TOOL] Extracting API data using Python script (TECH-001)...")
     
     # Build command
     cmd = ["python", "scripts/extract_razor_api_data.py"]
@@ -717,52 +752,52 @@ def extract_api_data(c, input_path=None, output_path=None, verbose=False):
     result = c.run(" ".join(cmd), warn=True)
     
     if result.ok:
-        print("✅ API data extraction completed successfully")
+        print("[SUCCESS] API data extraction completed successfully")
         print("📄 Check the output directory for exported files")
     else:
-        print("❌ API data extraction failed")
+        print("[ERROR] API data extraction failed")
         print(f"Error: {result.stderr}")
 
 @task
 def test_interactive(c):
     """Run Phase 1 interactive tests for DexBot core systems"""
-    print("🧪 Running Phase 1 Interactive Tests...")
+    print("[EXPERIMENT] Running Phase 1 Interactive Tests...")
     
     result = c.run("python tests/test_automation.py", warn=True)
     
     if result.ok:
-        print("✅ Interactive tests completed successfully")
+        print("[SUCCESS] Interactive tests completed successfully")
         # Check for test results file
-        result_files = glob.glob("tmp/*test_results*.json")
+        result_files = glob.glob("reports/*test_results*.json")
         if result_files:
             latest_result = max(result_files, key=os.path.getmtime)
-            print(f"📊 Test results saved to: {latest_result}")
+            print(f"[STATS] Test results saved to: {latest_result}")
     else:
-        print("❌ Interactive tests failed")
+        print("[ERROR] Interactive tests failed")
         print(f"Error: {result.stderr}")
 
 @task
 def test_enhanced(c):
     """Run enhanced automated tests with comprehensive reporting"""
-    print("🚀 Running Enhanced Automated Tests...")
+    print("[LAUNCH] Running Enhanced Automated Tests...")
     
     result = c.run("python tests/test_automation_enhanced.py", warn=True)
     
     if result.ok:
-        print("✅ Enhanced tests completed successfully")
+        print("[SUCCESS] Enhanced tests completed successfully")
         # Check for test results file
-        result_files = glob.glob("tmp/*test_results*.json")
+        result_files = glob.glob("reports/*test_results*.json")
         if result_files:
             latest_result = max(result_files, key=os.path.getmtime)
-            print(f"📊 Test results saved to: {latest_result}")
+            print(f"[STATS] Test results saved to: {latest_result}")
     else:
-        print("❌ Enhanced tests failed")
+        print("[ERROR] Enhanced tests failed")
         print(f"Error: {result.stderr}")
 
 @task
 def test_monitor(c):
     """Start RazorEnhanced output monitoring for testing"""
-    print("🔍 Starting RazorEnhanced Monitor...")
+    print("[SEARCH] Starting RazorEnhanced Monitor...")
     print("   Press CTRL+C to stop monitoring")
     
     cmd = 'python -c "from tests.test_automation_enhanced import RazorEnhancedMonitor; monitor = RazorEnhancedMonitor(); monitor.start_monitoring()"'
@@ -771,12 +806,12 @@ def test_monitor(c):
 @task
 def test_results(c):
     """List and display available test result files"""
-    print("📋 Available Test Result Files:")
+    print("[LIST] Available Test Result Files:")
     
-    result_files = glob.glob("tmp/*test_results*.json")
+    result_files = glob.glob("reports/*test_results*.json")
     
     if not result_files:
-        print("   No test result files found in tmp/")
+        print("   No test result files found in reports/")
         return
     
     # Sort by modification time (newest first)
@@ -808,7 +843,7 @@ def test_results(c):
 @task
 def test_all(c):
     """Run all test suites: unit tests, interactive tests, and enhanced tests"""
-    print("🎯 Running Complete Test Suite...")
+    print("[TARGET] Running Complete Test Suite...")
     
     success_count = 0
     total_tests = 3
@@ -817,46 +852,46 @@ def test_all(c):
     print("\n1️⃣ Running Unit Tests...")
     result = c.run("python -m pytest tests/ -v", warn=True)
     if result.ok:
-        print("✅ Unit tests passed")
+        print("[SUCCESS] Unit tests passed")
         success_count += 1
     else:
-        print("❌ Unit tests failed")
+        print("[ERROR] Unit tests failed")
     
     # Run interactive tests
     print("\n2️⃣ Running Interactive Tests...")
     result = c.run("python tests/test_automation.py", warn=True)
     if result.ok:
-        print("✅ Interactive tests passed")
+        print("[SUCCESS] Interactive tests passed")
         success_count += 1
     else:
-        print("❌ Interactive tests failed")
+        print("[ERROR] Interactive tests failed")
     
     # Run enhanced tests
     print("\n3️⃣ Running Enhanced Tests...")
     result = c.run("python tests/test_automation_enhanced.py", warn=True)
     if result.ok:
-        print("✅ Enhanced tests passed")
+        print("[SUCCESS] Enhanced tests passed")
         success_count += 1
     else:
-        print("❌ Enhanced tests failed")
+        print("[ERROR] Enhanced tests failed")
     
     # Summary
-    print(f"\n📊 Test Suite Summary: {success_count}/{total_tests} test suites passed")
+    print(f"\n[STATS] Test Suite Summary: {success_count}/{total_tests} test suites passed")
     
     if success_count == total_tests:
         print("🎉 All test suites passed!")
         return True
     else:
-        print("⚠️  Some test suites failed - check output above")
+        print("[WARNING]  Some test suites failed - check output above")
         return False
 
 @task
 def validate(c):
     """Validate bundled script functionality and integration"""
-    print("🔍 Validating bundled DexBot.py...")
+    print("[SEARCH] Validating bundled DexBot.py...")
     
     if not os.path.exists(BUNDLED_FILE):
-        print("❌ Bundled file not found. Run 'build' task first.")
+        print("[ERROR] Bundled file not found. Run 'build' task first.")
         return False
     
     # Check for required components
@@ -877,39 +912,39 @@ def validate(c):
             missing_components.append(component)
     
     if missing_components:
-        print(f"❌ Missing components: {missing_components}")
+        print(f"[ERROR] Missing components: {missing_components}")
         return False
     
-    print("✅ All required components present")
-    print(f"📊 File size: {os.path.getsize(BUNDLED_FILE):,} bytes")
+    print("[SUCCESS] All required components present")
+    print(f"[STATS] File size: {os.path.getsize(BUNDLED_FILE):,} bytes")
     return True
 
 @task
 def run(c):
     """Run the bundled DexBot.py file (for testing outside RazorEnhanced)"""
-    print("🚀 Running bundled DexBot.py...")
+    print("[LAUNCH] Running bundled DexBot.py...")
     
     if not os.path.exists(BUNDLED_FILE):
-        print("❌ Bundled file not found. Run 'build' task first.")
+        print("[ERROR] Bundled file not found. Run 'build' task first.")
         return False
     
-    print("⚠️  Note: This will fail outside RazorEnhanced environment")
+    print("[WARNING]  Note: This will fail outside RazorEnhanced environment")
     result = c.run(f"python {BUNDLED_FILE}", warn=True)
     
     if result.ok:
-        print("✅ Script executed without syntax errors")
+        print("[SUCCESS] Script executed without syntax errors")
     else:
-        print("❌ Script execution failed (expected outside RazorEnhanced)")
+        print("[ERROR] Script execution failed (expected outside RazorEnhanced)")
     
     return result.ok
 
 @task
 def deploy(c, target_path=None):
     """Deploy bundled script to RazorEnhanced Scripts directory"""
-    print("🚀 Deploying DexBot.py to RazorEnhanced...")
+    print("[LAUNCH] Deploying DexBot.py to RazorEnhanced...")
     
     if not os.path.exists(BUNDLED_FILE):
-        print("❌ Bundled file not found. Run 'build' task first.")
+        print("[ERROR] Bundled file not found. Run 'build' task first.")
         return False
     
     # Auto-detect RazorEnhanced path if not provided
@@ -926,7 +961,7 @@ def deploy(c, target_path=None):
                 break
         
         if target_path is None:
-            print("❌ Could not auto-detect RazorEnhanced Scripts directory")
+            print("[ERROR] Could not auto-detect RazorEnhanced Scripts directory")
             print("   Please specify --target-path manually")
             return False
     
@@ -934,11 +969,11 @@ def deploy(c, target_path=None):
     
     try:
         shutil.copy2(BUNDLED_FILE, target_file)
-        print(f"✅ Deployed to: {target_file}")
+        print(f"[SUCCESS] Deployed to: {target_file}")
         print(f"   File size: {os.path.getsize(target_file):,} bytes")
         return True
     except Exception as e:
-        print(f"❌ Deployment failed: {e}")
+        print(f"[ERROR] Deployment failed: {e}")
         return False
 
 @task
@@ -947,12 +982,34 @@ def version(c):
     version, version_name, build_date = get_version_info()
     branch = get_branch_info()
     
-    print("📊 DexBot Version Information")
+    print("[INFO] DexBot Version Information")
     print("=" * 40)
     print(f"Version: {version}")
     print(f"Name: {version_name}")
     print(f"Build Date: {build_date}")
     print(f"Branch: {branch}")
+
+@task
+def fix_unicode(c):
+    """Fix Unicode emoji characters in task output for better compatibility"""
+    print("[TOOL] Running Unicode fix utility...")
+    
+    # Check if the fix_unicode.py script exists
+    script_path = os.path.join("tmp", "fix_unicode.py")
+    if not os.path.exists(script_path):
+        print("[ERROR] fix_unicode.py script not found. Run from system temp directory.")
+        return False
+    
+    # Run the script
+    result = subprocess.run([sys.executable, script_path], capture_output=True, text=True)
+    
+    # Print output
+    print(result.stdout)
+    if result.stderr:
+        print(f"[WARNING] Errors encountered: {result.stderr}")
+    
+    print("[SUCCESS] Unicode fix completed")
+    return result.returncode == 0
     
     if os.path.exists(BUNDLED_FILE):
         size = os.path.getsize(BUNDLED_FILE)
@@ -961,7 +1018,7 @@ def version(c):
 @task
 def status(c):
     """Show development environment status"""
-    print("📊 DexBot Development Status")
+    print("[STATS] DexBot Development Status")
     print("=" * 40)
     
     # Version info
@@ -979,7 +1036,7 @@ def status(c):
     
     print("\nFile Status:")
     for name, path, exists in files_status:
-        status_icon = "✅" if exists else "❌"
+        status_icon = "[SUCCESS]" if exists else "[ERROR]"
         print(f"  {status_icon} {name}: {path}")
     
     # Git status
@@ -987,9 +1044,9 @@ def status(c):
         result = subprocess.run(['git', 'status', '--porcelain'], 
                               capture_output=True, text=True, check=True)
         if result.stdout.strip():
-            print(f"\n⚠️  Git: {len(result.stdout.strip().split())} uncommitted changes")
+            print(f"\n[WARNING]  Git: {len(result.stdout.strip().split())} uncommitted changes")
         else:
-            print("\n✅ Git: Working directory clean")
+            print("\n[SUCCESS] Git: Working directory clean")
     except:
         print("\n❓ Git: Status unknown")
 
@@ -999,15 +1056,15 @@ def quick(c):
     print("⚡ Quick development cycle...")
     
     if not lint(c):
-        print("❌ Quick cycle failed at lint stage")
+        print("[ERROR] Quick cycle failed at lint stage")
         return False
     
     if not test(c):
-        print("❌ Quick cycle failed at test stage") 
+        print("[ERROR] Quick cycle failed at test stage") 
         return False
     
     bundle(c)
-    print("✅ Quick cycle completed successfully!")
+    print("[SUCCESS] Quick cycle completed successfully!")
     return True
 
 @task
@@ -1020,7 +1077,7 @@ def watch(c):
         from watchdog.observers import Observer
         from watchdog.events import FileSystemEventHandler
     except ImportError:
-        print("❌ watchdog package not installed")
+        print("[ERROR] watchdog package not installed")
         print("   Run: pip install watchdog")
         return False
     
@@ -1029,8 +1086,8 @@ def watch(c):
             if event.is_directory:
                 return
             if event.src_path.endswith('.py'):
-                print(f"📝 File changed: {event.src_path}")
-                print("🔄 Auto-rebuilding...")
+                print(f"[NOTE] File changed: {event.src_path}")
+                print("[REFRESH] Auto-rebuilding...")
                 quick(c)
     
     observer = Observer()
@@ -1043,31 +1100,31 @@ def watch(c):
             time.sleep(1)
     except KeyboardInterrupt:
         observer.stop()
-        print("\n✅ File watcher stopped")
+        print("\n[SUCCESS] File watcher stopped")
     
     observer.join()
 
 @task  
 def release(c, version_bump="patch"):
     """Prepare a release: update version, build, validate, and tag"""
-    print(f"🚀 Preparing release with {version_bump} version bump...")
+    print(f"[LAUNCH] Preparing release with {version_bump} version bump...")
     
     # This is a placeholder - you'd need to implement version bumping logic
-    print("⚠️  Version bumping not yet implemented")
+    print("[WARNING]  Version bumping not yet implemented")
     print("   Manually update version.txt file")
     
     # Run full pipeline
     if not pipeline(c):
-        print("❌ Release preparation failed")
+        print("[ERROR] Release preparation failed")
         return False
     
     # Validate
     if not validate(c):
-        print("❌ Release validation failed")
+        print("[ERROR] Release validation failed")
         return False
     
-    print("✅ Release preparation completed!")
-    print("📋 Next steps:")
+    print("[SUCCESS] Release preparation completed!")
+    print("[LIST] Next steps:")
     print("   1. Review the bundled output")
     print("   2. Test in RazorEnhanced")
     print("   3. Commit and tag the release")
@@ -1079,17 +1136,17 @@ def run_with_logging(c):
     import datetime
     
     if not os.path.exists(BUNDLED_FILE):
-        print(f"❌ Bundled file not found: {BUNDLED_FILE}")
+        print(f"[ERROR] Bundled file not found: {BUNDLED_FILE}")
         print("Run 'python -m invoke build' first")
         return
     
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-    log_file = f"tmp/dexbot_run_{timestamp}.log"
+    log_file = f"logs/dexbot_run_{timestamp}.log"
     
     # Ensure tmp directory exists
     os.makedirs("tmp", exist_ok=True)
     
-    print("🚀 Running DexBot with Comprehensive Logging")
+    print("[LAUNCH] Running DexBot with Comprehensive Logging")
     print("=" * 50)
     print(f"📁 DexBot Script: {BUNDLED_FILE}")
     print(f"📄 Log Output: {log_file}")
@@ -1106,26 +1163,26 @@ def run_with_logging(c):
     except KeyboardInterrupt:
         print("\n⏸️  DexBot execution stopped by user")
     except Exception as e:
-        print(f"\n❌ Error running DexBot: {e}")
+        print(f"\n[ERROR] Error running DexBot: {e}")
     finally:
         if os.path.exists(log_file):
             file_size = os.path.getsize(log_file)
-            print(f"\n✅ Log file saved: {log_file}")
-            print(f"📊 Log file size: {file_size:,} bytes ({file_size/1024:.1f} KB)")
+            print(f"\n[SUCCESS] Log file saved: {log_file}")
+            print(f"[STATS] Log file size: {file_size:,} bytes ({file_size/1024:.1f} KB)")
             print(f"🕒 Completed: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         else:
-            print(f"\n⚠️  Log file not created: {log_file}")
+            print(f"\n[WARNING]  Log file not created: {log_file}")
 
 @task
 def analyze_journal_logs(c):
     """Analyze Ultima Online journal logs for DexBot activity"""
-    print("🔍 Analyzing UO Journal Logs for DexBot Activity")
+    print("[SEARCH] Analyzing UO Journal Logs for DexBot Activity")
     print("=" * 50)
     
     # Check if the analyzer script exists
-    analyzer_script = "tmp/journal_log_analyzer.py"
+    analyzer_script = "reports/journal_log_analyzer.py"
     if not os.path.exists(analyzer_script):
-        print(f"❌ Journal log analyzer script not found: {analyzer_script}")
+        print(f"[ERROR] Journal log analyzer script not found: {analyzer_script}")
         print("   Run this task again to create the analyzer script")
         return
     
@@ -1135,11 +1192,151 @@ def analyze_journal_logs(c):
         c.run(f"python {analyzer_script}")
         
         print("\n💡 Analysis complete!")
-        print("   Check tmp/ directory for generated reports and extracts")
+        print("   Check logs/ and reports/ directories for generated reports and extracts")
         
     except Exception as e:
-        print(f"❌ Error running journal log analyzer: {e}")
-        print("\n🔧 Manual usage:")
+        print(f"[ERROR] Error running journal log analyzer: {e}")
+        print("\n[TOOL] Manual usage:")
         print(f"   python {analyzer_script}")
+
+@task
+def organize(c):
+    """Organize workspace by moving files to their proper directories"""
+    print("[ORGANIZE] Organizing workspace structure...")
+    
+    moved_files = 0
+    
+    # Move test files from root to tests/
+    test_files_to_move = []
+    for filename in os.listdir("."):
+        if filename.startswith("test_") and filename.endswith(".py"):
+            test_files_to_move.append(filename)
+    
+    if test_files_to_move:
+        os.makedirs("tests", exist_ok=True)
+        for filename in test_files_to_move:
+            target_path = os.path.join("tests", filename)
+            if not os.path.exists(target_path):
+                shutil.move(filename, target_path)
+                print(f"   Moved {filename} -> tests/{filename}")
+                moved_files += 1
+            else:
+                # Check if files are identical
+                try:
+                    with open(filename, 'r', encoding='utf-8') as f1:
+                        content1 = f1.read()
+                    with open(target_path, 'r', encoding='utf-8') as f2:
+                        content2 = f2.read()
+                    
+                    if content1 == content2:
+                        os.remove(filename)
+                        print(f"   Removed duplicate {filename} (identical to tests/{filename})")
+                        moved_files += 1
+                    else:
+                        print(f"   [WARNING] {filename} differs from tests/{filename} - manual review needed")
+                except Exception as e:
+                    print(f"   [ERROR] Could not compare {filename}: {e}")
+    
+    # Move development scripts to scripts/
+    script_files_to_move = []
+    for filename in os.listdir("."):
+        # Development and preparation scripts should go to scripts/
+        should_move = (
+            filename.startswith("prepare_") or
+            filename.startswith("setup_") or 
+            filename.startswith("deploy_") or
+            (filename.endswith((".bat", ".ps1", ".sh")) and not filename.startswith("."))
+        )
+        if should_move and os.path.isfile(filename):
+            script_files_to_move.append(filename)
+    
+    if script_files_to_move:
+        os.makedirs("scripts", exist_ok=True)
+        for filename in script_files_to_move:
+            target_path = os.path.join("scripts", filename)
+            if not os.path.exists(target_path):
+                shutil.move(filename, target_path)
+                print(f"   Moved {filename} -> scripts/{filename}")
+                moved_files += 1
+
+    # Move analysis scripts and reports to reports/ directory or remove if obsolete
+    files_to_move = []
+    for filename in os.listdir("."):
+        # Analysis scripts should go to reports/ if still useful, otherwise skip (will be cleaned)
+        should_move = (
+            (filename.startswith("analyze_") or filename.startswith("compare_")) and filename.endswith(".py") and
+            not filename.startswith("analyze_uo_items_performance")  # This one is already in tools/
+        )
+        if should_move:
+            files_to_move.append(filename)
+    
+    if files_to_move:
+        os.makedirs("reports", exist_ok=True)
+        for filename in files_to_move:
+            target_path = os.path.join("reports", filename)
+            if not os.path.exists(target_path):
+                shutil.move(filename, target_path)
+                print(f"   Moved {filename} -> reports/{filename}")
+                moved_files += 1
+    
+    # Report results
+    if moved_files > 0:
+        print(f"[SUCCESS] Organized {moved_files} files")
+    else:
+        print("[SUCCESS] Workspace is already organized")
+    
+    # Show current structure
+    print("\n📁 Current workspace structure:")
+    for root_item in sorted(os.listdir(".")):
+        if os.path.isdir(root_item) and not root_item.startswith('.'):
+            print(f"   📁 {root_item}/")
+        elif root_item.endswith('.py') and root_item not in ['tasks.py']:
+            print(f"   📄 {root_item}")
+
+    print(f"[ORGANIZE] Organization complete. Moved {moved_files} files to their proper locations.")
+
+
+@task
+def ai_validate(c):
+    """Run AI validation checks on current development context"""
+    print("[AI-VALIDATE] Running AI validation checks...")
+    
+    validation = get_validation_integration()
+    if not validation:
+        print("   AI validation system not available")
+        return
+    
+    try:
+        from src.utils.ai_integration import check_workflow_compliance
+        compliant = check_workflow_compliance()
+        
+        if compliant:
+            print("✅ [AI-VALIDATE] All validation checks passed")
+        else:
+            print("❌ [AI-VALIDATE] Validation issues detected")
+            
+    except Exception as e:
+        print(f"❌ [AI-VALIDATE] Validation error: {e}")
+
+
+@task
+def ai_check_command(c, command):
+    """Check if a command is safe to execute using AI validation"""
+    print(f"[AI-CHECK] Validating command: {command}")
+    
+    validation = get_validation_integration()
+    if not validation:
+        print("   AI validation system not available")
+        return
+    
+    if validation.validate_command_safe(command):
+        print("✅ Command is safe to execute")
+    else:
+        print("❌ Command validation failed")
+        suggestions = validation.get_validation_suggestions(command)
+        if suggestions:
+            print("Suggestions:")
+            for suggestion in suggestions:
+                print(f"   • {suggestion}")
 
 
