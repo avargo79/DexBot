@@ -85,7 +85,7 @@ class TestCommandValidator(unittest.TestCase):
             ("git", True),  # Just 'git' by itself
             ("git push", True),  # Incomplete push command
             ("git push origin feature/test-main-feature", False),  # Branch with 'main' in name (blocked by current pattern)
-            ("GIT PUSH ORIGIN MAIN", True),  # Case sensitive check - currently passes (but shouldn't)
+            ("GIT PUSH ORIGIN MAIN", False),  # Case insensitive check - should be blocked
             ("git push --force origin main", False),  # Force push to main
         ]
         

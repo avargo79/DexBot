@@ -151,7 +151,7 @@ class CommandValidator:
     
     def _validate_git_command(self, command: str, context: Optional[Dict]) -> Tuple[bool, Optional[str], Optional[str]]:
         """Validate git commands against protection rules."""
-        if not command.strip().startswith("git"):
+        if not command.strip().lower().startswith("git"):
             return True, None, None
         
         # Check for direct push to main
