@@ -162,22 +162,25 @@ dev_tools_integration:
     
     common_workflows:
       feature_development:
-        1. "Create GitHub Issue for feature with FR- prefix"
-        2. "Use scripts/prepare_feature.ps1 to set up development branch"
-        3. "Implement feature following progressive development phases"
-        4. "Update issue with progress and link commits"
-        5. "Close issue when feature is complete and merged"
+        1. "PREREQUISITE: git fetch && git checkout main && git pull origin main"
+        2. "Create GitHub Issue for feature with FR- prefix"
+        3. "Use scripts/prepare_feature.ps1 to set up development branch"
+        4. "Implement feature following progressive development phases"
+        5. "Update issue with progress and link commits"
+        6. "Close issue when feature is complete and merged"
       
       bug_fixing:
-        1. "Create GitHub Issue for bug with BUG- prefix and reproduction steps"
-        2. "Use systematic debugging approach from development-tasks.yaml"
-        3. "Link bug fix commits to the GitHub Issue"
-        4. "Add regression tests to prevent similar issues"
-        5. "Close issue when fix is validated and merged"
+        1. "PREREQUISITE: git fetch && git checkout main && git pull origin main"
+        2. "Create GitHub Issue for bug with BUG- prefix and reproduction steps"
+        3. "Use systematic debugging approach from development-tasks.yaml"
+        4. "Link bug fix commits to the GitHub Issue"
+        5. "Add regression tests to prevent similar issues"
+        6. "Close issue when fix is validated and merged"
       
       optimization_work:
-        1. "Create GitHub Issue for optimization with ENH- or TECH- prefix"
-        2. "Use performance analysis tools to establish baseline"
+        1. "PREREQUISITE: git fetch && git checkout main && git pull origin main"
+        2. "Create GitHub Issue for optimization with ENH- or TECH- prefix"
+        3. "Use performance analysis tools to establish baseline"
         3. "Implement optimizations with before/after measurements"
         4. "Document performance improvements in issue comments"
         5. "Close issue when optimization goals are achieved"

@@ -116,6 +116,7 @@ workflows:
     6. "Consider performance implications for long sessions"
   
   bug_fixing:
+    0. "CRITICAL: git fetch && git checkout main && git pull origin main BEFORE starting any new work"
     1. "Identify the affected system (auto_heal, combat, looting, etc.)"
     2. "Check existing error patterns in logs"
     3. "Create minimal reproduction case"
@@ -124,6 +125,7 @@ workflows:
     6. "Validate with invoke commands"
   
   feature_implementation:
+    0. "CRITICAL: git fetch && git checkout main && git pull origin main BEFORE starting any new work"
     1. "Review PRD document in docs/prds/"
     2. "Plan system integration points"
     3. "Create configuration schema"

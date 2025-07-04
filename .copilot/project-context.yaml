@@ -124,8 +124,10 @@ workflow:
     - "Documentation updated for changes"
     
   branch_strategy:
+    prerequisite: "ALWAYS git fetch && git checkout main && git pull origin main before creating new branches"
     feature_prep: "./scripts/prepare_feature.ps1 feature-name"
     commit_pattern: "conventional commits (feat:, fix:, docs:, test:)"
+    critical_rule: "Never start new work without ensuring main branch is up-to-date"
     
 # Common development scenarios and solutions
 scenarios:
