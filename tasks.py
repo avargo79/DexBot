@@ -56,6 +56,34 @@ DEFAULT_MAIN_CONFIG_PATH = "src/config/default_main_config.json"
 DEFAULT_AUTO_HEAL_CONFIG_PATH = "src/config/default_auto_heal_config.json"
 DEFAULT_LOOTING_CONFIG_PATH = "src/config/default_looting_config.json"
 
+# AI Validation Integration
+def get_validation_integration():
+    """Get AI validation integration if available."""
+    try:
+        # Import dynamically to avoid issues if validation not available
+        sys.path.insert(0, os.path.abspath('.'))
+        from src.utils.ai_integration import ValidationIntegration
+        return ValidationIntegration()
+    except ImportError:
+        return None
+    except Exception as e:
+        print(f"Warning: AI validation not available: {e}")
+        return None
+
+def validate_task_context(task_name: str) -> bool:
+    """Validate task execution context using AI validation system."""
+    validation = get_validation_integration()
+    if not validation:
+        return True  # Proceed if validation not available
+    
+    print(f"[VALIDATION] Checking context for task '{task_name}'...")
+    try:
+        from src.utils.ai_integration import validate_invoke_context
+        return validate_invoke_context()
+    except Exception as e:
+        print(f"[VALIDATION] Warning: {e}")
+        return True  # Proceed on validation errors
+
 @task
 def clean(c):
     """Clean build artifacts and temporary files"""
@@ -1257,5 +1285,51 @@ def organize(c):
             print(f"   📁 {root_item}/")
         elif root_item.endswith('.py') and root_item not in ['tasks.py']:
             print(f"   📄 {root_item}")
+
+    print(f"[ORGANIZE] Organization complete. Moved {moved_files} files to their proper locations.")
+
+
+@task
+def ai_validate(c):
+    """Run AI validation checks on current development context"""
+    print("[AI-VALIDATE] Running AI validation checks...")
+    
+    validation = get_validation_integration()
+    if not validation:
+        print("   AI validation system not available")
+        return
+    
+    try:
+        from src.utils.ai_integration import check_workflow_compliance
+        compliant = check_workflow_compliance()
+        
+        if compliant:
+            print("✅ [AI-VALIDATE] All validation checks passed")
+        else:
+            print("❌ [AI-VALIDATE] Validation issues detected")
+            
+    except Exception as e:
+        print(f"❌ [AI-VALIDATE] Validation error: {e}")
+
+
+@task
+def ai_check_command(c, command):
+    """Check if a command is safe to execute using AI validation"""
+    print(f"[AI-CHECK] Validating command: {command}")
+    
+    validation = get_validation_integration()
+    if not validation:
+        print("   AI validation system not available")
+        return
+    
+    if validation.validate_command_safe(command):
+        print("✅ Command is safe to execute")
+    else:
+        print("❌ Command validation failed")
+        suggestions = validation.get_validation_suggestions(command)
+        if suggestions:
+            print("Suggestions:")
+            for suggestion in suggestions:
+                print(f"   • {suggestion}")
 
 
